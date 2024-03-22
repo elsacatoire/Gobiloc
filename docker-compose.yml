@@ -1,0 +1,62 @@
+version: "3"
+
+services:
+  # NGINX proxy
+  nginx:
+    image: gobiloc-nginx
+    restart: unless-stopped
+    hostname: nginx
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/djnext:/media
+    links:
+      - server:server
+    depends_on:
+      - server
+      - nextjs
+
+  # Django server
+  server:
+    image: gobiloc-django
+    restart: unless-stopped
+    hostname: server
+    build:
+      context: .
+      dockerfile: ./server/Dockerfile
+    env_file:
+      - env/server
+    volumes:
+      - /var/djnext:/var/djnext
+    links:
+      - nextjs:nextjs
+      - postgres:postgres
+    depends_on:
+      - postgres
+      - nextjs
+
+  # Next.js server
+  nextjs:
+    image: gobiloc-nextjs
+    restart: unless-stopped
+    hostname: nextjs
+    build:
+      context: .
+      dockerfile: ./client/Dockerfile
+    env_file:
+      - env/client
+    volumes:
+      - /var/djnext:/var/djnext
+
+  # Postgres database
+  postgres:
+    image: gobiloc-postgres
+    restart: unless-stopped
+    volumes:
+      - /var/postgres/data:/var/postgres/data
+    env_file:
+      - env/postgres
