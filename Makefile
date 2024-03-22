@@ -19,6 +19,10 @@ PWD = $(shell pwd)
 ## docker
 ## -------
 ##
+
+start: set-env
+	@$(DOCKER_COMPOSE) up $(DOCKER_COMPOSE_UP_OPT)
+
 stop: ## Stop the project
 	@$(DOCKER_COMPOSE) stop
 ps: ## See container status
@@ -43,6 +47,16 @@ waiter:
 hard-reset: waiter start
 	@$(DOCKER_COMPOSE) kill
 	@$(DOCKER_COMPOSE) down --volumes --remove-orphans
+
+set-env:
+	@if [ ! -f .env.local ]; then \
+		touch .env.local; \
+		echo "APP_ENV=dev" >> .env.local; \
+	fi
+	@sed -i 's/APP_ENV=.*/APP_ENV=$(APP_ENV)/' .env.local
+	@EMOJI=$$(if [ "$(APP_ENV)" = "test" ]; then echo "✔️"; else echo "🛠️"; fi); \
+	echo "$$EMOJI Environnement \033[32m$(APP_ENV)\033[0m"
+
 
 ##
 ## Linters
