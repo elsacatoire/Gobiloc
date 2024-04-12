@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'api',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,8 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'drf_yasg',
-    'api',
 ]
 
 MIDDLEWARE = [
@@ -141,3 +140,9 @@ CORS_ALLOWED_ORIGINS = [
 # Allow cookies and other credentials to be sent/received
 
 CORS_ALLOW_CREDENTIALS = True
+
+AUTH_USER_MODEL = 'api.User'
+
+# Session settings :
+SESSION_COOKIE_AGE = 2 * 60 * 60
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
