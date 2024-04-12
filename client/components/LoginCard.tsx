@@ -1,6 +1,7 @@
 "use client"
 
-import React, { useEffect, useState, FormEvent } from "react";
+import React, { useState, FormEvent } from "react";
+import axios from 'axios';
 
 import { Button } from "@/components/ui/button"
 import {
@@ -16,11 +17,13 @@ import { Label } from "@/components/ui/label"
 
 export const LoginCard: React.FC = () => {
 
-    // État local pour suivre les valeurs des inputs
+    // Local inputs's states
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState<string | null>(null);
 
-    // Gestion des changements dans les inputs
+
+    // Handeling input's changes
     const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
     };
@@ -28,16 +31,27 @@ export const LoginCard: React.FC = () => {
         setPassword(e.target.value);
     };
 
-    // Gestion de la soumission du formulaire
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const credentials = {
-            "email": email,
-            "password": password
-        }
-        console.log("credentials=>>", credentials);
+    // Handeling the login form submission
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        console.log("credentials =>>", { email, password });
 
-        // Réinitialisation des champs après la soumission
+        e.preventDefault();
+        setError(null); // Reinit errors before submitting
+
+        try {
+            const response = await axios.post(
+                'http://localhost:8000/api/users/login/',
+                { email, password }
+            );
+
+            // Request success
+            console.log("Réponse du serveur:", response.data);
+        } catch (error) {
+            // Request errors
+            setError("Identifiants incorrects. Veuillez réessayer.");
+        }
+
+        // Reinit inputs
         setEmail('');
         setPassword('');
     };
