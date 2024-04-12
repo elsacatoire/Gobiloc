@@ -17,6 +17,11 @@ class LoginTest(APITestCase):
             'email': cls.email,
             'password': cls.password
         }
+        cls.data_stay_connected = {
+            'email': cls.email,
+            'password': cls.password,
+            'stay_connected': True
+        }
         cls.user = User.objects.create_user(
             username='testuser',
             email=cls.email,
@@ -26,6 +31,12 @@ class LoginTest(APITestCase):
     def setUp(self):
         self.client = APIClient()
         self.response = self.client.post(self.url, self.data, format='json')
+        self.client_stay_connected = APIClient()
+        self.response_stay_connected = self.client_stay_connected.post(
+            self.url,
+            self.data_stay_connected,
+            format='json'
+        )
 
     def test_success_response_status(self):
         self.assertEqual(self.response.status_code, status.HTTP_200_OK)
@@ -48,6 +59,29 @@ class LoginTest(APITestCase):
     def test_success_session_expiry_age_is_2_hours(self):
         self.assertEqual(self.client.session.get_expiry_age(), 7200)
 
+    #
+    #
+    # If stay_connected is true :
+    def test_success_stay_connected_response_status(self):
+        self.assertEqual(self.response_stay_connected.status_code, status.HTTP_200_OK)
+
+    def test_success_stay_connected_response_body(self):
+        self.assertEqual(self.response_stay_connected.data['status'], 'Login Success')
+
+    def test_success_stay_connected_session_created(self):
+        self.assertEqual(self.client_stay_connected.session['email'], 'testuser@test.com')
+
+    def test_success_stay_connected_session_cookie(self):
+        self.assertIn('sessionid', self.response_stay_connected.cookies)
+
+    def test_success_stay_connected_csrf_token_cookie(self):
+        self.assertIn('csrftoken', self.response_stay_connected.cookies)
+
+    def test_success_stay_connected_session_expiry_age_is_90_days(self):
+        self.assertEqual(self.client_stay_connected.session.get_expiry_age(), 7776000)
+
+    #
+    #
     # Now we test the failures :
     def test_wrong_email_response_status(self):
         data = {
