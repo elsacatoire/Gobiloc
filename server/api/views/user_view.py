@@ -1,11 +1,11 @@
 # api/views/user_view.py
-
+from django.core.validators import validate_email
 from rest_framework.decorators import action
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.exceptions import ValidationError as DRFValidationError
-from django.core.exceptions import ValidationError as DjangoValidationError
+from django.core.exceptions import ValidationError as DjangoValidationError, ValidationError
 from django.contrib.auth import authenticate, login
 
 from api.serializers.user_serializer import UserSerializer
@@ -42,9 +42,12 @@ class UserViewSet(ModelViewSet):
         if not email or not password:
             return Response({'error': 'Missing Credentials'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # add email format verification ?
-        user = authenticate(request, email=email, password=password)
+        try:
+            validate_email(email)
+        except ValidationError as e:
+            return Response({'error': e.messages[0]}, status=status.HTTP_400_BAD_REQUEST)
 
+        user = authenticate(request, email=email, password=password)
         if user is None:
             return Response({'error': 'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
