@@ -52,8 +52,10 @@ set-env:
 	@if [ ! -f .env.local ]; then \
 		touch .env.local; \
 		echo "APP_ENV=dev" >> .env.local; \
+	else \
+		sed -i.bak 's/APP_ENV=.*/APP_ENV=$(APP_ENV)/' .env.local; \
+		rm -f .env.local.bak; \
 	fi
-	@sed -i 's/APP_ENV=.*/APP_ENV=$(APP_ENV)/' .env.local
 	@EMOJI=$$(if [ "$(APP_ENV)" = "test" ]; then echo "✔️"; else echo "🛠️"; fi); \
 	echo "$$EMOJI Environnement \033[32m$(APP_ENV)\033[0m"
 
