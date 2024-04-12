@@ -99,6 +99,22 @@ class LoginTest(APITestCase):
         response = self.client.post(self.url, data, format='json')
         self.assertEqual(response.data['error'], 'Invalid Credentials')
 
+    def test_wrong_email_format_response_status(self):
+        data = {
+            'email': 'notavalidemail',
+            'password': self.password
+        }
+        response = self.client.post(self.url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_wrong_email_format_response_body(self):
+        data = {
+            'email': 'notavalidemail',
+            'password': self.password
+        }
+        response = self.client.post(self.url, data, format='json')
+        self.assertEqual(response.data['error'], 'Enter a valid email address.')
+
     def test_wrong_password_response_status(self):
         data = {
             'email': self.email,
