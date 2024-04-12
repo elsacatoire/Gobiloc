@@ -9,7 +9,6 @@ from django.core.exceptions import ValidationError as DjangoValidationError
 from django.contrib.auth import authenticate, login
 
 from api.serializers.user_serializer import UserSerializer
-from api.models.user_model import User
 
 
 class UserViewSet(ModelViewSet):
@@ -40,11 +39,10 @@ class UserViewSet(ModelViewSet):
         email = request.data.get('email')
         password = request.data.get('password')
 
-        # add email format verification ?
-
         if not email or not password:
             return Response({'error': 'Missing Credentials'}, status=status.HTTP_400_BAD_REQUEST)
 
+        # add email format verification ?
         user = authenticate(request, email=email, password=password)
 
         if user is None:
@@ -52,5 +50,9 @@ class UserViewSet(ModelViewSet):
 
         login(request, user)
         request.session['email'] = email
+
+        stay_connected = request.data.get('stay_connected')
+        if stay_connected:
+            request.session.set_expiry(60*60*24*90)
 
         return Response({'status': 'Login Success'}, status=status.HTTP_200_OK)
