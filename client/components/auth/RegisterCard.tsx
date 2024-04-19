@@ -68,7 +68,7 @@ export const RegisterCard: React.FC = () => {
                 <form onSubmit={handleSubmit} >
                     <CardHeader>
                         <CardTitle>Ouvrir un compte</CardTitle>
-                        <CardDescription>Enregistre toi pour profiter de GobiLoc !</CardDescription>
+                        <CardDescription>Enregistre toi pour profiter de GobiLoc</CardDescription>
                     </CardHeader>
                     <CardContent>
 
@@ -105,7 +105,7 @@ export const RegisterCard: React.FC = () => {
                     </CardContent>
                     <CardFooter className="flex justify-between">
                         <Button variant="outline">Annuler</Button>
-                        <Button type="submit">Se connecter</Button>
+                        <Button type="submit">Créer mon compte</Button>
                     </CardFooter>
                 </form>
             </Card>
