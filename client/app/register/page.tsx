@@ -1,10 +1,10 @@
 import React from "react";
-import { LoginCard } from "@/components/auth/LoginCard";
+import { RegisterCard } from "@/components/auth/RegisterCard";
 
 export default function Page() {
     return (
         <main className="flex justify-center mt-10 h-screen">
-            <LoginCard />
+            <RegisterCard />
         </main>
     );
 }
