@@ -28,7 +28,6 @@ export const RegisterCard: React.FC = () => {
     const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
     };
-
     const handleUseremailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
     };
@@ -75,13 +74,13 @@ export const RegisterCard: React.FC = () => {
 
                         <div className="grid w-full items-center gap-4">
                             <div className="flex flex-col space-y-1.5">
-                                <Label htmlFor="user email">Email</Label>
+                                <Label htmlFor="user name">Nom</Label>
                                 <Input
                                     type="name"
                                     id="name"
                                     value={user}
                                     onChange={handleUsernameChange}
-                                    placeholder="user@mail.com" />
+                                    placeholder="Jane" />
                             </div>
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="user email">Email</Label>
