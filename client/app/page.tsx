@@ -1,12 +1,16 @@
 import LogoFullName from "@/components/design/LogoFullName"
 import LogoLetter from "@/components/design/LogoLetter";
+import { Button } from "@/components/ui/button";
+import RootLayout from "./layout";
 
 export default function Home() {
   return (
-    <main>
+    <div className="container mx-auto p-4">
+      <h2 className="text-2xl mb-4">Bienvenue dans Gobiloc</h2>
       <LogoFullName />
       <p>Coucou Next</p>
       <LogoLetter />
-    </main>
+      <Button>Créer mon compte</Button>
+    </div>
   );
 }
