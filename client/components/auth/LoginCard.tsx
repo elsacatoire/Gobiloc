@@ -47,10 +47,10 @@ export const LoginCard: React.FC = () => {
             );
 
             // Request success
-            //console.log("Réponse du serveur:", response.data);
+            console.log("Réponse du serveur:", response.data);  // To delete when auth functionnal
         } catch (error) {
             // Request errors
-            setError("Identifiants incorrects. Veuillez réessayer.");
+            setError("Identifiants incorrects. Veuillez réessayer."); // TODO: Diplay erros on the page
         }
 
         // Reinit inputs

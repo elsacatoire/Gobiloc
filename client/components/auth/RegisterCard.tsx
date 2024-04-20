@@ -2,7 +2,6 @@
 
 import React, { useState, FormEvent } from "react";
 import axios from 'axios';
-import Image from 'next/image'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -21,15 +20,15 @@ import Link from "next/link";
 export const RegisterCard: React.FC = () => {
 
     // Local inputs's states
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [user, setUSer] = useState('');
     const [error, setError] = useState<string | null>(null);
 
 
     // Handeling input's changes
     const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value);
+        setUsername(e.target.value);
     };
     const handleUseremailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
@@ -45,18 +44,19 @@ export const RegisterCard: React.FC = () => {
         e.preventDefault();
         setError(null); // Reinit errors before submitting
 
-        /* try {
+        try {
             const response = await axios.post(
-                'http://localhost:8000/api/users/login/',
-                { email, password }
+                'http://localhost:8000/api/users/',
+                { username, email, password }
             );
 
             // Request success
-            //console.log("Réponse du serveur:", response.data);
+            console.log("Réponse du serveur:", response.data); // To delete when auth functionnal
         } catch (error) {
             // Request errors
-            setError("Identifiants incorrects. Veuillez réessayer.");
-        } */
+            setError("Identifiants incorrects. Veuillez réessayer."); // TODO: Diplay erros on the page
+        }
+        console.log("credential=>", { username, email, password }) // TODELETE when finished
 
         // Reinit inputs
         setEmail('');
@@ -81,9 +81,9 @@ export const RegisterCard: React.FC = () => {
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="user name">Nom</Label>
                                 <Input
-                                    type="name"
-                                    id="name"
-                                    value={user}
+                                    type="text"
+                                    id="username"
+                                    value={username}
                                     onChange={handleUsernameChange}
                                     placeholder="Jane" />
                             </div>
