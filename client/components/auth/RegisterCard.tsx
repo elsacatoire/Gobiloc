@@ -37,12 +37,10 @@ export const RegisterCard: React.FC = () => {
 
     // Handeling the login form submission
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        console.log("credentials =>>", { email, password });
+        //console.log("credentials =>>", { email, password });
 
         e.preventDefault();
         setError(null); // Reinit errors before submitting
-
-        console.log('register')
 
         /* try {
             const response = await axios.post(
@@ -51,7 +49,7 @@ export const RegisterCard: React.FC = () => {
             );
 
             // Request success
-            console.log("Réponse du serveur:", response.data);
+            //console.log("Réponse du serveur:", response.data);
         } catch (error) {
             // Request errors
             setError("Identifiants incorrects. Veuillez réessayer.");

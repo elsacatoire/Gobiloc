@@ -24,7 +24,7 @@ export const LoginCard: React.FC = () => {
 
 
     // Handeling input's changes
-    const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
     };
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +33,7 @@ export const LoginCard: React.FC = () => {
 
     // Handeling the login form submission
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        console.log("credentials =>>", { email, password });
+        //console.log("credentials =>>", { email, password });
 
         e.preventDefault();
         setError(null); // Reinit errors before submitting
@@ -45,7 +45,7 @@ export const LoginCard: React.FC = () => {
             );
 
             // Request success
-            console.log("Réponse du serveur:", response.data);
+            //console.log("Réponse du serveur:", response.data);
         } catch (error) {
             // Request errors
             setError("Identifiants incorrects. Veuillez réessayer.");
@@ -73,7 +73,7 @@ export const LoginCard: React.FC = () => {
                                     type="email"
                                     id="userId"
                                     value={email}
-                                    onChange={handleUsernameChange}
+                                    onChange={handleEmailChange}
                                     placeholder="user@mail.com" />
                             </div>
                             <div className="flex flex-col space-y-1.5">
