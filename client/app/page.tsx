@@ -1,7 +1,8 @@
 import LogoFullName from "@/components/design/LogoFullName"
 import LogoLetter from "@/components/design/LogoLetter";
 import { Button } from "@/components/ui/button";
-import RootLayout from "./layout";
+import Link from "next/link";
+
 
 export default function Home() {
   return (
@@ -9,8 +10,12 @@ export default function Home() {
       <h2 className="text-2xl mb-4">Bienvenue dans Gobiloc</h2>
       <LogoFullName />
       <p>Coucou Next</p>
-      <LogoLetter />
-      <Button>Créer mon compte</Button>
+      <Link href="/register">
+        <div className="flex">
+          <Button className='mr-3' variant='defaultSecondary'>Créer mon compte</Button>
+          <Button>Se connecter</Button>
+        </div>
+      </Link>
     </div>
   );
 }

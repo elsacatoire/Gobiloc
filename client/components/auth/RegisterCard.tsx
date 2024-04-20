@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, FormEvent } from "react";
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 import { Button } from "@/components/ui/button"
@@ -18,6 +19,7 @@ import LogoFullName from "../design/LogoFullName";
 import Link from "next/link";
 
 export const RegisterCard: React.FC = () => {
+    const router = useRouter();
 
     // Local inputs's states
     const [username, setUsername] = useState('');
@@ -39,7 +41,7 @@ export const RegisterCard: React.FC = () => {
 
     // Handeling the login form submission
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        //console.log("credentials =>>", { email, password });
+        console.log("credentials =>>", { email, password });// TODELETE when finished
 
         e.preventDefault();
         setError(null); // Reinit errors before submitting
@@ -47,11 +49,13 @@ export const RegisterCard: React.FC = () => {
         try {
             const response = await axios.post(
                 'http://localhost:8000/api/users/',
-                { username, email, password }
+                { username, email, password },
+                { withCredentials: true }
             );
 
             // Request success
             console.log("Réponse du serveur:", response.data); // To delete when auth functionnal
+            router.push('/');
         } catch (error) {
             // Request errors
             setError("Identifiants incorrects. Veuillez réessayer."); // TODO: Diplay erros on the page
