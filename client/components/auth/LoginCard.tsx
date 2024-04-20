@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import LogoFullName from "../design/LogoFullName";
+import Link from "next/link";
 
 export const LoginCard: React.FC = () => {
 
@@ -61,8 +63,13 @@ export const LoginCard: React.FC = () => {
             <Card className="w-[350px]">
                 <form onSubmit={handleSubmit} >
                     <CardHeader>
+                        <div className="flex justify-center mb-5">
+                            <LogoFullName />
+                        </div>
                         <CardTitle>Login</CardTitle>
-                        <CardDescription>Connecte toi pour profiter de GobiLoc !</CardDescription>
+                        <CardDescription>Connecte toi pour accéder à ton espace et ta colloc. Pas encore de compte ?
+                            <Link href="/register" className="text-teal-600 visited:text-orange-600"> Créer un compte</Link>
+                        </CardDescription>
                     </CardHeader>
                     <CardContent>
 

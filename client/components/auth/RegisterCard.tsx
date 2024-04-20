@@ -2,6 +2,7 @@
 
 import React, { useState, FormEvent } from "react";
 import axios from 'axios';
+import Image from 'next/image'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -14,6 +15,8 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import LogoFullName from "../design/LogoFullName";
+import Link from "next/link";
 
 export const RegisterCard: React.FC = () => {
 
@@ -65,11 +68,15 @@ export const RegisterCard: React.FC = () => {
             <Card className="w-[350px]">
                 <form onSubmit={handleSubmit} >
                     <CardHeader>
+                        <div className="flex justify-center mb-5">
+                            <LogoFullName />
+                        </div>
                         <CardTitle>Ouvrir un compte</CardTitle>
-                        <CardDescription>Enregistre toi pour profiter de GobiLoc</CardDescription>
+                        <CardDescription>Enregistre toi pour rejoindre ta colloc et profiter des fonctionnalités de gobiloc. Tu as déjà un compte ?
+                            <Link href="/login" className="text-teal-600 visited:text-orange-600"> Se connecter</Link>
+                        </CardDescription>
                     </CardHeader>
                     <CardContent>
-
                         <div className="grid w-full items-center gap-4">
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="user name">Nom</Label>
