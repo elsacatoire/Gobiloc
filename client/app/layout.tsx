@@ -20,14 +20,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="flex flex-col min-h-screen">
-          <header className="flex flex-row justify-between bg-teal-700 text-white p-4">
+          <header className="flex flex-row justify-between bg-teal-700 text-white p-2 md:p-4">
             <LogoLetter />
             <Link href='/'>
               <h1 className="text-l sm:text-2l md:text-xl">Gobiloc - App de collocs</h1>
             </Link>
           </header>
           <main className="flex-grow">{children}</main>
-          <footer className="bg-gray-800 text-white p-4">
+          <footer className="bg-gray-800 text-white p-2 md:p-4">
             <p>&copy; 2024 Gobiloc. All rights reserved.</p>
           </footer>
         </div>
