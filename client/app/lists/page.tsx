@@ -1,3 +1,6 @@
+import { AddItem } from "@/components/checklists/AddItem"
+
+
 export default function Lists() {
     return (
         <div>
@@ -5,10 +8,8 @@ export default function Lists() {
                 <h1>Hello, Next.js!</h1>
             </div>
             <div>
-
+                <AddItem />
             </div>
         </div>
-
     )
-
 }
