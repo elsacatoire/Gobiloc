@@ -1,5 +1,4 @@
 import LogoFullName from "@/components/design/LogoFullName"
-import LogoLetter from "@/components/design/LogoLetter";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
