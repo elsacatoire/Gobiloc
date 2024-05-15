@@ -72,14 +72,14 @@ export const AddItem: React.FC = () => {
 
                 <DialogTrigger asChild>
                     <Button variant="defaultSecondary">
-                        <Plus className="mr-2 h-4 w-4" /> TOut-DOux
+                        <Plus className="mr-2 h-4 w-4" /> Listes
                     </Button>
                     {/* <Button variant="defaultSecondary">Créer une TOut-DOux</Button> */}
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <form onSubmit={handleSubmit} >
                         <DialogHeader>
-                            <DialogTitle>Créer Tout-Doux</DialogTitle>
+                            <DialogTitle>Créer une liste</DialogTitle>
                             <DialogDescription>
                                 Créé ta liste paratagée ou personnelle pour gérer la colloc
                             </DialogDescription>

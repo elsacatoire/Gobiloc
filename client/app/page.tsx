@@ -9,12 +9,16 @@ export default function Home() {
       <h2 className="text-2xl mb-4">Bienvenue dans Gobiloc</h2>
       <LogoFullName />
       <p>Coucou Next</p>
-      <Link href="/register">
-        <div className="flex">
+
+      <div className="flex">
+        <Link href="/register">
           <Button className='mr-3' variant='defaultSecondary'>Créer mon compte</Button>
+        </Link>
+        <Link href="/login">
           <Button>Se connecter</Button>
-        </div>
-      </Link>
+        </Link>
+      </div>
+
     </div>
   );
 }
