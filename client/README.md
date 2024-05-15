@@ -67,6 +67,7 @@ pnpm dev
 bun dev
 ```
 
+
 Ouvrez [http://localhost:3000](http://localhost:3000) pour voir le résultat et intéragir avec l'app.
 
 Ce projet est développé en mobile first. Bien qu'accessible sur écran calssique, il est optimisé pour les écran de smartphone.
@@ -80,3 +81,4 @@ Ce projet est développé en mobile first. Bien qu'accessible sur écran calssiq
 Les composants customs sont organisé par dossier en fonction de leur usage et scope.
 - /lib/ :  utilisé pour stocker des utilitaires, des fonctions d'aide, des configurations ou des bibliothèques personnalisées qui sont utilisées à travers l'application
 - /public/ : contien des fichiers statiques tels que des images, des icônes, des fichiers CSS globaux, des fichiers JavaScript non optimisés et d'autres ressources accessibles publiquement.
+
