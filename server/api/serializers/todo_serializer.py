@@ -8,7 +8,7 @@ class TodoSerializer(ModelSerializer):
     class Meta:
         model = Todo
         fields = (
-            "flat_share",
+            "flat_share_id",
             "name",
             "category"
         )
