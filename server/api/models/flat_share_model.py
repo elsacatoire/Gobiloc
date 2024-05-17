@@ -5,4 +5,4 @@ from django.db.models import Model, CharField
 
 class FlatShare(Model):
     name = CharField(max_length=50)
-    description = CharField(max_length=255)
+    description = CharField(max_length=255, null=True)
