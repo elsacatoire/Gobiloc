@@ -49,3 +49,13 @@ class TodoViewSet(ModelViewSet):
             return Response({"todos" : todos}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    def destroy(self, request, *args, **kwargs):
+        todo_id = self.kwargs['pk']  # Accède à l'ID de la tâche à partir de l'URL
+
+        try:
+            instance = self.get_object()
+            self.perform_destroy(instance)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
