@@ -1,5 +1,7 @@
 # api/views/todo_view.py
 
+# Controller
+
 from django.contrib.sessions.models import Session
 from rest_framework import status
 from rest_framework.response import Response
@@ -18,6 +20,7 @@ class TodoViewSet(ModelViewSet):
     queryset = Todo.objects.all()
 
     def create(self, request, **kwargs):
+
         serializer = TodoSerializer(data=request.data)
         if "sessionid" not in request.COOKIES:
             return Response({
