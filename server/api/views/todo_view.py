@@ -43,7 +43,7 @@ class TodoViewSet(ModelViewSet):
 
     # detail=False => act on the collection / True=> on a specific instance
     @action(detail=False, methods=['GET'], url_path='(?P<flat_share_id>\d+)')
-    def get_todos(self, flat_share_id=None):
+    def get_todos(self, request, flat_share_id=None):
         """
         Get all the to-do of a specific flat
         """
