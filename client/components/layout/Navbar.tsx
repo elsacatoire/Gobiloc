@@ -14,7 +14,7 @@ import {
 export function NavigationBar() {
     return (
         <NavigationMenu>
-            <NavigationMenuList className="">
+            <NavigationMenuList>
                 <NavigationMenuItem  >
                     <Link href={"/"}>
                         <Button className="flex-col" size="sm" variant="ghost"> <Pentagon /> Home</Button>
