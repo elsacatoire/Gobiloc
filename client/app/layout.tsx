@@ -3,7 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import LogoLetter from "@/components/design/LogoLetter";
-import { NavigationBar } from "@/components/navbar/Navbar"
+import { NavigationBar } from "@/components/layout/Navbar"
+import { Header } from "@/components/layout/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,11 +22,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="flex flex-col min-h-screen">
-          <header className="flex flex-row justify-between bg-teal-700 text-white p-2 md:p-4">
-            <LogoLetter />
+          <header className="flex flex-row justify-between bg-teal-700 text-white p-3 md:p-4">
+            {/* <LogoLetter />
             <Link href='/'>
               <h1 className="text-l sm:text-2l md:text-xl">Gobiloc - App de collocs</h1>
-            </Link>
+            </Link> */}
+            <Header />
           </header>
           <main className="flex-grow">{children}</main>
           <footer className="bg-gray-800 text-white p-2 md:p-4">
