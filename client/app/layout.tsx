@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import LogoLetter from "@/components/design/LogoLetter";
+import { NavigationBar } from "@/components/navbar/Navbar"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,7 +29,8 @@ export default function RootLayout({
           </header>
           <main className="flex-grow">{children}</main>
           <footer className="bg-gray-800 text-white p-2 md:p-4">
-            <p>&copy; 2024 Gobiloc. All rights reserved.</p>
+            {/* <p>&copy; 2024 Gobiloc. All rights reserved.</p> */}
+            <NavigationBar />
           </footer>
         </div>
       </body>
