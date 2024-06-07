@@ -44,7 +44,7 @@ export const LoginCard: React.FC = () => {
 
         try {
             const response = await axios.post(
-                'http://localhost:8000/api/users/login/',
+                'http://localhost:8000/api/user/login/',
                 { email, password },
                 { withCredentials: true }
             );

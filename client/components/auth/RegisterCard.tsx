@@ -48,7 +48,7 @@ export const RegisterCard: React.FC = () => {
 
         try {
             const response = await axios.post(
-                'http://localhost:8000/api/users/',
+                'http://localhost:8000/api/user/',
                 { username, email, password },
                 { withCredentials: true }
             );
