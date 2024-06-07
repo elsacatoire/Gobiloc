@@ -46,6 +46,20 @@ export const RegisterCard: React.FC = () => {
         e.preventDefault();
         setError(null); // Reinit errors before submitting
 
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+        const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+
+        if (!emailRegex.test(email)) {
+            setError("Veuillez entrer une adresse email valide.");
+            return; // Stop execution if email doesn't match criteria
+        }
+        if (!passwordRegex.test(password)) {
+            setError("Le mot de passe doit contenir au moins 8 caractères, y compris des chiffres et des lettres.");
+            console.log(error);
+
+            return; // Stop execution if password doesn't match criteria
+        }
+
         try {
             const response = await axios.post(
                 'http://localhost:8000/api/user/',
@@ -60,7 +74,6 @@ export const RegisterCard: React.FC = () => {
             // Request errors
             setError("Identifiants incorrects. Veuillez réessayer."); // TODO: Diplay erros on the page
         }
-        console.log("credential=>", { username, email, password }) // TODELETE when finished
 
         // Reinit inputs
         setEmail('');
@@ -107,7 +120,10 @@ export const RegisterCard: React.FC = () => {
                                     id="password"
                                     value={password}
                                     onChange={handlePasswordChange}
-                                    placeholder="mot de passe" />
+                                    placeholder="mot de passe"
+                                    className={`${error ? 'bg-red-100 text-red-700' : ''}`} // Conditional class for error indication
+                                />
+                                <span className="text-red-700 text-xs">{error}</span>
                             </div>
                         </div>
 

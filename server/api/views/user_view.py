@@ -16,6 +16,9 @@ class UserViewSet(ModelViewSet):
     serializer_class = UserSerializer
 
     def create(self, request, **kwargs):
+        """
+        Register a user into the app
+        """
         serializer = UserSerializer(data=request.data)
 
         try:
@@ -36,6 +39,9 @@ class UserViewSet(ModelViewSet):
 
     @action(detail=False, methods=['post'])
     def login(self, request):
+        """
+        Log the user into the app
+        """
         email = request.data.get('email')
         password = request.data.get('password')
 
