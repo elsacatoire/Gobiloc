@@ -10,5 +10,5 @@ from api.models.task_model import Task
 class TaskSerializer(ModelSerializer):
     class Meta:
         model = Task
-        fields = ['todo', 'content']
+        fields = ['todo', 'content', 'done']
 #         make done have a default value (?)

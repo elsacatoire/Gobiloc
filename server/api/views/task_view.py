@@ -3,6 +3,7 @@
 # Controller
 
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.exceptions import ValidationError
@@ -15,6 +16,7 @@ from api.serializers.task_serializer import TaskSerializer
 class TaskViewSet(ModelViewSet):
     serializer_class = TaskSerializer
     queryset = Task.objects.all()
+    permission_classes = [IsAuthenticated]
 
     # detail=False => act on the collection / True=> on a specific instance
     @action(detail=False, methods=['GET'], url_path='todo/(?P<todo_id>\d+)')
