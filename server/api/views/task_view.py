@@ -16,7 +16,6 @@ from api.serializers.task_serializer import TaskSerializer
 class TaskViewSet(ModelViewSet):
     serializer_class = TaskSerializer
     queryset = Task.objects.all()
-    permission_classes = [IsAuthenticated]
 
     # detail=False => act on the collection / True=> on a specific instance
     @action(detail=False, methods=['GET'], url_path='todo/(?P<todo_id>\d+)')
