@@ -16,8 +16,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
-import { Trash2 } from "lucide-react"
-import { Pencil } from "lucide-react"
+import { Trash2, Pencil } from "lucide-react"
 
 import { useState } from "react";
 

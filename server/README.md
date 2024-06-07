@@ -57,3 +57,8 @@ If the credentials in the request doesn't match anything in the DB, returns a 40
 > "error": "Invalid Credentials"
 
 This was written with love and energy drink
+
+superuser
+admin@test.com
+admin
+pass : admin
