@@ -6,6 +6,7 @@ import json
 
 class FlatShareViewSetTest(TestCase):
     def setUp(self):
+        self.url = '/api/flat/'
         self.client = APIClient()
         self.valid_payload = {
             "name": "Test Flat",
@@ -18,15 +19,14 @@ class FlatShareViewSetTest(TestCase):
 
     def test_create_flatShare(self):
         # WHEN
-        response = self.client.post('/api/flats/', data=json.dumps(self.valid_payload), content_type='application/json')
+        response = self.client.post(self.url, data=json.dumps(self.valid_payload), content_type='application/json')
         # THEN
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.json(), {"flat": "created", "data": self.valid_payload})
+        self.assertEqual(response.json(), self.valid_payload)
 
     def test_invalid_create_flatShare(self):
-        print("coucou")
         # WHEN
-        response = self.client.post('/api/flats/', data=json.dumps(self.invalid_payload), content_type='application/json')
+        response = self.client.post(self.url, data=json.dumps(self.invalid_payload), content_type='application/json')
         # THEN
         self.assertEqual(response.status_code, 400)
         #self.assertEqual(response.json(), {"flat": "created", "data": self.valid_payload})
@@ -35,7 +35,7 @@ class FlatShareViewSetTest(TestCase):
         # GIVEN
         flat_share = FlatShare.objects.create(**self.valid_payload)
         # WHEN
-        response = self.client.get(f'/api/flats/{flat_share.id}/')
+        response = self.client.get(f'{self.url}{flat_share.id}/')
         # THEN
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), self.valid_payload)

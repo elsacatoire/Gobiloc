@@ -16,25 +16,8 @@ class TaskViewSet(ModelViewSet):
     serializer_class = TaskSerializer
     queryset = Task.objects.all()
 
-    def create(self, request, **kwargs):
-        """
-        Create a new task for a to-do list
-        """
-        serializer = TaskSerializer(data=request.data)
-
-        try:
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
-            return Response({"task": "created", "data": serializer.data}, status=status.HTTP_201_CREATED)
-
-        except ValidationError as e:
-            return Response({"error": "validation error"}, status=status.HTTP_400_BAD_REQUEST)
-
-        except Exception as e:
-            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
     # detail=False => act on the collection / True=> on a specific instance
-    @action(detail=False, methods=['GET'], url_path='(?P<todo_id>\d+)')
+    @action(detail=False, methods=['GET'], url_path='todo/(?P<todo_id>\d+)')
     def get_todos(self, request, todo_id=None): #à enlever si inutile
         """
         Get all the tasks of a specific to-do
@@ -47,11 +30,5 @@ class TaskViewSet(ModelViewSet):
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-    def partial_update(self, request, pk=None):
-        """
-        Update the done status of a task.
-        """
-        task = self.queryset.get(pk=pk)
-        task.done = not task.done
-        task.save()
-        return Response(TaskSerializer(task).data)
+    # partial_update = PATCH (?)
+

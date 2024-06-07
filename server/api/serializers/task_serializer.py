@@ -11,3 +11,4 @@ class TaskSerializer(ModelSerializer):
     class Meta:
         model = Task
         fields = ['todo', 'content']
+#         make done have a default value (?)

@@ -9,10 +9,10 @@ from api.views.flat_share_view import FlatShareViewSet
 
 router = routers.SimpleRouter()
 
-router.register('users', UserViewSet, basename='user')
-router.register('todos', TodoViewSet, basename='todo')
-router.register('tasks', TaskViewSet, basename='task')
-router.register('flats', FlatShareViewSet, basename='flat')
+router.register('user', UserViewSet, basename='user')
+router.register('todo', TodoViewSet, basename='todo')
+router.register('task', TaskViewSet, basename='task')
+router.register('flat', FlatShareViewSet, basename='flat')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
