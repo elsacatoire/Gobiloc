@@ -46,7 +46,6 @@ export const AddItem: React.FC = () => {
         setIsShared(value);
     };
 
-
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         console.log("handleSubmit called"); // Debugging line
         e.preventDefault();
@@ -57,8 +56,6 @@ export const AddItem: React.FC = () => {
             "title": title,
             "isShared": isShared
         }
-
-        console.log("data : ", data);
 
         router.push('/lists/todo');
 
@@ -131,7 +128,6 @@ export const AddItem: React.FC = () => {
                         </DialogFooter>
                     </form>
                 </DialogContent>
-
             </Dialog>
         </div>
     )
