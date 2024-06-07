@@ -60,7 +60,7 @@ export const AddItem: React.FC = () => {
 
         console.log("data : ", data);
 
-        router.push('/lists/todo');
+        router.push('/list/todo');
 
 
         // TODO: implement CREATE TODO
