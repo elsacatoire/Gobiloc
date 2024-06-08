@@ -10,6 +10,7 @@ import {
     NavigationMenuItem,
     NavigationMenuList,
 } from "@/components/ui/navigation-menu"
+import { NavMenu } from "@/enums/NavMenu"
 
 export function NavigationBar() {
     return (
@@ -17,27 +18,27 @@ export function NavigationBar() {
             <NavigationMenuList>
                 <NavigationMenuItem  >
                     <Link href={"/"}>
-                        <Button className="flex-col" size="sm" variant="ghost"> <Pentagon /> Home</Button>
+                        <Button className="flex-col" size="sm" variant="ghost"> <Pentagon /> {NavMenu.HOME}</Button>
                     </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem >
                     <Link href={"/list"}>
-                        <Button className="flex-col" size="sm" variant="ghost"> <SquareCheck /> Lists</Button>
+                        <Button className="flex-col" size="sm" variant="ghost"> <SquareCheck /> {NavMenu.LISTS}</Button>
                     </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem >
                     <Link href={"/"}>
-                        <Button className="flex-col" size="sm" variant="ghost"> <CalendarFold /> Agenda</Button>
+                        <Button className="flex-col" size="sm" variant="ghost"> <CalendarFold /> {NavMenu.AGENDA}</Button>
                     </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem >
                     <Link href={"/"}>
-                        <Button className="flex-col" size="sm" variant="ghost"><Folder /> Safe</Button>
+                        <Button className="flex-col" size="sm" variant="ghost"><Folder /> {NavMenu.SAFE}</Button>
                     </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem >
                     <Link href={"/"}>
-                        <Button className="flex-col" size="sm" variant="ghost"> <MessageSquare /> Message</Button>
+                        <Button className="flex-col" size="sm" variant="ghost"> <MessageSquare /> {NavMenu.MESSAGES}</Button>
                     </Link>
                 </NavigationMenuItem>
             </NavigationMenuList>
