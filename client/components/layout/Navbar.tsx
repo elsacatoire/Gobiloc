@@ -27,17 +27,17 @@ export function NavigationBar() {
                     </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem >
-                    <Link href={"/"}>
+                    <Link href={"/agenda"}>
                         <Button className="flex-col" size="sm" variant="ghost"> <CalendarFold /> {NavMenu.AGENDA}</Button>
                     </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem >
-                    <Link href={"/"}>
+                    <Link href={"/safe"}>
                         <Button className="flex-col" size="sm" variant="ghost"><Folder /> {NavMenu.SAFE}</Button>
                     </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem >
-                    <Link href={"/"}>
+                    <Link href={"/messages"}>
                         <Button className="flex-col" size="sm" variant="ghost"> <MessageSquare /> {NavMenu.MESSAGES}</Button>
                     </Link>
                 </NavigationMenuItem>

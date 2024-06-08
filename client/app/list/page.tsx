@@ -9,6 +9,8 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import EditList from "@/components/checklists/EditList";
+import { Header } from "@/components/layout/Header";
+import { NavMenu } from "@/enums/NavMenu";
 
 export default function Lists() {
     const [todos, setTodos] = useState<Array<Todo>>([]);
@@ -41,29 +43,34 @@ export default function Lists() {
     if (error) return <p>Error: {error}</p>;
 
     return (
-        <div className="container max-auto p-4">
-            {error && <p className="text-red-500">{error}</p>}
-            {todos.length > 0 ? (
-                todos.map((todo) => (
-                    <Card key={todo.id} className="mb-4">
-                        <CardHeader>
-                            <div className="flex flex-row justify-between items-center">
-                                <div>
-                                    <CardTitle>{todo.name}</CardTitle>
+        <div>
+            <Header title={NavMenu.LISTS} />
+            <div className="container max-auto p-4">
+                {error && <p className="text-red-500">{error}</p>}
+                {todos.length > 0 ? (
+                    todos.map((todo) => (
+                        <Card key={todo.id} className="mb-4">
+                            <CardHeader>
+                                <div className="flex flex-row justify-between items-center">
+                                    <div>
+                                        <CardTitle>{todo.name}</CardTitle>
+                                    </div>
+                                    <div>
+                                        <EditList />
+                                    </div>
                                 </div>
-                                <div>
-                                    <EditList />
-                                </div>
-                            </div>
-                        </CardHeader>
-                    </Card>
-                ))
-            ) : (
-                !error && <p>Aucune liste trouvée.</p>
-            )}
-            <div className="p-5 flex justify-center items-center absolute inset-x-0 bottom-10">
-                <CreateList />
+                            </CardHeader>
+                        </Card>
+                    ))
+                ) : (
+                    !error && <p>Aucune liste trouvée.</p>
+                )}
+                <div className="p-5 flex justify-center items-center absolute inset-x-0 bottom-10">
+                    <CreateList />
+                </div>
             </div>
+
         </div>
+
     );
 }
