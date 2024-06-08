@@ -37,19 +37,21 @@ const EditList = () => {
                 </Button>
             </DialogTrigger>
             <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>
-                        Modifier la liste
-                    </DialogTitle>
-                </DialogHeader>
-                <Label>Editer le nom</Label>
-                <Input
-                    value={newName}
-                    onChange={handleNameChange}
-                />
-                <DialogFooter>
-                    {/* <Button type="submit">OK</Button> */}
-                </DialogFooter>
+                <form onSubmit={handleSubmit}>
+                    <DialogHeader>
+                        <DialogTitle>
+                            Modifier la liste
+                        </DialogTitle>
+                    </DialogHeader>
+                    <Label>Editer le nom</Label>
+                    <Input
+                        value={newName}
+                        onChange={handleNameChange}
+                    />
+                    <DialogFooter>
+                        <Button type="submit">OK</Button>
+                    </DialogFooter>
+                </form>
             </DialogContent>
         </Dialog>
     )
