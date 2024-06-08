@@ -1,6 +1,6 @@
 'use client'
 
-import { AddItem } from "@/components/checklists/CreateList";
+import { CreateList } from "@/components/checklists/CreateList";
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import {
@@ -66,7 +66,7 @@ export default function Lists() {
                 !error && <p>Aucune liste trouvée.</p>
             )}
             <div className="p-5 flex justify-center items-center absolute inset-x-0 bottom-10">
-                <AddItem />
+                <CreateList />
             </div>
         </div>
     );

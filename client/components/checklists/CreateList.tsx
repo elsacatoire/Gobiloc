@@ -20,26 +20,29 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import axios from 'axios';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { TodoCategory } from '@/enums/TodoCategory';
 
-export const AddItem: React.FC = () => {
+export const CreateList: React.FC = () => {
     const router = useRouter();
 
     // Local inputs' states
-    const [type, setType] = useState('');
-    const [title, setTitle] = useState('Todo');
-    const [isShared, setIsShared] = useState(false);
+    const [category, setCategory] = useState(null);
+    const [name, setName] = useState('Todo');
+    const [flatShareId, setflatShareId] = useState(1); // TODO :implements get flat id from user
+    const [isShared, setIsShared] = useState(false); // TODO BACK
     const [error, setError] = useState<string | null>(null);
 
-    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.target.value);
+    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setName(e.target.value);
     };
 
-    const handleTypeChange = (value: string) => {
-        setType(value);
+    const handleCategoryChange = (value: string) => {
+        //setCategory(value); // TODO
     };
 
     const handleIsSharedChange = (event: React.FormEvent<HTMLDivElement>) => {
@@ -50,18 +53,17 @@ export const AddItem: React.FC = () => {
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setError(null); // Reinit errors before submitting
+        setError(null);
 
-        const data = {
-            "type": type,
-            "title": title,
-            "isShared": isShared
-        };
-
-        console.log("data : ", data);
+        try {
+            const response = await axios.post(
+                'http://localhost:8000/api/todo/',
+                { flat_share: flatShareId, name, category },
+            );
+        } catch {
+            setError("Identifiants incorrects. Veuillez réessayer."); // TODO: Diplay erros on the page
+        }
         router.push('/list/todo');
-
-        // TODO: implement CREATE TODO
     };
 
     return (
@@ -85,16 +87,17 @@ export const AddItem: React.FC = () => {
                                 <Label htmlFor="type" className="text-right">
                                     Type
                                 </Label>
-                                <Select onValueChange={handleTypeChange}>
+                                <Select onValueChange={handleCategoryChange}>
                                     <SelectTrigger className="w-[230px]">
-                                        <SelectValue placeholder={type || 'Choisir un type'} />
+                                        <SelectValue placeholder={category || 'Choisir un type'} />
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectGroup>
-                                            <SelectItem value="groceries">Courses</SelectItem>
-                                            <SelectItem value="houshold">Ménage</SelectItem>
-                                            <SelectItem value="shop">Achats</SelectItem>
-                                            <SelectItem value="other">Autres</SelectItem>
+                                            {Object.values(TodoCategory).map((category) => (
+                                                <SelectItem key={category} value={category}>
+                                                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                                                </SelectItem>
+                                            ))}
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
@@ -106,8 +109,8 @@ export const AddItem: React.FC = () => {
                                 <Input
                                     id="todo-title"
                                     className="col-span-3"
-                                    value={title}
-                                    onChange={handleTitleChange}
+                                    value={name}
+                                    onChange={handleNameChange}
                                 />
                             </div>
                             <div className="grid grid-cols-4 items-center gap-4">
