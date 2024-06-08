@@ -59,7 +59,6 @@ export const AddItem: React.FC = () => {
         };
 
         console.log("data : ", data);
-
         router.push('/list/todo');
 
         // TODO: implement CREATE TODO
@@ -70,7 +69,7 @@ export const AddItem: React.FC = () => {
             <Dialog>
                 <DialogTrigger asChild>
                     <Button variant="defaultSecondary">
-                        <Plus className="mr-2 h-4 w-4" /> Listes
+                        <Plus className="mr-2 h-4 w-4" /> List
                     </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">

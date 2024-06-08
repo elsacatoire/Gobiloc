@@ -1,72 +1,73 @@
 'use client'
 
-import { AddItem } from "@/components/checklists/CreateList"
+import { AddItem } from "@/components/checklists/CreateList";
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import {
     Card,
-    CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
-
-interface Todo {
-    "flat_share": number,
-    "name": string,
-    "category": string
-}
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button"
+import { Pencil } from "lucide-react"
 
 export default function Lists() {
     const [todos, setTodos] = useState<Array<Todo>>([]);
+    const [isLoading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchTodos = async () => {
-            setError(null); // Reinit errors before submitting
+            setError(null);
             try {
-                const response = await axios.get('http://localhost:8000/api/todo/flatshare1');
-                // Request success
-                console.log("Réponse du serveur:", response.data);  // To delete when auth functionnal
-                setTodos(response.data);
+                const response = await axios.get('http://localhost:8000/api/todo/flatshare/1/');
+                if (response.data && Array.isArray(response.data.todos)) {
+                    setTodos(response.data.todos);
+                    console.log(response.data.todos);// todo delete
+                    setLoading(false);
+                } else {
+                    setError("Les données reçues ne sont pas au format attendu.");
+                    setLoading(false);
+                }
             } catch (error) {
-                // Request errors
+                // Erreurs de la requête
                 setError("Erreur lors de la récupération des listes. Veuillez réessayer.");
             }
         };
 
         fetchTodos();
-    }, []); // Empty dependency array means this effect runs once on mount
+    }, []); // Tableau de dépendances vide signifie que cet effet s'exécute une fois au montage
+
+    if (isLoading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
 
     return (
         <div className="container max-auto p-4">
-            <Card>
-                <CardHeader>
-                    <CardTitle>Les listes</CardTitle>
-                    <CardDescription>Retrouve, créé, partage tes listes</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    {error && <p className="text-red-500">{error}</p>}
-                    {todos.length > 0 ? (
-                        todos.map((todo, index) => (
-                            <Card key={index} className="mb-4">
-                                <CardHeader>
+            {error && <p className="text-red-500">{error}</p>}
+            {todos.length > 0 ? (
+                todos.map((todo) => (
+                    <Card key={todo.id} className="mb-4">
+                        <CardHeader>
+                            <div className="flex flex-row justify-between items-center">
+                                <div>
                                     <CardTitle>{todo.name}</CardTitle>
-                                    <CardDescription>Catégorie: {todo.category}</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <p>Partage: {todo.flat_share}</p>
-                                </CardContent>
-                            </Card>
-                        ))
-                    ) : (
-                        <p>Aucune liste trouvée.</p>
-                    )}
-                </CardContent>
-            </Card>
+                                </div>
+                                <div>
+                                    <Button variant="secondary" size="icon">
+                                        <Pencil className="h-4 w-4" />
+                                    </Button>
+                                </div>
+                            </div>
+                        </CardHeader>
+                    </Card>
+                ))
+            ) : (
+                !error && <p>Aucune liste trouvée.</p>
+            )}
             <div className="p-5 flex justify-center items-center absolute inset-x-0 bottom-10">
                 <AddItem />
             </div>
         </div>
-    )
+    );
 }
