@@ -56,7 +56,7 @@ export const CreateList: React.FC = () => {
         setError(null);
 
         try {
-            const response = await axios.post(
+            const response = await axios.post( // TODO response dans confirm snackbar ?
                 'http://localhost:8000/api/todo/',
                 { flat_share: flatShareId, name, category },
             );
@@ -67,70 +67,68 @@ export const CreateList: React.FC = () => {
     };
 
     return (
-        <div>
-            <Dialog>
-                <DialogTrigger asChild>
-                    <Button variant="defaultSecondary">
-                        <Plus className="mr-2 h-4 w-4" /> List
-                    </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                    <form onSubmit={handleSubmit}>
-                        <DialogHeader>
-                            <DialogTitle>Créer une liste</DialogTitle>
-                            <DialogDescription>
-                                Créé ta liste partagée ou personnelle pour gérer la colloc
-                            </DialogDescription>
-                        </DialogHeader>
-                        <div className="grid gap-4 py-4">
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="type" className="text-right">
-                                    Type
-                                </Label>
-                                <Select onValueChange={handleCategoryChange}>
-                                    <SelectTrigger className="w-[230px]">
-                                        <SelectValue placeholder={category || 'Choisir un type'} />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectGroup>
-                                            {Object.values(TodoCategory).map((category) => (
-                                                <SelectItem key={category} value={category}>
-                                                    {category.charAt(0).toUpperCase() + category.slice(1)}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectGroup>
-                                    </SelectContent>
-                                </Select>
-                            </div>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="name" className="text-right">
-                                    Titre
-                                </Label>
-                                <Input
-                                    id="todo-title"
-                                    className="col-span-3"
-                                    value={name}
-                                    onChange={handleNameChange}
-                                />
-                            </div>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="scope" className="text-right">
-                                    Pour
-                                </Label>
-                                <div className="col-span-3">
-                                    <ToggleGroup type="single" variant="outline" onChange={handleIsSharedChange}>
-                                        <ToggleGroupItem value='false' data-value='false'>Perso</ToggleGroupItem>
-                                        <ToggleGroupItem value='true' data-value='true'>Toustes</ToggleGroupItem>
-                                    </ToggleGroup>
-                                </div>
+        <Dialog>
+            <DialogTrigger>
+                <Button variant="defaultSecondary">
+                    <Plus className="mr-2 h-4 w-4" /> List
+                </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+                <form onSubmit={handleSubmit}>
+                    <DialogHeader>
+                        <DialogTitle>Créer une liste</DialogTitle>
+                        <DialogDescription>
+                            Créé ta liste partagée ou personnelle pour gérer la colloc
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="type" className="text-right">
+                                Type
+                            </Label>
+                            <Select onValueChange={handleCategoryChange}>
+                                <SelectTrigger className="w-[230px]">
+                                    <SelectValue placeholder={category || 'Choisir un type'} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        {Object.values(TodoCategory).map((category) => (
+                                            <SelectItem key={category} value={category}>
+                                                {category.charAt(0).toUpperCase() + category.slice(1)}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="name" className="text-right">
+                                Titre
+                            </Label>
+                            <Input
+                                id="todo-title"
+                                className="col-span-3"
+                                value={name}
+                                onChange={handleNameChange}
+                            />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="scope" className="text-right">
+                                Pour
+                            </Label>
+                            <div className="col-span-3">
+                                <ToggleGroup type="single" variant="outline" onChange={handleIsSharedChange}>
+                                    <ToggleGroupItem value='false' data-value='false'>Perso</ToggleGroupItem>
+                                    <ToggleGroupItem value='true' data-value='true'>Toustes</ToggleGroupItem>
+                                </ToggleGroup>
                             </div>
                         </div>
-                        <DialogFooter>
-                            <Button type="submit">Créer la liste</Button>
-                        </DialogFooter>
-                    </form>
-                </DialogContent>
-            </Dialog>
-        </div>
+                    </div>
+                    <DialogFooter>
+                        <Button type="submit">Créer la liste</Button>
+                    </DialogFooter>
+                </form>
+            </DialogContent>
+        </Dialog>
     )
 }

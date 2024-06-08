@@ -5,12 +5,10 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import {
     Card,
-    CardDescription,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button"
-import { Pencil } from "lucide-react"
+import EditList from "@/components/checklists/EditList";
 
 export default function Lists() {
     const [todos, setTodos] = useState<Array<Todo>>([]);
@@ -54,9 +52,7 @@ export default function Lists() {
                                     <CardTitle>{todo.name}</CardTitle>
                                 </div>
                                 <div>
-                                    <Button variant="secondary" size="icon">
-                                        <Pencil className="h-4 w-4" />
-                                    </Button>
+                                    <EditList />
                                 </div>
                             </div>
                         </CardHeader>
