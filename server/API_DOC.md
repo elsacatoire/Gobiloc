@@ -2,6 +2,8 @@
 
 - [SIGN-UP](#sign-up)
 - [LOGIN](#login)
+- [FLAT SHARE](#flat_share)
+- [TODOS](#todos)
 
 ## SIGN UP
 ## Not complete
@@ -15,10 +17,9 @@ Expected JSON :
 > "password": "poisson44",<br>
 > }
 
-
 ## LOGIN
 
-### POST /api/user/login
+### POST /api/user/login/
 
 #### Expected JSON :
 
@@ -42,7 +43,7 @@ This session cookie have a 2 hours live spawn in the server side (unless the ses
 
 If there is "stay_connected": true added in the request, then the session cookie will be set to 90 days instead. (client and server side)
 
-#### <u>Errors cases</u> :
+#### <u>Error cases</u> :
 
 If the data send is missing either email or password, it returns a 400 :
 
@@ -55,5 +56,151 @@ If the "email" in the request is not of email format, it returns a 400 :
 If the credentials in the request doesn't match anything in the DB, returns a 401 :
 
 > "error": "Invalid Credentials"
+
+
+## FLAT_SHARE
+
+### POST /api/flat/
+
+#### Expected JSON :
+
+>{<br>
+> "name": "A name"<br>
+> }
+
+Field "description" is optional.
+
+#### It should return a 201 with :
+
+> {<br>
+> "name": "A name"<br>
+> "description": null<br>
+> }
+
+#### <u>Error cases</u> :
+
+If sent with an empty string for "name", 400 with :
+
+> {<br>
+>&nbsp;&nbsp;&nbsp;"name": [<br>
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"This field may not be blank."<br>
+>&nbsp;&nbsp;&nbsp;	]<br>
+>}
+
+If sent without "name", 400 with :
+
+> {<br>
+>&nbsp;&nbsp;&nbsp;"name": [<br>
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"This field is required."<br>
+>&nbsp;&nbsp;&nbsp;	]<br>
+>}
+
+### GET /api/flat/{id}/
+
+#### No body. Return 200 with : 
+
+
+>{<br>
+	"name": "A flat",<br>
+	"description": "The description of the flat."<br>
+}
+
+#### <u>Error cases</u> :
+
+If flat doesn't exist, 404 with :
+
+>{<br>
+	"detail": "Not found."<br>
+}
+
+### PATCH /api/flat/{id}/
+
+#### Expect either the "name" or the "description" (or both) in the JSON. Return a 200 with the "name" and "description".
+
+#### <u>Error cases</u> :
+
+/!\ There is some cases to handle. Not Implemented Yet.
+
+### DELETE /api/flat/{id}/
+
+#### No body. Return 204.
+
+#### <u>Error cases</u> :
+
+If flat doesn't exist, 404 with :
+
+>{<br>
+	"detail": "Not found."<br>
+}
+
+
+## TODOS
+
+### CREATE /api/todo/
+
+#### Expected JSON :
+
+>{<br>
+	"flat_share": 1,<br>
+	"name": "A todo list",<br>
+	"category": null<br>
+}
+
+You can send it without the "category", it will be set to null.
+
+#### Should return a 201 with "flat_share", "name" and "category" in the body.
+
+#### <u>Error cases</u> :
+
+If "flat_share": "", return 400 with :
+
+> {<br>
+	"flat_share": [<br>
+		"This field may not be null."<br>
+	]<br>
+}
+
+If no "flat_share" in the body, return 400 with :
+
+{<br>
+	"flat_share": [<br>
+		"This field is required."<br>
+	]<br>
+}
+
+Would be the same for "name" instead of "flat_share".
+
+### GET /api/todo/flat/{id}/
+
+Should return all todos for a flat using the flat_id.
+
+#### No body expected. Return a 200 with :
+
+> {<br>
+	"todos": [<br>
+		{<br>
+			"id": 4,<br>
+			"flat_share_id": 1,<br>
+			"name": "Course",<br>
+			"updateDate": "2024-05-31T09:26:26.769916Z",<br>
+			"category_id": null<br>
+		},<br>
+		{<br>
+			"id": 5,<br>
+			"flat_share_id": 1,<br>
+			"name": "Course",<br>
+			"updateDate": "2024-05-31T10:48:38.573414Z",<br>
+			"category_id": null<br>
+		}<br>
+> 	]<br>
+> }<br>
+
+If no todos for this flat, return the empty list. Or is it ?
+
+#### <u>Error cases</u> :
+
+If flat doesn't exist :
+
+/!\ Not Implemented Yet
 
 This was written with love and energy drink
