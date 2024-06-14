@@ -8,7 +8,6 @@ import { Label } from "@/components/ui/label";
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableFooter,
     TableHead,
@@ -75,7 +74,6 @@ export default function Todo() {
                     </div>
                 </CardHeader>
                 <Table>
-                    {/* <TableCaption>Les tâches de la liste {name}</TableCaption> */}
                     <TableHeader>
                         <TableRow>
                             <TableHead colSpan={3}>Fait</TableHead>

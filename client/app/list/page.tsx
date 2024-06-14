@@ -3,6 +3,7 @@
 import { CreateList } from "@/components/checklists/CreateList";
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import Link from 'next/link';
 import {
     Card,
     CardHeader,
@@ -37,7 +38,7 @@ export default function Lists() {
         };
 
         fetchTodos();
-    }, []); // Tableau de dépendances vide signifie que cet effet s'exécute une fois au montage
+    }, []);
 
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
@@ -49,18 +50,20 @@ export default function Lists() {
                 {error && <p className="text-red-500">{error}</p>}
                 {todos.length > 0 ? (
                     todos.map((todo) => (
-                        <Card key={todo.id} className="mb-4">
-                            <CardHeader>
-                                <div className="flex flex-row justify-between items-center">
-                                    <div>
-                                        <CardTitle>{todo.name}</CardTitle>
+                        <Link key={todo.id} href={`/list/${todo.id}`}>
+                            <Card className="mb-4">
+                                <CardHeader>
+                                    <div className="flex flex-row justify-between items-center">
+                                        <div>
+                                            <CardTitle>{todo.name}</CardTitle>
+                                        </div>
+                                        <div>
+                                            <EditList />
+                                        </div>
                                     </div>
-                                    <div>
-                                        <EditList />
-                                    </div>
-                                </div>
-                            </CardHeader>
-                        </Card>
+                                </CardHeader>
+                            </Card>
+                        </Link>
                     ))
                 ) : (
                     !error && <p>Aucune liste trouvée.</p>
@@ -69,8 +72,6 @@ export default function Lists() {
                     <CreateList />
                 </div>
             </div>
-
         </div>
-
     );
 }

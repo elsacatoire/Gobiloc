@@ -60,6 +60,8 @@ export const CreateList: React.FC = () => {
                 'http://localhost:8000/api/todo/',
                 { flat_share: flatShareId, name, category },
             );
+            console.log("response", response.data);
+
         } catch {
             setError("Identifiants incorrects. Veuillez réessayer."); // TODO: Diplay erros on the page
         }
