@@ -85,93 +85,129 @@ class LoginTest(APITestCase):
     #
     # Now we test the failures :
     def test_wrong_email_response_status(self):
+        # GIVEN
         data = {
             'email': 'testwrongemail@test.com',
             'password': self.password
         }
+        # WHEN
         response = self.client.post(self.url, data, format='json')
+        # THEN
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_wrong_email_response_body(self):
+        # GIVEN
         data = {
             'email': 'testwrongemail@test.com',
             'password': self.password
         }
+        # WHEN
         response = self.client.post(self.url, data, format='json')
+        # THEN
         self.assertEqual(response.data['error'], 'Invalid Credentials')
 
     def test_wrong_email_format_response_status(self):
+        # GIVEN
         data = {
             'email': 'notavalidemail',
             'password': self.password
         }
+        # WHEN
         response = self.client.post(self.url, data, format='json')
+        # THEN
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_wrong_email_format_response_body(self):
+        # GIVEN
         data = {
             'email': 'notavalidemail',
             'password': self.password
         }
+        # WHEN
         response = self.client.post(self.url, data, format='json')
+        # THEN
         self.assertEqual(response.data['error'], 'Enter a valid email address.')
 
     def test_wrong_password_response_status(self):
+        # GIVEN
         data = {
             'email': self.email,
             'password': 'awrongpassword'
         }
+        # WHEN
         response = self.client.post(self.url, data, format='json')
+        # THEN
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_wrong_password_response_body(self):
+        # GIVEN
         data = {
             'email': self.email,
             'password': 'awrongpassword'
         }
+        # WHEN
         response = self.client.post(self.url, data, format='json')
+        # THEN
         self.assertEqual(response.data['error'], 'Invalid Credentials')
 
     def test_missing_email_response_status(self):
+        # GIVEN
         data = {
             'password': self.password
         }
+        # WHEN
         response = self.client.post(self.url, data, format='json')
+        # THEN
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_missing_email_response_body(self):
+        # GIVEN
         data = {
             'password': self.password
         }
+        # WHEN
         response = self.client.post(self.url, data, format='json')
+        # THEN
         self.assertEqual(response.data['error'], 'Missing Credentials')
 
     def test_missing_password_response_status(self):
+        # GIVEN
         data = {
             'email': self.email
         }
+        # WHEN
         response = self.client.post(self.url, data, format='json')
+        # THEN
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_missing_password_response_body(self):
+        # GIVEN
         data = {
             'email': self.email
         }
+        # WHEN
         response = self.client.post(self.url, data, format='json')
+        # THEN
         self.assertEqual(response.data['error'], 'Missing Credentials')
 
     def test_failure_case_sensitive_email_status_code(self):
+        # GIVEN
         data = {
             'email': 'Testuser@test.com',
             'password': self.password
         }
+        # WHEN
         response = self.client.post(self.url, data, format='json')
+        # THEN
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_failure_case_sensitive_email_status_body(self):
+        # GIVEN
         data = {
             'email': 'Testuser@test.com',
             'password': self.password
         }
+        # WHEN
         response = self.client.post(self.url, data, format='json')
+        # THEN
         self.assertEqual(response.data['error'], 'Invalid Credentials')

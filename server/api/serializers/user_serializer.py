@@ -21,6 +21,9 @@ class UserSerializer(ModelSerializer):
         }
 
     def create(self, validated_data):
+        """
+        Stronger criteria for password validation
+        """
         # Set register time and updatetime (?)
         user = User(**validated_data)
         try:

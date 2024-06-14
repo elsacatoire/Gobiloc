@@ -1,59 +1,99 @@
-# API DOCUMENTATION
+# Gobiloc - App de gestion de location entre collocataires
 
-- [SIGN-UP](#sign-up)
-- [LOGIN](#login)
+Bienvenue dans Gobiloc, l'application tout-en-un pour la gestion de votre collocation entre amis !
 
-## SIGN UP
-## Not complete
-### POST /api/users/
+## A propos de Gobiloc
+Gobiloc est une application développée par Gobisoft, un mouvement militant créé par Elsa, Florian et Kévin. Notre objectif est de faciliter la gestion de la vie en collocation en mettant à disposition divers outils paratgés indispensables pour la vie quotidienne entre collocataires.
 
-Expected JSON :
+## Fonctionnalités prévues
 
-> {<br>
-> "username": "test",<br>
-> "email": "test@test.com",<br>
-> "password": "poisson44",<br>
-> }
+- **Dashboard**: Vision générale de la collocation. Les derniers ajouts, les raccourcis pour toutes les fonctionnalités.
+- **Listes**: Créez et gérez des listes de courses, des tâches ménagères et bien plus encore.
+- **Documents**: Stockez et partagez des documents importants tels que les contrats de location, les factures, etc.
+- **Budget**: Suivez et gérez vos dépenses et vos contributions financières.
+- **Mot de passe**: Sécurisez l'accès à vos comptes et partagez facilement des mots de passe entre collocataires.
+- **Statuts**: Informez-vous mutuellement de vos disponibilités et de vos activités.
+- **Messages**: Communiquez facilement avec vos collocataires grâce à un système de messagerie intégré.
+- **Agenda**: Synchronisation des calendrier pour créer un calendrier de la colloc.
 
+## Prérequis
 
-## LOGIN
+Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur votre machine :
+- Python 3.x
+- pip (gestionnaire de paquets pour Python)
+- virtualenv (optionnel mais recommandé)
 
-### POST /api/users/login
+## Installation
 
-#### Expected JSON :
+1. Clonez le dépôt :
+```bash
+   git clone https://github.com/votre-utilisateur/gobiloc.git
+   cd gobiloc
+```
+Créez et activez un environnement virtuel :
+```bash
+python -m venv env
+```
+source env/bin/activate  # Sur Windows, utilisez `env\Scripts\activate`
+Installez les dépendances requises :
+```bash
+pip install -r requirements.txt
+```
+Appliquez les migrations pour configurer la base de données :
+```bash
+python manage.py migrate
+```
+Créez un super utilisateur pour accéder à l'admin Django :
+```bash
+python manage.py createsuperuser
+```
+## Configuration
 
-> {<br>
-> "email": "test@test.com",<br>
-> "password": "poisson44",<br>
-> }
+Copiez le fichier .env.example en .env et modifiez les valeurs selon vos besoins :
+```bash
+cp .env.example .env
+```
+Modifiez le fichier .env pour y ajouter vos configurations de base de données, de clé secrète, etc.
 
-#### It should return a 200 with :
+## Démarrage
 
-> {<br>
-> "status": "Login Success"<br>
-> }
+Pour démarrer le serveur de développement, utilisez la commande suivante :
+```bash
+python manage.py runserver
+```
+Le serveur sera accessible à l'adresse http://127.0.0.1:8000.
 
-#### With a session cookie and a csrf token like this :
+## API Endpoints
 
-> csrftoken : zWhUhJQQzvNoF5nvQ8PiQzAtkfgvzAZe<br>
-> sessionid : 8qh8ch485yf7a8vad7o9pnw29p1eou5v
+Les endpoints de l'API sont documentés via la doc API_DOC.md dans le repo.
 
-This session cookie have a 2 hours live spawn in the server side (unless the session data is updated). On the client side, the session cookie doesn't have any expiry time. Instead it's deleted when the user close the navigator.
+## Tests
 
-If there is "stay_connected": true added in the request, then the session cookie will be set to 90 days instead. (client and server side)
+Pour exécuter les tests, utilisez la commande suivante :
+```bash
+python manage.py test
+```
 
-#### <u>Errors cases</u> :
+## Déploiement
 
-If the data send is missing either email or password, it returns a 400 :
+Pour déployer ce projet en production, suivez les étapes :
+Configurez une base de données PostgreSQL.
+Mettez à jour le fichier .env avec les paramètres de la base de données PostgreSQL.
+Utilisez un serveur web comme Gunicorn avec un proxy inverse comme Nginx.
+Configurez les paramètres de production dans settings.py (DEBUG=False, ALLOWED_HOSTS, etc.)
 
-> "error": "Missing Credentials"
+## Contribution
 
-If the "email" in the request is not of email format, it returns a 400 :
+Les contributions sont les bienvenues ! Veuillez soumettre un pull request pour toute fonctionnalité ou correction de bug.
 
-> "error": "Enter a valid email address."
+## Licence
 
-If the credentials in the request doesn't match anything in the DB, returns a 401 :
+Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus de détails.
 
-> "error": "Invalid Credentials"
+## Auteurs
+L'équipe Gobisoft:
+- **Elsa CATOIRE** - [GitHub](https://github.com/elsacatoire) - [LinkedIn](https://www.linkedin.com/in/elsa-catoire-11402753/)
+- **Kévin CHERON** - [GitHub](https://github.com/TheUtopy) - [LinkedIn](https://www.linkedin.com/in/kevin-cheron/)
+- **Florent LUSSON** - [GitHub](https://github.com/FlorianLUSSON) - [LinkedIn](https://www.linkedin.com/in/florianlusson/)
 
-This was written with love and energy drink
+Merci d'utiliser Gobiloc et à bientôt

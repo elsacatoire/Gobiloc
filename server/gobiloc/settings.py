@@ -146,3 +146,9 @@ AUTH_USER_MODEL = 'api.User'
 # Session settings :
 SESSION_COOKIE_AGE = 2 * 60 * 60
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}

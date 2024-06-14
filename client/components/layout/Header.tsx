@@ -1,18 +1,22 @@
-import { Settings } from "lucide-react"
-import * as React from "react"
+import * as React from "react";
 import Link from "next/link";
+import { Settings } from "lucide-react";
 import LogoLetter from "../design/LogoLetter";
 
-export function Header() {
+interface HeaderProps {
+    title: string;
+}
+
+export function Header({ title }: HeaderProps) {
     return (
-        <div className="flex w-screen justify-between items-center">
-            <div className="flex bg-yellow-200 h-12 w-12 items-center justify-center rounded-full">
+        <div className="flex w-screen justify-between items-center bg-teal-700 text-white p-3 md:p-4">
+            <Link href='/' className="flex bg-yellow-200 h-12 w-12 items-center justify-center rounded-full">
                 <LogoLetter />
-            </div>
-            <Link href='/'>
-                <h1 className="text-xl sm:text-2xl md:text-1xl">Home</h1>
             </Link>
-            <Settings />
+            <h1 className="text-xl sm:text-2xl md:text-1xl">{title}</h1>
+            <Link href='/settings'>
+                <Settings />
+            </Link>
         </div>
-    )
+    );
 }

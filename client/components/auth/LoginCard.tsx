@@ -38,26 +38,20 @@ export const LoginCard: React.FC = () => {
     // Handeling the login form submission
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         //console.log("credentials =>>", { email, password });
-
         e.preventDefault();
-        setError(null); // Reinit errors before submitting
+        setError(null);
 
         try {
             const response = await axios.post(
-                'http://localhost:8000/api/users/login/',
+                'http://localhost:8000/api/user/login/',
                 { email, password },
                 { withCredentials: true }
             );
-
-            // Request success
             console.log("Réponse du serveur:", response.data);  // To delete when auth functionnal
             router.push('/');
         } catch (error) {
-            // Request errors
             setError("Identifiants incorrects. Veuillez réessayer."); // TODO: Diplay erros on the page
         }
-
-        // Reinit inputs
         setEmail('');
         setPassword('');
     };
