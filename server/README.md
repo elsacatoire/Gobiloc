@@ -25,35 +25,49 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 
 ## Installation
 
-1. Clonez le dépôt :
+1. ### Clonez le dépôt :
 ```bash
    git clone https://github.com/votre-utilisateur/gobiloc.git
    cd gobiloc
+   cd server
 ```
-Créez et activez un environnement virtuel :
+
+2. ### Créer et activer un environnement virtuel pour installer les dépendances du projet uniquement sur notre projet
+
+a. Créez un environnement virtuel, à la racine du dossier server :
 ```bash
 python -m venv env
 ```
-source env/bin/activate  # Sur Windows, utilisez `env\Scripts\activate`
-Installez les dépendances requises :
+b. Activez l'environnement virtuel :  
+- sur linux :
+    ```bash
+    source env/bin/activate
+    ```
+- sur windows : 
+    ```bash
+    .\env\Scripts\activate
+    ```
+c. Installez les dépendances requises :
 ```bash
 pip install -r requirements.txt
 ```
-Appliquez les migrations pour configurer la base de données :
-```bash
-python manage.py migrate
-```
-Créez un super utilisateur pour accéder à l'admin Django :
-```bash
-python manage.py createsuperuser
-```
-## Configuration
 
-Copiez le fichier .env.example en .env et modifiez les valeurs selon vos besoins :
+3. ### Préparer le lancement du server
+
+a. Copiez le fichier .env.example en .env et modifiez les valeurs selon vos besoins :
 ```bash
 cp .env.example .env
 ```
-Modifiez le fichier .env pour y ajouter vos configurations de base de données, de clé secrète, etc.
+Modifiez le fichier .env pour y ajouter vos configurations de base de 
+
+b. Appliquez les migrations pour configurer la base de données :
+```bash
+python manage.py migrate
+```
+c. Créez un super utilisateur pour accéder à l'admin Django :
+```bash
+python manage.py createsuperuser
+```
 
 ## Démarrage
 

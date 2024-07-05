@@ -5,6 +5,7 @@ import django.contrib.auth.validators
 import django.utils.timezone
 from django.db import migrations, models
 
+# Migrations are used when you need to update the database structure
 
 class Migration(migrations.Migration):
 
