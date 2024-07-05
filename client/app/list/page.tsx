@@ -22,7 +22,7 @@ export default function Lists() {
         const fetchTodos = async () => {
             setError(null);
             try {
-                const response = await axios.get('http://localhost:8000/api/todo/flatshare/1/');
+                const response = await axios.get('http://localhost:8000/api/todo/flat/1/');
                 if (response.data && Array.isArray(response.data.todos)) {
                     setTodos(response.data.todos);
                     console.log(response.data.todos);// todo delete
@@ -68,7 +68,7 @@ export default function Lists() {
                 ) : (
                     !error && <p>Aucune liste trouvée.</p>
                 )}
-                <div className="p-5 flex justify-center items-center absolute inset-x-0 bottom-10">
+                <div className="left-1/2 fixed bottom-20 z-50">
                     <CreateList />
                 </div>
             </div>

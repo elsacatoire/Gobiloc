@@ -74,4 +74,23 @@
   body {
     @apply bg-background text-foreground;
   }
+
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
+  overflow-y: auto;
 }

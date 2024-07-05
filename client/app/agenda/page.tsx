@@ -4,9 +4,11 @@ import React from 'react'
 
 const agenda = () => {
     return (
-        <div>
+        <div className='fixed'>
             <Header title={NavMenu.AGENDA} />
-            agenda
+            <div>
+                agenda
+            </div>
         </div>
     )
 }

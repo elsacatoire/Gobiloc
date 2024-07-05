@@ -72,7 +72,7 @@ export const CreateList: React.FC = () => {
         <Dialog>
             <DialogTrigger>
                 <Button variant="defaultSecondary">
-                    <Plus className="mr-2 h-4 w-4" /> List
+                    <Plus className="mr-2 h-4 w-4" />Todo
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
