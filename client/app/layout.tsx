@@ -20,7 +20,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="flex flex-col min-h-screen">
           <main className="flex-grow">{children}</main>
-          <footer className="bg-gray-800 text-white p-2 md:p-4">
+          <footer className=" bg-gray-800 text-white p-2 md:p-4">
             {/* <p>&copy; 2024 Gobiloc. All rights reserved.</p> */}
             <NavigationBar />
           </footer>
