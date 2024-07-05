@@ -1,7 +1,5 @@
-version: "3.4"
-
+version: "3.8"
 services:
-  # NGINX proxy
   nginx:
     image: nginx
     restart: unless-stopped
@@ -13,14 +11,11 @@ services:
       - "8081:8081"
       - "443:443"
     volumes:
-      - /var/djnext:/media
-    links:
-      - server:server
+      - /var/djnext:/app/static
     depends_on:
-      - server
       - node
+      - server
 
-  # Django server
   server:
     image: django
     restart: unless-stopped
@@ -33,15 +28,11 @@ services:
     env_file:
       - ./server/.env
     volumes:
-      - /var/djnext:/var/djnext
-    links:
-      - node:node
-      - postgres:postgres
+      - /var/djnext:/app
     depends_on:
       - postgres
       - node
 
-  # Next.js server
   node:
     image: node
     restart: unless-stopped
@@ -53,17 +44,23 @@ services:
         UID: ${UID:-1000}
     user: '${UID:-1000}:${GID:-1000}'
     env_file:
-      - .env.local
+      - .env
     volumes:
       - /var/djnext:/var/djnext
 
-  # Postgres database
   postgres:
     image: postgres:14.2
     restart: unless-stopped
     ports:
       - "5432:5432"
     volumes:
-      - /var/postgres/data:/var/postgres/data
+      - /var/postgres/data:/var/lib/postgresql/data
     env_file:
-      - .env.local
+      - .env
+    environment:
+      - POSTGRES_DB=gobiloc
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    build:
+      context: .
+      dockerfile: ./docker/postgres/Dockerfile
