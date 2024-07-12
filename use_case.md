@@ -1,6 +1,33 @@
 # Cas d'utilisation Gobiloc
 
-## 1. Création et gestion des listes de courses partagées
+## 1. S'inscire à Gobiloc
+**Acteurs** : Colocataire
+
+**Description** :
+- Un user arrive sur gobiloc, n'importe qu'elle URL et peux créer un compte s'iel n'en a pas.
+
+**Flux d'événements** :
+1. User arrive sur le site
+2. Redirigé sur la page de Login, avec un lien vers le Register
+3. User clique sur Register et arrive sur la page Register
+4. Iel peut créer un compte avec un email, un pseudo et mdp
+5. user est redirigé vers une page/modale pour rejoindre une colloc ou en créer une
+
+## 2. Se connecter à Gobiloc
+**Acteurs** : Colocataire
+
+**Description** :
+- Un user arrive sur gobiloc, n'importe qu'elle URL et peut se connecter s'il a déjà un compte.
+
+**Flux d'événements** :
+1. User arrive sur le site
+2. Redirigé sur la page de Login
+3. Iel peut se connecter avec son mail et son mdp
+4. user est redirigé vers sa page d'accueil (si dans une colloc => infos de la colloc, si pas de colloc, boutons créa/rejoindre colloc)
+
+
+
+## 3. Création et gestion des listes de courses partagées
 
 **Acteurs** : Colocataire, Administrateur
 
