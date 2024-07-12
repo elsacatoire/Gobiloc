@@ -79,15 +79,15 @@ Un colcocataire qui n'appartient à aucune colloc peut en créer une.
 3. (❌user n'arrive pas à créer une colloc car il fait déjà partie d'une autre)
 
 ## 5. Déja en colloc
-### Acteurs
+### Rôles
 Colocataire
 
 ### Description
 Un colcocataire qui appartient à une colloc accède à son dashbord
 
 ### Flux
-1. User arrive sur le site
-**Final** user est redirigé vers sa page d'accueil lié à sa colloc
+1. User arrive sur le site  
+**Final** user est redirigé automatiquement vers sa page d'accueil lié à sa colloc
 
 ### Cas de tests
 1. ✅user arrive sur son dashbord
