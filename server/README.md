@@ -36,7 +36,7 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 
 a. Créez un environnement virtuel, à la racine du dossier server :
 ```bash
-python -m venv env
+py -m venv env
 ```
 b. Activez l'environnement virtuel :  
 - sur linux :
@@ -62,18 +62,18 @@ Modifiez le fichier .env pour y ajouter vos configurations de base de
 
 b. Appliquez les migrations pour configurer la base de données :
 ```bash
-python manage.py migrate
+py manage.py migrate
 ```
 c. Créez un super utilisateur pour accéder à l'admin Django :
 ```bash
-python manage.py createsuperuser
+py manage.py createsuperuser
 ```
 
 ## Démarrage
 
 Pour démarrer le serveur de développement, utilisez la commande suivante :
 ```bash
-python manage.py runserver
+py manage.py runserver
 ```
 Le serveur sera accessible à l'adresse http://127.0.0.1:8000.
 
@@ -85,7 +85,7 @@ Les endpoints de l'API sont documentés via la doc API_DOC.md dans le repo.
 
 Pour exécuter les tests, utilisez la commande suivante :
 ```bash
-python manage.py test
+py manage.py test
 ```
 
 ## Déploiement
