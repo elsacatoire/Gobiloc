@@ -55,9 +55,11 @@ Un colcocataire qui n'appartient à aucune colloc peut en rejoindre une.
 **Final** user est redirigé vers sa page d'accueil lié à colloc
 
 ### Cas de tests
-1. ✅user arrive à rejoindre sa première colloc
-2. ❌user n'arrive pas à rejoindre
-3. (❌user n'arrive pas à rejoindre une colloc car il fait déjà partie d'une autre)
+1. ✅user arrive à rejoindre la colloc où il est invité
+2. ❌user n'arrive pas à rejoindre car le code n'existe pas
+3. ❌user n'arrive pas à rejoindre car le code a déja été utilisé
+4. ❌user n'arrive pas à rejoindre car le code est périmé
+5. (❌user n'arrive pas à rejoindre une colloc car il fait déjà partie d'une autre)
 
 ## 4. Créer une colloc
 ### Rôles
@@ -110,7 +112,7 @@ Colocataire
 6. Le code est utilisable une seule fois
 
 ### Cas de tests :
-1. ✅user génère un code
+1. ✅user génère un code unique valable pour la colloc et sur une certaine durée
 
 ## 2. Modifier les infos de mon profil
 ### Rôles
@@ -126,8 +128,11 @@ Colocataire
 
 ### Cas de tests
 1. ✅user voit ses infos
-2. ✅user modifie avatar
-3. ✅user modifie pseudo
+   * avatar
+   * pseudo
+   * ...
+3. ✅user peut modifier avatar
+4. ✅user peut modifier pseudo
 
 # III. Todo list parcours
 ## 4. Création et gestion des listes de courses partagées
