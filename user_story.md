@@ -1,49 +1,148 @@
-# Cas d'utilisation Gobiloc
+# I. Landing parcours
+## 1. S'inscire à l'app
+### Rôles
+Colocataire
 
-## 1. S'inscire à Gobiloc
-**Acteurs** : Colocataire
+### Description
+- Un user peut créer un compte.
 
-**Description** :
-- Un user arrive sur gobiloc, n'importe qu'elle URL et peux créer un compte s'iel n'en a pas.
-
-**Flux d'événements** :
+### Flux
 1. User arrive sur le site
 2. Redirigé sur la page de Login, avec un lien vers le Register
 3. User clique sur Register et arrive sur la page Register
 4. Iel peut créer un compte avec un email, un pseudo et mdp
-5. user est redirigé vers une page/modale pour rejoindre une colloc ou en créer une
+**Final** user est redirigé vers une page/modale qui l'invite à rejoindre une colloc ou en créer une
 
-## 2. Se connecter à Gobiloc
-**Acteurs** : Colocataire
+### Cas de tests
+1. user arrive à s'inscrire
+2. user utilise un mail déjà enregistré
+3. Le nom d'utilisateur a des caractères spéciaux (cyrilic, mandarin)
+4. champs trop longs
+5. espace à la fin/débit d'un champs
 
-**Description** :
-- Un user arrive sur gobiloc, n'importe qu'elle URL et peut se connecter s'il a déjà un compte.
+## 2. Se connecter à l'app
+### Rôles
+Colocataire
 
-**Flux d'événements** :
+### Description
+- Un user peut se connecter à son espace.
+
+### Flux
 1. User arrive sur le site
 2. Redirigé sur la page de Login
-3. Iel peut se connecter avec son mail et son mdp
-4. user est redirigé vers sa page d'accueil (si dans une colloc => infos de la colloc, si pas de colloc, boutons créa/rejoindre colloc)
+3. Iel peut se connecter avec son mail et son mdp  
+**Final** user est redirigé vers sa page d'accueil (si dans une colloc => infos de la colloc, si pas de colloc, boutons créa/rejoindre colloc)
 
+### Cas de tests :
+1. user arrive à se connecter
+2. user utilise un mauvais mdp
+3. user utilise un mauvais mail
 
+## 3. Rejoindre une colloc
+### Rôles
+Colocataire
 
-## 3. Création et gestion des listes de courses partagées
+### Description
+Un colcocataire qui n'appartient à aucune colloc peut en rejoidnre une.
 
-**Acteurs** : Colocataire, Administrateur
+### Flux
+1. User arrive sur le site
+2. Clique sur rejoindre
+3. Rentre le code de la colloc 
+**Final** user est redirigé vers sa page d'accueil lié à colloc
 
-**Description** :
+### Cas de tests
+1. user arrive à rejoindre sa première colloc
+2. user n'arrive pas à rejoindre
+3. user n'arrive pas à rejoindre une colloc car il fait déjà partie d'une autre
+
+## 4. Créer une colloc
+### Rôles
+Colocataire
+
+### Description
+Un colcocataire qui n'appartient à aucune colloc peut en créer une.
+
+### Flux
+1. User arrive sur le site
+2. Clique sur créer
+3. Rentre les données du flat
+**Final** user est redirigé vers sa page d'accueil lié à la nouvelle colloc qu'il rejoint automatiquement
+
+### Cas de tests
+1. user arrive à créer une colloc
+2. user n'arrive pas à créer uen colloc
+3. user n'arrive pas à créer une colloc car il fait déjà partie d'une autre
+
+## 5. Déja en colloc
+### Acteurs
+Colocataire
+
+### Description
+Un colcocataire qui appartient à une colloc accède à son dashbord
+
+### Flux
+1. User arrive sur le sitet
+**Final** user est redirigé vers sa page d'accueil lié à sa colloc
+
+### Cas de tests
+1. user arrive sur son dashbord   
+
+  
+# II. Administration parcours
+## 1. Inviter qq1 à rejoindre ma colloc
+### Rôles
+Colocataire
+
+### Description :
+- Un user peut permettre à qq1 de rejoindre la colloc
+
+### Flux d'événements :
+1. User arrive sur l'accueil
+2. Clique sur settings
+3. Gestion de colloc
+4. Générer un code
+5. Copie le code et le transmet (externe)
+6. Le code est utilisable une seule fois
+
+### Cas de tests :
+1. user génère un code
+
+## 2. Modifier les infos de mon profil
+### Rôles
+Colocataire
+
+### Description
+- Un user peut modifier son pseudo et avatar
+
+### Flux d'événements
+1. User arrive sur l'accueil
+2. Clique sur settings
+3. Gestion de profil
+
+### Cas de tests
+1. user voit ses infos
+2. User modifie avatar
+3. user modifie pseudo
+
+# III. Todo list parcours
+## 4. Création et gestion des listes de courses partagées
+
+### Rôles
+Colocataire
+
+**Description**
 - Un colocataire peut créer une liste de courses partagée.
 - Tous les colocataires peuvent ajouter ou supprimer des éléments de la liste.
 - Une fois les courses faites, un colocataire peut marquer les éléments comme achetés.
 
-**Flux d'événements** :
+**Flux d'événements**
 1. Un colocataire crée une nouvelle liste de courses et la nomme.
 2. Les colocataires ajoutent des articles nécessaires à la liste.
 3. Lorsqu'un article est acheté, il est marqué comme acheté dans la liste.
 4. La liste peut être archivée une fois que toutes les courses sont faites.
 
 ## 2. Gestion des tâches ménagères
-
 **Acteurs** : Colocataire, Administrateur
 
 **Description** :
