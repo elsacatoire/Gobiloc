@@ -22,6 +22,7 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 - Python 3.x
 - pip (gestionnaire de paquets pour Python)
 - virtualenv (optionnel mais recommandé)
+- PostgreSQL installé ([https://www.postgresql.org/download/](https://www.postgresql.org/download/))
 
 ## Installation
 
@@ -31,6 +32,35 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
    cd gobiloc
    cd server
 ```
+
+2. ### PostgreSQL :
+
+a. Assurez vous d'avoir PostgreSQL d'installé :
+
+````bash
+psql --version
+```
+
+Si la commande n'est pas reconnue, soit vous devez installer PostgreSQL, soit ajouter le dossier bin de votre pgSQL aux variables d'environnement (Windows).
+
+b. Créer la base de donnée :
+
+Connectez vous à postgreSQL (ici avec l'identifiant "postgres") :
+
+```bash
+psql -U postgres
+```
+
+Un prompt demandera de rentrer le mot de passe correspondant.
+
+Ensuite créer la DB :
+
+```bash
+CREATE DATABASE gobiloc;
+\l
+```
+
+La seconde ligne sert à liste les DB, et donc à voir si elle a bien été créée.
 
 2. ### Créer et activer un environnement virtuel pour installer les dépendances du projet uniquement sur notre projet
 
