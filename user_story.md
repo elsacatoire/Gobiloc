@@ -55,9 +55,11 @@ Un colocataire qui n'appartient à aucune colocation peut en rejoindre une.
 **Final** l'utilisateur est redirigé vers sa page d'accueil lié à colocation
 
 ### Cas de tests
-1. ✅l'utilisateur arrive à rejoindre sa première colocation
-2. ❌l'utilisateur n'arrive pas à rejoindre
-3. (❌l'utilisateur n'arrive pas à rejoindre une colocation car il fait déjà partie d'une autre)
+1. ✅l'utilisateur arrive à rejoindre la colocation où il est invité
+2. ❌l'utilisateur n'arrive pas à rejoindre car le code n'existe pas
+3. ❌l'utilisateur n'arrive pas à rejoindre car le code a déjà été utilisé
+4. ❌l'utilisateur n'arrive pas à rejoindre car le code est périmé
+5. (❌l'utilisateur n'arrive pas à rejoindre une colocation car il fait déjà partie d'une autre)
 
 ## 4. Créer une colocation
 ### Rôles
@@ -79,7 +81,7 @@ Un colocataire qui n'appartient à aucune colocation peut en créer une.
 3. (❌l'utilisateur n'arrive pas à créer une colocation car il fait déjà partie d'une autre)
 
 ## 5. Déjà en colocation
-### Acteurs
+### Rôles
 Colocataire
 
 ### Description
@@ -87,7 +89,7 @@ Un colocataire qui appartient à une colocation accède à sa Page d'accueil
 
 ### Flux
 1. L'utilisateur arrive sur le site
-**Final** l'utilisateur est redirigé vers sa page d'accueil lié à sa colocation
+**Final** l'utilisateur est redirigé automatiquement vers sa page d'accueil lié à sa colocation
 
 ### Cas de tests
 1. ✅l'utilisateur arrive sur sa Page d'accueil
@@ -110,7 +112,7 @@ Colocataire
 6. Le code est utilisable une seule fois
 
 ### Cas de tests :
-1. ✅L'utilisateur génère un code
+1. ✅L'utilisateur génère un code unique valable pour la colloc et sur une certaine durée
 
 ## 2. Modifier les infos de mon profil
 ### Rôles
@@ -126,5 +128,8 @@ Colocataire
 
 ### Cas de tests
 1. ✅L'utilisateur voit ses infos
+   * avatar
+   * pseudo
+   * ...
 2. ✅L'utilisateur modifie avatar
 3. ✅L'utilisateur modifie pseudo
