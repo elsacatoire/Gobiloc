@@ -37,7 +37,7 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 
 a. Assurez vous d'avoir PostgreSQL d'installé :
 
-````bash
+```bash
 psql --version
 ```
 
@@ -125,6 +125,18 @@ Configurez une base de données PostgreSQL.
 Mettez à jour le fichier .env avec les paramètres de la base de données PostgreSQL.
 Utilisez un serveur web comme Gunicorn avec un proxy inverse comme Nginx.
 Configurez les paramètres de production dans settings.py (DEBUG=False, ALLOWED_HOSTS, etc.)
+
+## Tests
+
+```bash
+py manage.py test
+```
+
+To execute only tests of a specific file : 
+
+```bash
+py manage.py test api.path.to.test.file
+```
 
 ## Contribution
 
