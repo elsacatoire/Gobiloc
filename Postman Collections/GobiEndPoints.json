@@ -1,0 +1,275 @@
+{
+	"info": {
+		"_postman_id": "5585f8d7-b9cd-45e8-bb18-32f4e85c5faa",
+		"name": "GobiRoutes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"id": "09c39f4d-42f3-4a33-ad91-0e3504737217",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"email\": \"test@test.com\",\r\n\t\"password\": \"poissjghj\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/user/login/"
+					},
+					"response": []
+				},
+				{
+					"name": "Resgister",
+					"id": "f06c96fa-0356-426e-a8d0-6952660e60d5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"username\": \"Flo\",\r\n\t\"email\": \"flo@test.com\",\r\n\t\"password\": \"123coucou\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/user/"
+					},
+					"response": []
+				}
+			],
+			"id": "4b2c03ff-ca66-46c6-88d4-e8e6a0b9007d"
+		},
+		{
+			"name": "Lists",
+			"item": [
+				{
+					"name": "Create todo",
+					"id": "92f9595f-c8d2-42b1-a978-a4c095e3c00f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "csrftoken",
+								"value": "Cvmsozea6wX3WX8pUsec1CuDHm5HYmYq",
+								"disabled": true
+							},
+							{
+								"key": "sessionid",
+								"value": "pk4vkolulilmwd0dv449rv0761b48bc4",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"flat_share\": 9,\r\n        \"name\": \"LFI\",\r\n        \"category\": null\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/todo/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all todos from a flat",
+					"id": "97e3f8c8-ec72-494e-90c8-8381a3dfb899",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"coucou\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/todo/flat/1/"
+					},
+					"response": []
+				},
+				{
+					"name": "delete a todo",
+					"id": "e73ec607-ad4f-4401-9f44-3dab98cd6921",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/todo/26/"
+					},
+					"response": []
+				},
+				{
+					"name": "Create a task",
+					"id": "ac1bf2fc-2607-4207-a8c7-788490756386",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"todo\": 3,\r\n    \"content\": \"du vin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/task/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all tasks from a todo",
+					"id": "0337cfa5-9f5c-4b97-a915-3dbd568ff5d3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8000/api/task/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Check/uncheck a task",
+					"id": "14119b20-5741-4d17-b6ec-e12a5b1a8180",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"done\":false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/task/1/"
+					},
+					"response": []
+				}
+			],
+			"id": "5929d83e-676c-4942-980d-9adb75372c63"
+		},
+		{
+			"name": "Flat",
+			"item": [
+				{
+					"name": "Create a flat",
+					"id": "48dee1db-667f-4424-ae01-365e639e6361",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Le front populaire\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/flat/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a flat",
+					"id": "53c519c1-62f9-4bfa-9224-483382c35226",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8000/api/flat/8/"
+					},
+					"response": []
+				},
+				{
+					"name": "Edit a flat",
+					"id": "dabe146b-5854-4e87-a9fa-88423db6a782",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"sous les pavés la plage\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/flat/9/"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a flat",
+					"id": "de671878-0f4f-4418-b98a-35d6edb06910",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8000/api/flat/8/"
+					},
+					"response": []
+				}
+			],
+			"id": "60cf8855-214f-4f25-9e2a-70a104715d68"
+		}
+	]
+}
