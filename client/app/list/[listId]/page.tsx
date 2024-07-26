@@ -34,6 +34,16 @@ export default function Todo() {
                 setCurrentTodo(data);
                 let tasks = [{ check: true, task: "Concombre" },
                 { check: false, task: "Cerises" },
+                { check: false, task: "Cerises" },
+                { check: false, task: "Cerises" },
+                { check: false, task: "Cerises" },
+                { check: false, task: "Cerises" },
+                { check: false, task: "Cerises" },
+                { check: false, task: "Cerises" },
+                { check: false, task: "Cerises" },
+                { check: false, task: "Cerises" },
+                { check: false, task: "Cerises" },
+                { check: false, task: "Cerises" },
                 { check: false, task: "Chocolat" },
                 { check: false, task: "Graines de tournesol" }]
                 setAllTasks(tasks)
@@ -46,7 +56,6 @@ export default function Todo() {
 
         getTodoData();
     }, []);
-
 
     /* ----- ADD a task ----- */
     const [newTask, setNewTask] = useState('');
@@ -73,6 +82,9 @@ export default function Todo() {
     const handleDeleteTask = (indexToDelete: number) => {
         setAllTasks(allTasks.filter((_, index) => index !== indexToDelete));
     };
+
+    if (isLoading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
 
     return (
         <div className="flex flex-col min-h-screen">
