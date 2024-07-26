@@ -1,12 +1,9 @@
 'use client'
 import { CreateList } from "@/components/list/CreateList";
 import React, { useState, useEffect, useRef } from "react";
-import axios from 'axios';
 import Link from 'next/link';
 import {
     Card,
-    CardHeader,
-    CardTitle,
 } from "@/app/components/ui/card";
 import { Header } from "@/components/layout/Header";
 import { NavMenu } from "@/app/enums/NavMenu";
@@ -60,7 +57,6 @@ export default function Lists() {
 
     /* ----- DELETE a todo ----- */
     const handleDeleteTodo = async (_index: number, idToDelete: number, name: string) => {
-        console.log('name', name);
         try {
             await deleteTodo(idToDelete);
 

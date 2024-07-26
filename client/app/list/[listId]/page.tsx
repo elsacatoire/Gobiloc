@@ -1,5 +1,6 @@
 'use client'
 
+import { checkTask } from "@/api/services/taskService";
 import { fetchTodo } from "@/api/services/todoService";
 import { Button } from "@/app/components/ui/button";
 import { Card, CardHeader } from "@/app/components/ui/card";
@@ -32,10 +33,10 @@ export default function Todo() {
             try {
                 const data = await fetchTodo(1);
                 setCurrentTodo(data);
-                let tasks = [{ id: 1, check: true, task: "Concombre" },
-                { id: 2, check: false, task: "Cerises" },
-                { id: 3, check: false, task: "Chocolat" },
-                { id: 4, check: false, task: "Graines de tournesol" }]
+                let tasks = [{ id: 1, done: true, task: "Concombre" },
+                { id: 2, done: false, task: "Cerises" },
+                { id: 3, done: false, task: "Chocolat" },
+                { id: 4, done: false, task: "Graines de tournesol" }]
                 setAllTasks(tasks)
                 setLoading(false);
             } catch (error: any) {
@@ -52,21 +53,31 @@ export default function Todo() {
     const handleTaskAdd = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (newTask.trim() !== '') {
-            setAllTasks([...allTasks, { id: 666,/* todo change */  check: false, task: newTask }]);
+            setAllTasks([...allTasks, { id: 666,/* todo change */  done: false, task: newTask }]);
             setNewTask('');
         }
     };
 
-    /* ----- HANDLE checkbox ----- */
-    const tasksLeft = allTasks.filter(task => !task.check).length;
-    const handleCheckboxChange = (index: number) => {
-        setAllTasks(allTasks.map((task, i) => {
-            if (i === index) {
-                return { ...task, check: !task.check };
+    /* ----- PATCH (Update) a todo ----- */
+    const handleCheckBox = async (idToUpdate: number, state: boolean, index: number) => {
+        try {
+            if (state) {
+                await checkTask(idToUpdate, { "done": false });
+            } else {
+                await checkTask(idToUpdate, { "done": true });
             }
-            return task;
-        }));
-    };
+            setAllTasks(allTasks.map((task, i) => {
+                if (i === index) {
+                    return { ...task, done: !task.done };
+                }
+                return task;
+            }));
+        } catch (error) {
+            setError("Erreur lors de la mise à jour du todo. Veuillez réessayer.");
+        }
+    }
+
+    const tasksLeft = allTasks.filter(task => !task.done).length;
 
     /* ----- DELETE a task ----- */
     const handleDeleteTask = (indexToDelete: number) => {
@@ -111,10 +122,10 @@ export default function Todo() {
                                 <TableRow key={task.task}>
                                     <TableCell colSpan={3} className="font-medium">
                                         <Checkbox
-                                            checked={task.check}
-                                            onCheckedChange={() => handleCheckboxChange(index)}
+                                            checked={task.done}
+                                            onCheckedChange={() => handleCheckBox(task.id, task.done, index)}
                                         />
-                                        {task.check}
+                                        {task.done}
                                     </TableCell>
                                     <TableCell className="justify-center">{task.task}</TableCell>
                                     <TableCell className="flex flex-row h-full">
