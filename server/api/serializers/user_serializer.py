@@ -24,6 +24,7 @@ class UserSerializer(ModelSerializer):
         """
         Stronger criteria for password validation
         """
+        validated_data['email'] = validated_data['email'].lower()
         # Set register time and updatetime (?)
         user = User(**validated_data)
         try:

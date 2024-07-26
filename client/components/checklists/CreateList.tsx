@@ -11,7 +11,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/app/components/ui/dialog";
 import {
     Select,
     SelectContent,
@@ -19,13 +19,13 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select";
+} from "@/app/components/ui/select";
 import axios from 'axios';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { TodoCategory } from '@/enums/TodoCategory';
+import { Button } from "@/app/components/ui/button";
+import { Input } from "@/app/components/ui/input";
+import { Label } from "@/app/components/ui/label";
+import { ToggleGroup, ToggleGroupItem } from "@/app/components/ui/toggle-group";
+import { TodoCategory } from '@/app/enums/TodoCategory';
 
 export const CreateList: React.FC = () => {
     const router = useRouter();
@@ -72,7 +72,7 @@ export const CreateList: React.FC = () => {
         <Dialog>
             <DialogTrigger>
                 <Button variant="defaultSecondary">
-                    <Plus className="mr-2 h-4 w-4" /> List
+                    <Plus className="mr-2 h-4 w-4" />Todo
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">

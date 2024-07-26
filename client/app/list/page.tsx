@@ -1,5 +1,4 @@
 'use client'
-
 import { CreateList } from "@/components/checklists/CreateList";
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
@@ -8,10 +7,10 @@ import {
     Card,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card";
+} from "@/app/components/ui/card";
 import EditList from "@/components/checklists/EditList";
 import { Header } from "@/components/layout/Header";
-import { NavMenu } from "@/enums/NavMenu";
+import { NavMenu } from "@/app/enums/NavMenu";
 
 export default function Lists() {
     const [todos, setTodos] = useState<Array<Todo>>([]);
@@ -22,10 +21,10 @@ export default function Lists() {
         const fetchTodos = async () => {
             setError(null);
             try {
-                const response = await axios.get('http://localhost:8000/api/todo/flatshare/1/');
+                const response = await axios.get('http://localhost:8000/api/todo/flat/1/');
                 if (response.data && Array.isArray(response.data.todos)) {
                     setTodos(response.data.todos);
-                    console.log(response.data.todos);// todo delete
+                    console.log(response.data.todos); // todo delete
                     setLoading(false);
                 } else {
                     setError("Les données reçues ne sont pas au format attendu.");
@@ -43,10 +42,11 @@ export default function Lists() {
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
 
+
     return (
-        <div>
+        <div className="flex flex-col min-h-screen">
             <Header title={NavMenu.LISTS} />
-            <div className="container max-auto p-4">
+            <div className="flex-grow pt-14 p-3 overflow-y-auto">
                 {error && <p className="text-red-500">{error}</p>}
                 {todos.length > 0 ? (
                     todos.map((todo) => (
@@ -68,9 +68,9 @@ export default function Lists() {
                 ) : (
                     !error && <p>Aucune liste trouvée.</p>
                 )}
-                <div className="p-5 flex justify-center items-center absolute inset-x-0 bottom-10">
-                    <CreateList />
-                </div>
+            </div>
+            <div className="sticky bottom-0 p-4 bg-white z-50 flex justify-center">
+                <CreateList />
             </div>
         </div>
     );
