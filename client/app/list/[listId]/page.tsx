@@ -21,7 +21,7 @@ import { Trash2, Pencil } from "lucide-react"
 import { useEffect, useState } from "react";
 
 export default function Todo() {
-    /* ----- Retrive the todo's data ----- */
+    /* ----- GET todo ----- */
     const [currentTodo, setCurrentTodo] = useState<TodoType>();
     const [allTasks, setAllTasks] = useState<Array<TaskType>>([]);
     const [isLoading, setLoading] = useState(true)
@@ -30,7 +30,7 @@ export default function Todo() {
     useEffect(() => {
         const getTodoData = async () => {
             try {
-                const data = await fetchTodo(1); // Utilisez l'ID approprié
+                const data = await fetchTodo(1);
                 setCurrentTodo(data);
                 let tasks = [{ id: 1, check: true, task: "Concombre" },
                 { id: 2, check: false, task: "Cerises" },
