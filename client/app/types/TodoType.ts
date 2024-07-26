@@ -5,3 +5,9 @@ type TodoType = {
     name: string;
     updateDate: string;
 }
+
+type TodoDTO = {
+    flat_share: number;
+    name: string;
+    category: null | number;
+}

@@ -8,7 +8,8 @@ export const fetchTasks = async () => {
 
 export const checkTask = async (idTask: number, updatedData: Partial<TaskType>) => {
     try {
-        await axios.patch(`http://localhost:8000/api/task/${idTask}/`, { updatedData });
+        const response = await axios.patch(`http://localhost:8000/api/task/${idTask}/`, { updatedData });
+        return response.data;
     } catch (error) {
         throw new Error("Erreur lors de la modification. Veuillez réessayer.");
     }

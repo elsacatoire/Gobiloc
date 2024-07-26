@@ -18,6 +18,18 @@ export const fetchTodos = async (idFlat: number) => {
     }
 };
 
+export const createTodo = async (data: TodoDTO) => {
+    try {
+        console.log('data====>>>', data);
+
+        const response = await axios.post("http://localhost:8000/api/todo/", { data });
+        return response.data;
+    } catch (error) {
+        throw new Error("Erreur lors de la récupération des listes. Veuillez réessayer.");
+    }
+};
+
+
 export const deleteTodo = async (idTodo: number) => {
     try {
         await axios.delete(`http://localhost:8000/api/todo/${idTodo}`);

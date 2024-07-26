@@ -1,5 +1,5 @@
 'use client'
-import { CreateList } from "@/components/list/CreateList";
+import { CreateList } from "@/app/list/components/CreateList";
 import React, { useState, useEffect, useRef } from "react";
 import Link from 'next/link';
 import {

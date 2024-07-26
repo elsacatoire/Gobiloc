@@ -26,6 +26,7 @@ import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import { ToggleGroup, ToggleGroupItem } from "@/app/components/ui/toggle-group";
 import { TodoCategory } from '@/app/enums/TodoCategory';
+import { createTodo } from "@/api/services/todoService";
 
 export const CreateList: React.FC = () => {
     const router = useRouter();
@@ -56,10 +57,15 @@ export const CreateList: React.FC = () => {
         setError(null);
 
         try {
+            console.log("yayayayayayayay", { flat_share: flatShareId, name, category });
+
             const response = await axios.post( // TODO response dans confirm snackbar ?
                 'http://localhost:8000/api/todo/',
                 { flat_share: flatShareId, name, category },
             );
+
+            console.log(response);
+
             // TODO : récup id de la todo créée
             //const listId = response.data.id;
 
