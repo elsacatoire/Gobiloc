@@ -1,5 +1,5 @@
 'use client'
-import { CreateList } from "@/components/checklists/CreateList";
+import { CreateList } from "@/components/list/CreateList";
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import Link from 'next/link';
@@ -8,11 +8,14 @@ import {
     CardHeader,
     CardTitle,
 } from "@/app/components/ui/card";
-import EditList from "@/components/checklists/EditList";
 import { Header } from "@/components/layout/Header";
 import { NavMenu } from "@/app/enums/NavMenu";
+import { Trash2 } from "lucide-react";
+import { Button } from "../components/ui/button";
 
 export default function Lists() {
+
+    /* ----- GET all todos ----- */
     const [todos, setTodos] = useState<Array<TodoType>>([]);
     const [isLoading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null);
@@ -42,10 +45,18 @@ export default function Lists() {
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
 
+    /* ----- DELETE a todo ----- */
+    const handleDeleteTodo = (idToDelete: number) => {
+        setTodos(todos.filter((_, index) => index !== idToDelete));
+    };
+
 
     return (
         <div className="flex flex-col min-h-screen">
             <Header title={NavMenu.LISTS} />
+            <Card>
+
+            </Card>
             <div className="flex-grow pt-14 p-3 overflow-y-auto">
                 {error && <p className="text-red-500">{error}</p>}
                 {todos.length > 0 ? (
@@ -58,7 +69,9 @@ export default function Lists() {
                                             <CardTitle>{todo.name}</CardTitle>
                                         </div>
                                         <div>
-                                            <EditList />
+                                            <Button variant="destructive" size="icon" onClick={() => handleDeleteTodo(todo.id)}>
+                                                <Trash2 color="white" className="h-5 w-5 justify-center" />
+                                            </Button>
                                         </div>
                                     </div>
                                 </CardHeader>
