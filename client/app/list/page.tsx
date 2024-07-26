@@ -12,7 +12,7 @@ import { Header } from "@/components/layout/Header";
 import { NavMenu } from "@/app/enums/NavMenu";
 import { Trash2 } from "lucide-react";
 import { Button } from "../components/ui/button";
-import { fetchTodos } from "@/api/services/todoService";
+import { deleteTodo, fetchTodos } from "@/api/services/todoService";
 
 export default function Lists() {
 
@@ -59,8 +59,16 @@ export default function Lists() {
     );
 
     /* ----- DELETE a todo ----- */
-    const handleDeleteTodo = (idToDelete: number) => {
-        setTodos(todos.filter((_, index) => index !== idToDelete));
+    const handleDeleteTodo = async (_index: number, idToDelete: number, name: string) => {
+        console.log('name', name);
+        try {
+            await deleteTodo(idToDelete);
+
+            // update list
+            setTodos(todos.filter((_, index) => index !== _index));
+        } catch (error) {
+            setError("Erreur lors de la suppression du todo. Veuillez réessayer.");
+        }
     };
 
     return (
@@ -69,7 +77,7 @@ export default function Lists() {
             <div className="flex-grow mt-12 px-6 overflow-y-auto">
                 {error && <p className="text-red-500">{error}</p>}
                 {
-                    todos ? (todos.map((todo) => (
+                    todos ? (todos.map((todo: TodoType, index: number) => (
                         <div key={todo.id} className="flex flex-row p-1 justify-between">
                             <Card >
                                 <div className="p-3">
@@ -81,7 +89,7 @@ export default function Lists() {
                                 </div>
                             </Card>
                             <div className="flex pt-2">
-                                <Button variant="destructive" size="icon" onClick={() => handleDeleteTodo(todo.id)}>
+                                <Button variant="destructive" size="icon" onClick={() => handleDeleteTodo(index, todo.id, todo.name)}>
                                     <Trash2 color="white" className="h-5 w-5 justify-center" />
                                 </Button>
                             </div>
