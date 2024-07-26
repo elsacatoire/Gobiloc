@@ -27,7 +27,6 @@ export default function Lists() {
                 const response = await axios.get('http://localhost:8000/api/todo/flat/1/');
                 if (response.data && Array.isArray(response.data.todos)) {
                     setTodos(response.data.todos);
-                    console.log(response.data.todos); // todo delete
                     setLoading(false);
                 } else {
                     setError("Les données reçues ne sont pas au format attendu.");
@@ -58,7 +57,7 @@ export default function Lists() {
                 <CreateList />
 
             </Card>
-            <div className="flex-grow pt-14 p-3 overflow-y-auto">
+            <div className="flex-grow p-3 overflow-y-auto">
                 {error && <p className="text-red-500">{error}</p>}
                 {todos.length > 0 ? (
                     todos.map((todo) => (
@@ -83,7 +82,7 @@ export default function Lists() {
                     !error && <p>Aucune liste trouvée.</p>
                 )}
             </div>
-            <div className="sticky bottom-0 p-2 bg-white z-50 border-t-2 border-indigo-400 flex justify-center">
+            <div className="flex justify-center sticky bottom-0 p-2 z-50 bg-gradient-to-r from-cyan-400 to-amber-400">
                 <CreateList />
             </div>
         </div>

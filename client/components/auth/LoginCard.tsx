@@ -37,7 +37,6 @@ export const LoginCard: React.FC = () => {
 
     // Handeling the login form submission
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        //console.log("credentials =>>", { email, password });
         e.preventDefault();
         setError(null);
 

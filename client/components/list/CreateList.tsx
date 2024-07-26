@@ -60,7 +60,6 @@ export const CreateList: React.FC = () => {
                 'http://localhost:8000/api/todo/',
                 { flat_share: flatShareId, name, category },
             );
-            console.log("response", response.data);
             // TODO : récup id de la todo créée
             //const listId = response.data.id;
 
@@ -76,7 +75,7 @@ export const CreateList: React.FC = () => {
         <Dialog>
             <DialogTrigger asChild>
                 <span>
-                    <Button variant="defaultSecondary">
+                    <Button variant="secondary">
                         <Plus className="mr-2 h-4 w-4" />Todo
                     </Button>
                 </span>
