@@ -12,7 +12,6 @@ export const fetchTodo = async (id: number) => {
 export const fetchTodos = async (idFlat: number) => {
     try {
         const response = await axios.get(`http://localhost:8000/api/todo/flat/${idFlat}`);
-        console.log("data", response.data);
         return response.data;
     } catch (error) {
         throw new Error("Erreur lors de la récupération des listes. Veuillez réessayer.");

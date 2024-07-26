@@ -1,6 +1,6 @@
 'use client'
 import { CreateList } from "@/components/list/CreateList";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from 'axios';
 import Link from 'next/link';
 import {
@@ -20,8 +20,10 @@ export default function Lists() {
     const [todos, setTodos] = useState<TodoType[]>([]);
     const [isLoading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null);
+    const didMountRef = useRef(false);
 
     useEffect(() => {
+        if (didMountRef.current) return; // prevent double api call
         const getAllTodos = async () => {
             try {
                 const data = await fetchTodos(1);
@@ -37,6 +39,7 @@ export default function Lists() {
             }
         };
         getAllTodos();
+        didMountRef.current = true;
     }, []);
 
     if (isLoading) return (
@@ -60,25 +63,24 @@ export default function Lists() {
         setTodos(todos.filter((_, index) => index !== idToDelete));
     };
 
-
     return (
         <div className="flex flex-col min-h-screen">
             <Header title={NavMenu.LISTS} />
-            <div className="flex-grow mt-12 p-3 overflow-y-auto">
+            <div className="flex-grow mt-12 px-6 overflow-y-auto">
                 {error && <p className="text-red-500">{error}</p>}
                 {
                     todos ? (todos.map((todo) => (
-                        <div key={todo.id} className="flex flex-row gap-4 justify-center">
-                            <Card className="mb-4">
-                                <CardHeader>
+                        <div key={todo.id} className="flex flex-row p-1 justify-between">
+                            <Card >
+                                <div className="p-3">
                                     <Link href={`/list/${todo.id}`}>
                                         <div className="w-60">
-                                            <CardTitle>{todo.name}</CardTitle>
+                                            <p className="font-semibold">{todo.name}</p>
                                         </div>
                                     </Link>
-                                </CardHeader>
+                                </div>
                             </Card>
-                            <div className="mt-1">
+                            <div className="flex pt-2">
                                 <Button variant="destructive" size="icon" onClick={() => handleDeleteTodo(todo.id)}>
                                     <Trash2 color="white" className="h-5 w-5 justify-center" />
                                 </Button>
