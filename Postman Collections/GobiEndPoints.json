@@ -147,6 +147,28 @@
 					"response": []
 				},
 				{
+					"name": "Get all todos from a flat Copy",
+					"id": "3198788e-ad5c-402a-88b9-89c0a866b355",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"coucou\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/todo/flat/1/"
+					},
+					"response": []
+				},
+				{
 					"name": "delete a todo",
 					"id": "e73ec607-ad4f-4401-9f44-3dab98cd6921",
 					"protocolProfileBehavior": {
