@@ -10,8 +10,8 @@ interface HeaderProps {
 
 export function Header({ title }: HeaderProps) {
     return (
-        <header className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
-            <div className="flex fixed w-screen justify-between items-center bg-popover-foreground text-gray-800 p-2 md:p-4">
+        <header className="fixed top-0 left-0 w-full shadow-md z-50">
+            <div className="flex fixed w-screen justify-between items-center bg-gradient-to-r from-yellow-200 to-amber-400 text-gray-800 p-2 md:p-4">
                 <Link href='/' className="flex h-8 w-auto items-center justify-center rounded-full">
                     <LogoLetter />
                 </Link>

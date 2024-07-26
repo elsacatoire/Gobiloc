@@ -53,30 +53,26 @@ export default function Lists() {
     return (
         <div className="flex flex-col min-h-screen">
             <Header title={NavMenu.LISTS} />
-            <Card>
-                <CreateList />
-
-            </Card>
-            <div className="flex-grow p-3 overflow-y-auto">
+            <div className="flex-grow mt-12 p-3 overflow-y-auto">
                 {error && <p className="text-red-500">{error}</p>}
                 {todos.length > 0 ? (
                     todos.map((todo) => (
-                        <Link key={todo.id} href={`/list/${todo.id}`}>
-                            <Card className="mb-4">
+                        <div key={todo.id} className="flex flex-row gap-4 justify-center">
+                            <Card key={todo.id} className="mb-4">
                                 <CardHeader>
-                                    <div className="flex flex-row justify-between items-center">
-                                        <div>
+                                    <Link href={`/list/${todo.id}`}>
+                                        <div className="w-60">
                                             <CardTitle>{todo.name}</CardTitle>
                                         </div>
-                                        <div>
-                                            <Button variant="destructive" size="icon" onClick={() => handleDeleteTodo(todo.id)}>
-                                                <Trash2 color="white" className="h-5 w-5 justify-center" />
-                                            </Button>
-                                        </div>
-                                    </div>
+                                    </Link>
                                 </CardHeader>
                             </Card>
-                        </Link>
+                            <div className="mt-1">
+                                <Button variant="destructive" size="icon" onClick={() => handleDeleteTodo(todo.id)}>
+                                    <Trash2 color="white" className="h-5 w-5 justify-center" />
+                                </Button>
+                            </div>
+                        </div>
                     ))
                 ) : (
                     !error && <p>Aucune liste trouvée.</p>
