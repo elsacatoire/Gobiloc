@@ -32,20 +32,10 @@ export default function Todo() {
             try {
                 const data = await fetchTodo(1); // Utilisez l'ID approprié
                 setCurrentTodo(data);
-                let tasks = [{ check: true, task: "Concombre" },
-                { check: false, task: "Cerises" },
-                { check: false, task: "Cerises" },
-                { check: false, task: "Cerises" },
-                { check: false, task: "Cerises" },
-                { check: false, task: "Cerises" },
-                { check: false, task: "Cerises" },
-                { check: false, task: "Cerises" },
-                { check: false, task: "Cerises" },
-                { check: false, task: "Cerises" },
-                { check: false, task: "Cerises" },
-                { check: false, task: "Cerises" },
-                { check: false, task: "Chocolat" },
-                { check: false, task: "Graines de tournesol" }]
+                let tasks = [{ id: 1, check: true, task: "Concombre" },
+                { id: 2, check: false, task: "Cerises" },
+                { id: 3, check: false, task: "Chocolat" },
+                { id: 4, check: false, task: "Graines de tournesol" }]
                 setAllTasks(tasks)
                 setLoading(false);
             } catch (error: any) {
@@ -62,7 +52,7 @@ export default function Todo() {
     const handleTaskAdd = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (newTask.trim() !== '') {
-            setAllTasks([...allTasks, { check: false, task: newTask }]);
+            setAllTasks([...allTasks, { id: 666,/* todo change */  check: false, task: newTask }]);
             setNewTask('');
         }
     };
