@@ -1,5 +1,6 @@
 'use client'
 
+import { fetchTodo } from "@/api/services/todoService";
 import { Button } from "@/app/components/ui/button";
 import { Card, CardHeader } from "@/app/components/ui/card";
 import { Checkbox } from "@/app/components/ui/checkbox"
@@ -26,29 +27,23 @@ export default function Todo() {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchTodo = async () => {
-            setError(null);
+        const getTodoData = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/todo/1');
-                if (response.data) {
-                    setCurrentTodo(response.data);
-                    let tasks = [{ check: true, task: "Concombre" },
-                    { check: false, task: "Cerises" },
-                    { check: false, task: "Chocolat" },
-                    { check: false, task: "Graines de tournesol" }]
-                    setAllTasks(tasks)
-                    setLoading(false);
-                } else {
-                    setError("Les données reçues ne sont pas au format attendu.");
-                    setLoading(false);
-                }
-            } catch (error) {
-                // Erreurs de la requête
-                setError("Erreur lors de la récupération des listes. Veuillez réessayer.");
+                const data = await fetchTodo(1); // Utilisez l'ID approprié
+                setCurrentTodo(data);
+                let tasks = [{ check: true, task: "Concombre" },
+                { check: false, task: "Cerises" },
+                { check: false, task: "Chocolat" },
+                { check: false, task: "Graines de tournesol" }]
+                setAllTasks(tasks)
+                setLoading(false);
+            } catch (error: any) {
+                setError(error.message);
+                setLoading(false);
             }
         };
 
-        fetchTodo();
+        getTodoData();
     }, []);
 
 
