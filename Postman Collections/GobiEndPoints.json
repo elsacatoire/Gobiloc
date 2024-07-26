@@ -113,7 +113,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "    {\r\n        \"flat_share\": 9,\r\n        \"name\": \"LFI\",\r\n        \"category\": null\r\n    }",
+							"raw": "    {\r\n        \"name\": \"LFI\"\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -164,7 +164,7 @@
 								}
 							}
 						},
-						"url": "localhost:8000/api/todo/26/"
+						"url": "localhost:8000/api/todo/12/"
 					},
 					"response": []
 				},
@@ -227,7 +227,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"done\":false\r\n}",
+							"raw": "{\r\n    \"done\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
