@@ -55,6 +55,7 @@ export default function Lists() {
         <div className="flex flex-col min-h-screen">
             <Header title={NavMenu.LISTS} />
             <Card>
+                <CreateList />
 
             </Card>
             <div className="flex-grow pt-14 p-3 overflow-y-auto">
@@ -82,7 +83,7 @@ export default function Lists() {
                     !error && <p>Aucune liste trouvée.</p>
                 )}
             </div>
-            <div className="sticky bottom-0 p-4 bg-white z-50 flex justify-center">
+            <div className="sticky bottom-0 p-2 bg-white z-50 border-t-2 border-indigo-400 flex justify-center">
                 <CreateList />
             </div>
         </div>

@@ -74,10 +74,12 @@ export const CreateList: React.FC = () => {
 
     return (
         <Dialog>
-            <DialogTrigger>
-                <Button variant="defaultSecondary">
-                    <Plus className="mr-2 h-4 w-4" />Todo
-                </Button>
+            <DialogTrigger asChild>
+                <span>
+                    <Button variant="defaultSecondary">
+                        <Plus className="mr-2 h-4 w-4" />Todo
+                    </Button>
+                </span>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <form onSubmit={handleSubmit}>
