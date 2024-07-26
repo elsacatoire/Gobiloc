@@ -92,6 +92,39 @@
 					"response": []
 				},
 				{
+					"name": "edit list name",
+					"id": "e97e5f07-63a4-4c27-ba6f-217f04f1c08f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "csrftoken",
+								"value": "Cvmsozea6wX3WX8pUsec1CuDHm5HYmYq",
+								"disabled": true
+							},
+							{
+								"key": "sessionid",
+								"value": "pk4vkolulilmwd0dv449rv0761b48bc4",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"flat_share\": 9,\r\n        \"name\": \"LFI\",\r\n        \"category\": null\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/todo/1"
+					},
+					"response": []
+				},
+				{
 					"name": "Get all todos from a flat",
 					"id": "97e3f8c8-ec72-494e-90c8-8381a3dfb899",
 					"protocolProfileBehavior": {
