@@ -81,6 +81,15 @@ class LoginTest(APITestCase):
     def test_success_stay_connected_session_expiry_age_is_90_days(self):
         self.assertEqual(self.client_stay_connected.session.get_expiry_age(), 7776000)
 
+    def test_success_with_uppercase_in_email(self):
+        data = {
+            'email': 'TestUser@test.com',
+            'password': self.password
+        }
+        response = self.client.post(self.url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['status'], 'Login Success')
+
     #
     #
     # Now we test the failures :
@@ -189,25 +198,3 @@ class LoginTest(APITestCase):
         response = self.client.post(self.url, data, format='json')
         # THEN
         self.assertEqual(response.data['error'], 'Missing Credentials')
-
-    def test_failure_case_sensitive_email_status_code(self):
-        # GIVEN
-        data = {
-            'email': 'Testuser@test.com',
-            'password': self.password
-        }
-        # WHEN
-        response = self.client.post(self.url, data, format='json')
-        # THEN
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-
-    def test_failure_case_sensitive_email_status_body(self):
-        # GIVEN
-        data = {
-            'email': 'Testuser@test.com',
-            'password': self.password
-        }
-        # WHEN
-        response = self.client.post(self.url, data, format='json')
-        # THEN
-        self.assertEqual(response.data['error'], 'Invalid Credentials')

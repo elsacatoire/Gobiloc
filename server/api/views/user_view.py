@@ -49,6 +49,7 @@ class UserViewSet(ModelViewSet):
             return Response({'error': 'Missing Credentials'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
+            email = email.lower()
             validate_email(email)
         except ValidationError as e:
             return Response({'error': e.messages[0]}, status=status.HTTP_400_BAD_REQUEST)
