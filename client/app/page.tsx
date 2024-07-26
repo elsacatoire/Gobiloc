@@ -2,8 +2,8 @@
 
 import LogoFullName from "@/components/design/LogoFullName";
 import { Header } from "@/components/layout/Header";
-import { Button } from "@/components/ui/button";
-import { NavMenu } from "@/enums/NavMenu";
+import { Button } from "@/app/components/ui/button";
+import { NavMenu } from "@/app/enums/NavMenu";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 

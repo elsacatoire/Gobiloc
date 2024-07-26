@@ -7,10 +7,10 @@ import {
     Card,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card";
+} from "@/app/components/ui/card";
 import EditList from "@/components/checklists/EditList";
 import { Header } from "@/components/layout/Header";
-import { NavMenu } from "@/enums/NavMenu";
+import { NavMenu } from "@/app/enums/NavMenu";
 
 export default function Lists() {
     const [todos, setTodos] = useState<Array<Todo>>([]);

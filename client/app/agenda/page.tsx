@@ -1,5 +1,5 @@
 import { Header } from '@/components/layout/Header'
-import { NavMenu } from '@/enums/NavMenu'
+import { NavMenu } from '@/app/enums/NavMenu'
 import React from 'react'
 
 const agenda = () => {
