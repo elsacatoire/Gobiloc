@@ -171,7 +171,7 @@
 					"response": []
 				},
 				{
-					"name": "Get all tasks from a todo Copy",
+					"name": "Get all tasks from a todo",
 					"id": "c22ddf7f-13e6-46fd-8e70-303542b23b26",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -179,7 +179,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "localhost:8000/api/task/1"
+						"url": "localhost:8000/api/todo/1"
 					},
 					"response": []
 				},
