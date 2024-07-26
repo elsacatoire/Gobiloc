@@ -13,7 +13,7 @@ import { Header } from "@/components/layout/Header";
 import { NavMenu } from "@/app/enums/NavMenu";
 
 export default function Lists() {
-    const [todos, setTodos] = useState<Array<Todo>>([]);
+    const [todos, setTodos] = useState<Array<TodoType>>([]);
     const [isLoading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null);
 

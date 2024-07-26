@@ -61,11 +61,15 @@ export const CreateList: React.FC = () => {
                 { flat_share: flatShareId, name, category },
             );
             console.log("response", response.data);
+            // TODO : récup id de la todo créée
+            //const listId = response.data.id;
+
 
         } catch {
             setError("Identifiants incorrects. Veuillez réessayer."); // TODO: Diplay erros on the page
         }
-        router.push('/list/todo');
+        router.push('/list/1');
+        //router.push(`/todo/${listId}`);
     };
 
     return (
