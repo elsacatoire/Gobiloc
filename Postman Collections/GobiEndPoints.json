@@ -150,7 +150,7 @@
 							"response": []
 						},
 						{
-							"name": "Get all todos from a flat Copy",
+							"name": "Get a todo",
 							"id": "33455f5c-6540-4c29-9efa-f8c266298ad4",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -220,78 +220,79 @@
 				},
 				{
 					"name": "TASKS",
-					"item": [],
+					"item": [
+						{
+							"name": "Create a task",
+							"id": "ac1bf2fc-2607-4207-a8c7-788490756386",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"todo\": 3,\r\n    \"content\": \"du vin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8000/api/task/"
+							},
+							"response": []
+						},
+						{
+							"name": "Get a task",
+							"id": "0337cfa5-9f5c-4b97-a915-3dbd568ff5d3",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:8000/api/task/1"
+							},
+							"response": []
+						},
+						{
+							"name": "Get all tasks from a todo",
+							"id": "c22ddf7f-13e6-46fd-8e70-303542b23b26",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:8000/api/todo/1"
+							},
+							"response": []
+						},
+						{
+							"name": "Check/uncheck a task",
+							"id": "14119b20-5741-4d17-b6ec-e12a5b1a8180",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"done\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8000/api/task/1/"
+							},
+							"response": []
+						}
+					],
 					"id": "337987cf-128d-4e68-a212-5ece11ceeb72"
-				},
-				{
-					"name": "Create a task",
-					"id": "ac1bf2fc-2607-4207-a8c7-788490756386",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"todo\": 3,\r\n    \"content\": \"du vin\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "localhost:8000/api/task/"
-					},
-					"response": []
-				},
-				{
-					"name": "Get a task",
-					"id": "0337cfa5-9f5c-4b97-a915-3dbd568ff5d3",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "localhost:8000/api/task/1"
-					},
-					"response": []
-				},
-				{
-					"name": "Get all tasks from a todo",
-					"id": "c22ddf7f-13e6-46fd-8e70-303542b23b26",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "localhost:8000/api/todo/1"
-					},
-					"response": []
-				},
-				{
-					"name": "Check/uncheck a task",
-					"id": "14119b20-5741-4d17-b6ec-e12a5b1a8180",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"done\": false\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "localhost:8000/api/task/1/"
-					},
-					"response": []
 				}
 			],
 			"id": "5929d83e-676c-4942-980d-9adb75372c63"
