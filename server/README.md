@@ -22,44 +22,88 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 - Python 3.x
 - pip (gestionnaire de paquets pour Python)
 - virtualenv (optionnel mais recommandé)
+- PostgreSQL installé ([https://www.postgresql.org/download/](https://www.postgresql.org/download/))
 
 ## Installation
 
-1. Clonez le dépôt :
+1. ### Clonez le dépôt :
 ```bash
    git clone https://github.com/votre-utilisateur/gobiloc.git
    cd gobiloc
+   cd server
 ```
-Créez et activez un environnement virtuel :
+
+2. ### PostgreSQL :
+
+a. Assurez vous d'avoir PostgreSQL d'installé :
+
 ```bash
-python -m venv env
+psql --version
 ```
-source env/bin/activate  # Sur Windows, utilisez `env\Scripts\activate`
-Installez les dépendances requises :
+
+Si la commande n'est pas reconnue, soit vous devez installer PostgreSQL, soit ajouter le dossier bin de votre pgSQL aux variables d'environnement (Windows).
+
+b. Créer la base de donnée :
+
+Connectez vous à postgreSQL (ici avec l'identifiant "postgres") :
+
+```bash
+psql -U postgres
+```
+
+Un prompt demandera de rentrer le mot de passe correspondant.
+
+Ensuite créer la DB :
+
+```bash
+CREATE DATABASE gobiloc;
+\l
+```
+
+La seconde ligne sert à liste les DB, et donc à voir si elle a bien été créée.
+
+2. ### Créer et activer un environnement virtuel pour installer les dépendances du projet uniquement sur notre projet
+
+a. Créez un environnement virtuel, à la racine du dossier server :
+```bash
+py -m venv env
+```
+b. Activez l'environnement virtuel :  
+- sur linux :
+    ```bash
+    source env/bin/activate
+    ```
+- sur windows : 
+    ```bash
+    .\env\Scripts\activate
+    ```
+c. Installez les dépendances requises :
 ```bash
 pip install -r requirements.txt
 ```
-Appliquez les migrations pour configurer la base de données :
-```bash
-python manage.py migrate
-```
-Créez un super utilisateur pour accéder à l'admin Django :
-```bash
-python manage.py createsuperuser
-```
-## Configuration
 
-Copiez le fichier .env.example en .env et modifiez les valeurs selon vos besoins :
+3. ### Préparer le lancement du server
+
+a. Copiez le fichier .env.example en .env et modifiez les valeurs selon vos besoins :
 ```bash
 cp .env.example .env
 ```
-Modifiez le fichier .env pour y ajouter vos configurations de base de données, de clé secrète, etc.
+Modifiez le fichier .env pour y ajouter vos configurations de base de 
+
+b. Appliquez les migrations pour configurer la base de données :
+```bash
+py manage.py migrate
+```
+c. Créez un super utilisateur pour accéder à l'admin Django :
+```bash
+py manage.py createsuperuser
+```
 
 ## Démarrage
 
 Pour démarrer le serveur de développement, utilisez la commande suivante :
 ```bash
-python manage.py runserver
+py manage.py runserver
 ```
 Le serveur sera accessible à l'adresse http://127.0.0.1:8000.
 
@@ -71,7 +115,7 @@ Les endpoints de l'API sont documentés via la doc API_DOC.md dans le repo.
 
 Pour exécuter les tests, utilisez la commande suivante :
 ```bash
-python manage.py test
+py manage.py test
 ```
 
 ## Déploiement
@@ -81,6 +125,18 @@ Configurez une base de données PostgreSQL.
 Mettez à jour le fichier .env avec les paramètres de la base de données PostgreSQL.
 Utilisez un serveur web comme Gunicorn avec un proxy inverse comme Nginx.
 Configurez les paramètres de production dans settings.py (DEBUG=False, ALLOWED_HOSTS, etc.)
+
+## Tests
+
+```bash
+py manage.py test
+```
+
+To execute only tests of a specific file : 
+
+```bash
+py manage.py test api.path.to.test.file
+```
 
 ## Contribution
 

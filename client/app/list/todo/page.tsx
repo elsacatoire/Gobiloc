@@ -1,10 +1,10 @@
 'use client'
 
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox"
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Button } from "@/app/components/ui/button";
+import { Card, CardHeader } from "@/app/components/ui/card";
+import { Checkbox } from "@/app/components/ui/checkbox"
+import { Input } from "@/app/components/ui/input";
+import { Label } from "@/app/components/ui/label";
 import {
     Table,
     TableBody,
@@ -13,7 +13,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/table"
+} from "@/app/components/ui/table"
 
 import { Trash2, Pencil } from "lucide-react"
 

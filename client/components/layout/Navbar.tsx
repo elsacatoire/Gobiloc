@@ -2,15 +2,15 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/app/components/ui/button"
 import { CalendarFold, Pentagon, SquareCheck, Folder, MessageSquare } from "lucide-react"
 
 import {
     NavigationMenu,
     NavigationMenuItem,
     NavigationMenuList,
-} from "@/components/ui/navigation-menu"
-import { NavMenu } from "@/enums/NavMenu"
+} from "@/app/components/ui/navigation-menu"
+import { NavMenu } from "@/app/enums/NavMenu"
 
 export function NavigationBar() {
     return (

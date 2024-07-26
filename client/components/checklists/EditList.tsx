@@ -1,9 +1,9 @@
 import React, { FormEvent, useState } from 'react'
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
-import { Button } from '../ui/button'
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '../../app/components/ui/dialog'
+import { Button } from '../../app/components/ui/button'
 import { Import, Pencil } from 'lucide-react'
-import { Label } from '../ui/label'
-import { Input } from '../ui/input'
+import { Label } from '../../app/components/ui/label'
+import { Input } from '../../app/components/ui/input'
 import axios from 'axios'
 import router from 'next/router'
 

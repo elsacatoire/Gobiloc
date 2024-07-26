@@ -134,7 +134,7 @@ If flat doesn't exist, 404 with :
 }
 
 
-## TODOS
+## TODO
 
 ### CREATE /api/todo/
 
@@ -195,12 +195,30 @@ Should return all todos for a flat using the flat_id.
 > 	]<br>
 > }<br>
 
-If no todos for this flat, return the empty list. Or is it ?
+If no todos for this flat, return the empty list.
 
 #### <u>Error cases</u> :
 
-If flat doesn't exist :
+If flat doesn't exist, 404 with :
 
-/!\ Not Implemented Yet
+>{<br>
+	"detail": "Not found."<br>
+}
+
+### DELETE /api/todo/{id}/
+
+#### No body. Return 204.
+
+#### <u>Error cases</u> :
+
+If todo doesn't exist, 404 with :
+
+>{<br>
+	"detail": "Not found."<br>
+}
+
+## TASK
+
+
 
 This was written with love and energy drink

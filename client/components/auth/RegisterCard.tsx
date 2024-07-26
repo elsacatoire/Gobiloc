@@ -4,7 +4,7 @@ import React, { useState, FormEvent } from "react";
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/app/components/ui/button"
 import {
     Card,
     CardContent,
@@ -12,9 +12,9 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/app/components/ui/card"
+import { Input } from "@/app/components/ui/input"
+import { Label } from "@/app/components/ui/label"
 import LogoFullName from "../design/LogoFullName";
 import Link from "next/link";
 
