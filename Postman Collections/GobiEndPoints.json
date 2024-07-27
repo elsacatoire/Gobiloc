@@ -257,6 +257,19 @@
 							"response": []
 						},
 						{
+							"name": "Delete a task",
+							"id": "c36f9ef1-e834-4222-8259-461d0688177d",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:8000/api/task/1"
+							},
+							"response": []
+						},
+						{
 							"name": "Get all tasks from a todo",
 							"id": "c22ddf7f-13e6-46fd-8e70-303542b23b26",
 							"protocolProfileBehavior": {
