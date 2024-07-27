@@ -24,8 +24,6 @@ export default function Lists() {
         const getAllTodos = async () => {
             try {
                 const data = await fetchTodos(1);
-                console.log('dataTODOS=>', data);
-
                 if (Array.isArray(data.todos)) {
                     setTodos(data.todos);
                 } else {
