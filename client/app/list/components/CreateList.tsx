@@ -37,11 +37,12 @@ export const CreateList: React.FC = () => {
     const [isShared, setIsShared] = useState(false); // TODO BACK
     const [error, setError] = useState<string | null>(null);
 
-    /* ----- UPDATE todo name ----- */
+    /* ----- SET todo name ----- */
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
     };
 
+    /* ----- POST todo ----- */
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError(null);
@@ -64,6 +65,7 @@ export const CreateList: React.FC = () => {
         setIsShared(booleanValue);
     };
 
+    /* ----- Render of my beautiful form ----- */
     return (
         <Dialog>
             <DialogTrigger asChild>

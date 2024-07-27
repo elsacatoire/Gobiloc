@@ -1,4 +1,5 @@
 'use client'
+
 import { CreateList } from "@/app/list/components/CreateList";
 import React, { useState, useEffect, useRef } from "react";
 import Link from 'next/link';
@@ -38,22 +39,6 @@ export default function Lists() {
         didMountRef.current = true;
     }, []);
 
-    if (isLoading) return (
-        <div className="flex flex-col min-h-screen">
-            <Header title={NavMenu.LISTS} />
-            <div className="flex-grow mt-12 p-3 overflow-y-auto">
-                <p>Loading...</p>
-            </div>
-        </div>
-
-    );
-    if (error) return (
-        <div className="flex flex-col min-h-screen">
-            <Header title={NavMenu.LISTS} />
-            <p className="mt-12">Error: {error}</p>
-        </div>
-    );
-
     /* ----- DELETE a todo ----- */
     const handleDeleteTodo = async (_index: number, idToDelete: number, name: string) => {
         try {
@@ -65,6 +50,12 @@ export default function Lists() {
         }
     };
 
+    /* ----- Render Loading or Error State ----- */
+    if (isLoading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
+
+
+    /* ----- Render when everything is cooooool ----- */
     return (
         <div className="flex flex-col min-h-screen">
             <Header title={NavMenu.LISTS} />
