@@ -1,6 +1,6 @@
 'use client'
 
-import { checkTask, createTask } from "@/api/services/taskService";
+import { checkTask, createTask, deleteTask } from "@/api/services/taskService";
 import { fetchTodo } from "@/api/services/todoService";
 import { Button } from "@/app/components/ui/button";
 import { Card, CardHeader } from "@/app/components/ui/card";
@@ -23,23 +23,21 @@ import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 export default function Todo() {
-    /* ----- GET todo ----- */
+
     const [currentTodo, setCurrentTodo] = useState<TodoType>();
     const [allTasks, setAllTasks] = useState<Array<TaskType>>([]);
     const [isLoading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null);
     const params = useParams<{ listId: string }>() // use the slug for the route with folder [listId]
+    const currentTodoId = Number(params.listId)
     const didMountRef = useRef(false);
 
-    const currentTodoId = Number(params.listId)
-
+    /* ----- GET all the todo's infos et tasks ----- */
     useEffect(() => {
         if (didMountRef.current) return; // prevent double api call
         if (!currentTodoId) return;
         const getTodoData = async () => {
             try {
-                console.log("currentTodoId=", currentTodoId);
-
                 const data = await fetchTodo(currentTodoId);
                 setCurrentTodo(data);
                 setAllTasks(data.tasks || []);
@@ -49,7 +47,6 @@ export default function Todo() {
                 setLoading(false);
             }
         };
-
         getTodoData();
         didMountRef.current = true;
     }, [currentTodoId]);
@@ -58,14 +55,18 @@ export default function Todo() {
     const [newTask, setNewTask] = useState('');
     const handleTaskAdd = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await createTask(currentTodoId, newTask);
-        if (newTask.trim() !== '') {
-            setAllTasks([...allTasks, { id: Date.now(), todo: currentTodoId, done: false, content: newTask }]);
-            setNewTask('');
+        try {
+            await createTask(currentTodoId, newTask);
+            if (newTask.trim() !== '') {
+                setAllTasks([...allTasks, { id: Date.now(), todo: currentTodoId, done: false, content: newTask }]);
+                setNewTask('');
+            }
+        } catch (error: any) {
+            setError(error.message)
         }
     };
 
-    /* ----- PATCH (Update) a todo ----- */
+    /* ----- PATCH (Update) a todo to change the checkbox' state ----- */
     const handleCheckBox = async (idToUpdate: number, state: boolean, index: number) => {
         try {
             if (state) {
@@ -79,21 +80,27 @@ export default function Todo() {
                 }
                 return task;
             }));
-        } catch (error) {
-            setError("Erreur lors de la mise à jour du todo. Veuillez réessayer.");
+        } catch (error: any) {
+            setError(error.message);
         }
     }
-
-    const tasksLeft = allTasks.filter(task => !task.done).length;
+    const tasksLeftToDo = allTasks.filter(task => !task.done).length;
 
     /* ----- DELETE a task ----- */
-    const handleDeleteTask = (indexToDelete: number) => {
-        setAllTasks(allTasks.filter((_, index) => index !== indexToDelete));
+    const handleDeleteTask = async (indexToDelete: number, taskId: number) => {
+        try {
+            await deleteTask(taskId)
+            setAllTasks(allTasks.filter((_, index) => index !== indexToDelete));
+        } catch (error: any) {
+            setError(error.message);
+        }
     };
 
+    /* **-_-** RENDER if data is loading or something went wrong **-_-** */
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
 
+    /* **-_-** RENDER when everything is ok and loaded **-_-** */
     return (
         <div className="flex flex-col min-h-screen">
             <Header title={NavMenu.LISTS} />
@@ -136,7 +143,7 @@ export default function Todo() {
                                     </TableCell>
                                     <TableCell className="justify-center">{task.content}</TableCell>
                                     <TableCell className="flex flex-row h-full">
-                                        <Button variant="ghost" size="icon" onClick={() => handleDeleteTask(index)}>
+                                        <Button variant="ghost" size="icon" onClick={() => handleDeleteTask(index, task.id)}>
                                             <Trash2 className="h-5 w-5 justify-center" />
                                         </Button>
                                         <Button variant="ghost" size="icon">
@@ -149,7 +156,7 @@ export default function Todo() {
                         <TableFooter>
                             <TableRow>
                                 <TableCell colSpan={4}>{allTasks.length} tâches</TableCell>
-                                <TableCell className="text-right">reste {tasksLeft}</TableCell>
+                                <TableCell className="text-right">reste {tasksLeftToDo}</TableCell>
                             </TableRow>
                         </TableFooter>
                     </Table>

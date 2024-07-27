@@ -22,6 +22,11 @@ export const createTask = async (idTodo: number, data: string) => {
     }
 };
 
-export const deleteTask = async (idTodo: number) => {
-
+export const deleteTask = async (idTask: number) => {
+    try {
+        const response = await axios.delete(`http://localhost:8000/api/task/${idTask}/`)
+        return response.data;
+    } catch (error) {
+        throw new Error("Erreur lors de la création. Veuillez réessayer.");
+    }
 };
