@@ -20,7 +20,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/app/components/ui/select";
-import axios from 'axios';
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
@@ -38,8 +37,21 @@ export const CreateList: React.FC = () => {
     const [isShared, setIsShared] = useState(false); // TODO BACK
     const [error, setError] = useState<string | null>(null);
 
+    /* ----- UPDATE todo name ----- */
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
+    };
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setError(null);
+        try {
+            const newTodo = { flat_share: flatShareId, name, category };
+            const response = await createTodo(newTodo);
+            router.push(`/list/${response.id}`);
+        } catch (error: any) {
+            setError(error.message); // TODO: Diplay errors on the page
+        }
     };
 
     const handleCategoryChange = (value: string) => {
@@ -50,28 +62,6 @@ export const CreateList: React.FC = () => {
         const selectedValue = (event.target as HTMLDivElement).getAttribute('data-value');
         const booleanValue = selectedValue === "true";
         setIsShared(booleanValue);
-    };
-
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setError(null);
-
-        try {
-            const response = await axios.post( // TODO response dans confirm snackbar ?
-                'http://localhost:8000/api/todo/',
-                { flat_share: flatShareId, name, category },
-            );
-
-            console.log(response);
-            // TODO : récup id de la todo créée
-            //const listId = response.data.id;
-
-
-        } catch {
-            setError("Identifiants incorrects. Veuillez réessayer."); // TODO: Diplay erros on the page
-        }
-        router.push('/list/1');
-        //router.push(`/todo/${listId}`);
     };
 
     return (

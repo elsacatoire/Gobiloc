@@ -20,7 +20,7 @@ export const fetchTodos = async (idFlat: number) => {
 
 export const createTodo = async (data: TodoDTO) => {
     try {
-        const response = await axios.post("http://localhost:8000/api/todo/", { data });
+        const response = await axios.post("http://localhost:8000/api/todo/", data);
         return response.data;
     } catch (error) {
         throw new Error("Erreur lors de la création. Veuillez réessayer.");

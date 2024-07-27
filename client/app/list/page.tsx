@@ -30,9 +30,8 @@ export default function Lists() {
                     setError("Données reçues incorrectes.");
                 }
                 setLoading(false);
-            } catch (error) {
-                // Erreurs de la requête
-                setError("Erreur lors de la récupération des listes. Veuillez réessayer.");
+            } catch (error: any) {
+                setError(error.message);
             }
         };
         getAllTodos();
@@ -59,11 +58,10 @@ export default function Lists() {
     const handleDeleteTodo = async (_index: number, idToDelete: number, name: string) => {
         try {
             await deleteTodo(idToDelete);
-
             // update list
             setTodos(todos.filter((_, index) => index !== _index));
-        } catch (error) {
-            setError("Erreur lors de la suppression du todo. Veuillez réessayer.");
+        } catch (error: any) {
+            setError(error.message);
         }
     };
 
