@@ -19,6 +19,7 @@ import {
 import { NavMenu } from "@/app/enums/NavMenu";
 import { Header } from "@/components/layout/Header";
 import { Trash2, Pencil } from "lucide-react"
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Todo() {
@@ -27,11 +28,13 @@ export default function Todo() {
     const [allTasks, setAllTasks] = useState<Array<TaskType>>([]);
     const [isLoading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null);
+    const params = useParams<{ listId: string }>() // use the slug for the route with folder [listId]
 
     useEffect(() => {
+        if (!params.listId) return;
         const getTodoData = async () => {
             try {
-                const data = await fetchTodo(1);
+                const data = await fetchTodo(Number(params.listId));
                 setCurrentTodo(data);
                 let tasks = [{ id: 1, done: true, task: "Concombre" },
                 { id: 2, done: false, task: "Cerises" },
@@ -46,7 +49,7 @@ export default function Todo() {
         };
 
         getTodoData();
-    }, []);
+    }, [params.listId]);
 
     /* ----- ADD a task ----- */
     const [newTask, setNewTask] = useState('');
@@ -104,7 +107,7 @@ export default function Todo() {
                                         value={newTask}
                                         onChange={(e) => setNewTask(e.target.value)}
                                         placeholder="Nouvelle tâche" />
-                                    <Button className="ml-1" variant='defaultSecondary' type="submit">Ajouter</Button>
+                                    <Button className="ml-1" variant='default' type="submit">Ajouter</Button>
                                 </div>
                             </form>
                         </div>
