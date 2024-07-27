@@ -1,6 +1,7 @@
 'use client';
 
 import { checkTask, createTask, deleteTask } from "@/api/services/taskService";
+import { updateTodoName } from "@/api/services/todoService";
 import { fetchTodo } from "@/api/services/todoService";
 import { Button } from "@/app/components/ui/button";
 import { Card, CardHeader } from "@/app/components/ui/card";
@@ -27,6 +28,8 @@ export default function Todo() {
     const [allTasks, setAllTasks] = useState<Array<TaskType>>([]);
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [isEditing, setEditing] = useState(false);
+    const [newTodoName, setNewTodoName] = useState('');
     const params = useParams<{ listId: string }>();
     const currentTodoId = Number(params.listId);
 
@@ -39,6 +42,7 @@ export default function Todo() {
                 const data = await fetchTodo(currentTodoId);
                 setCurrentTodo(data);
                 setAllTasks(data.tasks || []);
+                setNewTodoName(data.name);
                 setLoading(false);
             } catch (error: any) {
                 setError(error.message);
@@ -86,6 +90,23 @@ export default function Todo() {
         }
     };
 
+    /* ----- UPDATE todo name ----- */
+    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setNewTodoName(e.target.value);
+    };
+
+    const handleNameSave = async () => {
+        if (currentTodo && newTodoName.trim() !== '') {
+            try {
+                await updateTodoName(currentTodoId, newTodoName);
+                setCurrentTodo(prevTodo => prevTodo ? { ...prevTodo, name: newTodoName } : null);
+                setEditing(false);
+            } catch (error: any) {
+                setError(error.message);
+            }
+        }
+    };
+
     const tasksLeftToDo = allTasks.filter(task => !task.done).length;
 
     /* ----- Render Loading or Error State ----- */
@@ -100,9 +121,30 @@ export default function Todo() {
                 <Card>
                     <CardHeader>
                         <div>
-                            <h2 className="text-xl mb-4">Todo : {currentTodo ? currentTodo.name : "Loading..."}</h2>
+                            {isEditing ? (
+                                <div className="flex items-center">
+                                    <Input
+                                        type="text"
+                                        value={newTodoName}
+                                        onChange={handleNameChange}
+                                    />
+                                    <Button className="ml-1" variant="default" onClick={handleNameSave}>
+                                        Save
+                                    </Button>
+                                    <Button className="ml-1" variant="ghost" onClick={() => setEditing(false)}>
+                                        Cancel
+                                    </Button>
+                                </div>
+                            ) : (
+                                <div className="flex justify-between items-center">
+                                    <h2 className="text-xl mb-4">{currentTodo?.name}</h2>
+                                    <Button className="ml-2" variant="ghost" onClick={() => setEditing(true)}>
+                                        <Pencil color="teal" className="h-5 w-5" />
+                                    </Button>
+                                </div>
+                            )}
                             <form onSubmit={handleTaskAdd}>
-                                <Label>Ajouter une tâche</Label>
+                                <Label className="p-1">Ajouter une tâche</Label>
                                 <div className="flex flex-row">
                                     <Input
                                         type="text"
@@ -110,7 +152,7 @@ export default function Todo() {
                                         onChange={(e) => setNewTask(e.target.value)}
                                         placeholder="Nouvelle tâche"
                                     />
-                                    <Button className="ml-1" variant='default' type="submit">Ajouter</Button>
+                                    <Button className="ml-1" variant="default" type="submit">Ajouter</Button>
                                 </div>
                             </form>
                         </div>
@@ -124,7 +166,7 @@ export default function Todo() {
                             </TableRow>
                         </TableHeader>
                         <TableBody className="overflow-auto">
-                            {allTasks.map((task) => (
+                            {allTasks.map((task, index) => (
                                 <TableRow key={task.id}>
                                     <TableCell className="font-medium">
                                         <Checkbox
@@ -135,10 +177,10 @@ export default function Todo() {
                                     <TableCell className="justify-center">{task.content}</TableCell>
                                     <TableCell className="flex flex-row h-full">
                                         <Button variant="ghost" size="icon" onClick={() => handleDeleteTask(task.id)}>
-                                            <Trash2 className="h-5 w-5 justify-center" />
+                                            <Trash2 color='darkred' className="h-5 w-5 justify-center" />
                                         </Button>
                                         <Button variant="ghost" size="icon">
-                                            <Pencil className="h-5 w-5" />
+                                            <Pencil color="teal" className="h-5 w-5" />
                                         </Button>
                                     </TableCell>
                                 </TableRow>
