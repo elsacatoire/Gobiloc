@@ -95,7 +95,7 @@
 							"response": []
 						},
 						{
-							"name": "edit list name",
+							"name": "Edit list name",
 							"id": "e97e5f07-63a4-4c27-ba6f-217f04f1c08f",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
