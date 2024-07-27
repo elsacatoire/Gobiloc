@@ -8,4 +8,4 @@ from api.models.task_model import Task
 class TaskSerializer(ModelSerializer):
     class Meta:
         model = Task
-        fields = ['todo', 'content', 'done']
+        fields = ['id', 'todo', 'content', 'done']

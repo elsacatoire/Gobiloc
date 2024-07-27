@@ -1,5 +1,11 @@
 type TaskType = {
-    id: number,
-    done: boolean,
-    task: string
+    id: number;
+    todo: number;
+    done: boolean;
+    content: string;
+}
+
+type TaskDTO = {
+    todo: number,
+    content: string
 }

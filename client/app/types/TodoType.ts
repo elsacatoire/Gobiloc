@@ -4,6 +4,7 @@ type TodoType = {
     id: number;
     name: string;
     updateDate: string;
+    tasks: TaskType[]
 }
 
 type TodoDTO = {

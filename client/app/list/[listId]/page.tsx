@@ -1,6 +1,6 @@
 'use client'
 
-import { checkTask } from "@/api/services/taskService";
+import { checkTask, createTask } from "@/api/services/taskService";
 import { fetchTodo } from "@/api/services/todoService";
 import { Button } from "@/app/components/ui/button";
 import { Card, CardHeader } from "@/app/components/ui/card";
@@ -20,7 +20,7 @@ import { NavMenu } from "@/app/enums/NavMenu";
 import { Header } from "@/components/layout/Header";
 import { Trash2, Pencil } from "lucide-react"
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Todo() {
     /* ----- GET todo ----- */
@@ -29,18 +29,20 @@ export default function Todo() {
     const [isLoading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null);
     const params = useParams<{ listId: string }>() // use the slug for the route with folder [listId]
+    const didMountRef = useRef(false);
+
+    const currentTodoId = Number(params.listId)
 
     useEffect(() => {
-        if (!params.listId) return;
+        if (didMountRef.current) return; // prevent double api call
+        if (!currentTodoId) return;
         const getTodoData = async () => {
             try {
-                const data = await fetchTodo(Number(params.listId));
+                console.log("currentTodoId=", currentTodoId);
+
+                const data = await fetchTodo(currentTodoId);
                 setCurrentTodo(data);
-                let tasks = [{ id: 1, done: true, task: "Concombre" },
-                { id: 2, done: false, task: "Cerises" },
-                { id: 3, done: false, task: "Chocolat" },
-                { id: 4, done: false, task: "Graines de tournesol" }]
-                setAllTasks(tasks)
+                setAllTasks(data.tasks || []);
                 setLoading(false);
             } catch (error: any) {
                 setError(error.message);
@@ -49,14 +51,16 @@ export default function Todo() {
         };
 
         getTodoData();
-    }, [params.listId]);
+        didMountRef.current = true;
+    }, [currentTodoId]);
 
     /* ----- ADD a task ----- */
     const [newTask, setNewTask] = useState('');
-    const handleTaskAdd = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleTaskAdd = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        await createTask(currentTodoId, newTask);
         if (newTask.trim() !== '') {
-            setAllTasks([...allTasks, { id: 666,/* todo change */  done: false, task: newTask }]);
+            setAllTasks([...allTasks, { id: Date.now(), todo: currentTodoId, done: false, content: newTask }]);
             setNewTask('');
         }
     };
@@ -121,8 +125,8 @@ export default function Todo() {
                             </TableRow>
                         </TableHeader>
                         <TableBody className="overflow-auto">
-                            {allTasks.map((task, index) => (
-                                <TableRow key={task.task}>
+                            {currentTodo?.tasks.map((task, index) => (
+                                <TableRow key={index}>
                                     <TableCell colSpan={3} className="font-medium">
                                         <Checkbox
                                             checked={task.done}
@@ -130,7 +134,7 @@ export default function Todo() {
                                         />
                                         {task.done}
                                     </TableCell>
-                                    <TableCell className="justify-center">{task.task}</TableCell>
+                                    <TableCell className="justify-center">{task.content}</TableCell>
                                     <TableCell className="flex flex-row h-full">
                                         <Button variant="ghost" size="icon" onClick={() => handleDeleteTask(index)}>
                                             <Trash2 className="h-5 w-5 justify-center" />
