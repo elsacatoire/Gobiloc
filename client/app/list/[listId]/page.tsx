@@ -19,7 +19,7 @@ import {
 } from "@/app/components/ui/table";
 import { NavMenu } from "@/app/enums/NavMenu";
 import { Header } from "@/components/layout/Header";
-import { Trash2, Pencil } from "lucide-react";
+import { Trash2, Pencil, X, Check } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -129,10 +129,10 @@ export default function Todo() {
                                         onChange={handleNameChange}
                                     />
                                     <Button className="ml-1" variant="default" onClick={handleNameSave}>
-                                        Save
+                                        <Check className="h-5 w-5" />
                                     </Button>
                                     <Button className="ml-1" variant="ghost" onClick={() => setEditing(false)}>
-                                        Cancel
+                                        <X color="darkred" className="h-5 w-5" />
                                     </Button>
                                 </div>
                             ) : (
@@ -162,11 +162,11 @@ export default function Todo() {
                             <TableRow>
                                 <TableHead>Fait</TableHead>
                                 <TableHead className="justify-center">Tâche</TableHead>
-                                <TableHead className="text-right">Actions</TableHead>
+                                <TableHead className="text-right">Action</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody className="overflow-auto">
-                            {allTasks.map((task, index) => (
+                            {allTasks.map((task) => (
                                 <TableRow key={task.id}>
                                     <TableCell className="font-medium">
                                         <Checkbox
@@ -175,12 +175,9 @@ export default function Todo() {
                                         />
                                     </TableCell>
                                     <TableCell className="justify-center">{task.content}</TableCell>
-                                    <TableCell className="flex flex-row h-full">
+                                    <TableCell>
                                         <Button variant="ghost" size="icon" onClick={() => handleDeleteTask(task.id)}>
                                             <Trash2 color='darkred' className="h-5 w-5 justify-center" />
-                                        </Button>
-                                        <Button variant="ghost" size="icon">
-                                            <Pencil color="teal" className="h-5 w-5" />
                                         </Button>
                                     </TableCell>
                                 </TableRow>

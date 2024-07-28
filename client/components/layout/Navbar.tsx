@@ -1,47 +1,28 @@
-"use client"
+import React from "react";
+import Link from "next/link";
+import { CalendarFold, Pentagon, SquareCheck, Folder, MessageCircleMore } from "lucide-react";
 
-import * as React from "react"
-import Link from "next/link"
-import { Button } from "@/app/components/ui/button"
-import { CalendarFold, Pentagon, SquareCheck, Folder, MessageSquare } from "lucide-react"
-
-import {
-    NavigationMenu,
-    NavigationMenuItem,
-    NavigationMenuList,
-} from "@/app/components/ui/navigation-menu"
-import { NavMenu } from "@/app/enums/NavMenu"
+const menuItems = [
+    { href: "/", icon: Pentagon, text: "Home" },
+    { href: "/list", icon: SquareCheck, text: "Lists" },
+    { href: "/agenda", icon: CalendarFold, text: "Agenda" },
+    { href: "/safe", icon: Folder, text: "Safe" },
+    { href: "/messages", icon: MessageCircleMore, text: "Bulles" },
+];
 
 export function NavigationBar() {
     return (
-        <NavigationMenu>
-            <NavigationMenuList>
-                <NavigationMenuItem  >
-                    <Link href={"/"}>
-                        <Button className="flex-col" size="sm" variant="ghost"> <Pentagon /> {NavMenu.HOME}</Button>
-                    </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem >
-                    <Link href={"/list"}>
-                        <Button className="flex-col" size="sm" variant="ghost"> <SquareCheck /> {NavMenu.LISTS}</Button>
-                    </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem >
-                    <Link href={"/agenda"}>
-                        <Button className="flex-col" size="sm" variant="ghost"> <CalendarFold /> {NavMenu.AGENDA}</Button>
-                    </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem >
-                    <Link href={"/safe"}>
-                        <Button className="flex-col" size="sm" variant="ghost"><Folder /> {NavMenu.SAFE}</Button>
-                    </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem >
-                    <Link href={"/messages"}>
-                        <Button className="flex-col" size="sm" variant="ghost"> <MessageSquare /> {NavMenu.MESSAGES}</Button>
-                    </Link>
-                </NavigationMenuItem>
-            </NavigationMenuList>
-        </NavigationMenu>
-    )
+        <nav>
+            <ul className="flex justify-between bg-gray-800 text-white p-1 pt-2 md:p-4 sm:justify-end sm:gap-x-4 sm:pr-7">
+                {menuItems.map((item) => (
+                    <li key={item.href} className="flex">
+                        <Link href={item.href} className="flex flex-col items-center px-2">
+                            <item.icon strokeWidth={1} className="w-6 h-6" />
+                            <span className="text-xs">{item.text}</span>
+                        </Link>
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    );
 }
