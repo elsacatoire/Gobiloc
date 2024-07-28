@@ -12,7 +12,6 @@ import { Trash2 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { deleteTodo, fetchTodos } from "@/api/services/todoService";
 import { formatDate } from "../utils/formatDate";
-import { concatTasks } from "../utils/concatTasks";
 
 export default function Lists() {
     /* ----- GET all todos ----- */
