@@ -3,9 +3,8 @@ import Image from 'next/image';
 
 const LogoFullName = () => {
     return (
-        <Image
+        <img
             src="/images/gobilocShort.png"
-            width={200}
             height={50}
             alt="Gobiloc logo"
         />
