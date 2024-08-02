@@ -6,16 +6,59 @@
 - [TODOS](#todos)
 
 ## SIGN UP
-## Not complete
+
 ### POST /api/user/
 
-Expected JSON :
+#### Expected JSON :
 
 > {<br>
 > "username": "test",<br>
 > "email": "test@test.com",<br>
 > "password": "poisson44",<br>
 > }
+
+#### Return a **201** with username and email.
+
+#### <u>Error cases</u> :
+
+If username, email and/or password is missing, **400** :
+> {<br>
+>   'username': [<br>
+>     'This field is required.'<br>
+>   ],<br><br>
+>   'email': [<br>
+>     'This field is required.'<br>
+>   ]<br>
+> }
+
+Works the same if the username, email and/or password is blank ('username': ''), return a **400** with :
+> 'username': ['This field is required']
+
+If the username and/or the email are already taken, **409** :
+> {<br>
+> 'username': [<br>
+> "A user with that username already exists."<br>
+> ],<br><br>
+> 'email': [<br>
+> "user with this email already exists."<br>
+> ]<br>
+> }
+
+#### The followings are all about password validations, so they are all return a 400 and can all be found in { 'password': [] }.
+If the password is too similar to the username :
+> 'The password is too similar to the username.'
+
+If it's too similar to the email :
+> 'The password is too similar to the email.'
+
+If it's too short :
+> 'This password is too short. It must contain at least 8 characters.'
+
+If the password is too common :
+> 'This password is too common.'
+
+If the password is entirely numeric :
+> 'This password is entirely numeric.'
 
 ## LOGIN
 
