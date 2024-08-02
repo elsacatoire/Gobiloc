@@ -1,10 +1,10 @@
 # api/models/task_model.py
-
+from django.db import models
 from django.db.models import Model, ForeignKey, CharField, CASCADE, DateTimeField, BooleanField
 
 
 class Task(Model):
-    todo = ForeignKey("Todo", on_delete=CASCADE)
+    todo = models.ForeignKey('Todo', related_name='tasks', on_delete=models.CASCADE)
     content = CharField(max_length=127)
     done = BooleanField(default=False)
     update_date = DateTimeField(auto_now=True)

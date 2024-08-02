@@ -4,7 +4,7 @@ import React from 'react'
 
 const agenda = () => {
     return (
-        <div className='fixed'>
+        <div>
             <Header title={NavMenu.AGENDA} />
             <div>
                 agenda

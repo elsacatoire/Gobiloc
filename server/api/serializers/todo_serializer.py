@@ -3,11 +3,13 @@
 # DTO
 
 from rest_framework.serializers import ModelSerializer
-
-from api.models.todo_model import Todo
+from api.models import Todo
+from api.serializers.task_serializer import TaskSerializer
 
 
 class TodoSerializer(ModelSerializer):
+    tasks = TaskSerializer(many=True, read_only=True)
+
     class Meta:
         model = Todo
-        fields = ['flat_share', 'name', 'category']
+        fields = ['id', 'flat_share', 'name', 'category', 'tasks']

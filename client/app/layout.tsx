@@ -26,7 +26,7 @@ const RootLayout: FC<RootLayoutProps> = ({ children, Header }) => {
           <main className="flex-grow">
             {children}
           </main>
-          <footer className=" bg-gray-800 text-white p-2 md:p-4">
+          <footer>
             <NavigationBar />
           </footer>
         </div>

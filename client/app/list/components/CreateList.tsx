@@ -20,12 +20,12 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/app/components/ui/select";
-import axios from 'axios';
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import { ToggleGroup, ToggleGroupItem } from "@/app/components/ui/toggle-group";
 import { TodoCategory } from '@/app/enums/TodoCategory';
+import { createTodo } from "@/api/services/todoService";
 
 export const CreateList: React.FC = () => {
     const router = useRouter();
@@ -37,8 +37,22 @@ export const CreateList: React.FC = () => {
     const [isShared, setIsShared] = useState(false); // TODO BACK
     const [error, setError] = useState<string | null>(null);
 
+    /* ----- SET todo name ----- */
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
+    };
+
+    /* ----- POST todo ----- */
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setError(null);
+        try {
+            const newTodo = { flat_share: flatShareId, name, category };
+            const response = await createTodo(newTodo);
+            router.push(`/list/${response.id}`);
+        } catch (error: any) {
+            setError(error.message); // TODO: Diplay errors on the page
+        }
     };
 
     const handleCategoryChange = (value: string) => {
@@ -51,29 +65,15 @@ export const CreateList: React.FC = () => {
         setIsShared(booleanValue);
     };
 
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setError(null);
-
-        try {
-            const response = await axios.post( // TODO response dans confirm snackbar ?
-                'http://localhost:8000/api/todo/',
-                { flat_share: flatShareId, name, category },
-            );
-            console.log("response", response.data);
-
-        } catch {
-            setError("Identifiants incorrects. Veuillez réessayer."); // TODO: Diplay erros on the page
-        }
-        router.push('/list/todo');
-    };
-
+    /* ----- Render of my beautiful form ----- */
     return (
         <Dialog>
-            <DialogTrigger>
-                <Button variant="defaultSecondary">
-                    <Plus className="mr-2 h-4 w-4" />Todo
-                </Button>
+            <DialogTrigger asChild>
+                <span>
+                    <Button variant="secondary">
+                        <Plus className="mr-2 h-4 w-4" />Todo
+                    </Button>
+                </span>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <form onSubmit={handleSubmit}>

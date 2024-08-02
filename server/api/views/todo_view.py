@@ -30,5 +30,14 @@ class TodoViewSet(ModelViewSet):
         get_object_or_404(FlatShare, pk=flat_share_id)
 
         # If flat_share is found, proceed to get todos
-        todos = Todo.objects.filter(flat_share__id=flat_share_id).values()
-        return Response({"todos": todos}, status=status.HTTP_200_OK)
+        todos = Todo.objects.filter(flat_share__id=flat_share_id).order_by("-updateDate")
+        return Response({"todos": todos.values()}, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=['GET'], url_path='tasks')
+    def get_todo_with_tasks(self, request, pk=None):
+        """
+        Get a single to-do with all its tasks
+        """
+        todo = get_object_or_404(Todo, pk=pk)
+        serializer = TodoSerializer(todo)
+        return Response(serializer.data, status=status.HTTP_200_OK)
