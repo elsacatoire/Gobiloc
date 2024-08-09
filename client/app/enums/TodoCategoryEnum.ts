@@ -17,11 +17,13 @@ export const categoryMap: { [key: number]: TodoCategory } = {
 
 // Function to get a category name by id
 export function getCategoryName(categoryId: number | null): string {
+    console.log('debug categoryId enum,', categoryId, typeof (categoryId));
+
     return categoryId !== null ? categoryMap[categoryId] || TodoCategory.OTHER : TodoCategory.OTHER;
 }
 
 // Function to get a category id by name
-export function getCategoryId(categoryName: TodoCategory): number | null {
+export function getCategoryId(categoryName: TodoCategory): string | null {
     const entry = Object.entries(categoryMap).find(([, value]) => value === categoryName);
-    return entry ? Number(entry[0]) : null;
+    return entry ? entry[0] : null;
 }

@@ -31,7 +31,7 @@ export const CreateList: React.FC = () => {
     const router = useRouter();
 
     // Local inputs' states
-    const [category, setCategory] = useState<number | null>(null);
+    const [category, setCategory] = useState<string | null>(null);
     const [name, setName] = useState('Todo');
     const [flatShareId, setflatShareId] = useState(1); // TODO :implements get flat id from user
     const [isShared, setIsShared] = useState(false); // TODO BACK
@@ -47,19 +47,14 @@ export const CreateList: React.FC = () => {
         e.preventDefault();
         setError(null);
         try {
-            // Prepare the new Todo object
+            console.log('testcategory', category, typeof (category));
+
             const newTodo = { flat_share: flatShareId, name, category };
-            console.log('newTodo=>>', newTodo);
+            console.log("category=====>", category, typeof (category));
 
-            // Create the Todo and get the response
-            const response = await createTodo(newTodo);
-
-            // Ensure that response contains the ID and other relevant details
-            const createdTodo = response; // Adjust based on what your API returns
-
-            // Log or use createdTodo to verify its contents
-            console.log('createdTodo=>>', createdTodo);
-            router.push(`/list/${response.id}`);
+            console.log("newTodo=>", newTodo);
+            //const response = await createTodo(newTodo);
+            //router.push(`/list/${response.id}`);
         } catch (error: any) {
             setError(error.message); // TODO: Display errors on the page
         }
@@ -67,6 +62,8 @@ export const CreateList: React.FC = () => {
 
     const handleCategoryChange = (value: string) => {
         const selectedCategoryId = getCategoryId(value as TodoCategory);
+        console.log('selectedCategoryId', selectedCategoryId, typeof (selectedCategoryId));
+
         setCategory(selectedCategoryId);
     };
 
@@ -101,7 +98,7 @@ export const CreateList: React.FC = () => {
                             </Label>
                             <Select onValueChange={handleCategoryChange}>
                                 <SelectTrigger className="w-[230px]">
-                                    <SelectValue placeholder={category !== null ? getCategoryName(category) : 'Choisir un type'} />
+                                    <SelectValue placeholder={category !== null ? getCategoryName(parseInt(category)) : 'Choisir un type'} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectGroup>

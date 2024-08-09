@@ -1,5 +1,5 @@
 export type TodoType = {
-    category_id: null | number;
+    category: number;
     flat_share_id: number;
     id: number;
     name: string;
@@ -14,7 +14,7 @@ export type TodoDTO = {
 }
 
 export const emptyTodo: TodoType = {
-    category_id: null,
+    category: 0,
     flat_share_id: 0,
     id: 0,
     name: 'emptyTodo not uploaded',
@@ -23,7 +23,7 @@ export const emptyTodo: TodoType = {
 }
 
 export const errorTodo: TodoType = {
-    category_id: null,
+    category: 0,
     flat_share_id: 0,
     id: 0,
     name: 'error',

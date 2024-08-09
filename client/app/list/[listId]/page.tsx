@@ -41,11 +41,11 @@ export default function Todo() {
             if (!currentTodoId) return;
             try {
                 setLoading(true);
-                const data = await fetchTodo(currentTodoId);
+                const data: TodoType = await fetchTodo(currentTodoId);
                 setCurrentTodo(data);
                 console.log('data ===>', data);
 
-                console.log("categoryId=====>", data.category_id);
+                console.log("categoryId=====>", data.category);
 
                 setAllTasks(data.tasks || []);
                 setNewTodoName(data.name);
@@ -146,7 +146,7 @@ export default function Todo() {
                                     <div>
                                         <h2 className="text-xl mb-4">{currentTodo?.name}</h2>
 
-                                        <p className="text-sm text-gray-600">Catégorie : {getCategoryName(currentTodo.category_id) || ""}</p>
+                                        <p className="text-sm text-gray-600">Catégorie : {getCategoryName(currentTodo.category) || ""}</p>
                                     </div>
                                     <Button className="ml-2" variant="ghost" onClick={() => setEditing(true)}>
                                         <Pencil color="teal" className="h-5 w-5" />

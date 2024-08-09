@@ -27,6 +27,8 @@ export default function Lists() {
         const getAllTodos = async () => {
             try {
                 const data = await fetchTodos(1);
+                console.log('all todos =>>', data);
+
                 if (Array.isArray(data.todos)) {
                     setTodos(data.todos);
                 } else {
@@ -42,7 +44,7 @@ export default function Lists() {
     }, []);
 
     /* ----- DELETE a todo ----- */
-    const handleDeleteTodo = async (_index: number, idToDelete: number, name: string) => {
+    const handleDeleteTodo = async (_index: number, idToDelete: number) => {
         try {
             await deleteTodo(idToDelete);
             // update list
@@ -77,7 +79,7 @@ export default function Lists() {
                                             </div>
                                         </Link>
                                         <div className="flex pt-2">
-                                            <Button variant="destructive" size="icon" onClick={() => handleDeleteTodo(index, todo.id, todo.name)}>
+                                            <Button variant="destructive" size="icon" onClick={() => handleDeleteTodo(index, todo.id)}>
                                                 <Trash2 strokeWidth={1} color="white" className="h-5 w-5 justify-center" />
                                             </Button>
                                         </div>
