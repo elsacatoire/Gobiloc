@@ -26,7 +26,7 @@
 								}
 							}
 						},
-						"url": "localhost:8000/api/user/login/fff"
+						"url": "localhost:8000/api/user/login/"
 					},
 					"response": []
 				},
@@ -62,6 +62,11 @@
 					"name": "TODO",
 					"item": [
 						{
+							"name": "category",
+							"item": [],
+							"id": "7a6ed0cf-e80d-4abf-be2b-63c96095c2ea"
+						},
+						{
 							"name": "Create todo",
 							"id": "92f9595f-c8d2-42b1-a978-a4c095e3c00f",
 							"protocolProfileBehavior": {
@@ -83,7 +88,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "    {\r\n        \"flat_share\": 9,\r\n        \"name\": \"LFI\",\r\n        \"category\": null\r\n    }",
+									"raw": "    {\r\n        \"flat_share\": 9,\r\n        \"name\": \"meluch\",\r\n        \"category\": null\r\n    }",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -167,7 +172,29 @@
 										}
 									}
 								},
-								"url": "localhost:8000/api/todo/flat/1/"
+								"url": "localhost:8000/api/todo/1/"
+							},
+							"response": []
+						},
+						{
+							"name": "Get a todo Copy",
+							"id": "2872e77d-4681-4fb0-a1c6-a6b84bf74641",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"coucou\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8000/api/todo/1/"
 							},
 							"response": []
 						},
@@ -232,7 +259,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"todo\": 3,\r\n    \"content\": \"du vin\"\r\n}",
+									"raw": "{\r\n    \"todo\": 1,\r\n    \"content\": \"du vin\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -263,9 +290,9 @@
 								"disableBodyPruning": true
 							},
 							"request": {
-								"method": "GET",
+								"method": "DELETE",
 								"header": [],
-								"url": "localhost:8000/api/task/1"
+								"url": "localhost:8000/api/task/4/"
 							},
 							"response": []
 						},
@@ -278,7 +305,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "localhost:8000/api/todo/1"
+								"url": "localhost:8000/api/todo/1/tasks"
 							},
 							"response": []
 						},
@@ -293,7 +320,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"done\": false\r\n}",
+									"raw": "{\r\n    \"done\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -385,6 +412,34 @@
 				}
 			],
 			"id": "60cf8855-214f-4f25-9e2a-70a104715d68"
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": {}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "c670da05-75cd-43b9-873f-9ce10a21edc1",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b62ad3c0-7f1a-4730-90d7-f68cad48a26e",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
