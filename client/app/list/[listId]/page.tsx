@@ -18,13 +18,15 @@ import {
     TableRow,
 } from "@/app/components/ui/table";
 import { NavMenu } from "@/app/enums/NavMenuEnum";
+import { getCategoryName } from "@/app/enums/TodoCategoryEnum";
+import { emptyTodo, errorTodo, TodoType } from "@/app/types/TodoType";
 import { Header } from "@/components/layout/Header";
 import { Trash2, Pencil, X, Check } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Todo() {
-    const [currentTodo, setCurrentTodo] = useState<TodoType | null>(null);
+    const [currentTodo, setCurrentTodo] = useState<TodoType>(emptyTodo);
     const [allTasks, setAllTasks] = useState<Array<TaskType>>([]);
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -41,6 +43,10 @@ export default function Todo() {
                 setLoading(true);
                 const data = await fetchTodo(currentTodoId);
                 setCurrentTodo(data);
+                console.log('data ===>', data);
+
+                console.log("categoryId=====>", data.category_id);
+
                 setAllTasks(data.tasks || []);
                 setNewTodoName(data.name);
                 setLoading(false);
@@ -99,7 +105,7 @@ export default function Todo() {
         if (currentTodo && newTodoName.trim() !== '') {
             try {
                 await updateTodoName(currentTodoId, newTodoName);
-                setCurrentTodo(prevTodo => prevTodo ? { ...prevTodo, name: newTodoName } : null);
+                setCurrentTodo(prevTodo => prevTodo ? { ...prevTodo, name: newTodoName } : errorTodo);
                 setEditing(false);
             } catch (error: any) {
                 setError(error.message);
@@ -137,7 +143,11 @@ export default function Todo() {
                                 </div>
                             ) : (
                                 <div className="flex justify-between items-center">
-                                    <h2 className="text-xl mb-4">{currentTodo?.name}</h2>
+                                    <div>
+                                        <h2 className="text-xl mb-4">{currentTodo?.name}</h2>
+
+                                        <p className="text-sm text-gray-600">Catégorie : {getCategoryName(currentTodo.category_id) || ""}</p>
+                                    </div>
                                     <Button className="ml-2" variant="ghost" onClick={() => setEditing(true)}>
                                         <Pencil color="teal" className="h-5 w-5" />
                                     </Button>

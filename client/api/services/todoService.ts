@@ -1,3 +1,4 @@
+import { TodoDTO } from '@/app/types/TodoType';
 import axios from 'axios';
 
 export const fetchTodo = async (id: number) => {

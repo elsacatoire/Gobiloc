@@ -12,6 +12,8 @@ import { Trash2 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { deleteTodo, fetchTodos } from "@/api/services/todoService";
 import { formatDate } from "../utils/formatDate";
+import { getCategoryName } from "../enums/TodoCategoryEnum";
+import { TodoType } from "../types/TodoType";
 
 export default function Lists() {
     /* ----- GET all todos ----- */
@@ -71,6 +73,7 @@ export default function Lists() {
                                             <div className="w-60">
                                                 <p className="font-light text-xs">{formatDate(todo.updateDate)}</p>
                                                 <p className="font-semibold">{todo.name}</p>
+                                                <p>{getCategoryName(todo.category_id) || ""}</p>
                                             </div>
                                         </Link>
                                         <div className="flex pt-2">
@@ -82,7 +85,7 @@ export default function Lists() {
                                 </Card>
 
                             </div>
-                        ))) : <p>couocu</p>}
+                        ))) : <p>No todos</p>}
                 </div>
             </div>
             <div className="flex justify-center sticky bottom-0 p-2 z-50 bg-gradient-to-r from-cyan-400 to-amber-400">

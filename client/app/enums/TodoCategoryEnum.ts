@@ -6,7 +6,7 @@ export enum TodoCategory {
     OTHER = 'autre'
 }
 
-// Mapping between category_id and TodoCategory
+// Combined Mapping
 export const categoryMap: { [key: number]: TodoCategory } = {
     1: TodoCategory.GROCERY,
     2: TodoCategory.CLEANING,
@@ -15,21 +15,13 @@ export const categoryMap: { [key: number]: TodoCategory } = {
     5: TodoCategory.OTHER,
 };
 
-// Function to get a category with it's id
+// Function to get a category name by id
 export function getCategoryName(categoryId: number | null): string {
-    if (categoryId === null || categoryId === undefined) {
-        return TodoCategory.OTHER; // Valeur par défaut si null ou undefined
-    }
-    return categoryMap[categoryId] || TodoCategory.OTHER;
+    return categoryId !== null ? categoryMap[categoryId] || TodoCategory.OTHER : TodoCategory.OTHER;
 }
 
-
-export const categoryIdMap: { [key in TodoCategory]: number } = {
-    [TodoCategory.GROCERY]: 1,
-    [TodoCategory.CLEANING]: 2,
-    [TodoCategory.SHOPPING]: 3,
-    [TodoCategory.TODO]: 4,
-    [TodoCategory.OTHER]: 5,
-};
-
-
+// Function to get a category id by name
+export function getCategoryId(categoryName: TodoCategory): number | null {
+    const entry = Object.entries(categoryMap).find(([, value]) => value === categoryName);
+    return entry ? Number(entry[0]) : null;
+}
