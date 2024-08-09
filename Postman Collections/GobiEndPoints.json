@@ -63,7 +63,30 @@
 					"item": [
 						{
 							"name": "category",
-							"item": [],
+							"item": [
+								{
+									"name": "Get a category",
+									"id": "2872e77d-4681-4fb0-a1c6-a6b84bf74641",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"coucou\": \"1\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "localhost:8000/api/todo/1/"
+									},
+									"response": []
+								}
+							],
 							"id": "7a6ed0cf-e80d-4abf-be2b-63c96095c2ea"
 						},
 						{
@@ -157,28 +180,6 @@
 						{
 							"name": "Get a todo",
 							"id": "33455f5c-6540-4c29-9efa-f8c266298ad4",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"coucou\": \"1\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "localhost:8000/api/todo/1/"
-							},
-							"response": []
-						},
-						{
-							"name": "Get a todo Copy",
-							"id": "2872e77d-4681-4fb0-a1c6-a6b84bf74641",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
