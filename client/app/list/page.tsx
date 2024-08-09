@@ -7,7 +7,7 @@ import {
     Card,
 } from "@/app/components/ui/card";
 import { Header } from "@/components/layout/Header";
-import { NavMenu } from "@/app/enums/NavMenu";
+import { NavMenu } from "@/app/enums/NavMenuEnum";
 import { Trash2 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { deleteTodo, fetchTodos } from "@/api/services/todoService";

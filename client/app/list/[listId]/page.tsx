@@ -17,7 +17,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/app/components/ui/table";
-import { NavMenu } from "@/app/enums/NavMenu";
+import { NavMenu } from "@/app/enums/NavMenuEnum";
 import { Header } from "@/components/layout/Header";
 import { Trash2, Pencil, X, Check } from "lucide-react";
 import { useParams } from "next/navigation";

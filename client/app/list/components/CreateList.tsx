@@ -24,7 +24,7 @@ import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import { ToggleGroup, ToggleGroupItem } from "@/app/components/ui/toggle-group";
-import { TodoCategory } from '@/app/enums/TodoCategory';
+import { TodoCategory } from '@/app/enums/TodoCategoryEnum';
 import { createTodo } from "@/api/services/todoService";
 
 export const CreateList: React.FC = () => {

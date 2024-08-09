@@ -2,7 +2,7 @@ import * as React from "react";
 import Link from "next/link";
 import { Settings } from "lucide-react";
 import LogoLetter from "../design/LogoLetter";
-import { NavMenu } from "@/app/enums/NavMenu";
+import { NavMenu } from "@/app/enums/NavMenuEnum";
 
 interface HeaderProps {
     title: string;
