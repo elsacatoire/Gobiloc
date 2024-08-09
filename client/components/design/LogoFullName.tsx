@@ -4,8 +4,8 @@ import Image from 'next/image';
 const LogoFullName = () => {
     return (
         <img
+            className='w-2/3 max-w-xl'
             src="/images/gobilocShort.png"
-            height={50}
             alt="Gobiloc logo"
         />
     );
