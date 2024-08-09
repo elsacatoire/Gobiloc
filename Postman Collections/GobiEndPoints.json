@@ -123,7 +123,7 @@
 										}
 									}
 								},
-								"url": "localhost:8000/api/todo/1/"
+								"url": "localhost:8000/api/todo/111/"
 							},
 							"response": []
 						},
@@ -189,7 +189,7 @@
 										}
 									}
 								},
-								"url": "localhost:8000/api/todo/flat/1/"
+								"url": "localhost:8000/api/todo/1/tasks/"
 							},
 							"response": []
 						},
