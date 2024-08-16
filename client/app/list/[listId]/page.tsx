@@ -4,7 +4,7 @@ import { checkTask, createTask, deleteTask } from "@/api/services/taskService";
 import { updateTodoName } from "@/api/services/todoService";
 import { fetchTodo } from "@/api/services/todoService";
 import { Button } from "@/app/components/ui/button";
-import { Card, CardHeader } from "@/app/components/ui/card";
+import { Card, CardFooter, CardHeader } from "@/app/components/ui/card";
 import { Checkbox } from "@/app/components/ui/checkbox";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
@@ -28,6 +28,7 @@ import { useEffect, useState } from "react";
 export default function Todo() {
     const [currentTodo, setCurrentTodo] = useState<TodoType>(emptyTodo);
     const [allTasks, setAllTasks] = useState<Array<TaskType>>([]);
+    const [selectedTasks, setSelectedTasks] = useState<number[]>([]);
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [isEditing, setEditing] = useState(false);
@@ -43,10 +44,6 @@ export default function Todo() {
                 setLoading(true);
                 const data: TodoType = await fetchTodo(currentTodoId);
                 setCurrentTodo(data);
-                console.log('data ===>', data);
-
-                console.log("categoryId=====>", data.category);
-
                 setAllTasks(data.tasks || []);
                 setNewTodoName(data.name);
                 setLoading(false);
@@ -81,16 +78,42 @@ export default function Todo() {
                     task.id === idToUpdate ? { ...task, done: !task.done } : task
                 )
             );
+
+            if (!state) {
+                setSelectedTasks([...selectedTasks, idToUpdate]);
+            } else {
+                setSelectedTasks(selectedTasks.filter(id => id !== idToUpdate));
+            }
         } catch (error: any) {
             setError(error.message);
         }
     };
+
 
     /* ----- DELETE a task ----- */
     const handleDeleteTask = async (taskId: number) => {
         try {
             await deleteTask(taskId);
             setAllTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
+        } catch (error: any) {
+            setError(error.message);
+        }
+    };
+
+    const handleDeleteSelectedTasks = async () => {
+        try {
+            await Promise.all(selectedTasks.map(taskId => deleteTask(taskId)));
+            setAllTasks(prevTasks => prevTasks.filter(task => !selectedTasks.includes(task.id)));
+            setSelectedTasks([]); // Réinitialiser les tâches sélectionnées
+        } catch (error: any) {
+            setError(error.message);
+        }
+    };
+
+    const handleDeleteAllTasks = async () => {
+        try {
+            await Promise.all(allTasks.map(task => deleteTask(task.id)));
+            setAllTasks([]); // Vider la liste des tâches
         } catch (error: any) {
             setError(error.message);
         }
@@ -167,8 +190,12 @@ export default function Todo() {
                             </form>
                         </div>
                     </CardHeader>
-                    <Table>
+                    <Table className="rounded">
                         <TableHeader>
+                            <TableRow>
+                                <TableCell colSpan={2}>{allTasks.length} tâches</TableCell>
+                                <TableCell className="text-right">reste {tasksLeftToDo}</TableCell>
+                            </TableRow>
                             <TableRow>
                                 <TableHead>Fait</TableHead>
                                 <TableHead className="justify-center">Tâche</TableHead>
@@ -184,22 +211,37 @@ export default function Todo() {
                                             onCheckedChange={() => handleCheckBox(task.id, task.done)}
                                         />
                                     </TableCell>
-                                    <TableCell className="justify-center">{task.content}</TableCell>
-                                    <TableCell>
+                                    <TableCell className="text-left">{task.content}</TableCell> {/* Alignement à gauche */}
+                                    <TableCell className="text-right"> {/* Alignement à droite */}
                                         <Button variant="ghost" size="icon" onClick={() => handleDeleteTask(task.id)}>
-                                            <Trash2 color='darkred' className="h-5 w-5 justify-center" />
+                                            <Trash2 color='darkred' className="h-5 w-5" />
                                         </Button>
                                     </TableCell>
                                 </TableRow>
+
                             ))}
                         </TableBody>
-                        <TableFooter>
-                            <TableRow>
-                                <TableCell colSpan={2}>{allTasks.length} tâches</TableCell>
-                                <TableCell className="text-right">reste {tasksLeftToDo}</TableCell>
-                            </TableRow>
-                        </TableFooter>
                     </Table>
+                    <div className="bg-slate-50 rounded-b-lg flex flex-wrap items-center justify-center gap-x-5 gap-y-1 p-3">
+                        <Button
+                            variant="default"
+                            className="flex gap-1"
+                            onClick={handleDeleteSelectedTasks}
+                            disabled={selectedTasks.length === 0}
+                        >
+                            <Trash2 color='white' className="h-5 w-5 m-1 justify-left" />
+                            <span> Supprimer sélection</span>
+                        </Button>
+                        <Button
+                            variant="destructive"
+                            className="flex gap-1"
+                            onClick={handleDeleteAllTasks}
+                            disabled={allTasks.length === 0}
+                        >
+                            <Trash2 color='white' className="h-5 w-5 m-1 justify-left" />
+                            <span> Supprimer tout</span>
+                        </Button>
+                    </div>
                 </Card>
             </div>
         </div>

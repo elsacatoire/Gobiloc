@@ -53,8 +53,8 @@ export const CreateList: React.FC = () => {
             console.log("category=====>", category, typeof (category));
 
             console.log("newTodo=>", newTodo);
-            //const response = await createTodo(newTodo);
-            //router.push(`/list/${response.id}`);
+            const response = await createTodo(newTodo);
+            router.push(`/list/${response.id}`);
         } catch (error: any) {
             setError(error.message); // TODO: Display errors on the page
         }
