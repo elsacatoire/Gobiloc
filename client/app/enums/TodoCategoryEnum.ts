@@ -17,8 +17,6 @@ export const categoryMap: { [key: number]: TodoCategory } = {
 
 // Function to get a category name by id
 export function getCategoryName(categoryId: number | null): string {
-    console.log('debug categoryId enum,', categoryId, typeof (categoryId));
-
     return categoryId !== null ? categoryMap[categoryId] || TodoCategory.OTHER : TodoCategory.OTHER;
 }
 
