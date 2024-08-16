@@ -1,12 +1,13 @@
 # api/views/user_view.py
+
 from django.core.validators import validate_email
 from rest_framework.decorators import action
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.exceptions import ValidationError as DRFValidationError
+from rest_framework.exceptions import ValidationError as DRFValidationError, NotAuthenticated
 from django.core.exceptions import ValidationError as DjangoValidationError, ValidationError
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 from api.serializers.user_serializer import UserSerializer
 
@@ -66,3 +67,18 @@ class UserViewSet(ModelViewSet):
             request.session.set_expiry(60*60*24*90)
 
         return Response({'status': 'Login Success'}, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['delete'])
+    def logout(self, request):
+        """
+        Log out the user from the app
+        """
+        try:
+            if not request.user.is_authenticated:
+                raise NotAuthenticated('No user is currently logged in.')
+            logout(request)
+            request.session.flush()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
