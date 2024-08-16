@@ -2,6 +2,7 @@
 
 - [SIGN-UP](#sign-up)
 - [LOGIN](#login)
+- [LOGOUT](#logout)
 - [FLAT SHARE](#flat_share)
 - [TODOS](#todos)
 
@@ -56,6 +57,19 @@ If the "email" in the request is not of email format, it returns a 400 :
 If the credentials in the request doesn't match anything in the DB, returns a 401 :
 
 > "error": "Invalid Credentials"
+
+
+## LOGOUT
+
+### DELETE /api/user/logout/
+
+#### If successful, should return a 204
+
+#### Error Cases :
+
+Return a 204 with :
+
+> "error": "The error message"
 
 
 ## FLAT_SHARE

@@ -19,7 +19,6 @@ class LogoutTest(APITestCase):
     @patch('django.contrib.auth.logout')
     def test_successful_logout(self, mock_logout):
         """Test successful logout."""
-
         response = self.client.delete(self.logout_url)
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)

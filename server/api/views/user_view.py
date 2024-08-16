@@ -73,7 +73,6 @@ class UserViewSet(ModelViewSet):
         """
         Log out the user from the app
         """
-
         try:
             if not request.user.is_authenticated:
                 raise NotAuthenticated('No user is currently logged in.')
