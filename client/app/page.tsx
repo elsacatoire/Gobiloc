@@ -1,7 +1,7 @@
 'use client'
 
-import LogoFullName from "@/components/design/LogoFullName";
-import { Header } from "@/components/layout/Header";
+import LogoFullName from "@/app/components/customsComponents/design/LogoFullName";
+import { Header } from "@/app/components/customsComponents/layout/Header";
 import { Button } from "@/app/components/ui/button";
 import { NavMenu } from "@/app/enums/NavMenuEnum";
 import Link from "next/link";
@@ -22,10 +22,11 @@ export default function Home() {
         <Header title={NavMenu.HOME} />
       </div>
       <div className="relative flex flex-col items-center justify-center min-h-screen p-4 overflow-hidden">
-        <h2 className="text-xl md:text-2xl mb-4 text-center">Bienvenue dans Gobiloc</h2>
+        <h2 className="text-xl md:text-2xl mb-4 text-center">Bienvenue dans</h2>
         <div className="flex justify-center items-center w-full">
           <LogoFullName />
         </div>
+        <p>Le vivre ensemble facile</p>
         <div className="flex flex-col md:flex-row items-center justify-center w-full mt-4">
           <Link href="/register">
             <Button className="mr-0 md:mr-3 mb-3 md:mb-0" variant="defaultSecondary">

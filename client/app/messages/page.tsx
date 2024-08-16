@@ -1,4 +1,4 @@
-import { Header } from '@/components/layout/Header'
+import { Header } from '@/app/components/customsComponents/layout/Header'
 import { NavMenu } from '@/app/enums/NavMenuEnum'
 import React from 'react'
 

@@ -1,8 +1,8 @@
 import * as React from "react";
 import Link from "next/link";
-import { Settings } from "lucide-react";
 import LogoLetter from "../design/LogoLetter";
 import { NavMenu } from "@/app/enums/NavMenuEnum";
+import Avatar from "@/app/userProfile/components/Avatar";
 
 interface HeaderProps {
     title: string;
@@ -17,8 +17,8 @@ export function Header({ title }: HeaderProps) {
                 </Link>
                 <h1 className="absolute left-1/2 font-bold transform -translate-x-1/2 text-xl sm:text-2xl md:text-1xl">{title}</h1>
                 {title !== NavMenu.HOME ? (
-                    <Link href='/settings'>
-                        <Settings />
+                    <Link href='/userProfile'>
+                        <Avatar src="/images/avatar3.jpg" alt="Avatar" />
                     </Link>
                 ) : (
                     <div className="w-6"></div> // Espace réservé pour le bouton "Settings"

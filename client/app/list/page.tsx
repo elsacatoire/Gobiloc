@@ -6,7 +6,7 @@ import Link from 'next/link';
 import {
     Card,
 } from "@/app/components/ui/card";
-import { Header } from "@/components/layout/Header";
+import { Header } from "@/app/components/customsComponents/layout/Header";
 import { NavMenu } from "@/app/enums/NavMenuEnum";
 import { Trash2 } from "lucide-react";
 import { Button } from "../components/ui/button";
