@@ -4,7 +4,7 @@ import { checkTask, createTask, deleteTask } from "@/api/services/taskService";
 import { updateTodoName } from "@/api/services/todoService";
 import { fetchTodo } from "@/api/services/todoService";
 import { Button } from "@/app/components/ui/button";
-import { Card, CardFooter, CardHeader } from "@/app/components/ui/card";
+import { Card, CardHeader } from "@/app/components/ui/card";
 import { Checkbox } from "@/app/components/ui/checkbox";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
@@ -12,7 +12,6 @@ import {
     Table,
     TableBody,
     TableCell,
-    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
