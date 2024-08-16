@@ -12,20 +12,24 @@ import {
     Table,
     TableBody,
     TableCell,
-    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/app/components/ui/table";
-import { NavMenu } from "@/app/enums/NavMenu";
+import { NavMenu } from "@/app/enums/NavMenuEnum";
+import { getCategoryName } from "@/app/enums/TodoCategoryEnum";
+import { TaskType } from "@/app/types/TaskType";
+import { emptyTodo, errorTodo, TodoType } from "@/app/types/TodoType";
 import { Header } from "@/components/layout/Header";
 import { Trash2, Pencil, X, Check } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import TaskTable from "../components/TableTasks";
 
 export default function Todo() {
-    const [currentTodo, setCurrentTodo] = useState<TodoType | null>(null);
+    const [currentTodo, setCurrentTodo] = useState<TodoType>(emptyTodo);
     const [allTasks, setAllTasks] = useState<Array<TaskType>>([]);
+    const [selectedTasks, setSelectedTasks] = useState<number[]>([]);
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [isEditing, setEditing] = useState(false);
@@ -39,7 +43,7 @@ export default function Todo() {
             if (!currentTodoId) return;
             try {
                 setLoading(true);
-                const data = await fetchTodo(currentTodoId);
+                const data: TodoType = await fetchTodo(currentTodoId);
                 setCurrentTodo(data);
                 setAllTasks(data.tasks || []);
                 setNewTodoName(data.name);
@@ -75,16 +79,42 @@ export default function Todo() {
                     task.id === idToUpdate ? { ...task, done: !task.done } : task
                 )
             );
+
+            if (!state) {
+                setSelectedTasks([...selectedTasks, idToUpdate]);
+            } else {
+                setSelectedTasks(selectedTasks.filter(id => id !== idToUpdate));
+            }
         } catch (error: any) {
             setError(error.message);
         }
     };
+
 
     /* ----- DELETE a task ----- */
     const handleDeleteTask = async (taskId: number) => {
         try {
             await deleteTask(taskId);
             setAllTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
+        } catch (error: any) {
+            setError(error.message);
+        }
+    };
+
+    const handleDeleteSelectedTasks = async () => {
+        try {
+            await Promise.all(selectedTasks.map(taskId => deleteTask(taskId)));
+            setAllTasks(prevTasks => prevTasks.filter(task => !selectedTasks.includes(task.id)));
+            setSelectedTasks([]); // Réinitialiser les tâches sélectionnées
+        } catch (error: any) {
+            setError(error.message);
+        }
+    };
+
+    const handleDeleteAllTasks = async () => {
+        try {
+            await Promise.all(allTasks.map(task => deleteTask(task.id)));
+            setAllTasks([]); // Vider la liste des tâches
         } catch (error: any) {
             setError(error.message);
         }
@@ -99,7 +129,7 @@ export default function Todo() {
         if (currentTodo && newTodoName.trim() !== '') {
             try {
                 await updateTodoName(currentTodoId, newTodoName);
-                setCurrentTodo(prevTodo => prevTodo ? { ...prevTodo, name: newTodoName } : null);
+                setCurrentTodo(prevTodo => prevTodo ? { ...prevTodo, name: newTodoName } : errorTodo);
                 setEditing(false);
             } catch (error: any) {
                 setError(error.message);
@@ -122,7 +152,7 @@ export default function Todo() {
                     <CardHeader>
                         <div>
                             {isEditing ? (
-                                <div className="flex items-center">
+                                <div className="flex items-center ml-4">
                                     <Input
                                         type="text"
                                         value={newTodoName}
@@ -136,8 +166,12 @@ export default function Todo() {
                                     </Button>
                                 </div>
                             ) : (
-                                <div className="flex justify-between items-center">
-                                    <h2 className="text-xl mb-4">{currentTodo?.name}</h2>
+                                <div className="flex justify-between items-center ml-4">
+                                    <div>
+                                        <h2 className="text-xl mb-4">{currentTodo?.name}</h2>
+
+                                        <p className="text-sm text-gray-600">Catégorie : {getCategoryName(currentTodo.category) || ""}</p>
+                                    </div>
                                     <Button className="ml-2" variant="ghost" onClick={() => setEditing(true)}>
                                         <Pencil color="teal" className="h-5 w-5" />
                                     </Button>
@@ -157,39 +191,14 @@ export default function Todo() {
                             </form>
                         </div>
                     </CardHeader>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Fait</TableHead>
-                                <TableHead className="justify-center">Tâche</TableHead>
-                                <TableHead className="text-right">Action</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody className="overflow-auto">
-                            {allTasks.map((task) => (
-                                <TableRow key={task.id}>
-                                    <TableCell className="font-medium">
-                                        <Checkbox
-                                            checked={task.done}
-                                            onCheckedChange={() => handleCheckBox(task.id, task.done)}
-                                        />
-                                    </TableCell>
-                                    <TableCell className="justify-center">{task.content}</TableCell>
-                                    <TableCell>
-                                        <Button variant="ghost" size="icon" onClick={() => handleDeleteTask(task.id)}>
-                                            <Trash2 color='darkred' className="h-5 w-5 justify-center" />
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                        <TableFooter>
-                            <TableRow>
-                                <TableCell colSpan={2}>{allTasks.length} tâches</TableCell>
-                                <TableCell className="text-right">reste {tasksLeftToDo}</TableCell>
-                            </TableRow>
-                        </TableFooter>
-                    </Table>
+                    <TaskTable
+                        tasks={allTasks}
+                        onCheckBoxChange={handleCheckBox}
+                        onDeleteTask={handleDeleteTask}
+                        onDeleteSelectedTasks={handleDeleteSelectedTasks}
+                        onDeleteAllTasks={handleDeleteAllTasks}
+                        selectedTasks={selectedTasks}
+                    />
                 </Card>
             </div>
         </div>

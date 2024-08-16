@@ -1,6 +1,5 @@
 # api/tests/authentication/test_login.py
 
-from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
@@ -10,7 +9,6 @@ class RegisterTest(APITestCase):
 
     @classmethod
     def setUpTestData(cls):
-        User = get_user_model()
         cls.url = reverse('user-list')
         cls.email = 'testuser@test.com'
         cls.username = 'Floof'
@@ -23,6 +21,11 @@ class RegisterTest(APITestCase):
         cls.data_caps_email = {
             'email': 'Testuser2@test.com',
             'username': "Pat",
+            'password': cls.password
+        }
+        cls.data_space_email = {
+            'email': ' testuser3@test.com ',
+            'username': 'Hellsax',
             'password': cls.password
         }
         cls.email_failure = 'johndoe@test.com'
@@ -55,6 +58,17 @@ class RegisterTest(APITestCase):
             "user": {
                 "username": "Pat",
                 "email": "testuser2@test.com"
+            }
+        }
+        self.assertEqual(response.json(), expected_body)
+
+    def test_success_space_in_email(self):
+        response = self.client.post(self.url, data=self.data_space_email, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        expected_body = {
+            "user": {
+                "username": "Hellsax",
+                "email": "testuser3@test.com",
             }
         }
         self.assertEqual(response.json(), expected_body)
