@@ -18,11 +18,13 @@ import {
 } from "@/app/components/ui/table";
 import { NavMenu } from "@/app/enums/NavMenuEnum";
 import { getCategoryName } from "@/app/enums/TodoCategoryEnum";
+import { TaskType } from "@/app/types/TaskType";
 import { emptyTodo, errorTodo, TodoType } from "@/app/types/TodoType";
 import { Header } from "@/components/layout/Header";
 import { Trash2, Pencil, X, Check } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import TaskTable from "../components/TableTasks";
 
 export default function Todo() {
     const [currentTodo, setCurrentTodo] = useState<TodoType>(emptyTodo);
@@ -150,7 +152,7 @@ export default function Todo() {
                     <CardHeader>
                         <div>
                             {isEditing ? (
-                                <div className="flex items-center">
+                                <div className="flex items-center ml-4">
                                     <Input
                                         type="text"
                                         value={newTodoName}
@@ -164,7 +166,7 @@ export default function Todo() {
                                     </Button>
                                 </div>
                             ) : (
-                                <div className="flex justify-between items-center">
+                                <div className="flex justify-between items-center ml-4">
                                     <div>
                                         <h2 className="text-xl mb-4">{currentTodo?.name}</h2>
 
@@ -189,58 +191,14 @@ export default function Todo() {
                             </form>
                         </div>
                     </CardHeader>
-                    <Table className="rounded">
-                        <TableHeader>
-                            <TableRow>
-                                <TableCell colSpan={2}>{allTasks.length} tâches</TableCell>
-                                <TableCell className="text-right">reste {tasksLeftToDo}</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableHead>Fait</TableHead>
-                                <TableHead className="justify-center">Tâche</TableHead>
-                                <TableHead className="text-right">Action</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody className="overflow-auto">
-                            {allTasks.map((task) => (
-                                <TableRow key={task.id}>
-                                    <TableCell className="font-medium">
-                                        <Checkbox
-                                            checked={task.done}
-                                            onCheckedChange={() => handleCheckBox(task.id, task.done)}
-                                        />
-                                    </TableCell>
-                                    <TableCell className="text-left">{task.content}</TableCell> {/* Alignement à gauche */}
-                                    <TableCell className="text-right"> {/* Alignement à droite */}
-                                        <Button variant="ghost" size="icon" onClick={() => handleDeleteTask(task.id)}>
-                                            <Trash2 color='darkred' className="h-5 w-5" />
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-
-                            ))}
-                        </TableBody>
-                    </Table>
-                    <div className="bg-slate-50 rounded-b-lg flex flex-wrap items-center justify-center gap-x-5 gap-y-1 p-3">
-                        <Button
-                            variant="default"
-                            className="flex gap-1"
-                            onClick={handleDeleteSelectedTasks}
-                            disabled={selectedTasks.length === 0}
-                        >
-                            <Trash2 color='white' className="h-5 w-5 m-1 justify-left" />
-                            <span> Supprimer sélection</span>
-                        </Button>
-                        <Button
-                            variant="destructive"
-                            className="flex gap-1"
-                            onClick={handleDeleteAllTasks}
-                            disabled={allTasks.length === 0}
-                        >
-                            <Trash2 color='white' className="h-5 w-5 m-1 justify-left" />
-                            <span> Supprimer tout</span>
-                        </Button>
-                    </div>
+                    <TaskTable
+                        tasks={allTasks}
+                        onCheckBoxChange={handleCheckBox}
+                        onDeleteTask={handleDeleteTask}
+                        onDeleteSelectedTasks={handleDeleteSelectedTasks}
+                        onDeleteAllTasks={handleDeleteAllTasks}
+                        selectedTasks={selectedTasks}
+                    />
                 </Card>
             </div>
         </div>
