@@ -41,8 +41,6 @@ export const RegisterCard: React.FC = () => {
 
     // Handeling the login form submission
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        console.log("credentials =>>", { email, password });// TODELETE when finished
-
         e.preventDefault();
         setError(null); // Reinit errors before submitting
 
@@ -55,8 +53,6 @@ export const RegisterCard: React.FC = () => {
         }
         if (!passwordRegex.test(password)) {
             setError("Le mot de passe doit contenir au moins 8 caractères, y compris des chiffres et des lettres.");
-            console.log(error);
-
             return; // Stop execution if password doesn't match criteria
         }
 

@@ -24,14 +24,14 @@ import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import { ToggleGroup, ToggleGroupItem } from "@/app/components/ui/toggle-group";
-import { TodoCategory } from '@/app/enums/TodoCategory';
+import { getCategoryId, getCategoryName, TodoCategory } from '@/app/enums/TodoCategoryEnum';
 import { createTodo } from "@/api/services/todoService";
 
 export const CreateList: React.FC = () => {
     const router = useRouter();
 
     // Local inputs' states
-    const [category, setCategory] = useState(null);
+    const [category, setCategory] = useState<string | null>(null);
     const [name, setName] = useState('Todo');
     const [flatShareId, setflatShareId] = useState(1); // TODO :implements get flat id from user
     const [isShared, setIsShared] = useState(false); // TODO BACK
@@ -47,16 +47,24 @@ export const CreateList: React.FC = () => {
         e.preventDefault();
         setError(null);
         try {
+            console.log('testcategory', category, typeof (category));
+
             const newTodo = { flat_share: flatShareId, name, category };
+            console.log("category=====>", category, typeof (category));
+
+            console.log("newTodo=>", newTodo);
             const response = await createTodo(newTodo);
             router.push(`/list/${response.id}`);
         } catch (error: any) {
-            setError(error.message); // TODO: Diplay errors on the page
+            setError(error.message); // TODO: Display errors on the page
         }
     };
 
     const handleCategoryChange = (value: string) => {
-        //setCategory(value); // TODO
+        const selectedCategoryId = getCategoryId(value as TodoCategory);
+        console.log('selectedCategoryId', selectedCategoryId, typeof (selectedCategoryId));
+
+        setCategory(selectedCategoryId);
     };
 
     const handleIsSharedChange = (event: React.FormEvent<HTMLDivElement>) => {
@@ -90,7 +98,7 @@ export const CreateList: React.FC = () => {
                             </Label>
                             <Select onValueChange={handleCategoryChange}>
                                 <SelectTrigger className="w-[230px]">
-                                    <SelectValue placeholder={category || 'Choisir un type'} />
+                                    <SelectValue placeholder={category !== null ? getCategoryName(parseInt(category)) : 'Choisir un type'} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectGroup>
@@ -132,5 +140,5 @@ export const CreateList: React.FC = () => {
                 </form>
             </DialogContent>
         </Dialog>
-    )
+    );
 }

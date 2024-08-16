@@ -1,9 +1,11 @@
+import { TodoDTO, TodoType } from '@/app/types/TodoType';
 import axios from 'axios';
 
-export const fetchTodo = async (id: number) => {
+export const fetchTodo = async (id: number): Promise<TodoType> => {
     try {
         const response = await axios.get(`http://localhost:8000/api/todo/${id}`);
-        return response.data;
+        const todo: TodoType = response.data;
+        return todo;
     } catch (error) {
         throw new Error("Erreur lors de la récupération de la liste. Veuillez réessayer.");
     }

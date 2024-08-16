@@ -3,7 +3,7 @@
 import LogoFullName from "@/components/design/LogoFullName";
 import { Header } from "@/components/layout/Header";
 import { Button } from "@/app/components/ui/button";
-import { NavMenu } from "@/app/enums/NavMenu";
+import { NavMenu } from "@/app/enums/NavMenuEnum";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
