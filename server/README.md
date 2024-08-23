@@ -118,6 +118,11 @@ Pour exécuter les tests, utilisez la commande suivante :
 py manage.py test
 ```
 
+Pour éxécuter certains tests, par exemple le dossier todo :
+```bash
+py manage.py test api.tests.todo
+```
+
 ## Déploiement
 
 Pour déployer ce projet en production, suivez les étapes :
