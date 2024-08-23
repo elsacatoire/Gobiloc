@@ -1,5 +1,5 @@
 import React from "react";
-import { LoginCard } from "@/components/auth/LoginCard";
+import { LoginCard } from "@/app/components/customsComponents/auth/LoginCard";
 
 export default function Page() {
     return (
