@@ -10,13 +10,17 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.decorators import action
 
 from api.mixins.check_empty_patch_mixin import CheckEmptyPatchMixin
+from api.models import Todo
 from api.models.task_model import Task
 from api.serializers.task_serializer import TaskSerializer
 
 
 class TaskViewSet(CheckEmptyPatchMixin, ModelViewSet):
     serializer_class = TaskSerializer
-    queryset = Task.objects.all()
+
+    def get_queryset(self):
+        user_todos = Todo.objects.filter(flat_share__in = self.request.user.flatshare_set.all())
+        return Task.objects.filter(todo__in=user_todos)
 
     # detail=False => act on the collection / True=> on a specific instance
     @action(detail=False, methods=['GET'], url_path='todo/(?P<todo_id>\d+)')
