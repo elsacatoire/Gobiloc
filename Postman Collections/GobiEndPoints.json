@@ -51,6 +51,19 @@
 						"url": "localhost:8000/api/user/"
 					},
 					"response": []
+				},
+				{
+					"name": "Get a user's data",
+					"id": "687527c2-155e-4e00-8588-c9307ba29036",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8000/api/user/elsa@test.com/"
+					},
+					"response": []
 				}
 			],
 			"id": "4b2c03ff-ca66-46c6-88d4-e8e6a0b9007d"
