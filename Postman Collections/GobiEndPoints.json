@@ -53,6 +53,28 @@
 					"response": []
 				},
 				{
+					"name": "Change user name",
+					"id": "2257b246-fa30-413c-8653-48f13f878407",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"username\": \"Flo\",\r\n\t\"email\": \"flo@test.com\",\r\n\t\"password\": \"123coucou\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/user/"
+					},
+					"response": []
+				},
+				{
 					"name": "Get a user's data",
 					"id": "687527c2-155e-4e00-8588-c9307ba29036",
 					"protocolProfileBehavior": {
