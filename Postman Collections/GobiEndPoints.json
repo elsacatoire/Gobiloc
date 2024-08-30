@@ -59,18 +59,18 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "POST",
+						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"username\": \"Flo\",\r\n\t\"email\": \"flo@test.com\",\r\n\t\"password\": \"123coucou\"\r\n}",
+							"raw": "{\r\n\t\"username\": \"Flodu22\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "localhost:8000/api/user/"
+						"url": "localhost:8000/api/user/8/"
 					},
 					"response": []
 				},
@@ -146,7 +146,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "    {\r\n        \"flat_share\": 9,\r\n        \"name\": \"meluch\",\r\n        \"category\": null\r\n    }",
+									"raw": "    {\r\n        \"flat_share\": 6,\r\n        \"name\": \"meluch\",\r\n        \"category\": 2\r\n    }",
 									"options": {
 										"raw": {
 											"language": "json"
