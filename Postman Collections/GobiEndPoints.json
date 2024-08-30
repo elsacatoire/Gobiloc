@@ -105,7 +105,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "localhost:8000/api/user/elsa@test.com/"
+						"url": "localhost:8000/api/user/"
 					},
 					"response": []
 				}
