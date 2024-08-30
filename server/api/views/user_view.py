@@ -46,7 +46,7 @@ class UserViewSet(ModelViewSet):
         except DjangoValidationError as e:
             return Response({'password': e.messages}, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=False, methods=['post'])
+    @action(detail=False, methods=['post'], permission_classes=[])
     def login(self, request):
         """
         Log the user into the app
@@ -70,9 +70,9 @@ class UserViewSet(ModelViewSet):
         login(request, user)
         request.session['email'] = email
 
-        stay_connected = request.data.get('stay_connected')
-        if stay_connected:
-            request.session.set_expiry(60*60*24*90)
+        # stay_connected = request.data.get('stay_connected')
+        # if stay_connected:
+        #     request.session.set_expiry(60*60*24*90)
 
         return Response({'status': 'Login Success'}, status=status.HTTP_200_OK)
 
