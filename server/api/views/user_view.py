@@ -5,16 +5,24 @@ from rest_framework.decorators import action
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.exceptions import ValidationError as DRFValidationError, NotAuthenticated
+from rest_framework.exceptions import ValidationError as DRFValidationError, NotAuthenticated, PermissionDenied
 from django.core.exceptions import ValidationError as DjangoValidationError, ValidationError
 from django.contrib.auth import authenticate, login, logout
 
+from api.models import User
 from api.serializers.user_serializer import UserSerializer
 
 
 class UserViewSet(ModelViewSet):
 
     serializer_class = UserSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_authenticated:
+            return User.objects.filter(id=user.id)
+        else:
+            raise PermissionDenied("User not authenticated.")
 
     def create(self, request, **kwargs):
         """
