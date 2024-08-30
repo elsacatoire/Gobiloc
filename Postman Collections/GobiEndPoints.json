@@ -91,20 +91,20 @@
 						"header": [
 							{
 								"key": "X-CSRFToken",
-								"value": "MtItFlS1l9B2wXf7QB9zLfyBRXn9yM2d",
+								"value": "PGsnkouNyliqzCWcmzNt7AqTeW3ydmmW",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"username\": \"Flodu22\"\r\n}",
+							"raw": "{\r\n\t\"username\": \"Patrick\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "localhost:8000/api/user/"
+						"url": "localhost:8000/api/user/1/"
 					},
 					"response": []
 				},
