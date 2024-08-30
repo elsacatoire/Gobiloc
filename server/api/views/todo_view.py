@@ -20,6 +20,7 @@ class TodoViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
+        print("here")
         flat_id = self.kwargs.get('flat_pk')
 
         if flat_id is None:
@@ -34,6 +35,11 @@ class TodoViewSet(ModelViewSet):
             raise NotFound(detail='The requested flat is not associated with the current user.', code=403)
 
         return Todo.objects.filter(flat_share=flat)
+
+    def perform_create(self, serializer):
+        flat = self.flat
+        serializer.save(flat_share=flat)
+
 
     # detail=False => act on the collection / True=> on a specific instance
     # @action(detail=False, methods=['GET'], url_path='flat/(?P<flat_share_id>\d+)')
