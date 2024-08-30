@@ -115,6 +115,18 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": {
+								"algorithm": "HS256",
+								"isSecretBase64Encoded": false,
+								"payload": "{}",
+								"addTokenTo": "header",
+								"headerPrefix": "Bearer",
+								"queryParamKey": "token",
+								"header": "{}"
+							}
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -511,14 +523,14 @@
 		}
 	],
 	"auth": {
-		"type": "basic",
-		"basic": {}
+		"type": "bearer",
+		"bearer": {}
 	},
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "c670da05-75cd-43b9-873f-9ce10a21edc1",
+				"id": "72f89026-7e6e-44c2-9ef9-52bf79fe7f37",
 				"type": "text/javascript",
 				"packages": {},
 				"exec": [
@@ -529,7 +541,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "b62ad3c0-7f1a-4730-90d7-f68cad48a26e",
+				"id": "29c4b103-b4ac-4c34-aebd-dfbd95809dd3",
 				"type": "text/javascript",
 				"packages": {},
 				"exec": [
