@@ -3,5 +3,6 @@ export enum NavMenu {
     LISTS = 'Listes',
     AGENDA = 'Agenda',
     SAFE = 'Trésor',
-    MESSAGES = 'Bulles'
+    MESSAGES = 'Bulles',
+    PROFIL = 'Profil'
 }
