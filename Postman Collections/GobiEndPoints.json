@@ -31,6 +31,28 @@
 					"response": []
 				},
 				{
+					"name": "Logout user",
+					"id": "fdc2a028-e167-40d2-b56e-cc4a6bd55e38",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"email\": \"test@test.com\",\r\n\t\"password\": \"poissjghj\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/user/login/"
+					},
+					"response": []
+				},
+				{
 					"name": "Resgister",
 					"id": "f06c96fa-0356-426e-a8d0-6952660e60d5",
 					"protocolProfileBehavior": {
