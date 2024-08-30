@@ -41,7 +41,7 @@
 						"header": [
 							{
 								"key": "X-CSRFToken",
-								"value": "MtItFlS1l9B2wXf7QB9zLfyBRXn9yM2d",
+								"value": "5c1p5Oql8EzUzjnWhkZD7rAKYgPqCwMn",
 								"type": "text"
 							}
 						],
@@ -119,8 +119,9 @@
 						"header": [
 							{
 								"key": "X-CSRFToken",
-								"value": "SiM4oyKcxT1kIbB1tUOcNSQePX5GLPGh",
-								"type": "text"
+								"value": "YrtKKn20nbQIhhAp2CUh59Cos2jpoFgq",
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"url": "localhost:8000/api/user/"
