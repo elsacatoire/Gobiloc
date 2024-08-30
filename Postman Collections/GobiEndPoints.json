@@ -37,18 +37,24 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "POST",
-						"header": [],
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "MtItFlS1l9B2wXf7QB9zLfyBRXn9yM2d",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"email\": \"test@test.com\",\r\n\t\"password\": \"poissjghj\"\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "localhost:8000/api/user/login/"
+						"url": "localhost:8000/api/user/logout/"
 					},
 					"response": []
 				},
@@ -63,7 +69,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"username\": \"Flo\",\r\n\t\"email\": \"flo@test.com\",\r\n\t\"password\": \"123coucou\"\r\n}",
+							"raw": "{\r\n\t\"username\": \"Flo\",\r\n\t\"email\": \"floDouble@test.com\",\r\n\t\"password\": \"123coucou\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -82,7 +88,13 @@
 					},
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "MtItFlS1l9B2wXf7QB9zLfyBRXn9yM2d",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n\t\"username\": \"Flodu22\"\r\n}",
@@ -92,20 +104,45 @@
 								}
 							}
 						},
-						"url": "localhost:8000/api/user/8/"
+						"url": "localhost:8000/api/user/"
 					},
 					"response": []
 				},
 				{
-					"name": "Get a user's data",
+					"name": "Get authenticated user's data",
 					"id": "687527c2-155e-4e00-8588-c9307ba29036",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "MtItFlS1l9B2wXf7QB9zLfyBRXn9yM2d",
+								"type": "text"
+							}
+						],
 						"url": "localhost:8000/api/user/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a user's data with id",
+					"id": "b190b79f-1775-4eea-8085-734f7a5d12d7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "MtItFlS1l9B2wXf7QB9zLfyBRXn9yM2d",
+								"type": "text"
+							}
+						],
+						"url": "localhost:8000/api/user/8/"
 					},
 					"response": []
 				}
@@ -201,14 +238,14 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "    {\r\n        \"name\": \"LFI\"\r\n    }",
+									"raw": "    {\r\n        \"name\": \"LFI\",\r\n        \"category\": null\r\n    }",
 									"options": {
 										"raw": {
 											"language": "json"
 										}
 									}
 								},
-								"url": "localhost:8000/api/todo/111/"
+								"url": "localhost:8000/api/todo/204/"
 							},
 							"response": []
 						},
@@ -296,7 +333,7 @@
 										}
 									}
 								},
-								"url": "localhost:8000/api/todo/12/"
+								"url": "localhost:8000/api/todo/204/"
 							},
 							"response": []
 						}
