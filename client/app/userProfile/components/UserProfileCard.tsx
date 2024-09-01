@@ -8,7 +8,7 @@ import Avatar from "./Avatar";
 import { FishSymbol, Atom, AtSign } from 'lucide-react';
 import EditUserProfile from "./EditProfile";
 
-interface UserProfileProps {
+type UserProfileProps = {
     name: string;
     username: string;
     email: string;

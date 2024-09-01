@@ -1,17 +1,15 @@
 'use client'
 
 import LogoFullName from "@/app/components/customsComponents/design/LogoFullName";
-import { Header } from "@/app/components/customsComponents/layout/Header";
 import { Button } from "@/app/components/ui/button";
-import { NavMenu } from "@/app/enums/NavMenuEnum";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-export default function Home() {
+export default function LandingPage() {
   const [bubbles, setBubbles] = useState<number[]>([]);
 
   useEffect(() => {
-    const bubbleCount = 10; // Nombre de bulles
+    const bubbleCount = 10;
     const bubbleArray = Array.from({ length: bubbleCount }, (_, i) => i);
     setBubbles(bubbleArray);
   }, []);

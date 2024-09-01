@@ -18,8 +18,8 @@ import {
 } from "@/app/components/ui/table";
 import { NavMenu } from "@/app/enums/NavMenuEnum";
 import { getCategoryName } from "@/app/enums/TodoCategoryEnum";
-import { TaskType } from "@/app/types/TaskType";
-import { emptyTodo, errorTodo, TodoType } from "@/app/types/TodoType";
+import { TaskType } from "@/types/TaskType";
+import { emptyTodo, errorTodo, TodoType } from "@/types/TodoType";
 import { Header } from "@/app/components/customsComponents/layout/Header";
 import { Trash2, Pencil, X, Check } from "lucide-react";
 import { useParams } from "next/navigation";

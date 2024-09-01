@@ -1,4 +1,4 @@
-import { UserType } from "@/app/types/UserType";
+import { UserType } from "@/types/UserType";
 import axios from "axios";
 
 export const fetchCurrentUser = async () => {

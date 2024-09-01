@@ -11,9 +11,9 @@ import { NavMenu } from "@/app/enums/NavMenuEnum";
 import { Trash2 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { deleteTodo, fetchTodos } from "@/api/services/todoService";
-import { formatDate } from "../utils/formatDate";
+import { formatDate } from "../../utils/formatDate";
 import { getCategoryName } from "../enums/TodoCategoryEnum";
-import { TodoType } from "../types/TodoType";
+import { TodoType } from "../../types/TodoType";
 
 export default function Lists() {
     /* ----- GET all todos ----- */
