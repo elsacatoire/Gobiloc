@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "Auth",
+			"name": "Authentication",
 			"item": [
 				{
 					"name": "Login",
@@ -524,14 +524,16 @@
 		}
 	],
 	"auth": {
-		"type": "apikey",
-		"apikey": {}
+		"type": "bearer",
+		"bearer": {
+			"token": "{{jwt_signed}}"
+		}
 	},
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "c179e5f7-6261-4c99-a5d6-21ce80e57b7e",
+				"id": "6bcf80ee-7116-431e-93b4-fb408b8a2f94",
 				"type": "text/javascript",
 				"packages": {},
 				"exec": [
@@ -596,7 +598,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "0a8f6fce-81c0-4cbc-96c8-cd2a8479a555",
+				"id": "e2723d56-0ccd-4990-8d9d-ebf2ee6220d1",
 				"type": "text/javascript",
 				"packages": {},
 				"exec": [
