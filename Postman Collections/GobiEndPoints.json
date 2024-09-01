@@ -27,7 +27,7 @@
 								}
 							}
 						},
-						"url": "localhost:8000/api/user/login/"
+						"url": "localhost:8000/api/token/"
 					},
 					"response": []
 				},
@@ -117,15 +117,9 @@
 					},
 					"request": {
 						"auth": {
-							"type": "jwt",
-							"jwt": {
-								"algorithm": "HS256",
-								"isSecretBase64Encoded": false,
-								"payload": "{}",
-								"addTokenTo": "header",
-								"headerPrefix": "Bearer",
-								"queryParamKey": "token",
-								"header": "{}"
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI1MTgxMTk2LCJpYXQiOjE3MjUxNzc1OTYsImp0aSI6ImYwMDk0YTdjZjM0YjRiOTBhODFiMTYyMzgyODBmZDc3IiwidXNlcl9pZCI6MX0.1ZvduyQkmGziWMuqOgiS1wcFnJQZ7lRAQncfG5pURv0"
 							}
 						},
 						"method": "GET",
