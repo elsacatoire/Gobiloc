@@ -1,7 +1,8 @@
 {
 	"info": {
 		"_postman_id": "5585f8d7-b9cd-45e8-bb18-32f4e85c5faa",
-		"name": "GobiRoutes",
+		"name": "GobiLocAPI",
+		"description": "JWT signed with base64 encoding\n\nThis folder creates a signed JWT using the `jwt_secret` variable and encodes the JWT data as base64. It then sets the signed and encoded JWT as `Bearer` token in the `Authorization` header.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
@@ -523,25 +524,79 @@
 		}
 	],
 	"auth": {
-		"type": "bearer",
-		"bearer": {}
+		"type": "apikey",
+		"apikey": {}
 	},
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "72f89026-7e6e-44c2-9ef9-52bf79fe7f37",
+				"id": "c179e5f7-6261-4c99-a5d6-21ce80e57b7e",
 				"type": "text/javascript",
 				"packages": {},
 				"exec": [
-					""
+					"// JWT generation script adapted from\r",
+					"// https://gist.github.com/corbanb/db03150abbe899285d6a86cc480f674d\r",
+					"\r",
+					"var jwtSecret = pm.environment.get('jwt_secret') || ''\r",
+					"\r",
+					"// Set headers for JWT\r",
+					"var header = {\r",
+					"\t'typ': 'JWT',\r",
+					"\t'alg': 'HS256'\r",
+					"};\r",
+					"\r",
+					"// Prepare timestamp in seconds\r",
+					"var currentTimestamp = Math.floor(Date.now() / 1000)\r",
+					"\r",
+					"var data = {\r",
+					"\t'iss': pm.environment.get('jwt_iss') || '',\r",
+					"\t'ist': pm.environment.get('jwt_ist') || '',\r",
+					"\t'iat': currentTimestamp,\r",
+					"\t'exp': currentTimestamp + 30, // expiry time is 30 seconds from time of creation\r",
+					"\t'jti': 'jwt_nonce'\r",
+					"}\r",
+					"\r",
+					"\r",
+					"function base64url(source) {\r",
+					"    // Encode in classical base64\r",
+					"    encodedSource = CryptoJS.enc.Base64.stringify(source)\r",
+					"    \r",
+					"    // Remove padding equal characters\r",
+					"    encodedSource = encodedSource.replace(/=+$/, '')\r",
+					"    \r",
+					"    // Replace characters according to base64url specifications\r",
+					"    encodedSource = encodedSource.replace(/\\+/g, '-')\r",
+					"    encodedSource = encodedSource.replace(/\\//g, '_')\r",
+					"    \r",
+					"    return encodedSource\r",
+					"}\r",
+					"\r",
+					"// encode header\r",
+					"var stringifiedHeader = CryptoJS.enc.Utf8.parse(JSON.stringify(header))\r",
+					"var encodedHeader = base64url(stringifiedHeader)\r",
+					"\r",
+					"// encode data\r",
+					"var stringifiedData = CryptoJS.enc.Utf8.parse(JSON.stringify(data))\r",
+					"var encodedData = base64url(stringifiedData)\r",
+					"\r",
+					"// build token\r",
+					"var token = `${encodedHeader}.${encodedData}`\r",
+					"\r",
+					"// sign token\r",
+					"var signature = CryptoJS.HmacSHA256(token, jwtSecret)\r",
+					"signature = base64url(signature)\r",
+					"var signedToken = `${token}.${signature}`\r",
+					"\r",
+					"pm.environment.set('jwt_signed', signedToken)\r",
+					"console.log('Signed and encoded JWT', signedToken)"
 				]
 			}
 		},
 		{
 			"listen": "test",
 			"script": {
-				"id": "29c4b103-b4ac-4c34-aebd-dfbd95809dd3",
+				"id": "0a8f6fce-81c0-4cbc-96c8-cd2a8479a555",
 				"type": "text/javascript",
 				"packages": {},
 				"exec": [
