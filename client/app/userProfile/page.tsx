@@ -1,12 +1,14 @@
 
 'use client'
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import UserProfileCard from "./components/UserProfileCard";
 import { Header } from "../components/customsComponents/layout/Header";
 import { NavMenu } from "../enums/NavMenuEnum";
-import { UserType } from "../types/UserType";
+import { UserType } from "../../types/UserType";
 import { fetchCurrentUser } from "@/api/services/userService";
+import { isAuthenticated } from "../../utils/Auth";
+import { redirect } from "next/navigation";
 
 const ProfilePage: React.FC = () => {
     const didMountRef = useRef(false);
@@ -22,6 +24,15 @@ const ProfilePage: React.FC = () => {
         colocName: "Rue Malbec",
         joinedDate: new Date("2023-01-15T00:00:00Z"),
     };
+
+
+    useLayoutEffect(() => {
+        const isAuth = isAuthenticated;
+        if (!isAuth) {
+            redirect("/")
+        }
+    }, [])
+
     /* ----- GET user data ----- */
     useEffect(() => {
         const getCurrentUser = async () => {
