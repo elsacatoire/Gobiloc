@@ -14,7 +14,6 @@ from api.serializers.user_serializer import UserSerializer
 
 
 class UserViewSet(ModelViewSet):
-
     serializer_class = UserSerializer
 
     def get_queryset(self):
@@ -45,48 +44,3 @@ class UserViewSet(ModelViewSet):
 
         except DjangoValidationError as e:
             return Response({'password': e.messages}, status=status.HTTP_400_BAD_REQUEST)
-
-    @action(detail=False, methods=['post'], permission_classes=[])
-    def login(self, request):
-        """
-        Log the user into the app
-        """
-        email = request.data.get('email')
-        password = request.data.get('password')
-
-        if not email or not password:
-            return Response({'error': 'Missing Credentials'}, status=status.HTTP_400_BAD_REQUEST)
-
-        try:
-            email = email.lower()
-            validate_email(email)
-        except ValidationError as e:
-            return Response({'error': e.messages[0]}, status=status.HTTP_400_BAD_REQUEST)
-
-        user = authenticate(request, email=email, password=password)
-        if user is None:
-            return Response({'error': 'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-
-        login(request, user)
-        request.session['email'] = email
-
-        # stay_connected = request.data.get('stay_connected')
-        # if stay_connected:
-        #     request.session.set_expiry(60*60*24*90)
-
-        return Response({'status': 'Login Success'}, status=status.HTTP_200_OK)
-
-    @action(detail=False, methods=['delete'])
-    def logout(self, request):
-        """
-        Log out the user from the app
-        """
-        try:
-            if not request.user.is_authenticated:
-                raise NotAuthenticated('No user is currently logged in.')
-            logout(request)
-            request.session.flush()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-
-        except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
