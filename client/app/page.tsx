@@ -18,9 +18,6 @@ export default function Home() {
 
   return (
     <>
-      <div>
-        <Header title={NavMenu.HOME} />
-      </div>
       <div className="relative flex flex-col items-center justify-center min-h-screen p-4 overflow-hidden">
         <h2 className="text-xl md:text-2xl mb-4 text-center">Bienvenue dans</h2>
         <div className="flex justify-center items-center w-full">
