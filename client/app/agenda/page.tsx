@@ -13,8 +13,6 @@ const agenda = () => {
     };
 
     const categoryName = getCategoryName(todo.category_id);
-    console.log(categoryName);
-
 
     return (
         <div className='mt-20'>

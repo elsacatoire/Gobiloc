@@ -10,7 +10,6 @@ import { useAuth } from "../../utils/useAuth";
 import { redirect } from "next/navigation";
 
 const ProfilePage: React.FC = () => {
-    const didMountRef = useRef(false);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setLoading] = useState(true)
     const [currentUser, setCurrentUser] = useState<UserType | null>(null);
@@ -47,7 +46,6 @@ const ProfilePage: React.FC = () => {
     if (error) {
         return <p>Erreur : {error}</p>;
     }
-
 
     return (
         <div>

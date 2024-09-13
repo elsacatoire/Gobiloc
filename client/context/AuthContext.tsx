@@ -3,7 +3,6 @@ import { jwtDecode } from "jwt-decode";
 import { useRouter } from 'next/navigation';
 import { DecodedToken } from '@/types/TokenType';
 
-
 const AuthContext = createContext<{ user: DecodedToken | null, loginUser: (e: React.FormEvent<HTMLFormElement>) => Promise<void> }>({
     user: null,
     loginUser: async () => { }

@@ -23,13 +23,9 @@ export const LoginCard: React.FC = () => {
 
     let { loginUser } = useContext(AuthContext);
 
-    const router = useRouter();
-
     // Local inputs's states
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState<string | null>(null);
-
 
     // Handeling input's changes
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,30 +34,6 @@ export const LoginCard: React.FC = () => {
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
     };
-
-    /*     // Handeling the login form submission
-        const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-            e.preventDefault();
-            setError(null);
-    
-            try {
-                console.log("coucou login");
-                const response = await axios.post(
-                    'http://localhost:8000/api/user/login/',
-                    { email, password },
-                    { withCredentials: true }
-                );
-                console.log("Réponse du serveur:", response.data);  // To delete when auth functionnal
-                await loginUser(e);
-                console.log("login::before push");
-    
-                router.push('/welcome');
-            } catch (error) {
-                setError("Identifiants incorrects. Veuillez réessayer."); // TODO: Diplay erros on the page
-            }
-            setEmail('');
-            setPassword('');
-        }; */
 
     return (
         <div>

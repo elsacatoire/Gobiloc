@@ -10,7 +10,6 @@ const isAuth = (WrappedComponent: React.ComponentType) => {
         useEffect(() => {
             if (!user) {
                 console.log("no user isAuth");
-
                 router.push('/login');
             }
         }, [user, router]);
