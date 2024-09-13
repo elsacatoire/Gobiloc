@@ -14,10 +14,14 @@ class UserSerializer(ModelSerializer):
         fields = (
             'username',
             'email',
-            'password'
+            'password',
+            'date_joined',
+            'flat_share_id'
         )
         extra_kwargs = {
-            'password': {'write_only': True}
+            'password': {'write_only': True},
+            'date_joined': {'read_only': True},
+            'flat_share_id': {'read_only': True},
         }
 
     def create(self, validated_data):

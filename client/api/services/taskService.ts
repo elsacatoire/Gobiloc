@@ -1,3 +1,4 @@
+import { TaskType } from '@/types/TaskType';
 import axios from 'axios';
 
 export const checkTask = async (idTask: number, updatedData: Partial<TaskType>) => {

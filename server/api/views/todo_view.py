@@ -16,6 +16,7 @@ from api.serializers.todo_serializer import TodoSerializer
 
 
 class TodoViewSet(ModelViewSet):
+
     serializer_class = TodoSerializer
     permission_classes = [IsAuthenticated]
 

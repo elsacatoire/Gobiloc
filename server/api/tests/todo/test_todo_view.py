@@ -10,12 +10,16 @@ class TestTodoViewSet(TestCase):
     def setUp(self):
         self.client = APIClient()
 
+        self.user = User.objects.create_user(username='testuser', email='testuser@test.com', password='testpassword')
+        refresh = RefreshToken.for_user(self.user)
+        self.token = str(refresh.access_token)
+
     def test_get_todos_success(self):
         # Given
         flat_share = FlatShare.objects.create(name="Test FlatShare")
         todo1 = Todo.objects.create(flat_share=flat_share, name="Test Todo 1")
         todo2 = Todo.objects.create(flat_share=flat_share, name="Test Todo 2")
-        url = reverse('todo-get-todos', kwargs={'flat_share_id': flat_share.id})
+        url = reverse('flat-todo-list', kwargs={'flat_pk': flat_share.id})
 
         # When
         response = self.client.get(url)
@@ -28,7 +32,7 @@ class TestTodoViewSet(TestCase):
     def test_get_todos_flat_has_no_todo(self):
         # Given
         flat_share_empty = FlatShare.objects.create(name="Test FlatShare")
-        url_empty = reverse('todo-get-todos', kwargs={'flat_share_id': flat_share_empty.id})
+        url_empty = reverse('flat-todo-list', kwargs={'flat_pk': flat_share_empty.id})
 
         # When
         response = self.client.get(url_empty)
@@ -39,7 +43,7 @@ class TestTodoViewSet(TestCase):
 
     def test_get_todos_of_a_non_existing_flat(self):
         # Given
-        url_not_existing_id_flat = reverse('todo-get-todos', kwargs={'flat_share_id': 999})
+        url_not_existing_id_flat = reverse('flat-todo-list', kwargs={'flat_pk': 999})
 
         # When
         response = self.client.get(url_not_existing_id_flat)

@@ -2,9 +2,10 @@
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { NavigationBar } from "@/components/layout/Navbar";
-import React, { FC } from "react";
 
+import React, { FC } from "react";
+import { NavigationBar } from "./components/customsComponents/layout/Navbar";
+import { AuthProvider } from "@/context/AuthContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,17 +21,19 @@ interface RootLayoutProps {
 const RootLayout: FC<RootLayoutProps> = ({ children, Header }) => {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className="flex flex-col min-h-screen">
-          {Header && <Header />}
-          <main className="flex-grow">
-            {children}
-          </main>
-          <footer>
-            <NavigationBar />
-          </footer>
-        </div>
-      </body>
+      <AuthProvider>
+        <body className={inter.className}>
+          <div className="flex flex-col min-h-screen">
+            {Header && <Header />}
+            <main className="flex-grow">
+              {children}
+            </main>
+            <footer>
+              <NavigationBar />
+            </footer>
+          </div>
+        </body>
+      </AuthProvider>
     </html>
   );
 };

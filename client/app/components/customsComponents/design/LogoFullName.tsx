@@ -1,5 +1,4 @@
 import React from 'react'
-import Image from 'next/image';
 
 const LogoFullName = () => {
     return (
@@ -7,6 +6,7 @@ const LogoFullName = () => {
             src="/images/gobilocShort.png"
             height={50}
             alt="Gobiloc logo"
+            className='min-w-10 max-w-lg'
         />
     );
 };

@@ -1,4 +1,4 @@
-import { TodoDTO, TodoType } from '@/app/types/TodoType';
+import { TodoDTO, TodoType } from '@/types/TodoType';
 import axios from 'axios';
 
 export const fetchTodo = async (id: number): Promise<TodoType> => {

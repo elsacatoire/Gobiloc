@@ -1,8 +1,10 @@
 # api/tests/authentication/test_login.py
+
 from rest_framework import status
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from rest_framework.test import APITestCase, APIClient
+# from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class LoginTest(APITestCase):
@@ -11,190 +13,130 @@ class LoginTest(APITestCase):
     @classmethod
     def setUpTestData(cls):
         User = get_user_model()
-        cls.url = reverse('user-login')
         cls.email = 'testuser@test.com'
         cls.password = 'poisson44'
-        cls.data = {
-            'email': cls.email,
-            'password': cls.password
-        }
-        cls.data_stay_connected = {
-            'email': cls.email,
-            'password': cls.password,
-            'stay_connected': True
-        }
         cls.user = User.objects.create_user(
             username='testuser',
             email=cls.email,
             password=cls.password
         )
+        cls.data = {
+            'email': cls.email,
+            'password': cls.password
+        }
+        cls.token_url = reverse('token_obtain_pair')
+        cls.refresh_url = reverse('token_refresh')
 
     def setUp(self):
         self.client = APIClient()
-        self.response = self.client.post(self.url, self.data, format='json')
-        self.client_stay_connected = APIClient()
-        self.response_stay_connected = self.client_stay_connected.post(
-            self.url,
-            self.data_stay_connected,
-            format='json'
-        )
+        self.response = self.client.post(self.token_url, self.data, format='json')
 
-    def test_success_response_status(self):
+    def test_success_obtain_jwt_response_status(self):
         self.assertEqual(self.response.status_code, status.HTTP_200_OK)
 
-    def test_success_response_body(self):
-        self.assertEqual(self.response.data['status'], 'Login Success')
+    def test_success_obtain_jwt_response_body(self):
+        self.assertIn('access', self.response.data)
+        self.assertIn('refresh', self.response.data)
 
-    def test_success_session_created(self):
-        self.assertEqual(self.client.session['email'], 'testuser@test.com')
+    def test_success_access_protected_view_with_jwt(self):
+        # GIVEN
+        access_token = self.response.data['access']
+        user_id = self.user.id
+        patch_url = reverse('user-detail', kwargs={'pk': user_id})
 
-    def test_success_session_cookie(self):
-        self.assertIn('sessionid', self.response.cookies)
+        # WHEN
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + access_token)
+        protected_response = self.client.patch(patch_url, data={'username': 'modified'}, format='json')
 
-    def test_success_csrf_token_cookie(self):
-        self.assertIn('csrftoken', self.response.cookies)
+        # THEN
+        self.assertEqual(protected_response.status_code, status.HTTP_200_OK)
+        self.assertEqual(protected_response.data['username'], 'modified')
 
-    def test_success_session_expires_when_browser_is_closed(self):
-        self.assertEqual(self.response.cookies['sessionid']['expires'], '')
+    def test_failure_access_protected_view_with_invalid_jwt(self):
+        # GIVEN
+        invalid_token = 'InvalidToken123'
+        user_id = self.user.id
+        patch_url = reverse('user-detail', args=[user_id])
 
-    def test_success_session_expiry_age_is_2_hours(self):
-        self.assertEqual(self.client.session.get_expiry_age(), 7200)
+        # WHEN
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {invalid_token}')
+        protected_response = self.client.patch(patch_url, {'username': 'modified'}, format='json')
 
+        # THEN
+        self.assertEqual(protected_response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertIn('detail', protected_response.data)
+        self.assertEqual(protected_response.data['detail'], 'Given token not valid for any token type')
+
+    def test_failure_access_protected_view_without_jwt(self):
+        # GIVEN
+        user_id = self.user.id
+        patch_url = reverse('user-detail', args=[user_id])
+
+        # WHEN
+        # No Authorization header is set
+        protected_response = self.client.patch(patch_url, {'username': 'modified'}, format='json')
+
+        # THEN
+        self.assertEqual(protected_response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertIn('detail', protected_response.data)
+        self.assertEqual(protected_response.data['detail'], 'Authentication credentials were not provided.')
+
+    def test_success_refresh_jwt_token(self):
+        # GIVEN
+        # Obtain initial JWT token
+        refresh_token = self.response.data['refresh']
+
+        # WHEN
+        # Refresh the JWT token
+        refresh_response = self.client.post(self.refresh_url, {'refresh': refresh_token}, format='json')
+
+        # THEN
+        self.assertEqual(refresh_response.status_code, status.HTTP_200_OK)
+        self.assertIn('access', refresh_response.data)
+
+    def test_success_access_protected_view_with_refreshed_jwt(self):
+        # GIVEN
+        # Obtain initial JWT token
+        response = self.client.post(self.token_url, {'email': self.email, 'password': self.password}, format='json')
+        refresh_token = response.data['refresh']
+        user_id = self.user.id
+        patch_url = reverse('user-detail', args=[user_id])
+
+        # WHEN
+        # Refresh the JWT token
+        refresh_response = self.client.post(self.refresh_url, {'refresh': refresh_token}, format='json')
+        new_access_token = refresh_response.data['access']
+
+        # THEN
+        # Access a protected view with the refreshed JWT token
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {new_access_token}')
+        protected_response = self.client.patch(patch_url, {'username': 'modified'}, format='json')
+
+        # ASSERT
+        self.assertEqual(protected_response.status_code, status.HTTP_200_OK)
+        self.assertEqual(protected_response.data['username'], 'modified')
+
+    # def test_failure_access_protected_view_with_expired_jwt(self):
+    #     # GIVEN
+    #     # Create an expired JWT token
+    #     refresh = RefreshToken.for_user(self.user)
+    #     expired_token = refresh.access_token
     #
+    #     refresh = RefreshToken.for_user(self.user)
+    #     refresh.blacklist()
     #
-    # If stay_connected is true :
-    def test_success_stay_connected_response_status(self):
-        self.assertEqual(self.response_stay_connected.status_code, status.HTTP_200_OK)
-
-    def test_success_stay_connected_response_body(self):
-        self.assertEqual(self.response_stay_connected.data['status'], 'Login Success')
-
-    def test_success_stay_connected_session_created(self):
-        self.assertEqual(self.client_stay_connected.session['email'], 'testuser@test.com')
-
-    def test_success_stay_connected_session_cookie(self):
-        self.assertIn('sessionid', self.response_stay_connected.cookies)
-
-    def test_success_stay_connected_csrf_token_cookie(self):
-        self.assertIn('csrftoken', self.response_stay_connected.cookies)
-
-    def test_success_stay_connected_session_expiry_age_is_90_days(self):
-        self.assertEqual(self.client_stay_connected.session.get_expiry_age(), 7776000)
-
-    def test_success_with_uppercase_in_email(self):
-        data = {
-            'email': 'TestUser@test.com',
-            'password': self.password
-        }
-        response = self.client.post(self.url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['status'], 'Login Success')
-
+    #     print(f"Token blacklisted: {refresh.is_blacklisted}")
     #
+    #     user_id = self.user.id
+    #     patch_url = reverse('user-detail', args=[user_id])
     #
-    # Now we test the failures :
-    def test_wrong_email_response_status(self):
-        # GIVEN
-        data = {
-            'email': 'testwrongemail@test.com',
-            'password': self.password
-        }
-        # WHEN
-        response = self.client.post(self.url, data, format='json')
-        # THEN
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-
-    def test_wrong_email_response_body(self):
-        # GIVEN
-        data = {
-            'email': 'testwrongemail@test.com',
-            'password': self.password
-        }
-        # WHEN
-        response = self.client.post(self.url, data, format='json')
-        # THEN
-        self.assertEqual(response.data['error'], 'Invalid Credentials')
-
-    def test_wrong_email_format_response_status(self):
-        # GIVEN
-        data = {
-            'email': 'notavalidemail',
-            'password': self.password
-        }
-        # WHEN
-        response = self.client.post(self.url, data, format='json')
-        # THEN
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-
-    def test_wrong_email_format_response_body(self):
-        # GIVEN
-        data = {
-            'email': 'notavalidemail',
-            'password': self.password
-        }
-        # WHEN
-        response = self.client.post(self.url, data, format='json')
-        # THEN
-        self.assertEqual(response.data['error'], 'Enter a valid email address.')
-
-    def test_wrong_password_response_status(self):
-        # GIVEN
-        data = {
-            'email': self.email,
-            'password': 'awrongpassword'
-        }
-        # WHEN
-        response = self.client.post(self.url, data, format='json')
-        # THEN
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-
-    def test_wrong_password_response_body(self):
-        # GIVEN
-        data = {
-            'email': self.email,
-            'password': 'awrongpassword'
-        }
-        # WHEN
-        response = self.client.post(self.url, data, format='json')
-        # THEN
-        self.assertEqual(response.data['error'], 'Invalid Credentials')
-
-    def test_missing_email_response_status(self):
-        # GIVEN
-        data = {
-            'password': self.password
-        }
-        # WHEN
-        response = self.client.post(self.url, data, format='json')
-        # THEN
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-
-    def test_missing_email_response_body(self):
-        # GIVEN
-        data = {
-            'password': self.password
-        }
-        # WHEN
-        response = self.client.post(self.url, data, format='json')
-        # THEN
-        self.assertEqual(response.data['error'], 'Missing Credentials')
-
-    def test_missing_password_response_status(self):
-        # GIVEN
-        data = {
-            'email': self.email
-        }
-        # WHEN
-        response = self.client.post(self.url, data, format='json')
-        # THEN
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-
-    def test_missing_password_response_body(self):
-        # GIVEN
-        data = {
-            'email': self.email
-        }
-        # WHEN
-        response = self.client.post(self.url, data, format='json')
-        # THEN
-        self.assertEqual(response.data['error'], 'Missing Credentials')
+    #     # WHEN
+    #     # Try to access a protected view with the expired token
+    #     self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {expired_token}')
+    #     protected_response = self.client.get(patch_url, {'username': 'modified'}, format='json')
+    #
+    #     # THEN
+    #     # Assert that the status code is 401 Unauthorized
+    #     self.assertEqual(protected_response.status_code, status.HTTP_401_UNAUTHORIZED)
+    #     self.assertIn('detail', protected_response.data)
+    #     self.assertEqual(protected_response.data['detail'], 'Token is invalid or expired')
