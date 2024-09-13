@@ -9,29 +9,28 @@ import { FishSymbol, Atom, AtSign } from 'lucide-react';
 import EditUserProfile from "./EditProfile";
 
 type UserProfileProps = {
-    name: string;
-    username: string;
-    email: string;
-    avatarUrl: string;
-    colocName: string;
-    joinedDate: Date;
+    username?: string;
+    email?: string;
+    avatarUrl?: string;
+    colocName?: string;
+    joinedDate?: string;
 }
 
-const UserProfileCard: React.FC<UserProfileProps> = ({ name, username, avatarUrl, colocName, email: mail, joinedDate }) => {
-    const joinedSince = formatDistanceToNow(joinedDate, { addSuffix: true, locale: fr });
+const UserProfileCard: React.FC<UserProfileProps> = ({ username, avatarUrl, colocName, email: mail, joinedDate }) => {
+    const joinedSince = joinedDate ? formatDistanceToNow(joinedDate, { addSuffix: true, locale: fr }) : ""
 
     return (
         <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] bg-slate-50 p-4">
             <Card className="flex flex-col gap-5 w-full max-w-md bg-white shadow-lg rounded-lg">
                 <CardHeader className="flex gap-5">
                     <div className="flex flex-row justify-between items-center">
-                        <Avatar src={avatarUrl} alt={`${name}'s avatar`} style="w-20" />
+                        <Avatar src={avatarUrl || ""} alt={`${username}'s avatar`} style="w-20" />
                         <div className="p-4">
                             <EditUserProfile initialName={username} initialAvatar={avatarUrl} />
                         </div>
                     </div>
                     <div>
-                        <CardTitle className="text-center text-2xl font-semibold">{name}</CardTitle>
+                        <CardTitle className="text-center text-2xl font-semibold">{username}</CardTitle>
                         <p className="text-center text-gray-600">@{username}</p>
                     </div>
                 </CardHeader>

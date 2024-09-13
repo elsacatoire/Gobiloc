@@ -13,17 +13,8 @@ const ProfilePage: React.FC = () => {
     const didMountRef = useRef(false);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setLoading] = useState(true)
-    const [currentUser, setCurrentUser] = useState<UserType[]>([]);
+    const [currentUser, setCurrentUser] = useState<UserType | null>(null);
     const { user, isAuthenticated } = useAuth();
-
-    const userDATAtest = {
-        name: "Jane Doe",
-        username: "janedoe",
-        mail: "placeholder@test.com",
-        avatarUrl: "/images/avatar3.jpg",
-        colocName: "Rue Malbec",
-        joinedDate: new Date("2023-01-15T00:00:00Z"),
-    };
 
     useLayoutEffect(() => {
         if (!isAuthenticated) {
@@ -37,7 +28,7 @@ const ProfilePage: React.FC = () => {
             try {
                 const data = await fetchCurrentUser();
                 if (Array.isArray(data)) {
-                    setCurrentUser(data);
+                    setCurrentUser(data[0]);
                 } else {
                     setError("Données reçues incorrectes.");
                 }
@@ -49,24 +40,24 @@ const ProfilePage: React.FC = () => {
         getCurrentUser();
     }, []);
 
-    /*     if (isLoading) {
-            return <p>Chargement...</p>;
-        } */
+    if (isLoading) {
+        return <p>Chargement...</p>;
+    }
 
-    /*     if (error) {
-            return <p>Erreur : {error}</p>;
-        } */
+    if (error) {
+        return <p>Erreur : {error}</p>;
+    }
+
 
     return (
         <div>
             <Header title={NavMenu.PROFIL} />
             <UserProfileCard
-                name={userDATAtest.name}
-                username={userDATAtest.username}
-                email={userDATAtest.mail}
-                avatarUrl={userDATAtest.avatarUrl}
-                colocName={userDATAtest.colocName}
-                joinedDate={userDATAtest.joinedDate}
+                username={currentUser?.username}
+                email={currentUser?.email}
+                avatarUrl={"/images/avatar3.jpg"}
+                colocName={"Rue Malbec"}
+                joinedDate={currentUser?.date_joined}
             />
         </div>
     );
