@@ -38,7 +38,8 @@ class TodoViewSet(ModelViewSet):
         return Todo.objects.filter(flat_share=flat)
 
     def perform_create(self, serializer):
-        flat = self.flat
+        flat_id = self.kwargs.get('flat_pk')
+        flat = FlatShare.objects.get(pk=flat_id)
         serializer.save(flat_share=flat)
 
 
