@@ -1,4 +1,3 @@
-
 'use client'
 
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
@@ -7,7 +6,7 @@ import { Header } from "../components/customsComponents/layout/Header";
 import { NavMenu } from "../enums/NavMenuEnum";
 import { UserType } from "../../types/UserType";
 import { fetchCurrentUser } from "@/api/services/userService";
-import { isAuthenticated } from "../../utils/Auth";
+import { useAuth } from "../../utils/useAuth";
 import { redirect } from "next/navigation";
 
 const ProfilePage: React.FC = () => {
@@ -15,8 +14,9 @@ const ProfilePage: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setLoading] = useState(true)
     const [currentUser, setCurrentUser] = useState<UserType[]>([]);
+    const { user, isAuthenticated } = useAuth();
 
-    const user = {
+    const userDATAtest = {
         name: "Jane Doe",
         username: "janedoe",
         mail: "placeholder@test.com",
@@ -25,23 +25,17 @@ const ProfilePage: React.FC = () => {
         joinedDate: new Date("2023-01-15T00:00:00Z"),
     };
 
-
     useLayoutEffect(() => {
-        const isAuth = isAuthenticated;
-        if (!isAuth) {
-            redirect("/")
+        if (!isAuthenticated) {
+            redirect("/");
         }
-    }, [])
+    }, [isAuthenticated]);
 
     /* ----- GET user data ----- */
     useEffect(() => {
         const getCurrentUser = async () => {
             try {
-                console.log('avant fetch');
-
                 const data = await fetchCurrentUser();
-                console.log('data====>', data);
-
                 if (Array.isArray(data)) {
                     setCurrentUser(data);
                 } else {
@@ -50,30 +44,32 @@ const ProfilePage: React.FC = () => {
                 setLoading(false);
             } catch (error: any) {
                 setError(error.message);
-                console.log("nooon");
-
             }
         };
         getCurrentUser();
     }, []);
 
+    /*     if (isLoading) {
+            return <p>Chargement...</p>;
+        } */
+
+    /*     if (error) {
+            return <p>Erreur : {error}</p>;
+        } */
+
     return (
         <div>
             <Header title={NavMenu.PROFIL} />
             <UserProfileCard
-                name={user.name}
-                username={user.username}
-                email={user.mail}
-                avatarUrl={user.avatarUrl}
-                colocName={user.colocName}
-                joinedDate={user.joinedDate}
+                name={userDATAtest.name}
+                username={userDATAtest.username}
+                email={userDATAtest.mail}
+                avatarUrl={userDATAtest.avatarUrl}
+                colocName={userDATAtest.colocName}
+                joinedDate={userDATAtest.joinedDate}
             />
         </div>
     );
 };
 
 export default ProfilePage;
-function setError(arg0: string) {
-    throw new Error("Function not implemented.");
-}
-

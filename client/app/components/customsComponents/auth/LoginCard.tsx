@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useContext } from "react";
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
@@ -17,8 +17,12 @@ import { Input } from "@/app/components/ui/input"
 import { Label } from "@/app/components/ui/label"
 import LogoFullName from "../design/LogoFullName";
 import Link from "next/link";
+import AuthContext from "@/context/AuthContext";
 
 export const LoginCard: React.FC = () => {
+
+    let { loginUser } = useContext(AuthContext);
+
     const router = useRouter();
 
     // Local inputs's states
@@ -35,30 +39,34 @@ export const LoginCard: React.FC = () => {
         setPassword(e.target.value);
     };
 
-    // Handeling the login form submission
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setError(null);
-
-        try {
-            const response = await axios.post(
-                'http://localhost:8000/api/user/login/',
-                { email, password },
-                { withCredentials: true }
-            );
-            console.log("Réponse du serveur:", response.data);  // To delete when auth functionnal
-            router.push('/');
-        } catch (error) {
-            setError("Identifiants incorrects. Veuillez réessayer."); // TODO: Diplay erros on the page
-        }
-        setEmail('');
-        setPassword('');
-    };
+    /*     // Handeling the login form submission
+        const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+            setError(null);
+    
+            try {
+                console.log("coucou login");
+                const response = await axios.post(
+                    'http://localhost:8000/api/user/login/',
+                    { email, password },
+                    { withCredentials: true }
+                );
+                console.log("Réponse du serveur:", response.data);  // To delete when auth functionnal
+                await loginUser(e);
+                console.log("login::before push");
+    
+                router.push('/welcome');
+            } catch (error) {
+                setError("Identifiants incorrects. Veuillez réessayer."); // TODO: Diplay erros on the page
+            }
+            setEmail('');
+            setPassword('');
+        }; */
 
     return (
         <div>
             <Card className="w-[350px]">
-                <form onSubmit={handleSubmit} >
+                <form onSubmit={loginUser} >
                     <CardHeader>
                         <div className="flex justify-center mb-5">
                             <LogoFullName />
@@ -76,6 +84,7 @@ export const LoginCard: React.FC = () => {
                                 <Input
                                     type="email"
                                     id="userId"
+                                    name="email"
                                     value={email}
                                     onChange={handleEmailChange}
                                     placeholder="user@mail.com" />
@@ -85,6 +94,7 @@ export const LoginCard: React.FC = () => {
                                 <Input
                                     type="password"
                                     id="password"
+                                    name="password"
                                     value={password}
                                     onChange={handlePasswordChange}
                                     placeholder="mot de passe" />

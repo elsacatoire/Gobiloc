@@ -1,27 +1,24 @@
-'use client'
+import { useContext, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import AuthContext from '@/context/AuthContext';
 
-import { isAuthenticated } from "@/utils/Auth";
-import { useEffect } from "react";
-import { redirect } from "next/navigation";
-
-// Higher Order Component (HOC), which is a cleaner way to secure your route on the client side.
-// Higher Order Component (isAuth) checks the user's authentication status. 
-// If the user is not authenticated, it prevents the rendering of the protected component and redirects them to the homepage.
-export default function isAuth(Component: any) {
-
-    return function IsAuth(props: any) {
-        const auth = isAuthenticated;
+const isAuth = (WrappedComponent: React.ComponentType) => {
+    const AuthComponent = (props: any) => {
+        const { user } = useContext(AuthContext);
+        const router = useRouter();
 
         useEffect(() => {
-            if (!auth) {
-                return redirect("/");
+            if (!user) {
+                console.log("no user isAuth");
+
+                router.push('/login');
             }
-        }, []);
+        }, [user, router]);
 
-        if (!auth) {
-            return null;
-        }
-
-        return <Component {...props} />;
+        return user ? <WrappedComponent {...props} /> : null;
     };
-}
+
+    return AuthComponent;
+};
+
+export default isAuth;
