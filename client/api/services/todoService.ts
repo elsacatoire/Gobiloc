@@ -1,11 +1,10 @@
 import { TodoDTO, TodoType } from '@/types/TodoType';
-import axios from 'axios';
+import apiClient from '@/utils/api';
 
 export const fetchTodo = async (id: number): Promise<TodoType> => {
     try {
-        const response = await axios.get(`http://localhost:8000/api/todo/${id}`);
-        const todo: TodoType = response.data;
-        return todo;
+        const response = await apiClient.get(`/todo/${id}`);
+        return response.data;
     } catch (error) {
         throw new Error("Erreur lors de la récupération de la liste. Veuillez réessayer.");
     }
@@ -13,7 +12,7 @@ export const fetchTodo = async (id: number): Promise<TodoType> => {
 
 export const fetchTodos = async (idFlat: number) => {
     try {
-        const response = await axios.get(`http://localhost:8000/api/todo/flat/${idFlat}`);
+        const response = await apiClient.get(`/todo/flat/${idFlat}`);
         return response.data;
     } catch (error) {
         throw new Error("Erreur lors de la récupération des listes. Veuillez réessayer.");
@@ -22,7 +21,7 @@ export const fetchTodos = async (idFlat: number) => {
 
 export const createTodo = async (data: TodoDTO) => {
     try {
-        const response = await axios.post("http://localhost:8000/api/todo/", data);
+        const response = await apiClient.post('/todo/', data);
         return response.data;
     } catch (error) {
         throw new Error("Erreur lors de la création. Veuillez réessayer.");
@@ -31,7 +30,7 @@ export const createTodo = async (data: TodoDTO) => {
 
 export const deleteTodo = async (idTodo: number) => {
     try {
-        await axios.delete(`http://localhost:8000/api/todo/${idTodo}`);
+        await apiClient.delete(`/todo/${idTodo}`);
     } catch (error) {
         throw new Error("Erreur lors de la suppression du todo. Veuillez réessayer.");
     }
@@ -39,10 +38,10 @@ export const deleteTodo = async (idTodo: number) => {
 
 export const updateTodoName = async (idTodo: number, data: string) => {
     const newName = {
-        "name": data
-    }
+        name: data,
+    };
     try {
-        await axios.patch(`http://localhost:8000/api/todo/${idTodo}/`, newName);
+        await apiClient.patch(`/todo/${idTodo}/`, newName);
     } catch (error) {
         throw new Error("Erreur lors de la modification du todo. Veuillez réessayer.");
     }
