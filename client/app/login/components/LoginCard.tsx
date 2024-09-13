@@ -1,9 +1,6 @@
 "use client"
 
-import React, { useState, FormEvent, useContext } from "react";
-import { useRouter } from 'next/navigation';
-import axios from 'axios';
-
+import React, { useState, useContext } from "react";
 import { Button } from "@/app/components/ui/button"
 import {
     Card,
@@ -15,9 +12,10 @@ import {
 } from "@/app/components/ui/card"
 import { Input } from "@/app/components/ui/input"
 import { Label } from "@/app/components/ui/label"
-import LogoFullName from "../design/LogoFullName";
+
 import Link from "next/link";
 import AuthContext from "@/context/AuthContext";
+import LogoFullName from "@/app/components/customsComponents/design/LogoFullName";
 
 export const LoginCard: React.FC = () => {
 
@@ -36,7 +34,7 @@ export const LoginCard: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className="flex justify-center mt-1 md:mt-10">
             <Card className="w-[350px]">
                 <form onSubmit={loginUser} >
                     <CardHeader>

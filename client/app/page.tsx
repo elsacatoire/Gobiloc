@@ -1,45 +1,35 @@
-'use client'
+'use client';
 
-import LogoFullName from "@/app/components/customsComponents/design/LogoFullName";
-import { Button } from "@/app/components/ui/button";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/utils/useAuth';
+import { Button } from './components/ui/button';
+import { Header } from './components/customsComponents/layout/Header';
+import { NavMenu } from './enums/NavMenuEnum';
 
-export default function LandingPage() {
-  const [bubbles, setBubbles] = useState<number[]>([]);
+
+const LandingPage: React.FC = () => {
+  const router = useRouter();
+  const { user, isAuthenticated } = useAuth();
 
   useEffect(() => {
-    const bubbleCount = 10;
-    const bubbleArray = Array.from({ length: bubbleCount }, (_, i) => i);
-    setBubbles(bubbleArray);
-  }, []);
+    if (!isAuthenticated) {
+      router.push('/login');
+    }
+  }, [isAuthenticated, router]);
+
+  if (!isAuthenticated) {
+    return <p>Redirection vers la page de login...</p>;
+  }
 
   return (
-    <>
-      <div className="relative flex flex-col items-center justify-center min-h-screen p-4 overflow-hidden">
-        <h2 className="text-xl md:text-2xl mb-4 text-center">Bienvenue dans</h2>
-        <div className="flex justify-center items-center w-full">
-          <LogoFullName />
-        </div>
-        <p>Le vivre ensemble facile</p>
-        <div className="flex flex-col md:flex-row items-center justify-center w-full mt-4">
-          <Link href="/register">
-            <Button className="mr-0 md:mr-3 mb-3 md:mb-0" variant="defaultSecondary">
-              Créer mon compte
-            </Button>
-          </Link>
-          <Link href="/login">
-            <Button>
-              Se connecter
-            </Button>
-          </Link>
-        </div>
-        <div className="fixed bottom-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-          {bubbles.map((bubble) => (
-            <div key={bubble} className="bubble absolute bg-blue-400 rounded-full"></div>
-          ))}
-        </div>
-      </div>
-    </>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <Header title={NavMenu.HOME} />
+      <h1 className="text-4xl font-bold mb-4">Bienvenue sur la Landing Page</h1>
+      <p className="text-lg mb-6">Tu es authentifié. Bienvenue dans ton espace !</p>
+      <Button onClick={() => router.push('/dashboard')}>Accéder à ton tableau de bord</Button>
+    </div>
   );
-}
+};
+
+export default LandingPage;

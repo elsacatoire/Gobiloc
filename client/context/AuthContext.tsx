@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             localStorage.setItem('authTokens', JSON.stringify(data));
             console.log("localStorage.getItem ", localStorage.getItem('authTokens'));
 
-            router.push('/welcome');
+            router.push('/');
         } else {
             alert('Login failed');
         }
