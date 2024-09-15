@@ -786,7 +786,7 @@
 												"exec": [
 													"// GET ID LIST CREATED\r",
 													"let responseBody = pm.response.json();\r",
-													"pm.environment.set(\"bearerToken\", responseBody.access);\r",
+													"pm.environment.set(\"bearerToken\", responseBody.id);\r",
 													"\r",
 													"\r",
 													"\r",
@@ -850,7 +850,7 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "c21029fc-e395-4012-9914-cc76bf915c36",
+												"id": "a7ca2da9-29f2-4031-b0b4-11db22958d97",
 												"exec": [],
 												"type": "text/javascript"
 											}
@@ -888,6 +888,76 @@
 									"response": []
 								},
 								{
+									"name": "delete a todo",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "138c963d-046f-45bd-b328-217dce4c1c5f",
+												"exec": [
+													"pm.test(\"Response status code is 204\", function () {\r",
+													"  pm.response.to.have.status(204);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response has the expected Content-Type header\", function () {\r",
+													"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/xml\");\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response body is null or empty\", function () {\r",
+													"    const responseData = xml2Json(pm.response.text());\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.null;\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Verify the response schema\", function () {\r",
+													"    const responseData = xml2Json(pm.response.text());\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "7c9caac4-97ad-427c-b3e0-ba96c9adffa0",
+												"exec": [],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "34797322-4052-4bfb-999b-387629dcde6d",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "localhost:8000/api/todo/242/"
+									},
+									"response": []
+								},
+								{
 									"name": "Edit list name",
 									"id": "86c34043-6dc2-4b84-a0ec-f957f0ac7aea",
 									"protocolProfileBehavior": {
@@ -910,28 +980,6 @@
 										"body": {
 											"mode": "raw",
 											"raw": "    {\r\n        \"name\": \"LFI\",\r\n        \"category\": null\r\n    }",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "localhost:8000/api/todo/204/"
-									},
-									"response": []
-								},
-								{
-									"name": "delete a todo",
-									"id": "34797322-4052-4bfb-999b-387629dcde6d",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "DELETE",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
 											"options": {
 												"raw": {
 													"language": "json"
