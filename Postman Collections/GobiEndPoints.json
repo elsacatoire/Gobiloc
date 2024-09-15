@@ -786,7 +786,7 @@
 												"exec": [
 													"// GET ID LIST CREATED\r",
 													"let responseBody = pm.response.json();\r",
-													"pm.collectionVariables.set(\"bearerToken\", responseBody.id);\r",
+													"pm.collectionVariables.set(\"todoId\", responseBody.id);\r",
 													"\r",
 													"\r",
 													"// TEST CREATE A CHECKLIST\r",
@@ -849,7 +849,7 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "f55d1e67-6c3c-4140-b6f8-6e7f7f37fd32",
+												"id": "cdacb45f-d025-45f6-87ac-58840cc24266",
 												"exec": [],
 												"type": "text/javascript"
 											}
@@ -915,7 +915,7 @@
 												}
 											}
 										},
-										"url": "localhost:8000/api/todo/{"
+										"url": "localhost:8000/api/todo/{{todoId}}"
 									},
 									"response": []
 								},
@@ -1230,6 +1230,10 @@
 		{
 			"key": "bearerToken",
 			"value": "to be set by login"
+		},
+		{
+			"key": "todoId",
+			"value": ""
 		}
 	]
 }
