@@ -66,6 +66,9 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -521,6 +524,289 @@
 			"name": "Enpoints tests",
 			"item": [
 				{
+					"name": "Lists Copy",
+					"item": [
+						{
+							"name": "TODO",
+							"item": [
+								{
+									"name": "category",
+									"item": [
+										{
+											"name": "Get a category",
+											"id": "6ed6c830-e6c4-4e99-92cf-4ce9d6891eed",
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"coucou\": \"1\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "localhost:8000/api/todo/1/"
+											},
+											"response": []
+										}
+									],
+									"id": "06ea2d65-3ba7-4d68-ae02-bac85c369f3e"
+								},
+								{
+									"name": "Create todo",
+									"id": "a75617ab-dbbe-4515-8ef0-2cac9d331547",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "csrftoken",
+												"value": "Cvmsozea6wX3WX8pUsec1CuDHm5HYmYq",
+												"disabled": true
+											},
+											{
+												"key": "sessionid",
+												"value": "pk4vkolulilmwd0dv449rv0761b48bc4",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "    {\r\n        \"flat_share\": 6,\r\n        \"name\": \"meluch\",\r\n        \"category\": 2\r\n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "localhost:8000/api/todo/"
+									},
+									"response": []
+								},
+								{
+									"name": "Edit list name",
+									"id": "86c34043-6dc2-4b84-a0ec-f957f0ac7aea",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "csrftoken",
+												"value": "Cvmsozea6wX3WX8pUsec1CuDHm5HYmYq",
+												"disabled": true
+											},
+											{
+												"key": "sessionid",
+												"value": "pk4vkolulilmwd0dv449rv0761b48bc4",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "    {\r\n        \"name\": \"LFI\",\r\n        \"category\": null\r\n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "localhost:8000/api/todo/204/"
+									},
+									"response": []
+								},
+								{
+									"name": "Get all todos from a flat",
+									"id": "dd5e76dd-1f44-455c-930a-7cb835376364",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"coucou\": \"1\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "localhost:8000/api/todo/flat/1/"
+									},
+									"response": []
+								},
+								{
+									"name": "Get a todo",
+									"id": "10f86eec-b4af-4ec6-9fdc-22273ca125f5",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"coucou\": \"1\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "localhost:8000/api/todo/1/"
+									},
+									"response": []
+								},
+								{
+									"name": "Get a todos from a flat with tasks",
+									"id": "665e1dbd-270e-41b7-bad6-9e49e370f2ca",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"coucou\": \"1\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "localhost:8000/api/todo/1/tasks/"
+									},
+									"response": []
+								},
+								{
+									"name": "delete a todo",
+									"id": "34797322-4052-4bfb-999b-387629dcde6d",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "localhost:8000/api/todo/204/"
+									},
+									"response": []
+								}
+							],
+							"id": "c2827065-8f9e-499f-9a01-d08dcbe80236"
+						},
+						{
+							"name": "TASKS",
+							"item": [
+								{
+									"name": "Create a task",
+									"id": "89c002d2-3309-40b8-b800-e8f3cc29fd65",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"todo\": 1,\r\n    \"content\": \"du vin\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "localhost:8000/api/task/"
+									},
+									"response": []
+								},
+								{
+									"name": "Get a task",
+									"id": "8c9ffd09-4720-4392-9bac-9e77ec59c195",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "localhost:8000/api/task/1"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete a task",
+									"id": "7a1967a5-c96d-4174-a341-6fd35ab0fd7e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "localhost:8000/api/task/4/"
+									},
+									"response": []
+								},
+								{
+									"name": "Get all tasks from a todo",
+									"id": "c2de95cd-910f-4de7-89a5-a83660393dfc",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "localhost:8000/api/todo/1/tasks"
+									},
+									"response": []
+								},
+								{
+									"name": "Check/uncheck a task",
+									"id": "14f95d8e-ab36-4eb4-bf33-2f0e79700a19",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"done\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "localhost:8000/api/task/1/"
+									},
+									"response": []
+								}
+							],
+							"id": "5dd5fbb0-7891-40a1-b0cc-dbdd854948f1"
+						}
+					],
+					"id": "a82e7a8d-5ac7-45e4-8f9c-211d70fbaa71"
+				},
+				{
 					"name": "Login",
 					"event": [
 						{
@@ -528,7 +814,11 @@
 							"script": {
 								"id": "4e6928ee-4799-4958-b2a5-20aad0145c79",
 								"exec": [
-									"pm.globals.set(\"bearerToken\", \"variable_value\");"
+									"// Read the response\r",
+									"let responseData = pm.response.json();\r",
+									"\r",
+									"// Create the variable\r",
+									"pm.collectionVariables.set(\"bearerToken\", responseData.data.access);"
 								],
 								"type": "text/javascript",
 								"packages": {}
