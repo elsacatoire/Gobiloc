@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import UserProfileCard from "./components/UserProfileCard";
 import { Header } from "../components/customsComponents/layout/Header";
 import { NavMenu } from "../enums/NavMenuEnum";

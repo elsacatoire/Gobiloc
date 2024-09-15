@@ -45,7 +45,7 @@ export default function Home() {
 						<div
 							key={bubble}
 							className="bubble absolute bg-blue-400 rounded-full"
-						></div>
+						/>
 					))}
 				</div>
 			</div>

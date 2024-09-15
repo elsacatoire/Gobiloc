@@ -1,14 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import Avatar from "./Avatar";
 import {
 	Dialog,
 	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
 	DialogTrigger,
 } from "@/app/components/ui/dialog";
 import { Pencil } from "lucide-react";
@@ -20,8 +17,6 @@ interface UserProfileProps {
 	initialName: string;
 	initialAvatar: string;
 }
-
-const profileImgSrc = "/images/avatar3.jpg";
 
 const EditUserProfile: React.FC<UserProfileProps> = ({
 	initialName,
@@ -35,7 +30,7 @@ const EditUserProfile: React.FC<UserProfileProps> = ({
 	};
 
 	const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e.target.files && e.target.files[0]) {
+		if (e.target.files?.[0]) {
 			const file = e.target.files[0];
 			const reader = new FileReader();
 			reader.onloadend = () => {

@@ -11,7 +11,13 @@ import { Button } from "../components/ui/button";
 import { deleteTodo, fetchTodos } from "@/api/services/todoService";
 import { formatDate } from "../utils/formatDate";
 import { getCategoryName } from "../enums/TodoCategoryEnum";
-import { TodoType } from "../types/TodoType";
+import type { TodoType } from "../types/TodoType";
+
+type CustomError = {
+	message: string;
+	[key: string]: unknown;
+};
+
 
 export default function Lists() {
 	/* ----- GET all todos ----- */
@@ -31,8 +37,9 @@ export default function Lists() {
 					setError("Données reçues incorrectes.");
 				}
 				setLoading(false);
-			} catch (error: any) {
-				setError(error.message);
+			} catch (error: unknown) {
+				const err = error as CustomError;
+				setError(err.message);
 			}
 		};
 		getAllTodos();
@@ -45,8 +52,9 @@ export default function Lists() {
 			await deleteTodo(idToDelete);
 			// update list
 			setTodos(todos.filter((_, index) => index !== _index));
-		} catch (error: any) {
-			setError(error.message);
+		} catch (error: unknown) {
+			const err = error as CustomError;
+			setError(err.message);
 		}
 	};
 

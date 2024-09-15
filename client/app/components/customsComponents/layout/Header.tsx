@@ -28,7 +28,7 @@ export function Header({ title }: HeaderProps) {
 						<Avatar src={profileImgSrc} alt="Avatar" />
 					</Link>
 				) : (
-					<div className="w-6"></div> // Espace réservé pour le bouton "Settings"
+					<div className="w-6" /> // Setting space
 				)}
 			</div>
 		</header>

@@ -1,9 +1,9 @@
-// components/Layout.tsx
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import React, { FC } from "react";
+import type React from "react";
+import type { FC } from "react";
 import { NavigationBar } from "./components/customsComponents/layout/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 

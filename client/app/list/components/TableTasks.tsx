@@ -9,7 +9,7 @@ import {
 	TableRow,
 } from "@/app/components/ui/table";
 import { Trash2 } from "lucide-react";
-import { TaskType } from "@/app/types/TaskType";
+import type { TaskType } from "@/app/types/TaskType";
 
 type TaskTableProps = {
 	tasks: TaskType[];
