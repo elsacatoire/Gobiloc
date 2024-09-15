@@ -786,8 +786,7 @@
 												"exec": [
 													"// GET ID LIST CREATED\r",
 													"let responseBody = pm.response.json();\r",
-													"pm.environment.set(\"bearerToken\", responseBody.id);\r",
-													"\r",
+													"pm.collectionVariables.set(\"bearerToken\", responseBody.id);\r",
 													"\r",
 													"\r",
 													"// TEST CREATE A CHECKLIST\r",
@@ -850,7 +849,7 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "a7ca2da9-29f2-4031-b0b4-11db22958d97",
+												"id": "f55d1e67-6c3c-4140-b6f8-6e7f7f37fd32",
 												"exec": [],
 												"type": "text/javascript"
 											}
@@ -884,6 +883,39 @@
 											}
 										},
 										"url": "localhost:8000/api/todo/"
+									},
+									"response": []
+								},
+								{
+									"name": "Edit list name",
+									"id": "86c34043-6dc2-4b84-a0ec-f957f0ac7aea",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "csrftoken",
+												"value": "Cvmsozea6wX3WX8pUsec1CuDHm5HYmYq",
+												"disabled": true
+											},
+											{
+												"key": "sessionid",
+												"value": "pk4vkolulilmwd0dv449rv0761b48bc4",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "    {\r\n        \"name\": \"LFI\",\r\n        \"category\": null\r\n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "localhost:8000/api/todo/{"
 									},
 									"response": []
 								},
@@ -953,40 +985,7 @@
 												}
 											}
 										},
-										"url": "localhost:8000/api/todo/242/"
-									},
-									"response": []
-								},
-								{
-									"name": "Edit list name",
-									"id": "86c34043-6dc2-4b84-a0ec-f957f0ac7aea",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "PATCH",
-										"header": [
-											{
-												"key": "csrftoken",
-												"value": "Cvmsozea6wX3WX8pUsec1CuDHm5HYmYq",
-												"disabled": true
-											},
-											{
-												"key": "sessionid",
-												"value": "pk4vkolulilmwd0dv449rv0761b48bc4",
-												"disabled": true
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "    {\r\n        \"name\": \"LFI\",\r\n        \"category\": null\r\n    }",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "localhost:8000/api/todo/204/"
+										"url": "localhost:8000/api/todo/{{listId}}/"
 									},
 									"response": []
 								}
