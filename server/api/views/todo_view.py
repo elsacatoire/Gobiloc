@@ -16,12 +16,9 @@ from api.serializers.todo_serializer import TodoSerializer
 
 
 class TodoViewSet(ModelViewSet):
-
     serializer_class = TodoSerializer
-    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        print("here")
         flat_id = self.kwargs.get('flat_pk')
 
         if flat_id is None:
@@ -59,11 +56,11 @@ class TodoViewSet(ModelViewSet):
     #     todos = Todo.objects.filter(flat_share__id=flat_share_id).order_by("-updateDate")
     #     return Response({"todos": todos.values()}, status=status.HTTP_200_OK)
 
-    @action(detail=True, methods=['GET'], url_path='tasks')
-    def get_todo_with_tasks(self, request, pk=None):
-        """
-        Get a single to-do with all its tasks
-        """
-        todo = get_object_or_404(Todo, pk=pk)
-        serializer = TodoSerializer(todo)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    # @action(detail=True, methods=['GET'], url_path='tasks')
+    # def get_todo_with_tasks(self, request, pk=None):
+    #     """
+    #     Get a single to-do with all its tasks
+    #     """
+    #     todo = get_object_or_404(Todo, pk=pk)
+    #     serializer = TodoSerializer(todo)
+    #     return Response(serializer.data, status=status.HTTP_200_OK)

@@ -23,7 +23,7 @@ todo_router = NestedSimpleRouter(router, r'flat', lookup='flat')
 todo_router.register(r'todo', TodoViewSet, basename='flat-todo')
 
 # Create a NestedSimpleRouter for tasks, nested under todos
-task_router = NestedSimpleRouter(todo_router, r'todo')
+task_router = NestedSimpleRouter(todo_router, r'todo', lookup='todo')
 task_router.register(r'task', TaskViewSet, basename='todo-task')
 
 urlpatterns = [

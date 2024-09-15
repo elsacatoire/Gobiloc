@@ -250,7 +250,19 @@ If todo doesn't exist, 404 with :
 
 ## TASK
 
-### 
+### CREATE /api/v1/flat/{flat_id}/todo/{todo_id}/task/
+
+### GET /api/v1/flat/{flat_id}/todo/{todo_id}/task/
+
+#### Get all the tasks for a specific todo.
+
+### GET /api/v1/flat/{flat_id}/todo/{todo_id}/task/{task_id}/
+
+#### Get one specific task.
+
+### PATCH /api/v1/flat/{flat_id}/todo/{todo_id}/task/{task_id}/
+
+### DELETE /api/v1/flat/{flat_id}/todo/{todo_id}/task/{task_id}/
 
 
 
