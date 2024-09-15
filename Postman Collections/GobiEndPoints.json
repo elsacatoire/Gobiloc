@@ -524,7 +524,7 @@
 			"name": "Enpoints tests",
 			"item": [
 				{
-					"name": "Lists Copy",
+					"name": "Lists",
 					"item": [
 						{
 							"name": "TODO",
@@ -556,6 +556,28 @@
 										}
 									],
 									"id": "06ea2d65-3ba7-4d68-ae02-bac85c369f3e"
+								},
+								{
+									"name": "Get all todos from a flat",
+									"id": "dd5e76dd-1f44-455c-930a-7cb835376364",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"coucou\": \"1\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "localhost:8000/api/todo/flat/1/"
+									},
+									"response": []
 								},
 								{
 									"name": "Create todo",
@@ -620,28 +642,6 @@
 											}
 										},
 										"url": "localhost:8000/api/todo/204/"
-									},
-									"response": []
-								},
-								{
-									"name": "Get all todos from a flat",
-									"id": "dd5e76dd-1f44-455c-930a-7cb835376364",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"coucou\": \"1\"\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "localhost:8000/api/todo/flat/1/"
 									},
 									"response": []
 								},
