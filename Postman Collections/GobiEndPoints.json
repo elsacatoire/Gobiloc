@@ -915,7 +915,7 @@
 												}
 											}
 										},
-										"url": "localhost:8000/api/todo/{{todoId}}"
+										"url": "localhost:8000/api/todo/{{todoId}}/"
 									},
 									"response": []
 								},
@@ -985,7 +985,7 @@
 												}
 											}
 										},
-										"url": "localhost:8000/api/todo/{{listId}}/"
+										"url": "localhost:8000/api/todo/{"
 									},
 									"response": []
 								}
