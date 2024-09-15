@@ -43,34 +43,7 @@ Tests:
 - [Playwright, tests end-to-end](https://playwright.dev/docs/intro)
 
 
-## Installation
-```bash
-npm install
-```
-
-```bash
-npm run build
-```
-
-
-## Lancer le projet
-
-En premier lieu, lancer le serveur de développement
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-
-Ouvrez [http://localhost:3000](http://localhost:3000) pour voir le résultat et intéragir avec l'app.
-
-Ce projet est développé en mobile first. Bien qu'accessible sur écran calssique, il est optimisé pour les écran de smartphone.
+## Lancer le projet voir le readme
 
 
 ## Arboresence du front
