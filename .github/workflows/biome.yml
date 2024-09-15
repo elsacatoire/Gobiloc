@@ -7,8 +7,8 @@ on:
     # The branches below must be a subset of the branches above
     branches: [ "main" ]
 jobs:
-  eslint:
-    name: Run eslint scanning
+  biome:
+    name: Run biome scanning
     runs-on: ubuntu-latest
     permissions:
       contents: read
