@@ -6,7 +6,7 @@ import { Header } from "../components/customsComponents/layout/Header";
 import { NavMenu } from "../enums/NavMenuEnum";
 import { UserType } from "../../types/UserType";
 import { fetchCurrentUser } from "@/api/services/userService";
-import { useAuth } from "../../utils/useAuth";
+import { useAuth } from "../../utils/auth/useAuth";
 import { redirect } from "next/navigation";
 
 const ProfilePage: React.FC = () => {

@@ -1,8 +1,11 @@
+'use client'
+
 import { Header } from '@/app/components/customsComponents/layout/Header'
 import { NavMenu } from '@/app/enums/NavMenuEnum'
+import isAuth from '@/utils/auth/isAuth'
 import React from 'react'
 
-const safe = () => {
+const Safe = () => {
     return (
         <div>
             <Header title={NavMenu.SAFE} />
@@ -11,4 +14,4 @@ const safe = () => {
     )
 }
 
-export default safe
+export default isAuth(Safe);

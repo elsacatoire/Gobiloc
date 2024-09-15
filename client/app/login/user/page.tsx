@@ -16,7 +16,7 @@ import Link from "next/link";
 import AuthContext from "@/context/AuthContext";
 import LogoFullName from "@/app/components/customsComponents/design/LogoFullName";
 
-export const LoginCard: React.FC = () => {
+export default function LoginCard() {
 
     let { loginUser } = useContext(AuthContext);
 
