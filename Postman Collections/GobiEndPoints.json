@@ -516,6 +516,11 @@
 				}
 			],
 			"id": "60cf8855-214f-4f25-9e2a-70a104715d68"
+		},
+		{
+			"name": "Enpoints tests",
+			"item": [],
+			"id": "cef905aa-387c-4619-a30d-6249e12f4dee"
 		}
 	],
 	"auth": {
