@@ -549,85 +549,37 @@
 	"auth": {
 		"type": "bearer",
 		"bearer": {
-			"token": "{{jwt_signed}}"
+			"token": "{{bearerToken}}"
 		}
 	},
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "6bcf80ee-7116-431e-93b4-fb408b8a2f94",
-				"type": "text/javascript",
-				"packages": {},
-				"exec": [
-					"// JWT generation script adapted from\r",
-					"// https://gist.github.com/corbanb/db03150abbe899285d6a86cc480f674d\r",
-					"\r",
-					"var jwtSecret = pm.environment.get('jwt_secret') || ''\r",
-					"\r",
-					"// Set headers for JWT\r",
-					"var header = {\r",
-					"\t'typ': 'JWT',\r",
-					"\t'alg': 'HS256'\r",
-					"};\r",
-					"\r",
-					"// Prepare timestamp in seconds\r",
-					"var currentTimestamp = Math.floor(Date.now() / 1000)\r",
-					"\r",
-					"var data = {\r",
-					"\t'iss': pm.environment.get('jwt_iss') || '',\r",
-					"\t'ist': pm.environment.get('jwt_ist') || '',\r",
-					"\t'iat': currentTimestamp,\r",
-					"\t'exp': currentTimestamp + 30, // expiry time is 30 seconds from time of creation\r",
-					"\t'jti': 'jwt_nonce'\r",
-					"}\r",
-					"\r",
-					"\r",
-					"function base64url(source) {\r",
-					"    // Encode in classical base64\r",
-					"    encodedSource = CryptoJS.enc.Base64.stringify(source)\r",
-					"    \r",
-					"    // Remove padding equal characters\r",
-					"    encodedSource = encodedSource.replace(/=+$/, '')\r",
-					"    \r",
-					"    // Replace characters according to base64url specifications\r",
-					"    encodedSource = encodedSource.replace(/\\+/g, '-')\r",
-					"    encodedSource = encodedSource.replace(/\\//g, '_')\r",
-					"    \r",
-					"    return encodedSource\r",
-					"}\r",
-					"\r",
-					"// encode header\r",
-					"var stringifiedHeader = CryptoJS.enc.Utf8.parse(JSON.stringify(header))\r",
-					"var encodedHeader = base64url(stringifiedHeader)\r",
-					"\r",
-					"// encode data\r",
-					"var stringifiedData = CryptoJS.enc.Utf8.parse(JSON.stringify(data))\r",
-					"var encodedData = base64url(stringifiedData)\r",
-					"\r",
-					"// build token\r",
-					"var token = `${encodedHeader}.${encodedData}`\r",
-					"\r",
-					"// sign token\r",
-					"var signature = CryptoJS.HmacSHA256(token, jwtSecret)\r",
-					"signature = base64url(signature)\r",
-					"var signedToken = `${token}.${signature}`\r",
-					"\r",
-					"pm.environment.set('jwt_signed', signedToken)\r",
-					"console.log('Signed and encoded JWT', signedToken)"
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"id": "e2723d56-0ccd-4990-8d9d-ebf2ee6220d1",
+				"id": "02a8fde1-13f4-412e-9065-997a945f979b",
 				"type": "text/javascript",
 				"packages": {},
 				"exec": [
 					""
 				]
 			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "3a5b2cdf-8e5e-423e-bc06-a6e8ba54c767",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "bearerToken",
+			"value": "to be set by login"
 		}
 	]
 }
