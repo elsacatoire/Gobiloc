@@ -784,10 +784,13 @@
 											"script": {
 												"id": "ebb47320-9dc6-4cd7-954e-2b6805019681",
 												"exec": [
-													"// GET TOKEN\r",
+													"// GET ID LIST CREATED\r",
+													"let responseBody = pm.response.json();\r",
+													"pm.environment.set(\"bearerToken\", responseBody.access);\r",
 													"\r",
 													"\r",
 													"\r",
+													"// TEST CREATE A CHECKLIST\r",
 													"pm.test(\"Response status code is 201\", function () {\r",
 													"    pm.expect(pm.response.code).to.equal(201);\r",
 													"});\r",
@@ -847,7 +850,7 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "3092b158-cb4e-4d4b-9a47-24bf538cffce",
+												"id": "c21029fc-e395-4012-9914-cc76bf915c36",
 												"exec": [],
 												"type": "text/javascript"
 											}
