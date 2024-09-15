@@ -522,6 +522,19 @@
 			"item": [
 				{
 					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4e6928ee-4799-4958-b2a5-20aad0145c79",
+								"exec": [
+									"pm.globals.set(\"bearerToken\", \"variable_value\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"id": "fabc22b5-1d23-46ea-8927-8832df28f427",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
