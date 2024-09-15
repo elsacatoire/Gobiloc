@@ -82,7 +82,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"email\": \"test@test.com\",\r\n\t\"password\": \"poissjghj\"\r\n}",
+							"raw": "{\r\n\t\"email\": {{login_usermail}},\r\n\t\"password\": {{login_password}}\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
