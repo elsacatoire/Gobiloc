@@ -519,7 +519,30 @@
 		},
 		{
 			"name": "Enpoints tests",
-			"item": [],
+			"item": [
+				{
+					"name": "Login",
+					"id": "fabc22b5-1d23-46ea-8927-8832df28f427",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"email\": \"test@test.com\",\r\n\t\"password\": \"poissjghj\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/token/"
+					},
+					"response": []
+				}
+			],
 			"id": "cef905aa-387c-4619-a30d-6249e12f4dee"
 		}
 	],
