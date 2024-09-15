@@ -849,7 +849,7 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "cdacb45f-d025-45f6-87ac-58840cc24266",
+												"id": "81c6ba86-64a7-49ad-ab75-a11e83f7d7e3",
 												"exec": [],
 												"type": "text/javascript"
 											}
@@ -908,7 +908,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "    {\r\n        \"name\": \"LFI\",\r\n        \"category\": null\r\n    }",
+											"raw": "    {\r\n        \"name\": \"LFI\",\r\n        \"category\": 3\r\n    }",
 											"options": {
 												"raw": {
 													"language": "json"
