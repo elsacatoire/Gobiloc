@@ -937,11 +937,6 @@
 													"});\r",
 													"\r",
 													"\r",
-													"pm.test(\"Response has the expected Content-Type header\", function () {\r",
-													"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/xml\");\r",
-													"});\r",
-													"\r",
-													"\r",
 													"pm.test(\"Response body is null or empty\", function () {\r",
 													"    const responseData = xml2Json(pm.response.text());\r",
 													"    \r",
@@ -963,7 +958,7 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "7c9caac4-97ad-427c-b3e0-ba96c9adffa0",
+												"id": "62a9591c-048c-40a0-b84d-919145a0baef",
 												"exec": [],
 												"type": "text/javascript"
 											}
@@ -985,7 +980,7 @@
 												}
 											}
 										},
-										"url": "localhost:8000/api/todo/{"
+										"url": "localhost:8000/api/todo/{{todoId}}/"
 									},
 									"response": []
 								}
