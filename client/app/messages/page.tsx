@@ -3,6 +3,7 @@
 import { Header } from '@/app/components/customsComponents/layout/Header'
 import { NavMenu } from '@/app/enums/NavMenuEnum'
 import AuthContext from '@/context/AuthContext'
+import isAuth from '@/utils/auth/isAuth'
 import React, { useContext } from 'react'
 
 const messages = () => {
@@ -25,4 +26,4 @@ const messages = () => {
     );
 }
 
-export default messages
+export default isAuth(messages)

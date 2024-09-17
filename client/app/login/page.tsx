@@ -16,7 +16,7 @@ export default function LandingPage() {
 
     return (
         <>
-            <div className="relative flex flex-col items-center justify-center min-h-screen p-4 overflow-hidden">
+            <div className="relative flex flex-col items-center justify-center p-4">
                 <h2 className="text-xl md:text-2xl mb-4 text-center">Bienvenue dans</h2>
                 <div className="flex justify-center items-center w-full">
                     <LogoFullName />
@@ -28,7 +28,7 @@ export default function LandingPage() {
                             Créer mon compte
                         </Button>
                     </Link>
-                    <Link href="/login">
+                    <Link href="/login/user">
                         <Button>
                             Se connecter
                         </Button>

@@ -23,7 +23,7 @@ const LandingPage: React.FC = () => {
   const handleLogOut = () => {
     console.log("logout button");
     logoutUser()
-    router.push('/')
+    router.push('/login')
   }
 
   if (!isAuthenticated) {
@@ -31,15 +31,14 @@ const LandingPage: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center h-full">
       <Header title={NavMenu.HOME} />
       <h1 className="text-4xl font-bold mb-4">Bienvenue sur la Landing Page</h1>
       <p className="text-lg mb-6">Tu es authentifié. Bienvenue dans ton espace !</p>
       <div className='flex flex-col gap-4'>
         <Button onClick={() => router.push('/dashboard')}>Accéder à ton tableau de bord</Button>
-        <Button variant={"destructive"} onClick={() => handleLogOut}>Se déconnecter</Button>
+        <Button variant={"destructive"} onClick={() => handleLogOut()}>Se déconnecter</Button>
       </div>
-
     </div>
   );
 };

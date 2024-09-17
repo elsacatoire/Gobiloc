@@ -86,7 +86,7 @@ export const RegisterCard: React.FC = () => {
                         </div>
                         <CardTitle>Ouvrir un compte</CardTitle>
                         <CardDescription>Enregistre toi pour rejoindre ta colloc et profiter des fonctionnalités de gobiloc. Tu as déjà un compte ?
-                            <Link href="/login" className="text-teal-600 visited:text-orange-600"> Se connecter</Link>
+                            <Link href="/login/user" className="text-teal-600 visited:text-orange-600"> Se connecter</Link>
                         </CardDescription>
                     </CardHeader>
                     <CardContent>

@@ -10,22 +10,20 @@ const inter = Inter({ subsets: ["latin"] });
 
 interface RootLayoutProps {
   children: React.ReactNode;
-  Header?: FC;
 }
 
-const RootLayout: FC<RootLayoutProps> = ({ children, Header }) => {
+const RootLayout: FC<RootLayoutProps> = ({ children }) => {
 
   return (
-    <html lang="en">
+    <html lang="fr">
       <AuthProvider>
         <body className={inter.className}>
-          <div className="flex flex-col min-h-screen">
-            {Header && <Header />}
-            <main className="flex-grow">
+          <div className="flex flex-col h-full">
+            <main className="flex-grow pt-16  bg-gray-100">
               {children}
             </main>
             <footer>
-              {/* isAuthenticated &&  */<NavigationBar />}
+              <NavigationBar />
             </footer>
           </div>
         </body>

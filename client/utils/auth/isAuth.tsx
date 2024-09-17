@@ -1,23 +1,32 @@
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/router';
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAuth } from './useAuth';
 
 const isAuth = (WrappedComponent: React.ComponentType) => {
     const AuthenticatedComponent = (props: any) => {
         const router = useRouter();
-        const { isAuthenticated, user } = useAuth();
+        const { isAuthenticated } = useAuth();
+        const [mounted, setMounted] = useState(false);
 
         useEffect(() => {
-            if (!isAuthenticated) {
+            setMounted(true);
+        }, []);
+
+        useEffect(() => {
+            if (mounted && !isAuthenticated) {
                 router.push('/login');
             }
-        }, [isAuthenticated, router]);
+        }, [mounted, isAuthenticated, router]);
 
         if (!isAuthenticated) {
             return <p>Redirection vers la page de connexion...</p>;
         }
-        return <WrappedComponent {...props} />;
+
+        return mounted ? <WrappedComponent {...props} /> : null;
     };
     return AuthenticatedComponent;
 };
+
 export default isAuth;
