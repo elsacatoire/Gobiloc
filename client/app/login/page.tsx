@@ -16,7 +16,7 @@ export default function LandingPage() {
 
     return (
         <>
-            <div className="relative flex flex-col items-center justify-center p-4">
+            <div className="relative flex flex-col items-center justify-center">
                 <h2 className="text-xl md:text-2xl mb-4 text-center">Bienvenue dans</h2>
                 <div className="flex justify-center items-center w-full">
                     <LogoFullName />

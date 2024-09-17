@@ -17,7 +17,7 @@ const messages = () => {
     let { user } = context;
 
     return (
-        <div className='mt-48'>
+        <div>
             <Header title={NavMenu.MESSAGES} />
             <div>messages</div>
             {user && <p>Hello {user.username}</p>}

@@ -20,7 +20,7 @@ const UserProfileCard: React.FC<UserProfileProps> = ({ username, avatarUrl, colo
     const joinedSince = joinedDate ? formatDistanceToNow(joinedDate, { addSuffix: true, locale: fr }) : ""
 
     return (
-        <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] bg-slate-50 p-4">
+        <div className="flex items-center justify-center">
             <Card className="flex flex-col gap-5 w-full max-w-md bg-white shadow-lg rounded-lg">
                 <CardHeader className="flex gap-5">
                     <div className="flex flex-row justify-between items-center">

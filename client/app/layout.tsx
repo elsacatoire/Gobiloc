@@ -18,8 +18,8 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
     <html lang="fr">
       <AuthProvider>
         <body className={inter.className}>
-          <div className="flex flex-col h-full">
-            <main className="flex-grow pt-16  bg-gray-100">
+          <div className="flex flex-col h-full  bg-slate-100">
+            <main className="flex-grow pt-16 p-4 sm:pt-28">
               {children}
             </main>
             <footer>
