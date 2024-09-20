@@ -10,7 +10,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         # Add custom claims
         token['username'] = user.username
-        token['flat_id'] = user.flat_share.id
+        token['flat_id'] = user.flat_share_id
 
         return token
 
