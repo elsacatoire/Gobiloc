@@ -47,12 +47,7 @@ export const CreateList: React.FC = () => {
         e.preventDefault();
         setError(null);
         try {
-            console.log('testcategory', category, typeof (category));
-
             const newTodo = { flat_share: flatShareId, name, category };
-            console.log("category=====>", category, typeof (category));
-
-            console.log("newTodo=>", newTodo);
             const response = await createTodo(newTodo);
             router.push(`/list/${response.id}`);
         } catch (error: any) {
@@ -62,8 +57,6 @@ export const CreateList: React.FC = () => {
 
     const handleCategoryChange = (value: string) => {
         const selectedCategoryId = getCategoryId(value as TodoCategory);
-        console.log('selectedCategoryId', selectedCategoryId, typeof (selectedCategoryId));
-
         setCategory(selectedCategoryId);
     };
 

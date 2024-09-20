@@ -14,6 +14,7 @@ from api.serializers.todo_serializer import TodoSerializer
 
 
 class TodoViewSet(ModelViewSet):
+
     serializer_class = TodoSerializer
     queryset = Todo.objects.all()
 

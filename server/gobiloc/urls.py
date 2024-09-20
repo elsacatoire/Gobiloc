@@ -1,11 +1,16 @@
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from api.views.todo_view import TodoViewSet
+from api.views.token_view import MyTokenObtainPairView
 from api.views.user_view import UserViewSet
 from api.views.task_view import TaskViewSet
 from api.views.flat_share_view import FlatShareViewSet
+from rest_framework_simplejwt.views import (
+    TokenRefreshView,
+)
 
 router = routers.SimpleRouter()
 
@@ -14,7 +19,10 @@ router.register('todo', TodoViewSet, basename='todo')
 router.register('task', TaskViewSet, basename='task')
 router.register('flat', FlatShareViewSet, basename='flat')
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('api/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),  # Custom token to get more user data
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

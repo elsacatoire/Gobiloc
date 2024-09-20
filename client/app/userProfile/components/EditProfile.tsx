@@ -17,11 +17,9 @@ import { Input } from '@/app/components/ui/input';
 import { Card } from '@/app/components/ui/card';
 
 interface UserProfileProps {
-    initialName: string;
-    initialAvatar: string;
+    initialName?: string;
+    initialAvatar?: string;
 }
-
-const profileImgSrc = "/images/avatar3.jpg";
 
 const EditUserProfile: React.FC<UserProfileProps> = ({ initialName, initialAvatar }) => {
     const [name, setName] = useState(initialName);
@@ -60,7 +58,7 @@ const EditUserProfile: React.FC<UserProfileProps> = ({ initialName, initialAvata
                         <div className='flex flex-col gap-4'>
                             <div className='flex flex-col gap-5'>
                                 <div className="flex flex-col gap-4 items-center">
-                                    <Avatar src={avatar} alt="avatar de l'utilisateur" style='w-24' />
+                                    <Avatar src={avatar || ""} alt="avatar de l'utilisateur" style='w-24' />
                                     <div className="flex flex-col gap-2">
                                         <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                                             Modifier l'avatar

@@ -11,9 +11,9 @@ import { NavMenu } from "@/app/enums/NavMenuEnum";
 import { Trash2 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { deleteTodo, fetchTodos } from "@/api/services/todoService";
-import { formatDate } from "../utils/formatDate";
+import { formatDate } from "../../utils/formatDate";
 import { getCategoryName } from "../enums/TodoCategoryEnum";
-import { TodoType } from "../types/TodoType";
+import { TodoType } from "../../types/TodoType";
 
 export default function Lists() {
     /* ----- GET all todos ----- */
@@ -59,9 +59,9 @@ export default function Lists() {
 
     /* ----- Render when everything is cooooool ----- */
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col">
             <Header title={NavMenu.LISTS} />
-            <div className="flex flex-grow flex-col content-between mt-14 px-6 overflow-y-auto sm:mt-20">
+            <div className="flex flex-grow flex-col content-between px-6 overflow-y-auto">
                 {error && <p className="text-red-500">{error}</p>}
                 <div className="flex flex-wrap justify-center gap-1 sm:gap-4">
                     {

@@ -1,3 +1,5 @@
+import { TaskType } from "./TaskType";
+
 export type TodoType = {
     category: number;
     flat_share_id: number;

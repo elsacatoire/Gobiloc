@@ -1,29 +1,61 @@
+'use client'
 
-import React from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import UserProfileCard from "./components/UserProfileCard";
 import { Header } from "../components/customsComponents/layout/Header";
 import { NavMenu } from "../enums/NavMenuEnum";
+import { UserType } from "../../types/UserType";
+import { fetchCurrentUser } from "@/api/services/userService";
+import { useAuth } from "../../utils/auth/useAuth";
+import { redirect } from "next/navigation";
 
 const ProfilePage: React.FC = () => {
-    const user = {
-        name: "Jane Doe",
-        username: "janedoe",
-        mail: "placeholder@test.com",
-        avatarUrl: "/images/avatar3.jpg",
-        colocName: "Rue Malbec",
-        joinedDate: new Date("2023-01-15T00:00:00Z"),
-    };
+    const [error, setError] = useState<string | null>(null);
+    const [isLoading, setLoading] = useState(true)
+    const [currentUser, setCurrentUser] = useState<UserType | null>(null);
+    const { user, isAuthenticated } = useAuth();
+
+    useLayoutEffect(() => {
+        if (!isAuthenticated) {
+            redirect("/");
+        }
+    }, [isAuthenticated]);
+
+    /* ----- GET user data ----- */
+    useEffect(() => {
+        const getCurrentUser = async () => {
+            try {
+                const data = await fetchCurrentUser();
+                if (Array.isArray(data)) {
+                    setCurrentUser(data[0]);
+                } else {
+                    setError("Données reçues incorrectes.");
+                }
+                setLoading(false);
+            } catch (error: any) {
+                setError(error.message);
+            }
+        };
+        getCurrentUser();
+    }, []);
+
+    if (isLoading) {
+        return <p>Chargement...</p>;
+    }
+
+    if (error) {
+        return <p>Erreur : {error}</p>;
+    }
 
     return (
         <div>
             <Header title={NavMenu.PROFIL} />
             <UserProfileCard
-                name={user.name}
-                username={user.username}
-                email={user.mail}
-                avatarUrl={user.avatarUrl}
-                colocName={user.colocName}
-                joinedDate={user.joinedDate}
+                username={currentUser?.username}
+                email={currentUser?.email}
+                avatarUrl={"/images/avatar3.jpg"}
+                colocName={"Rue Malbec"}
+                joinedDate={currentUser?.date_joined}
             />
         </div>
     );
