@@ -46,7 +46,9 @@ class RegisterTest(APITestCase):
         expected_body = {
             "user": {
                 "username": "Floof",
-                "email": "testuser@test.com"
+                "email": "testuser@test.com",
+                "date_joined": self.response.json()["user"]["date_joined"],
+                "flat_share_id": None
             }
         }
         self.assertEqual(self.response.json(), expected_body)
@@ -57,7 +59,9 @@ class RegisterTest(APITestCase):
         expected_body = {
             "user": {
                 "username": "Pat",
-                "email": "testuser2@test.com"
+                "email": "testuser2@test.com",
+                "date_joined": response.json()["user"]["date_joined"],
+                "flat_share_id": None
             }
         }
         self.assertEqual(response.json(), expected_body)
@@ -69,6 +73,8 @@ class RegisterTest(APITestCase):
             "user": {
                 "username": "Hellsax",
                 "email": "testuser3@test.com",
+                "date_joined": response.json()["user"]["date_joined"],
+                "flat_share_id": None
             }
         }
         self.assertEqual(response.json(), expected_body)
