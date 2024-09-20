@@ -1,9 +1,6 @@
 "use client"
 
-import React, { useState, FormEvent } from "react";
-import { useRouter } from 'next/navigation';
-import axios from 'axios';
-
+import React, { useState, useContext } from "react";
 import { Button } from "@/app/components/ui/button"
 import {
     Card,
@@ -15,17 +12,17 @@ import {
 } from "@/app/components/ui/card"
 import { Input } from "@/app/components/ui/input"
 import { Label } from "@/app/components/ui/label"
-import LogoFullName from "../design/LogoFullName";
 import Link from "next/link";
+import AuthContext from "@/context/AuthContext";
+import LogoFullName from "@/app/components/customsComponents/design/LogoFullName";
 
 export const LoginCard: React.FC = () => {
-    const router = useRouter();
+
+    let { loginUser } = useContext(AuthContext);
 
     // Local inputs's states
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState<string | null>(null);
-
 
     // Handeling input's changes
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,30 +32,10 @@ export const LoginCard: React.FC = () => {
         setPassword(e.target.value);
     };
 
-    // Handeling the login form submission
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setError(null);
-
-        try {
-            const response = await axios.post(
-                'http://localhost:8000/api/user/login/',
-                { email, password },
-                { withCredentials: true }
-            );
-            console.log("Réponse du serveur:", response.data);  // To delete when auth functionnal
-            router.push('/');
-        } catch (error) {
-            setError("Identifiants incorrects. Veuillez réessayer."); // TODO: Diplay erros on the page
-        }
-        setEmail('');
-        setPassword('');
-    };
-
     return (
-        <div>
+        <div className="flex justify-center mt-1 md:mt-10">
             <Card className="w-[350px]">
-                <form onSubmit={handleSubmit} >
+                <form onSubmit={loginUser} >
                     <CardHeader>
                         <div className="flex justify-center mb-5">
                             <LogoFullName />
@@ -76,6 +53,7 @@ export const LoginCard: React.FC = () => {
                                 <Input
                                     type="email"
                                     id="userId"
+                                    name="email"
                                     value={email}
                                     onChange={handleEmailChange}
                                     placeholder="user@mail.com" />
@@ -85,6 +63,7 @@ export const LoginCard: React.FC = () => {
                                 <Input
                                     type="password"
                                     id="password"
+                                    name="password"
                                     value={password}
                                     onChange={handlePasswordChange}
                                     placeholder="mot de passe" />

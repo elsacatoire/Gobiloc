@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { CalendarFold, Pentagon, SquareCheck, Folder, MessageCircleMore } from "lucide-react";
+import { useAuth } from "@/utils/auth/useAuth";
 
 const menuItems = [
     { href: "/", icon: Pentagon, text: "Home" },
@@ -11,6 +12,13 @@ const menuItems = [
 ];
 
 export function NavigationBar() {
+
+    const { isAuthenticated } = useAuth();
+
+    if (!isAuthenticated) {
+        return <nav></nav>;
+    }
+
     return (
         <nav>
             <ul className="flex justify-between bg-gray-800 text-white p-3 md:p-4 sm:justify-end sm:gap-x-4 sm:pr-7">

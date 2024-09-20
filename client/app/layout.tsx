@@ -1,31 +1,25 @@
-// components/Layout.tsx
-import { Metadata } from "next";
+'use client';
+
 import { Inter } from "next/font/google";
 import "./globals.css";
-
 import React, { FC } from "react";
 import { NavigationBar } from "./components/customsComponents/layout/Navbar";
 import { AuthProvider } from "@/context/AuthContext";
-const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Gobiloc - App de collocs",
-  description: "Application de gestion de collocation entre amis.",
-};
+const inter = Inter({ subsets: ["latin"] });
 
 interface RootLayoutProps {
   children: React.ReactNode;
-  Header?: FC;
 }
 
-const RootLayout: FC<RootLayoutProps> = ({ children, Header }) => {
+const RootLayout: FC<RootLayoutProps> = ({ children }) => {
+
   return (
-    <html lang="en">
+    <html lang="fr">
       <AuthProvider>
         <body className={inter.className}>
-          <div className="flex flex-col min-h-screen">
-            {Header && <Header />}
-            <main className="flex-grow">
+          <div className="flex flex-col h-full  bg-slate-100">
+            <main className="flex-grow pt-16 p-4 sm:pt-28">
               {children}
             </main>
             <footer>
