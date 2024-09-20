@@ -3,7 +3,7 @@
 # Controller
 
 from rest_framework import status
-from rest_framework.exceptions import NotFound
+from rest_framework.exceptions import NotFound, PermissionDenied
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -24,19 +24,18 @@ class TodoViewSet(ModelViewSet):
         if flat_id is None:
             raise NotFound(detail='Flat ID is missing in the URL.', code=404)
 
-        try:
-            flat = FlatShare.objects.get(pk=flat_id)
-        except FlatShare.DoesNotExist:
-            raise NotFound(detail='No flat with this ID.', code=404)
+        flat = get_object_or_404(FlatShare, pk=flat_id)
 
         if self.request.user.flat_share != flat:
-            raise NotFound(detail='The requested flat is not associated with the current user.', code=403)
+            raise PermissionDenied(
+                detail='The requested flat is not associated with the current user.'
+            )
 
         return Todo.objects.filter(flat_share=flat)
 
     def perform_create(self, serializer):
         flat_id = self.kwargs.get('flat_pk')
-        flat = FlatShare.objects.get(pk=flat_id)
+        flat = get_object_or_404(FlatShare, pk=flat_id)
         serializer.save(flat_share=flat)
 
 
