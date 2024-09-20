@@ -7,7 +7,7 @@ export function formatDate(dateString: string) {
 
 	if (year === currentYear) {
 		return `${day}/${month}`;
-	} else {
+	} 
 		return `${day}/${month}/${year}`;
-	}
 }
+

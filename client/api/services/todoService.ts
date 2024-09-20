@@ -14,7 +14,7 @@ export const fetchTodo = async (idTodo: number): Promise<TodoType> => {
 
 export const fetchTodos = async () => {
 	try {
-		const response = await apiFlatClient.get(`/todo/`);
+		const response = await apiFlatClient.get("/todo/");
 		return response.data;
 	} catch (error) {
 		throw new Error(

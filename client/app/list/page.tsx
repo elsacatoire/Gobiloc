@@ -31,8 +31,8 @@ export default function Lists() {
 					setError("Données reçues incorrectes.");
 				}
 				setLoading(false);
-			} catch (error: any) {
-				setError(error.message);
+			} catch (error) {
+				setError(handleError(error));
 			}
 		};
 		getAllTodos();
@@ -45,8 +45,8 @@ export default function Lists() {
 			await deleteTodo(idToDelete);
 			// update list
 			setTodos(todos.filter((_, index) => index !== _index));
-		} catch (error: any) {
-			setError(error.message);
+		} catch (error) {
+			setError(handleError(error));
 		}
 	};
 

@@ -33,8 +33,8 @@ const ProfilePage: React.FC = () => {
 					setError("Données reçues incorrectes.");
 				}
 				setLoading(false);
-			} catch (error: any) {
-				setError(error.message);
+			} catch (error) {
+				setError(handleError(error));
 			}
 		};
 		getCurrentUser();

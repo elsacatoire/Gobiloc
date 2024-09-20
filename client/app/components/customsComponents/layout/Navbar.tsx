@@ -21,7 +21,7 @@ export function NavigationBar() {
 	const { isAuthenticated } = useAuth();
 
 	if (!isAuthenticated) {
-		return <nav></nav>;
+		return <nav />;
 	}
 
 	return (

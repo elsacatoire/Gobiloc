@@ -34,8 +34,8 @@ const EditUserProfile: React.FC<UserProfileProps> = ({
 	};
 
 	const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e.target.files && e.target.files[0]) {
-			const file = e.target.files[0];
+		const file = e.target.files?.[0];
+		if (file) {
 			const reader = new FileReader();
 			reader.onloadend = () => {
 				setAvatar(reader.result as string);

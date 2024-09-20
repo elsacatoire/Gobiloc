@@ -41,8 +41,8 @@ export default function Todo() {
 				setAllTasks(data.tasks || []);
 				setNewTodoName(data.name);
 				setLoading(false);
-			} catch (error: any) {
-				setError(error.message);
+			} catch (error) {
+				setError(handleError(error));
 				setLoading(false);
 			}
 		};
@@ -59,8 +59,8 @@ export default function Todo() {
 			const response: TaskType = await createTask(currentTodoId, newTask);
 			setAllTasks((prevTasks) => [...prevTasks, response]);
 			setNewTask("");
-		} catch (error: any) {
-			setError(error.message);
+		} catch (error) {
+			setError(handleError(error));
 		}
 	};
 
@@ -79,8 +79,8 @@ export default function Todo() {
 			} else {
 				setSelectedTasks(selectedTasks.filter((id) => id !== idToUpdate));
 			}
-		} catch (error: any) {
-			setError(error.message);
+		} catch (error) {
+			setError(handleError(error));
 		}
 	};
 
@@ -91,8 +91,8 @@ export default function Todo() {
 			setAllTasks((prevTasks) =>
 				prevTasks.filter((task) => task.id !== taskId),
 			);
-		} catch (error: any) {
-			setError(error.message);
+		} catch (error) {
+			setError(handleError(error));
 		}
 	};
 
@@ -105,8 +105,8 @@ export default function Todo() {
 				prevTasks.filter((task) => !selectedTasks.includes(task.id)),
 			);
 			setSelectedTasks([]); // Réinitialiser les tâches sélectionnées
-		} catch (error: any) {
-			setError(error.message);
+		} catch (error) {
+			setError(handleError(error));
 		}
 	};
 
@@ -116,8 +116,8 @@ export default function Todo() {
 				allTasks.map((task) => deleteTask(currentTodoId, task.id)),
 			);
 			setAllTasks([]); // Vider la liste des tâches
-		} catch (error: any) {
-			setError(error.message);
+		} catch (error) {
+			setError(handleError(error));
 		}
 	};
 
@@ -134,8 +134,8 @@ export default function Todo() {
 					prevTodo ? { ...prevTodo, name: newTodoName } : errorTodo,
 				);
 				setEditing(false);
-			} catch (error: any) {
-				setError(error.message);
+			} catch (error) {
+				setError(handleError(error));
 			}
 		}
 	};

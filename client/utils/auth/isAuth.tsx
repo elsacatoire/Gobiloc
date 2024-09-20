@@ -5,8 +5,8 @@ import type React from "react";
 import { useEffect, useState } from "react";
 import { useAuth } from "./useAuth";
 
-const isAuth = (WrappedComponent: React.ComponentType) => {
-	const AuthenticatedComponent = (props: any) => {
+const isAuth = <P extends object>(WrappedComponent: React.ComponentType<P>) => {
+		const AuthenticatedComponent = (props: P) => {
 		const router = useRouter();
 		const { isAuthenticated } = useAuth();
 		const [mounted, setMounted] = useState(false);

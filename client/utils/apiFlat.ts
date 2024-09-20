@@ -1,7 +1,8 @@
 import axios from "axios";
 import { getAuthToken, getRefreshToken, saveTokens } from "./auth/authUtils";
 
-const user = JSON.parse(localStorage.getItem("user"));
+const userString = localStorage.getItem("user");
+const user = userString ? JSON.parse(userString) : null;
 const apiFlatClient = axios.create({
 	baseURL: `http://localhost:8000/api/v1/flat/${user.flat_id}/`,
 });

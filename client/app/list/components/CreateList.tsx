@@ -55,8 +55,8 @@ export const CreateList: React.FC = () => {
 			const newTodo = { flat_share: flatShareId, name, category };
 			const response = await createTodo(newTodo);
 			router.push(`/list/${response.id}`);
-		} catch (error: any) {
-			setError(error.message); // TODO: Display errors on the page
+		} catch (error) {
+			setError(handleError(error)); // TODO: Display errors on the page
 		}
 	};
 
