@@ -9,6 +9,9 @@ from api.views.token_view import MyTokenObtainPairView
 from api.views.user_view import UserViewSet
 from api.views.task_view import TaskViewSet
 from api.views.flat_share_view import FlatShareViewSet
+from rest_framework_simplejwt.views import (
+    TokenRefreshView,
+)
 
 router = routers.SimpleRouter()
 

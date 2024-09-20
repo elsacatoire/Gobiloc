@@ -33,7 +33,7 @@ class UserViewSet(ModelViewSet):
             return [AllowAny()]
         # For all other actions, apply default permissions (IsAuthenticated)
         return super().get_permissions()
-
+      
     def create(self, request, **kwargs):
         """
         Register a user into the app
