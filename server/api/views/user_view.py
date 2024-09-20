@@ -2,7 +2,8 @@
 
 from django.core.validators import validate_email
 from rest_framework.decorators import action
-from rest_framework import status
+from rest_framework import status, permissions
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.exceptions import ValidationError as DRFValidationError, NotAuthenticated, PermissionDenied
@@ -22,6 +23,16 @@ class UserViewSet(ModelViewSet):
             return User.objects.filter(id=user.id)
         else:
             raise PermissionDenied("User not authenticated.")
+
+    def get_permissions(self):
+        """
+        Custom permissions for different actions.
+        """
+        if self.action == 'create':
+            # Allow anyone to register (no authentication required)
+            return [AllowAny()]
+        # For all other actions, apply default permissions (IsAuthenticated)
+        return super().get_permissions()
 
     def create(self, request, **kwargs):
         """

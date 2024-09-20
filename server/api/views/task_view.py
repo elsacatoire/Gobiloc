@@ -6,31 +6,47 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError, NotFound, PermissionDenied
 from rest_framework.decorators import action
 
 from api.mixins.check_empty_patch_mixin import CheckEmptyPatchMixin
+from api.models import Todo, FlatShare
 from api.models.task_model import Task
 from api.serializers.task_serializer import TaskSerializer
 
 
 class TaskViewSet(CheckEmptyPatchMixin, ModelViewSet):
     serializer_class = TaskSerializer
-    queryset = Task.objects.all()
 
-    # detail=False => act on the collection / True=> on a specific instance
-    @action(detail=False, methods=['GET'], url_path='todo/(?P<todo_id>\d+)')
-    def get_todos(self, request, todo_id=None): #à enlever si inutile
-        """
-        Get all the tasks of a specific to-do
-        """
-        if not todo_id:
-            return Response({"error": "Missing todo id"}, status=status.HTTP_400_BAD_REQUEST)
+    def get_queryset(self):
+        flat_id = self.kwargs['flat_pk']
+        todo_id = self.kwargs['todo_pk']
+
+        if not flat_id or not todo_id:
+            raise NotFound(detail='flat_id or todo_id is required', code=404)
+
         try:
-            tasks = Task.objects.filter(todo_id=todo_id).values()
-            return Response({"tasks": tasks}, status=status.HTTP_200_OK)
-        except Exception as e:
-            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            todo = Todo.objects.get(pk=todo_id)
+        except Todo.DoesNotExist:
+            raise NotFound(detail='No flat share with this ID.', code=404)
+
+        try:
+            flat = FlatShare.objects.get(pk=flat_id)
+        except FlatShare.DoesNotExist:
+            raise NotFound("No flat share with this ID.", code=404)
+
+        if flat != todo.flat_share:
+            raise PermissionDenied(
+                "You are not allowed to perform this action.",
+                code=403
+            )
+
+        if self.request.user.flat_share != flat:
+            raise PermissionDenied(
+                "You are not allowed to perform this action.",
+                code=403
+            )
+
+        return Task.objects.filter(todo=todo)
 
     # partial_update = PATCH (?)
-

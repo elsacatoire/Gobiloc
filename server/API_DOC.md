@@ -8,7 +8,7 @@
 
 ## SIGN UP
 
-### POST /api/user/
+### POST /api/v1/user/
 
 #### Expected JSON :
 
@@ -18,7 +18,7 @@
 > "password": "poisson44",<br>
 > }
 
-#### Return a **201** with username and email.
+#### Return a **201** with username, date_joined, flat_share_id (=null) and email.
 
 #### <u>Error cases</u> :
 
@@ -29,7 +29,7 @@ If username, email and/or password is missing, **400** :
 >   ],<br><br>
 >   'email': [<br>
 >     'This field is required.'<br>
->   ]<br>
+>   ],<br>
 > }
 
 Works the same if the username, email and/or password is blank ('username': ''), return a **400** with :
@@ -42,7 +42,7 @@ If the username and/or the email are already taken, **409** :
 > ],<br><br>
 > 'email': [<br>
 > "user with this email already exists."<br>
-> ]<br>
+> ],<br>
 > }
 
 #### The followings are all about password validations, so they are all return a 400 and can all be found in { 'password': [] }.
@@ -63,7 +63,7 @@ If the password is entirely numeric :
 
 ## LOGIN
 
-### POST /api/user/login/
+### POST /api/v1/token/
 
 #### Expected JSON :
 
@@ -72,52 +72,22 @@ If the password is entirely numeric :
 > "password": "poisson44",<br>
 > }
 
-#### It should return a 200 with :
-
-> {<br>
-> "status": "Login Success"<br>
-> }
-
-#### With a session cookie and a csrf token like this :
-
-> csrftoken : zWhUhJQQzvNoF5nvQ8PiQzAtkfgvzAZe<br>
-> sessionid : 8qh8ch485yf7a8vad7o9pnw29p1eou5v
-
-This session cookie have a 2 hours live spawn in the server side (unless the session data is updated). On the client side, the session cookie doesn't have any expiry time. Instead it's deleted when the user close the navigator.
-
-If there is "stay_connected": true added in the request, then the session cookie will be set to 90 days instead. (client and server side)
+#### It should return a 200 with "refresh" token and "access" token. The first is valid for 90 days and the later for 5 min. 
 
 #### <u>Error cases</u> :
 
 If the data send is missing either email or password, it returns a 400 :
 
-> "error": "Missing Credentials"
-
-If the "email" in the request is not of email format, it returns a 400 :
-
-> "error": "Enter a valid email address."
+> "error": "This field is required"
 
 If the credentials in the request doesn't match anything in the DB, returns a 401 :
 
-> "error": "Invalid Credentials"
-
-
-## LOGOUT
-
-### DELETE /api/user/logout/
-
-#### If successful, should return a 204
-
-#### Error Cases :
-
-Return a 204 with :
-
-> "error": "The error message"
+> "detail": "No active account found with the given credentials"
 
 
 ## FLAT_SHARE
 
-### POST /api/flat/
+### POST /api/v1/flat/
 
 #### Expected JSON :
 
@@ -152,7 +122,7 @@ If sent without "name", 400 with :
 >&nbsp;&nbsp;&nbsp;	]<br>
 >}
 
-### GET /api/flat/{id}/
+### GET /api/v1/flat/{id}/
 
 #### No body. Return 200 with : 
 
@@ -170,7 +140,7 @@ If flat doesn't exist, 404 with :
 	"detail": "Not found."<br>
 }
 
-### PATCH /api/flat/{id}/
+### PATCH /api/v1/flat/{id}/
 
 #### Expect either the "name" or the "description" (or both) in the JSON. Return a 200 with the "name" and "description".
 
@@ -178,7 +148,7 @@ If flat doesn't exist, 404 with :
 
 /!\ There is some cases to handle. Not Implemented Yet.
 
-### DELETE /api/flat/{id}/
+### DELETE /api/v1/flat/{id}/
 
 #### No body. Return 204.
 
@@ -193,12 +163,11 @@ If flat doesn't exist, 404 with :
 
 ## TODO
 
-### CREATE /api/todo/
+### CREATE /api/v1/flat/{flat_id}/todo/
 
 #### Expected JSON :
 
 >{<br>
-	"flat_share": 1,<br>
 	"name": "A todo list",<br>
 	"category": null<br>
 }
@@ -227,7 +196,7 @@ If no "flat_share" in the body, return 400 with :
 
 Would be the same for "name" instead of "flat_share".
 
-### GET /api/todo/flat/{id}/
+### GET /api/v1/flat/{flat_id}/todo/
 
 Should return all todos for a flat using the flat_id.
 
@@ -262,7 +231,12 @@ If flat doesn't exist, 404 with :
 	"detail": "Not found."<br>
 }
 
-### DELETE /api/todo/{id}/
+
+### PATCH /api/v1/flat/{flat_id}/todo/{todo_id}/
+
+#### Modify name or category, return a 200 with todo information
+
+### DELETE /api/v1/flat/{flat_id}/todo/{todo_id}/
 
 #### No body. Return 204.
 
@@ -275,6 +249,20 @@ If todo doesn't exist, 404 with :
 }
 
 ## TASK
+
+### CREATE /api/v1/flat/{flat_id}/todo/{todo_id}/task/
+
+### GET /api/v1/flat/{flat_id}/todo/{todo_id}/task/
+
+#### Get all the tasks for a specific todo.
+
+### GET /api/v1/flat/{flat_id}/todo/{todo_id}/task/{task_id}/
+
+#### Get one specific task.
+
+### PATCH /api/v1/flat/{flat_id}/todo/{todo_id}/task/{task_id}/
+
+### DELETE /api/v1/flat/{flat_id}/todo/{todo_id}/task/{task_id}/
 
 
 
