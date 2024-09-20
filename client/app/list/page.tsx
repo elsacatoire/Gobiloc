@@ -26,9 +26,9 @@ export default function Lists() {
         if (didMountRef.current) return; // prevent double api call
         const getAllTodos = async () => {
             try {
-                const data = await fetchTodos(1);
-                if (Array.isArray(data.todos)) {
-                    setTodos(data.todos);
+                const data = await fetchTodos();
+                if (Array.isArray(data)) {
+                    setTodos(data);
                 } else {
                     setError("Données reçues incorrectes.");
                 }
@@ -74,7 +74,7 @@ export default function Lists() {
                                                 <div className="w-60">
                                                     <p className="font-light text-xs">{formatDate(todo.updateDate)}</p>
                                                     <p className="font-semibold">{todo.name}</p>
-                                                    <p>{getCategoryName(todo.category_id) || ""}</p>
+                                                    <p>{getCategoryName(todo.category) || ""}</p>
                                                 </div>
                                             </Link>
                                             <div className="flex pt-2">

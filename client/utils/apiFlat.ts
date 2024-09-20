@@ -2,12 +2,13 @@
 import axios from 'axios';
 import { getAuthToken, getRefreshToken, saveTokens } from './auth/authUtils';
 
-const apiClient = axios.create({
-    baseURL: 'http://localhost:8000/api/v1',
+const user = JSON.parse(localStorage.getItem('user'));
+const apiFlatClient = axios.create({
+    baseURL: `http://localhost:8000/api/v1/flat/${user.flat_id}/`,
 });
 
 // Intercepter for each api call
-apiClient.interceptors.request.use((config) => {
+apiFlatClient.interceptors.request.use((config) => {
     const token = getAuthToken();
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
@@ -18,7 +19,7 @@ apiClient.interceptors.request.use((config) => {
 });
 
 // Intercepter to handle expired tokens
-apiClient.interceptors.response.use(
+apiFlatClient.interceptors.response.use(
     (response) => {
         return response;
     },
@@ -44,7 +45,7 @@ apiClient.interceptors.response.use(
                 originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
 
                 // Try request with the new token
-                return apiClient(originalRequest);
+                return apiFlatClient(originalRequest);
             } catch (refreshError) {
                 // If refresh request failed (for exemple refresh token expired), logout the user
                 console.error("Le refresh token est expiré ou invalide");
@@ -57,4 +58,4 @@ apiClient.interceptors.response.use(
     }
 );
 
-export default apiClient;
+export default apiFlatClient;
