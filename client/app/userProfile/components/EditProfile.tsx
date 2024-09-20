@@ -57,6 +57,7 @@ const EditUserProfile: React.FC<UserProfileProps> = ({ initialName, initialAvata
                     <form onSubmit={handleSubmit}>
                         <div className='flex flex-col gap-4'>
                             <div className='flex flex-col gap-5'>
+                                COUCOU
                                 <div className="flex flex-col gap-4 items-center">
                                     <Avatar src={avatar || ""} alt="avatar de l'utilisateur" style='w-24' />
                                     <div className="flex flex-col gap-2">
