@@ -287,7 +287,7 @@
 												}
 											}
 										},
-										"url": "localhost:8000/api/todo/1/"
+										"url": "{{base_url}}flat/1/todo/1/"
 									},
 									"response": []
 								}
@@ -345,7 +345,7 @@
 										}
 									}
 								},
-								"url": "localhost:8000/api/todo/"
+								"url": "{{base_url}}flat/1/todo/"
 							},
 							"response": []
 						},
@@ -378,7 +378,7 @@
 										}
 									}
 								},
-								"url": "localhost:8000/api/todo/204/"
+								"url": "{{base_url}}flat/1/todo/204/"
 							},
 							"response": []
 						},
@@ -422,7 +422,7 @@
 										}
 									}
 								},
-								"url": "localhost:8000/api/todo/204/"
+								"url": "{{base_url}}flat/1/todo/204/"
 							},
 							"response": []
 						}
