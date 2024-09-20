@@ -1,18 +1,18 @@
 import { TodoDTO, TodoType } from '@/types/TodoType';
-import apiClient from '@/utils/api';
+import apiFlatClient from '@/utils/apiFlat';
 
-export const fetchTodo = async (id: number): Promise<TodoType> => {
+export const fetchTodo = async (idTodo: number): Promise<TodoType> => {
     try {
-        const response = await apiClient.get(`/todo/${id}`);
+        const response = await apiFlatClient.get(`/todo/${idTodo}/`);
         return response.data;
     } catch (error) {
         throw new Error("Erreur lors de la récupération de la liste. Veuillez réessayer.");
     }
 };
 
-export const fetchTodos = async (idFlat: number) => {
+export const fetchTodos = async () => {
     try {
-        const response = await apiClient.get(`/todo/flat/${idFlat}`);
+        const response = await apiFlatClient.get(`/todo/`);
         return response.data;
     } catch (error) {
         throw new Error("Erreur lors de la récupération des listes. Veuillez réessayer.");
@@ -21,7 +21,7 @@ export const fetchTodos = async (idFlat: number) => {
 
 export const createTodo = async (data: TodoDTO) => {
     try {
-        const response = await apiClient.post('/todo/', data);
+        const response = await apiFlatClient.post('/todo/', data);
         return response.data;
     } catch (error) {
         throw new Error("Erreur lors de la création. Veuillez réessayer.");
@@ -30,7 +30,7 @@ export const createTodo = async (data: TodoDTO) => {
 
 export const deleteTodo = async (idTodo: number) => {
     try {
-        await apiClient.delete(`/todo/${idTodo}`);
+        await apiFlatClient.delete(`/todo/${idTodo}/`);
     } catch (error) {
         throw new Error("Erreur lors de la suppression du todo. Veuillez réessayer.");
     }
@@ -41,7 +41,7 @@ export const updateTodoName = async (idTodo: number, data: string) => {
         name: data,
     };
     try {
-        await apiClient.patch(`/todo/${idTodo}/`, newName);
+        await apiFlatClient.patch(`/todo/${idTodo}/`, newName);
     } catch (error) {
         throw new Error("Erreur lors de la modification du todo. Veuillez réessayer.");
     }

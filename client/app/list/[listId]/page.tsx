@@ -5,25 +5,16 @@ import { updateTodoName } from "@/api/services/todoService";
 import { fetchTodo } from "@/api/services/todoService";
 import { Button } from "@/app/components/ui/button";
 import { Card, CardHeader } from "@/app/components/ui/card";
-import { Checkbox } from "@/app/components/ui/checkbox";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/app/components/ui/table";
 import { NavMenu } from "@/app/enums/NavMenuEnum";
 import { getCategoryName } from "@/app/enums/TodoCategoryEnum";
 import { TaskType } from "@/types/TaskType";
 import { emptyTodo, errorTodo, TodoType } from "@/types/TodoType";
 import { Header } from "@/app/components/customsComponents/layout/Header";
-import { Trash2, Pencil, X, Check } from "lucide-react";
+import { Pencil, X, Check } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TaskTable from "../components/TableTasks";
 
 export default function Todo() {
@@ -36,9 +27,11 @@ export default function Todo() {
     const [newTodoName, setNewTodoName] = useState('');
     const params = useParams<{ listId: string }>();
     const currentTodoId = Number(params.listId);
+    const didMountRef = useRef(false);
 
     /* ----- GET all the todo's infos et tasks ----- */
     useEffect(() => {
+        if (didMountRef.current) return; // prevent double api call
         const getTodoData = async () => {
             if (!currentTodoId) return;
             try {
@@ -54,6 +47,7 @@ export default function Todo() {
             }
         };
         getTodoData();
+        didMountRef.current = true;
     }, [currentTodoId]);
 
     /* ----- ADD a task ----- */
@@ -73,7 +67,7 @@ export default function Todo() {
     /* ----- PATCH (Update) a todo to change the checkbox' state ----- */
     const handleCheckBox = async (idToUpdate: number, state: boolean) => {
         try {
-            await checkTask(idToUpdate, { done: !state });
+            await checkTask(currentTodoId ,idToUpdate, { done: !state });
             setAllTasks(prevTasks =>
                 prevTasks.map(task =>
                     task.id === idToUpdate ? { ...task, done: !task.done } : task
@@ -94,7 +88,7 @@ export default function Todo() {
     /* ----- DELETE a task ----- */
     const handleDeleteTask = async (taskId: number) => {
         try {
-            await deleteTask(taskId);
+            await deleteTask(currentTodoId, taskId);
             setAllTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
         } catch (error: any) {
             setError(error.message);
@@ -103,7 +97,7 @@ export default function Todo() {
 
     const handleDeleteSelectedTasks = async () => {
         try {
-            await Promise.all(selectedTasks.map(taskId => deleteTask(taskId)));
+            await Promise.all(selectedTasks.map(taskId => deleteTask(currentTodoId, taskId)));
             setAllTasks(prevTasks => prevTasks.filter(task => !selectedTasks.includes(task.id)));
             setSelectedTasks([]); // Réinitialiser les tâches sélectionnées
         } catch (error: any) {
@@ -113,7 +107,7 @@ export default function Todo() {
 
     const handleDeleteAllTasks = async () => {
         try {
-            await Promise.all(allTasks.map(task => deleteTask(task.id)));
+            await Promise.all(allTasks.map(task => deleteTask(currentTodoId, task.id)));
             setAllTasks([]); // Vider la liste des tâches
         } catch (error: any) {
             setError(error.message);

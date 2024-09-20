@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         const email = (target.elements.namedItem('email') as HTMLInputElement).value;
         const password = (target.elements.namedItem('password') as HTMLInputElement).value;
 
-        const response = await fetch('http://localhost:8000/api/token/', {
+        const response = await fetch('http://localhost:8000/api/v1/token/', {
             method: 'POST',
             headers: { 'Content-Type': "application/json" },
             body: JSON.stringify({
@@ -92,6 +92,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             setAuthTokens(data);
             setUser(decodedUser);
             localStorage.setItem('authTokens', JSON.stringify(data));
+            localStorage.setItem('user', JSON.stringify(decodedUser));
 
             router.push('/');
         } else {
@@ -104,6 +105,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUser(null);
         setAuthTokens(null);
         localStorage.removeItem('authTokens');
+        localStorage.removeItem('user');
         router.push('/login');
     };
 
