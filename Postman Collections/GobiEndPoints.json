@@ -295,6 +295,28 @@
 							"id": "7a6ed0cf-e80d-4abf-be2b-63c96095c2ea"
 						},
 						{
+							"name": "Get all todos from a flat",
+							"id": "97e3f8c8-ec72-494e-90c8-8381a3dfb899",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"coucou\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}flat/1/todo/"
+							},
+							"response": []
+						},
+						{
 							"name": "Create todo",
 							"id": "92f9595f-c8d2-42b1-a978-a4c095e3c00f",
 							"protocolProfileBehavior": {
@@ -361,50 +383,6 @@
 							"response": []
 						},
 						{
-							"name": "Get all todos from a flat",
-							"id": "97e3f8c8-ec72-494e-90c8-8381a3dfb899",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"coucou\": \"1\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "localhost:8000/api/todo/flat/1/"
-							},
-							"response": []
-						},
-						{
-							"name": "NEW get todos",
-							"id": "8f329836-2c86-4f14-9e9b-811055456249",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"coucou\": \"1\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "localhost:8000/api/v1/flat/6/todo/"
-							},
-							"response": []
-						},
-						{
 							"name": "Get a todo",
 							"id": "33455f5c-6540-4c29-9efa-f8c266298ad4",
 							"protocolProfileBehavior": {
@@ -422,29 +400,7 @@
 										}
 									}
 								},
-								"url": "localhost:8000/api/todo/1/"
-							},
-							"response": []
-						},
-						{
-							"name": "Get a todos from a flat with tasks",
-							"id": "3198788e-ad5c-402a-88b9-89c0a866b355",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"coucou\": \"1\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "localhost:8000/api/todo/1/tasks/"
+								"url": "{{base_url}}flat/1/todo/1/"
 							},
 							"response": []
 						},
