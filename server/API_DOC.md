@@ -202,24 +202,33 @@ Should return all todos for a flat using the flat_id.
 
 #### No body expected. Return a 200 with :
 
-> {<br>
-	"todos": [<br>
-		{<br>
-			"id": 4,<br>
-			"flat_share_id": 1,<br>
-			"name": "Course",<br>
-			"updateDate": "2024-05-31T09:26:26.769916Z",<br>
-			"category_id": null<br>
-		},<br>
-		{<br>
-			"id": 5,<br>
-			"flat_share_id": 1,<br>
-			"name": "Course",<br>
-			"updateDate": "2024-05-31T10:48:38.573414Z",<br>
-			"category_id": null<br>
-		}<br>
-> 	]<br>
-> }<br>
+> [<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"id": 20,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"name": "Courses",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"category": null,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"tasks": [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"id": 1,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"todo": 20,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"content": "Tofu",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"done": false<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"id": 2,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"todo": 20,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"content": "Patate",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"done": true<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;]<br>
+&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"id": 21,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"name": "Checklist",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"category": null,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"tasks": []<br>
+&nbsp;&nbsp;},<br>
+]<br>
 
 If no todos for this flat, return the empty list.
 
