@@ -65,27 +65,33 @@ export default function Lists() {
                 {error && <p className="text-red-500">{error}</p>}
                 <div className="flex flex-wrap justify-center gap-1 sm:gap-4">
                     {
-                        todos ? (todos.map((todo: TodoType, index: number) => (
-                            <div key={todo.id} className="flex p-1 justify-between">
-                                <Card className=" bg-slate-50" >
-                                    <div className="flex p-3">
-                                        <Link href={`/list/${todo.id}`}>
-                                            <div className="w-60">
-                                                <p className="font-light text-xs">{formatDate(todo.updateDate)}</p>
-                                                <p className="font-semibold">{todo.name}</p>
-                                                <p>{getCategoryName(todo.category_id) || ""}</p>
+                        todos && todos.length > 0 ? (
+                            todos.map((todo: TodoType, index: number) => (
+                                <div key={todo.id} className="flex p-1 justify-between">
+                                    <Card className=" bg-slate-50" >
+                                        <div className="flex p-3">
+                                            <Link href={`/list/${todo.id}`}>
+                                                <div className="w-60">
+                                                    <p className="font-light text-xs">{formatDate(todo.updateDate)}</p>
+                                                    <p className="font-semibold">{todo.name}</p>
+                                                    <p>{getCategoryName(todo.category_id) || ""}</p>
+                                                </div>
+                                            </Link>
+                                            <div className="flex pt-2">
+                                                <Button variant="destructive" size="icon" onClick={() => handleDeleteTodo(index, todo.id)}>
+                                                    <Trash2 strokeWidth={1} color="white" className="h-5 w-5 justify-center" />
+                                                </Button>
                                             </div>
-                                        </Link>
-                                        <div className="flex pt-2">
-                                            <Button variant="destructive" size="icon" onClick={() => handleDeleteTodo(index, todo.id)}>
-                                                <Trash2 strokeWidth={1} color="white" className="h-5 w-5 justify-center" />
-                                            </Button>
                                         </div>
-                                    </div>
-                                </Card>
-
+                                    </Card>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="flex flex-col items-center justify-center w-full mt-10">
+                                <p className="text-lg font-semibold text-gray-500">Aucune liste pour le moment.</p>
                             </div>
-                        ))) : <p>No todos</p>}
+                        )
+                    }
                 </div>
             </div>
             <div className="flex justify-center sticky bottom-0 p-2 z-50 bg-gradient-to-r from-cyan-400 to-amber-400">
