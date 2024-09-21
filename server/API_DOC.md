@@ -72,7 +72,7 @@ If the password is entirely numeric :
 > "password": "poisson44",<br>
 > }
 
-#### It should return a 200 with "refresh" token and "access" token. The first is valid for 90 days and the later for 5 min. 
+#### It should return a 200 with "refresh" token and "access" token. The first is valid for 90 days and the later for 5 min.
 
 #### <u>Error cases</u> :
 
@@ -124,7 +124,7 @@ If sent without "name", 400 with :
 
 ### GET /api/v1/flat/{id}/
 
-#### No body. Return 200 with : 
+#### No body. Return 200 with :
 
 
 >{<br>

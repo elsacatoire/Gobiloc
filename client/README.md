@@ -29,7 +29,7 @@ Il s'agit de la partie FRONT du projet, développé en REACT avec le Framework N
 
 ## Technos front
 
-Next.js framework React, avec Typscript: 
+Next.js framework React, avec Typscript:
 - [doc NEXT.js](https://nextjs.org/docs)
 - [doc React](https://fr.react.dev/learn/start-a-new-react-project)
 - [doc Typscript](https://www.typescriptlang.org/fr/docs/)
@@ -54,4 +54,3 @@ Tests:
 Les composants customs sont organisé par dossier en fonction de leur usage et scope.
 - /lib/ :  utilisé pour stocker des utilitaires, des fonctions d'aide, des configurations ou des bibliothèques personnalisées qui sont utilisées à travers l'application
 - /public/ : contien des fichiers statiques tels que des images, des icônes, des fichiers CSS globaux, des fichiers JavaScript non optimisés et d'autres ressources accessibles publiquement.
-

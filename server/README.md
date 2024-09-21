@@ -68,12 +68,12 @@ a. Créez un environnement virtuel, à la racine du dossier server :
 ```bash
 py -m venv env
 ```
-b. Activez l'environnement virtuel :  
+b. Activez l'environnement virtuel :
 - sur linux :
     ```bash
     source env/bin/activate
     ```
-- sur windows : 
+- sur windows :
     ```bash
     .\env\Scripts\activate
     ```
@@ -88,7 +88,7 @@ a. Copiez le fichier .env.example en .env et modifiez les valeurs selon vos beso
 ```bash
 cp .env.example .env
 ```
-Modifiez le fichier .env pour y ajouter vos configurations de base de 
+Modifiez le fichier .env pour y ajouter vos configurations de base de
 
 b. Appliquez les migrations pour configurer la base de données :
 ```bash
@@ -137,11 +137,19 @@ Configurez les paramètres de production dans settings.py (DEBUG=False, ALLOWED_
 py manage.py test
 ```
 
-To execute only tests of a specific file : 
+To execute only tests of a specific file :
 
 ```bash
 py manage.py test api.path.to.test.file
 ```
+
+## Pre-commit
+
+- You can also run
+```bash
+pre-commit run --all-files
+```
+at any time to run all configured hooks on all files
 
 ## Contribution
 

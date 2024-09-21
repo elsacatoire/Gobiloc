@@ -1,0 +1,11 @@
+# The heart of the pre-commit framework is the .pre-commit-config.yaml file.
+# This file defines the hooks you want to run and where to find them.
+# Hooks are specified as Git repositories, and each hook is associated with a command or script to execute.
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
