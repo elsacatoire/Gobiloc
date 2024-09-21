@@ -49,7 +49,10 @@ class FlatShareViewSetTest(TestCase):
         )
         # THEN
         self.assertEqual(response.status_code, 400)
-        # self.assertEqual(response.json(), {"flat": "created", "data": self.valid_payload})
+        # self.assertEqual(
+        # response.json(),
+        # {"flat": "created", "data": self.valid_payload}
+        # )
 
     def test_get_flatShare_by_id(self):
         # GIVEN

@@ -31,7 +31,6 @@ class TestTodoViewSet(APITestCase):
     def test_get_todos_success(self):
         # Given
         todo1 = Todo.objects.create(flat_share=self.flat_share, name="Test Todo 1")
-        todo2 = Todo.objects.create(flat_share=self.flat_share, name="Test Todo 2")
         url = reverse("flat-todo-list", kwargs={"flat_pk": self.flat_share.id})
 
         # When

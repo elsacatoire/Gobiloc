@@ -1,12 +1,6 @@
 # api/views/task_view.py
-
 # Controller
-
-from rest_framework import status
-from rest_framework.decorators import action
-from rest_framework.exceptions import NotFound, PermissionDenied, ValidationError
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
+from rest_framework.exceptions import NotFound, PermissionDenied
 from rest_framework.viewsets import ModelViewSet
 
 from api.mixins.check_empty_patch_mixin import CheckEmptyPatchMixin

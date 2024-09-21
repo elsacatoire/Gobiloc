@@ -1,13 +1,6 @@
 # api/models/task_model.py
 from django.db import models
-from django.db.models import (
-    CASCADE,
-    BooleanField,
-    CharField,
-    DateTimeField,
-    ForeignKey,
-    Model,
-)
+from django.db.models import BooleanField, CharField, DateTimeField, Model
 
 
 class Task(Model):

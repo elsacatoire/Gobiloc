@@ -1,15 +1,8 @@
 # api/views/user_view.py
 
-from django.contrib.auth import authenticate, login, logout
-from django.core.exceptions import (
-    ValidationError,
-    ValidationError as DjangoValidationError,
-)
-from django.core.validators import validate_email
-from rest_framework import permissions, status
-from rest_framework.decorators import action
+from django.core.exceptions import ValidationError as DjangoValidationError
+from rest_framework import status
 from rest_framework.exceptions import (
-    NotAuthenticated,
     PermissionDenied,
     ValidationError as DRFValidationError,
 )

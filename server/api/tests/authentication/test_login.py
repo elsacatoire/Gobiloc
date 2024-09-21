@@ -11,10 +11,10 @@ class LoginTest(APITestCase):
     # Don't instantiate a new user for each test
     @classmethod
     def setUpTestData(cls):
-        User = get_user_model()
+        user = get_user_model()
         cls.email = "testuser@test.com"
         cls.password = "poisson44"
-        cls.user = User.objects.create_user(
+        cls.user = user.objects.create_user(
             username="testuser", email=cls.email, password=cls.password
         )
         cls.data = {"email": cls.email, "password": cls.password}
