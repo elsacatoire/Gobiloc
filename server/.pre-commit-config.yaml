@@ -2,6 +2,8 @@
 # This file defines the hooks you want to run and where to find them.
 # Hooks are specified as Git repositories, and each hook is associated with a command or script to execute.
 
+exclude: .*migrations\/.*
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
@@ -9,3 +11,8 @@ repos:
       - id: check-yaml
       - id: end-of-file-fixer
       - id: trailing-whitespace
+  - repo: https://github.com/psf/black-pre-commit-mirror
+    rev: 24.8.0
+    hooks:
+      - id: black
+        language_version: python3.11

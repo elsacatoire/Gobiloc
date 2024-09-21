@@ -9,8 +9,8 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token = super().get_token(user)
 
         # Add custom claims
-        token['username'] = user.username
-        token['flat_id'] = user.flat_share.id
+        token["username"] = user.username
+        token["flat_id"] = user.flat_share.id
 
         return token
 

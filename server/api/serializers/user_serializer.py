@@ -11,32 +11,26 @@ class UserSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = (
-            'username',
-            'email',
-            'password',
-            'date_joined',
-            'flat_share_id'
-        )
+        fields = ("username", "email", "password", "date_joined", "flat_share_id")
         extra_kwargs = {
-            'password': {'write_only': True},
-            'date_joined': {'read_only': True},
-            'flat_share_id': {'read_only': True},
+            "password": {"write_only": True},
+            "date_joined": {"read_only": True},
+            "flat_share_id": {"read_only": True},
         }
 
     def create(self, validated_data):
         """
         Stronger criteria for password validation
         """
-        validated_data['email'] = validated_data['email'].lower()
+        validated_data["email"] = validated_data["email"].lower()
         # Set register time and updatetime (?)
         user = User(**validated_data)
         try:
-            validate_password(validated_data['password'], user=user)
+            validate_password(validated_data["password"], user=user)
 
         except exceptions.ValidationError as e:
-            raise exceptions.ValidationError({'password': e.messages})
+            raise exceptions.ValidationError({"password": e.messages})
 
-        user.set_password(validated_data['password'])
+        user.set_password(validated_data["password"])
         user.save()
         return user

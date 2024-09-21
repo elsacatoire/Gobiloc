@@ -1,5 +1,6 @@
 # api/views/flat_share_view.py
 from rest_framework.permissions import IsAuthenticated
+
 # Controller
 
 from rest_framework.viewsets import ModelViewSet

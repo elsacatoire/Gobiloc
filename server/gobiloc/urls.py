@@ -13,24 +13,26 @@ from api.views.flat_share_view import FlatShareViewSet
 router = routers.SimpleRouter()
 
 # Register UserViewSet with the main router
-router.register('user', UserViewSet, basename='user')
+router.register("user", UserViewSet, basename="user")
 
 # Register FlatShareViewSet with the main router
-router.register('flat', FlatShareViewSet, basename='flat')
+router.register("flat", FlatShareViewSet, basename="flat")
 
 # Create a NestedSimpleRouter for todos, nested under flats
-todo_router = NestedSimpleRouter(router, r'flat', lookup='flat')
-todo_router.register(r'todo', TodoViewSet, basename='flat-todo')
+todo_router = NestedSimpleRouter(router, r"flat", lookup="flat")
+todo_router.register(r"todo", TodoViewSet, basename="flat-todo")
 
 # Create a NestedSimpleRouter for tasks, nested under todos
-task_router = NestedSimpleRouter(todo_router, r'todo', lookup='todo')
-task_router.register(r'task', TaskViewSet, basename='todo-task')
+task_router = NestedSimpleRouter(todo_router, r"todo", lookup="todo")
+task_router.register(r"task", TaskViewSet, basename="todo-task")
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/v1/', include(router.urls)),
-    path('api/v1/', include(todo_router.urls)),
-    path('api/v1/', include(task_router.urls)),
-    path('api/v1/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),  # Custom token to get more user data
-    path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path("admin/", admin.site.urls),
+    path("api/v1/", include(router.urls)),
+    path("api/v1/", include(todo_router.urls)),
+    path("api/v1/", include(task_router.urls)),
+    path(
+        "api/v1/token/", MyTokenObtainPairView.as_view(), name="token_obtain_pair"
+    ),  # Custom token to get more user data
+    path("api/v1/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]

@@ -7,6 +7,6 @@ class CheckEmptyPatchMixin:
         if not request.data:
             return Response(
                 {"detail": "The request body is empty."},
-                status=status.HTTP_400_BAD_REQUEST
+                status=status.HTTP_400_BAD_REQUEST,
             )
         return super().partial_update(request, *args, **kwargs)

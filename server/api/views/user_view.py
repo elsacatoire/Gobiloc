@@ -6,8 +6,15 @@ from rest_framework import status, permissions
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.exceptions import ValidationError as DRFValidationError, NotAuthenticated, PermissionDenied
-from django.core.exceptions import ValidationError as DjangoValidationError, ValidationError
+from rest_framework.exceptions import (
+    ValidationError as DRFValidationError,
+    NotAuthenticated,
+    PermissionDenied,
+)
+from django.core.exceptions import (
+    ValidationError as DjangoValidationError,
+    ValidationError,
+)
 from django.contrib.auth import authenticate, login, logout
 
 from api.models import User
@@ -28,7 +35,7 @@ class UserViewSet(ModelViewSet):
         """
         Custom permissions for different actions.
         """
-        if self.action == 'create':
+        if self.action == "create":
             # Allow anyone to register (no authentication required)
             return [AllowAny()]
         # For all other actions, apply default permissions (IsAuthenticated)
@@ -43,15 +50,21 @@ class UserViewSet(ModelViewSet):
         try:
             serializer.is_valid(raise_exception=True)
             serializer.save()
-            return Response({'user': serializer.data}, status=status.HTTP_201_CREATED)
+            return Response({"user": serializer.data}, status=status.HTTP_201_CREATED)
 
         except DRFValidationError as e:
-            not_unique_username = "username" in e.get_codes() and e.get_codes()["username"] == ["unique"]
-            not_unique_email = "email" in e.get_codes() and e.get_codes()["email"] == ["unique"]
+            not_unique_username = "username" in e.get_codes() and e.get_codes()[
+                "username"
+            ] == ["unique"]
+            not_unique_email = "email" in e.get_codes() and e.get_codes()["email"] == [
+                "unique"
+            ]
             if not_unique_username or not_unique_email:
                 return Response(e.detail, status=status.HTTP_409_CONFLICT)
 
             return Response(e.detail, status=status.HTTP_400_BAD_REQUEST)
 
         except DjangoValidationError as e:
-            return Response({'password': e.messages}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"password": e.messages}, status=status.HTTP_400_BAD_REQUEST
+            )
