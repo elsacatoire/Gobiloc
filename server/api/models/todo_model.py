@@ -1,12 +1,12 @@
 # api/models/todo_model.py
 
 from django.db.models import (
-    Model,
-    ForeignKey,
     CASCADE,
+    SET_NULL,
     CharField,
     DateTimeField,
-    SET_NULL,
+    ForeignKey,
+    Model,
 )
 
 

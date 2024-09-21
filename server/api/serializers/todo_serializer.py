@@ -3,6 +3,7 @@
 # DTO
 
 from rest_framework.serializers import ModelSerializer
+
 from api.models import Todo
 from api.serializers.task_serializer import TaskSerializer
 

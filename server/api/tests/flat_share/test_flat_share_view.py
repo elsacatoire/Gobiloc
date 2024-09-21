@@ -1,6 +1,7 @@
+import json
+
 from django.test import TestCase
 from django.urls import reverse
-import json
 from rest_framework.test import APIClient
 from rest_framework_simplejwt.tokens import RefreshToken
 

@@ -1,21 +1,21 @@
 # api/views/user_view.py
 
+from django.contrib.auth import authenticate, login, logout
+from django.core.exceptions import (
+    ValidationError,
+    ValidationError as DjangoValidationError,
+)
 from django.core.validators import validate_email
+from rest_framework import permissions, status
 from rest_framework.decorators import action
-from rest_framework import status, permissions
+from rest_framework.exceptions import (
+    NotAuthenticated,
+    PermissionDenied,
+    ValidationError as DRFValidationError,
+)
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.exceptions import (
-    ValidationError as DRFValidationError,
-    NotAuthenticated,
-    PermissionDenied,
-)
-from django.core.exceptions import (
-    ValidationError as DjangoValidationError,
-    ValidationError,
-)
-from django.contrib.auth import authenticate, login, logout
 
 from api.models import User
 from api.serializers.user_serializer import UserSerializer

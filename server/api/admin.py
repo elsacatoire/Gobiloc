@@ -1,6 +1,6 @@
 from django.contrib import admin
-from api.models import User, FlatShare, Todo, Task, Category
 
+from api.models import Category, FlatShare, Task, Todo, User
 
 admin.site.register(User)
 admin.site.register(FlatShare)

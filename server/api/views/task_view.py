@@ -3,14 +3,14 @@
 # Controller
 
 from rest_framework import status
+from rest_framework.decorators import action
+from rest_framework.exceptions import NotFound, PermissionDenied, ValidationError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.exceptions import ValidationError, NotFound, PermissionDenied
-from rest_framework.decorators import action
 
 from api.mixins.check_empty_patch_mixin import CheckEmptyPatchMixin
-from api.models import Todo, FlatShare
+from api.models import FlatShare, Todo
 from api.models.task_model import Task
 from api.serializers.task_serializer import TaskSerializer
 

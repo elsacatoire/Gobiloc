@@ -1,14 +1,14 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
 from rest_framework import routers
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework_nested.routers import NestedSimpleRouter
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+from api.views.flat_share_view import FlatShareViewSet
+from api.views.task_view import TaskViewSet
 from api.views.todo_view import TodoViewSet
 from api.views.token_view import MyTokenObtainPairView
 from api.views.user_view import UserViewSet
-from api.views.task_view import TaskViewSet
-from api.views.flat_share_view import FlatShareViewSet
 
 router = routers.SimpleRouter()
 

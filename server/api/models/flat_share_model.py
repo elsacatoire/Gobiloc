@@ -1,6 +1,6 @@
 # api/models/flat_share_model.py
 
-from django.db.models import Model, CharField
+from django.db.models import CharField, Model
 
 
 class FlatShare(Model):

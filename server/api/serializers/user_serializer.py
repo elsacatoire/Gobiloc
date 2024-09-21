@@ -1,8 +1,8 @@
 # api/serializers/user_serializer.py
 
-from rest_framework.serializers import ModelSerializer
 from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions
+from rest_framework.serializers import ModelSerializer
 
 from api.models.user_model import User
 

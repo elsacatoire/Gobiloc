@@ -1,12 +1,12 @@
 # api/models/task_model.py
 from django.db import models
 from django.db.models import (
-    Model,
-    ForeignKey,
-    CharField,
     CASCADE,
-    DateTimeField,
     BooleanField,
+    CharField,
+    DateTimeField,
+    ForeignKey,
+    Model,
 )
 
 
