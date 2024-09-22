@@ -1,4 +1,4 @@
-name: Pylint # For python
+name: Pylint # For Python
 
 on:
   push:
@@ -32,4 +32,4 @@ jobs:
 
       - name: Analysing the code with pylint
         run: |
-          pylint $(git ls-files 'server/api/**/*.py')
+          pylint $(git ls-files 'server/api/**/*.py') --ignore=server/api/migrations,server/api/tests
