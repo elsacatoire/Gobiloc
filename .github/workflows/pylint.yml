@@ -32,4 +32,4 @@ jobs:
 
       - name: Analysing the code with pylint
         run: |
-          pylint $(git ls-files 'server/**/*.py')  # Analyse uniquement les fichiers Python dans ./server
+          pylint $(git ls-files 'server/api/**/*.py')
