@@ -8,7 +8,6 @@ from api.models.user_model import User
 
 
 class UserSerializer(ModelSerializer):
-
     class Meta:
         model = User
         fields = ("username", "email", "password", "date_joined", "flat_share_id")

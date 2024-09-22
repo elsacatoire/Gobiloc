@@ -7,7 +7,6 @@ from rest_framework.test import APIClient, APITestCase
 
 
 class LoginTest(APITestCase):
-
     # Don't instantiate a new user for each test
     @classmethod
     def setUpTestData(cls):

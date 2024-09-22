@@ -6,7 +6,6 @@ from rest_framework.test import APIClient, APITestCase
 
 
 class RegisterTest(APITestCase):
-
     @classmethod
     def setUpTestData(cls):
         cls.url = reverse("user-list")

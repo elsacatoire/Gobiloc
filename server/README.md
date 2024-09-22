@@ -143,6 +143,18 @@ To execute only tests of a specific file :
 py manage.py test api.path.to.test.file
 ```
 
+## Lint : Ruff for Python
+
+This project uses Ruff to maintain quality, here are the commands:
+```bash
+ruff check                  # Lint all files in the current directory.
+ruff check --fix            # Lint all files in the current directory, and fix any fixable errors.
+ruff check --watch          # Lint all files in the current directory, and re-lint on change.
+ruff check path/to/code/    # Lint all files in `path/to/code` (and any subdirectories).
+ruff format                 # Format all files in the current directory.
+```
+
+
 ## Pre-commit
 
 - You can also run

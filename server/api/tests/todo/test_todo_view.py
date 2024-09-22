@@ -9,7 +9,6 @@ from api.models import FlatShare, Todo, User
 
 
 class TestTodoViewSet(APITestCase):
-
     @classmethod
     def setUpTestData(cls):
         cls.flat_share = FlatShare.objects.create(name="Test FlatShare")
