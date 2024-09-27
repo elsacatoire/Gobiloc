@@ -611,11 +611,43 @@
 			"id": "60cf8855-214f-4f25-9e2a-70a104715d68"
 		},
 		{
+			"name": "Budget",
+			"item": [
+				{
+					"name": "Read budget",
+					"id": "387938b5-b833-4d1b-9c80-a49d9ef799a1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}flat/1/budget/1/"
+					},
+					"response": []
+				},
+				{
+					"name": "Create a budget",
+					"id": "1aa19daa-fcc3-4eab-8a62-fa60897f684c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}flat/1/budget/"
+					},
+					"response": []
+				}
+			],
+			"id": "214a85ed-40a2-4f65-b893-1dec8e11c4bf"
+		},
+		{
 			"name": "Expense",
 			"item": [
 				{
 					"name": "Get expense from a flat",
-					"id": "387938b5-b833-4d1b-9c80-a49d9ef799a1",
+					"id": "893074d3-d56a-4d54-b36a-2b253b23ee50",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -627,7 +659,7 @@
 					"response": []
 				}
 			],
-			"id": "214a85ed-40a2-4f65-b893-1dec8e11c4bf"
+			"id": "92904e2c-c2be-41b0-8fe5-caaf45ed52d5"
 		}
 	],
 	"auth": {
