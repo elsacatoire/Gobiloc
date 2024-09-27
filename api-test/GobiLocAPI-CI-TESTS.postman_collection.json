@@ -1,0 +1,1129 @@
+{
+	"info": {
+		"_postman_id": "a4b5cf07-6fad-4a2f-be57-f96bba9ce802",
+		"name": "GobiLocAPI-CI-TESTS",
+		"description": "JWT signed with base64 encoding\n\nThis folder creates a signed JWT using the `jwt_secret` variable and encodes the JWT data as base64. It then sets the signed and encoded JWT as `Bearer` token in the `Authorization` header.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28091054",
+		"_collection_link": "https://gobisoft.postman.co/workspace/Gobiloc~4bc73c6a-11ad-4d81-9342-5d55252c7300/collection/28091054-a4b5cf07-6fad-4a2f-be57-f96bba9ce802?action=share&source=collection_link&creator=28091054"
+	},
+	"item": [
+		{
+			"name": "CHECKLISTS",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// GET TOKEN\r",
+									"// Read the response\r",
+									"let responseData = pm.response.json();\r",
+									"\r",
+									"// Create the variable\r",
+									"pm.collectionVariables.set(\"bearerToken\", responseData.access);\r",
+									"\r",
+									"\r",
+									"// TEST LOGIN\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has the required fields - refresh and access\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData).to.have.property('refresh');\r",
+									"  pm.expect(responseData).to.have.property('access');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Refresh and access are non-empty strings\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData.refresh).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Refresh should not be empty\");\r",
+									"  pm.expect(responseData.access).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Access should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"email\": {{login_usermail}},\r\n\t\"password\": {{login_password}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/token/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get-all-todos-from-a-flat",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Todos array structure is valid\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData.todos).to.be.an('array').and.to.have.lengthOf.at.least(1);\r",
+									"    \r",
+									"    responseData.todos.forEach(function(todo) {\r",
+									"        pm.expect(todo).to.have.property('id').that.is.a('number');\r",
+									"        pm.expect(todo).to.have.property('flat_share_id').that.is.a('number');\r",
+									"        pm.expect(todo).to.have.property('name').that.is.a('string');\r",
+									"        pm.expect(todo).to.have.property('updateDate').that.is.a('string');\r",
+									"        pm.expect(todo.category_id).to.satisfy(function(value) {\r",
+									"        return typeof value === 'number' || value === null;\r",
+									"    });\r",
+									"    });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"coucou\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/todo/flat/1/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"todo",
+								"flat",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get-a-todo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"  pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response schema for id, flat_share, name, category, and tasks\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.id).to.exist.and.to.be.a('number');\r",
+									"    pm.expect(responseData.flat_share).to.exist.and.to.be.a('number');\r",
+									"    pm.expect(responseData.name).to.exist.and.to.be.a('string');\r",
+									"    pm.expect(responseData.category).to.exist.and.to.be.a('number');\r",
+									"    pm.expect(responseData.tasks).to.exist.and.to.be.an('array');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Each task in the tasks array has id, todo, content, and done fields\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData.tasks).to.be.an('array');\r",
+									"    responseData.tasks.forEach(function(task) {\r",
+									"        pm.expect(task).to.have.property('id');\r",
+									"        pm.expect(task).to.have.property('todo');\r",
+									"        pm.expect(task).to.have.property('content');\r",
+									"        pm.expect(task).to.have.property('done');\r",
+									"    });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/todo/1/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"todo",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create-todo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// GET ID LIST CREATED\r",
+									"const responseData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"todoId\", responseData.id);\r",
+									"\r",
+									"\r",
+									"// TEST CREATE A CHECKLIST\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has the required fields\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.id).to.exist;\r",
+									"    pm.expect(responseData.flat_share).to.exist;\r",
+									"    pm.expect(responseData.name).to.exist;\r",
+									"    pm.expect(responseData.category).to.exist;\r",
+									"    pm.expect(responseData.tasks).to.exist;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Create ok: Name in the response body matches the name in the request body\", function () {\r",
+									"    let requestData = JSON.parse(pm.request.body.raw);\r",
+									"    let responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData.name).to.equal(requestData.name);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Create ok: Category id in the response body matches the category id in the request body\", function () {\r",
+									"    let requestData = JSON.parse(pm.request.body.raw);\r",
+									"    let responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData.category).to.equal(requestData.category);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Id is a non-negative integer\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    pm.expect(responseData.id).to.be.a('number');\r",
+									"    pm.expect(responseData.id).to.be.at.least(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Flat_share is a non-negative integer\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    pm.expect(responseData.flat_share).to.be.a('number');\r",
+									"    pm.expect(responseData.flat_share).to.be.at.least(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Name is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    pm.expect(responseData.name).to.be.a('string');\r",
+									"    pm.expect(responseData.name).to.have.lengthOf.at.least(1, \"Name should not be empty\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Category is a non-negative integer\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    pm.expect(responseData.category).to.be.a('number');\r",
+									"    pm.expect(responseData.category).to.be.at.least(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Tasks is an array\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    pm.expect(responseData.tasks).to.be.an('array');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "csrftoken",
+								"value": "Cvmsozea6wX3WX8pUsec1CuDHm5HYmYq",
+								"disabled": true
+							},
+							{
+								"key": "sessionid",
+								"value": "pk4vkolulilmwd0dv449rv0761b48bc4",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"flat_share\": 6,\r\n        \"name\": \"meluch\",\r\n        \"category\": 2\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/todo/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"todo",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit-list-name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"// Test response\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has the required fields - id, flat_share, name, category, and tasks\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.id).to.exist;\r",
+									"    pm.expect(responseData.flat_share).to.exist;\r",
+									"    pm.expect(responseData.name).to.exist;\r",
+									"    pm.expect(responseData.category).to.exist;\r",
+									"    pm.expect(responseData.tasks).to.exist;\r",
+									"});\r",
+									"\r",
+									"// Test patch ok\r",
+									"pm.test(\"Patch ok: Name in the response body matches the name in the request body\", function () {\r",
+									"    let requestData = JSON.parse(pm.request.body.raw);\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData.name).to.equal(requestData.name);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Patch ok: Category id in the response body matches the category id in the request body\", function () {\r",
+									"    let requestData = JSON.parse(pm.request.body.raw);\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData.category).to.equal(requestData.category);\r",
+									"});\r",
+									"\r",
+									"// Test fields\r",
+									"pm.test(\"Id is a non-negative integer\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    pm.expect(responseData.id).to.be.a('number').and.to.be.at.least(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Flat_share is a non-negative integer\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    pm.expect(responseData.flat_share).to.be.a('number').and.to.be.at.least(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Name is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Category is a non-negative integer\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    pm.expect(responseData.category).to.be.a('number').and.to.be.at.least(0);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Tasks array is present and contains the expected number of elements\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.tasks).to.exist.and.to.be.an('array');\r",
+									"    pm.expect(responseData.tasks.length).to.equal(0);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "csrftoken",
+								"value": "Cvmsozea6wX3WX8pUsec1CuDHm5HYmYq",
+								"disabled": true
+							},
+							{
+								"key": "sessionid",
+								"value": "pk4vkolulilmwd0dv449rv0761b48bc4",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"name\": \"LFI\",\r\n        \"category\": 3\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/todo/{{todoId}}/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"todo",
+								"{{todoId}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete-a-todo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 204\", function () {\r",
+									"  pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response body is null or empty\", function () {\r",
+									"    const responseData = xml2Json(pm.response.text());\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.null;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify the response schema\", function () {\r",
+									"    const responseData = xml2Json(pm.response.text());\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.null;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/todo/{{todoId}}/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"todo",
+								"{{todoId}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TASKS",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// GET TOKEN\r",
+									"// Read the response\r",
+									"let responseData = pm.response.json();\r",
+									"\r",
+									"// Create the variable\r",
+									"pm.collectionVariables.set(\"bearerToken\", responseData.access);\r",
+									"\r",
+									"\r",
+									"// TEST LOGIN\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has the required fields - refresh and access\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData).to.have.property('refresh');\r",
+									"  pm.expect(responseData).to.have.property('access');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Refresh and access are non-empty strings\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData.refresh).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Refresh should not be empty\");\r",
+									"  pm.expect(responseData.access).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Access should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"email\": {{login_usermail}},\r\n\t\"password\": {{login_password}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/token/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has the required fields - id, todo, content, and done\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData).to.have.property('id');\r",
+									"    pm.expect(responseData).to.have.property('todo');\r",
+									"    pm.expect(responseData).to.have.property('content');\r",
+									"    pm.expect(responseData).to.have.property('done');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Id and todo are non-negative integers\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"\r",
+									"  pm.expect(responseData.id).to.be.a('number').and.to.satisfy((val) => val >= 0, \"Id should be a non-negative integer\");\r",
+									"  pm.expect(responseData.todo).to.be.a('number').and.to.satisfy((val) => val >= 0, \"Todo should be a non-negative integer\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.content).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Content should be a non-empty string\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/task/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"task",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all tasks from a todo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate the response schema for id, flat_share, name, category, and tasks\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.id).to.exist.and.to.be.a('number');\r",
+									"    pm.expect(responseData.flat_share).to.exist.and.to.be.a('number');\r",
+									"    pm.expect(responseData.name).to.exist.and.to.be.a('string');\r",
+									"    pm.expect(responseData.category).to.exist.and.to.be.a('number');\r",
+									"    pm.expect(responseData.tasks).to.exist.and.to.be.an('array');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Tasks array is present and contains expected number of elements\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.tasks).to.exist.and.to.be.an('array');\r",
+									"    pm.expect(responseData.tasks).to.have.lengthOf.at.least(1);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Id, todo, content, and done fields in tasks array have the expected data types and values\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.tasks).to.be.an('array');\r",
+									"\r",
+									"    responseData.tasks.forEach(function(task) {\r",
+									"        pm.expect(task.id).to.be.a('number');\r",
+									"        pm.expect(task.todo).to.be.a('number');\r",
+									"        pm.expect(task.content).to.be.a('string');\r",
+									"        pm.expect(task.done).to.be.a('boolean');\r",
+									"    });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/todo/1/tasks",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"todo",
+								"1",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// GET ID LIST CREATED\r",
+									"const responseData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"taskId\", responseData.id);\r",
+									"\r",
+									"\r",
+									"// TEST CREATE A TASK\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has the required fields - id, todo, content, and done\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData).to.have.property('id');\r",
+									"    pm.expect(responseData).to.have.property('todo');\r",
+									"    pm.expect(responseData).to.have.property('content');\r",
+									"    pm.expect(responseData).to.have.property('done');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Create ok: content in the response body matches the content in the request body\", function () {\r",
+									"    let requestData = JSON.parse(pm.request.body.raw);\r",
+									"    let responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData.content).to.equal(requestData.content);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content-Type is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"todo\": 1,\r\n    \"content\": \"du vin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/task/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"task",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check/uncheck a task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"  pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Id, todo, content, and done properties exist in the response\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData).to.have.property('id');\r",
+									"  pm.expect(responseData).to.have.property('todo');\r",
+									"  pm.expect(responseData).to.have.property('content');\r",
+									"  pm.expect(responseData).to.have.property('done');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check ok: done in the response body matches the done in the request body\", function () {\r",
+									"    let requestData = JSON.parse(pm.request.body.raw);\r",
+									"    let responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData.done).to.equal(requestData.done);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"done\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/task/{{taskId}}/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"task",
+								"{{taskId}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 204\", function () {\r",
+									"  pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is within an acceptable range\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response body is null or empty\", function () {\r",
+									"    const responseData = xml2Json(pm.response.text());\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.null;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Ensure that the response body follows the expected schema for a DELETE request\", function () {\r",
+									"    const responseData = xml2Json(pm.response.text());\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.null;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/task/{{taskId}}/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"task",
+								"{{taskId}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{bearerToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "bearerToken",
+			"value": "to be set by login"
+		},
+		{
+			"key": "todoId",
+			"value": ""
+		},
+		{
+			"key": "taskId",
+			"value": ""
+		}
+	]
+}

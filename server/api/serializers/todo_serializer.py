@@ -3,6 +3,7 @@
 # DTO
 
 from rest_framework.serializers import ModelSerializer
+
 from api.models import Todo
 from api.serializers.task_serializer import TaskSerializer
 
@@ -12,10 +13,4 @@ class TodoSerializer(ModelSerializer):
 
     class Meta:
         model = Todo
-        fields = [
-            'id',
-            'name',
-            'category',
-            'tasks',
-            'updateDate'
-        ]
+        fields = ["id", "name", "category", "tasks", "updateDate"]

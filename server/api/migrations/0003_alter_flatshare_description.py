@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('api', '0002_category_flatshare_user_phone_and_more'),
+        ("api", "0002_category_flatshare_user_phone_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='flatshare',
-            name='description',
+            model_name="flatshare",
+            name="description",
             field=models.CharField(max_length=255, null=True),
         ),
     ]

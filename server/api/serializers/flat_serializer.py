@@ -10,4 +10,4 @@ from api.models.flat_share_model import FlatShare
 class FlatSerializer(ModelSerializer):
     class Meta:
         model = FlatShare
-        fields = ['name', 'description']
+        fields = ["name", "description"]
