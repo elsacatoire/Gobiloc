@@ -32,7 +32,7 @@ Once the server is running, open [http://localhost:3000](http://localhost:3000) 
 
 This project is developed with a mobile-first approach. Although accessible on larger screens, it is optimized for smartphones.
 
-## Biome Linter Commands
+## Quality : Biome Linter Commands
 
 ### Format Files
 To format the files automatically:
