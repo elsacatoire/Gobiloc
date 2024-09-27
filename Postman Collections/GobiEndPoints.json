@@ -568,7 +568,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{base_url}}flat/1/users"
+						"url": "{{base_url}}flat/1/users/"
 					},
 					"response": []
 				},
