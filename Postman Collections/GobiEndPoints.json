@@ -596,6 +596,25 @@
 				}
 			],
 			"id": "60cf8855-214f-4f25-9e2a-70a104715d68"
+		},
+		{
+			"name": "Expense",
+			"item": [
+				{
+					"name": "Get expense from a flat",
+					"id": "387938b5-b833-4d1b-9c80-a49d9ef799a1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}flat/1/expense"
+					},
+					"response": []
+				}
+			],
+			"id": "214a85ed-40a2-4f65-b893-1dec8e11c4bf"
 		}
 	],
 	"auth": {
