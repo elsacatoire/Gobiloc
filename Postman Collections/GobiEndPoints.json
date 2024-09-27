@@ -555,7 +555,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "localhost:8000/api/v1/flat/1/"
+						"url": "{{base_url}}flat/1/"
 					},
 					"response": []
 				},
