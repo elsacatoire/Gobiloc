@@ -7,3 +7,6 @@ from api.models import FlatShare
 class Budget(Model):
     name = CharField(max_length=100)
     flat_share = ForeignKey(FlatShare, on_delete=CASCADE)
+
+    def __str__(self):
+        return self.name
