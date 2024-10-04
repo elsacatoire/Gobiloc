@@ -614,7 +614,7 @@
 					"response": []
 				},
 				{
-					"name": "Create a budget",
+					"name": "Create a budget (unused)",
 					"id": "1aa19daa-fcc3-4eab-8a62-fa60897f684c",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -631,7 +631,7 @@
 								}
 							}
 						},
-						"url": "{{base_url}}flat/1/budget/"
+						"url": "{{base_url}}flat/5/budget/"
 					},
 					"response": []
 				}
@@ -650,6 +650,28 @@
 					"request": {
 						"method": "GET",
 						"header": [],
+						"url": "{{base_url}}flat/1/budget/1/"
+					},
+					"response": []
+				},
+				{
+					"name": "Create expense for a budget",
+					"id": "3b7a6617-c2ba-420e-87da-2f082d9d8fa2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"budget\": 1,\r\n    \"flat_share\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": "{{base_url}}flat/1/budget/1/"
 					},
 					"response": []
