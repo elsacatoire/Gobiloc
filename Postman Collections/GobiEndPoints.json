@@ -642,7 +642,7 @@
 			"name": "Expense",
 			"item": [
 				{
-					"name": "Get expense from a flat",
+					"name": "Get all expenses from a flat",
 					"id": "893074d3-d56a-4d54-b36a-2b253b23ee50",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -672,7 +672,51 @@
 								}
 							}
 						},
-						"url": "{{base_url}}flat/1/budget/1/"
+						"url": "{{base_url}}flat/1/budget/1/expense/"
+					},
+					"response": []
+				},
+				{
+					"name": "Create expense for a budget",
+					"id": "5b9a29b5-6bc9-46a5-b81e-253e1d918a8b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"budget\": 1,\r\n    \"description\": \"postman\",\r\n    \"amount\": 10,\r\n    \"user\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}flat/1/budget/1/expense/3/"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an exepense",
+					"id": "85801385-eb09-4e68-9c1a-2cd2335ec759",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"budget\": 1,\r\n    \"description\": \"postman\",\r\n    \"amount\": 10,\r\n    \"user\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}flat/1/budget/1/expense/3/"
 					},
 					"response": []
 				}
