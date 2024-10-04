@@ -622,7 +622,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{base_url}}flat/1/budget/1/"
+						"url": "{{base_url}}flat/1/budget"
 					},
 					"response": []
 				},
