@@ -28,7 +28,7 @@ jobs:
           --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=5
 
     env:
-      DJANGO_SETTINGS_MODULE: myproject.settings
+      DJANGO_SETTINGS_MODULE: gobiloc.settings
       DB_NAME: gobilocTest
       DB_USER: postgresCI
       DB_PASSWORD: postgresCI
