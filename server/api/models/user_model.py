@@ -32,4 +32,3 @@ class User(AbstractUser):
     # password and username already exists in AbstractUser
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
-    #Code pour test CI
