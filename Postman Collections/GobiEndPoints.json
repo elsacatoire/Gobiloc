@@ -560,19 +560,6 @@
 					"response": []
 				},
 				{
-					"name": "Get a flat Copy",
-					"id": "2025bf06-e929-43cc-8116-1befe78a5d46",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "{{base_url}}flat/1/users/"
-					},
-					"response": []
-				},
-				{
 					"name": "Edit a flat",
 					"id": "dabe146b-5854-4e87-a9fa-88423db6a782",
 					"protocolProfileBehavior": {
@@ -663,7 +650,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{base_url}}flat/1/expense"
+						"url": "{{base_url}}flat/1/budget/1/"
 					},
 					"response": []
 				}
