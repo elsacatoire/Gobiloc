@@ -677,7 +677,7 @@
 					"response": []
 				},
 				{
-					"name": "Create expense for a budget",
+					"name": "Get expense for a budget (unused)",
 					"id": "5b9a29b5-6bc9-46a5-b81e-253e1d918a8b",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
