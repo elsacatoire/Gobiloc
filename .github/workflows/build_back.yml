@@ -12,7 +12,7 @@ on:
 
 
 jobs:
-  test:
+  Build server back:
     runs-on: ubuntu-latest
 
     services:
