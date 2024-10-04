@@ -601,7 +601,7 @@
 			"name": "Budget",
 			"item": [
 				{
-					"name": "Read budget",
+					"name": "Get all budgets",
 					"id": "387938b5-b833-4d1b-9c80-a49d9ef799a1",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -610,6 +610,19 @@
 						"method": "GET",
 						"header": [],
 						"url": "{{base_url}}flat/1/budget"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a budget",
+					"id": "d4e059a8-22b8-4d93-a1a9-b5624eb5dfd8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}flat/1/budget/1"
 					},
 					"response": []
 				},
