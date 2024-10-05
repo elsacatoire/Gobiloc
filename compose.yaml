@@ -1,0 +1,67 @@
+services:
+  # nginx:
+  #   image: nginx
+  #   restart: unless-stopped
+  #   hostname: nginx
+  #   build:
+  #     context: .
+  #     dockerfile: ./docker/nginx/Dockerfile
+  #   ports:
+  #     - "8081:8081"
+  #     - "443:443"
+  #   volumes:
+  #     - /var/djnext:/app/static
+  #   depends_on:
+  #     - node
+  #     - server
+
+  db:
+    container_name: postgres
+    image: postgres:16.2
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    build:
+      context: ./docker/postgres
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PW}
+    ports:
+      - "5432:5432"
+    restart: always
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:latest
+    build:
+      context: ./docker/postgres
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_MAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PW}
+    ports:
+      - "5050:80"
+    restart: always
+
+  backend:
+    build:
+      context: ./server
+      target: builder
+    ports:
+      - '8000:8000'
+
+# node:
+#   image: node
+#   restart: unless-stopped
+#   hostname: nextjs
+#   build:
+#     context: .
+#     dockerfile: ./client/Dockerfile
+#     args:
+#       UID: ${UID:-1000}
+#   user: '${UID:-1000}:${GID:-1000}'
+#   env_file:
+#     - .env
+#   volumes:
+#     - /var/djnext:/var/djnext
+
+volumes:
+  postgres_data:
