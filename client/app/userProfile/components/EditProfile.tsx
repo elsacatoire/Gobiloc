@@ -70,7 +70,7 @@ const EditUserProfile: React.FC<UserProfileProps> = ({
 											htmlFor="name"
 											className="block text-sm font-medium text-gray-700"
 										>
-											Modifier l'avatar
+											Modifier l&lsquo;avatar
 										</label>
 										<Input
 											type="file"
