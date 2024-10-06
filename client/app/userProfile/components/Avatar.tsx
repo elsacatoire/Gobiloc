@@ -1,6 +1,5 @@
+import Image from "next/image";
 import type React from "react";
-import Image from 'next/image'
-
 
 interface AvatarProps {
 	src: string;
@@ -11,7 +10,13 @@ interface AvatarProps {
 const Avatar: React.FC<AvatarProps> = ({ src, alt, style = "w-10 h-10" }) => {
 	return (
 		<div className={`overflow-hidden rounded-full ${style}`}>
-			<Image src={src} alt={alt} width={50} height={50} className="object-cover w-full h-full" />
+			<Image
+				src={src}
+				alt={alt}
+				width={50}
+				height={50}
+				className="object-cover w-full h-full"
+			/>
 		</div>
 	);
 };

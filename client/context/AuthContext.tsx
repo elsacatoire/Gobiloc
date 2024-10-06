@@ -80,8 +80,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 			setAuthTokens(data);
 			setUser(decodedUser);
+			if (typeof window !== 'undefined') {
 			sessionStorage.setItem("authTokens", JSON.stringify(data));
 			sessionStorage.setItem("user", JSON.stringify(decodedUser));
+			}
 
 			router.push("/");
 		} else {

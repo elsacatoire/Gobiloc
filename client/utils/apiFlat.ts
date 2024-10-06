@@ -1,10 +1,16 @@
 import axios from "axios";
 import { getAuthToken, getRefreshToken, saveTokens } from "./auth/authUtils";
 
-const userString = sessionStorage.getItem("user");
-const user = userString ? JSON.parse(userString) : null;
+const isSessionStorageAvailable = () => typeof window !== "undefined";
+
+let user = null
+if (isSessionStorageAvailable()) {
+	const userString = sessionStorage.getItem("user");
+	user = userString ? JSON.parse(userString) : null;
+}
+
 const apiFlatClient = axios.create({
-	baseURL: `http://localhost:8000/api/v1/flat/${user.flat_id}/`,
+	baseURL: user ? `http://localhost:8000/api/v1/flat/${user.flat_id}/` : "http://localhost:3000/login",
 });
 
 // Intercepter for each api call
@@ -55,8 +61,10 @@ apiFlatClient.interceptors.response.use(
 			} catch (refreshError) {
 				// If refresh request failed (for exemple refresh token expired), logout the user
 				console.error("Le refresh token est expiré ou invalide");
-				sessionStorage.removeItem("authTokens");
-				window.location.href = "/login";
+				if (isSessionStorageAvailable()) {
+					sessionStorage.removeItem("authTokens");
+					window.location.href = "/login";
+				}
 				return Promise.reject(refreshError);
 			}
 		}
