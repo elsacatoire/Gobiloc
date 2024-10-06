@@ -1,7 +1,3 @@
-
-
-
-
 # class FlatShareViewSetTest(TestCase):
 #     def setUp(self):
 #         self.client = APIClient()
