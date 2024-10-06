@@ -637,7 +637,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Budget1\",\r\n    \"flat_share\": 2\r\n}",
+							"raw": "{\r\n\r\n    \"flat_share\": 12\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
