@@ -1,7 +1,7 @@
 # api/views/expense_view.py
 # Controller
 from rest_framework.exceptions import NotFound, PermissionDenied
-from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.viewsets import GenericViewSet
 
 from api.models import Budget, Expense, FlatShare
 from api.serializers.expense_serializer import ExpenseSerializer
