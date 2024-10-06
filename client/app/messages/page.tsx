@@ -6,15 +6,15 @@ import AuthContext from "@/context/AuthContext";
 import isAuth from "@/utils/auth/isAuth";
 import React, { useContext } from "react";
 
-const messages = () => {
-	const context = useContext(AuthContext);
+const Messages = () => {
+	const useAuth = useContext(AuthContext);
 
-	if (!context) {
+	if (!useAuth) {
 		// Gérer le cas où le contexte est undefined
 		return <div>Erreur : Contexte non défini</div>;
 	}
 
-	const { user } = context;
+	const { user } = useAuth;
 
 	return (
 		<div>
@@ -25,4 +25,4 @@ const messages = () => {
 	);
 };
 
-export default isAuth(messages);
+export default isAuth(Messages);

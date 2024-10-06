@@ -1,0 +1,44 @@
+services:
+
+  db:
+    container_name: postgres
+    image: postgres:16.2
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    build:
+      context: ./docker/postgres
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PW}
+    ports:
+      - "5432:5432"
+    restart: always
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:latest
+    build:
+      context: ./docker/postgres
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_MAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PW}
+    ports:
+      - "5050:80"
+    restart: always
+
+  backend:
+    build:
+      context: ./server
+      target: builder
+    ports:
+      - '8000:8000'
+
+  frontend:
+    build:
+      context: ./client
+    container_name: frontend
+    ports:
+      - "80:80"
+
+volumes:
+  postgres_data:

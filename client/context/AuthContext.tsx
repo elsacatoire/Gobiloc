@@ -1,7 +1,8 @@
 import type { DecodedToken } from "@/types/TokenType";
+import { clearTokens } from "@/utils/auth/authUtils";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 const AuthContext = createContext<{
 	user: DecodedToken | null;
@@ -13,65 +14,50 @@ const AuthContext = createContext<{
 	logoutUser: () => {},
 });
 
+type TokensType = {
+	refresh: string,
+	access: string
+}
 // /--- Component AuthProvider to wrap the app ---
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const router = useRouter();
 	const [user, setUser] = useState<DecodedToken | null>(null);
-	const [authTokens, setAuthTokens] = useState<string | null>(null);
+	const [authTokens, setAuthTokens] = useState<TokensType | null>(null);
 
 	// Check if the user token is still valid
 	useEffect(() => {
-		const checkTokenExpiration = () => {
-			if (authTokens) {
-				try {
-					const decodedToken = jwtDecode<DecodedToken>(
-						JSON.parse(authTokens).access,
-					);
-					const currentTime = Date.now() / 1000;
-
-					if (decodedToken.exp < currentTime) {
-						// Token is expired, log the user out
+		if (authTokens) {
+			console.log(authTokens);
+			
+			try {
+				const decodedToken = jwtDecode<DecodedToken>(
+					authTokens.access
+				);
+				const currentTime = Date.now() / 1000;
+				const timeUntilExpiry = decodedToken.exp - currentTime;
+	
+				if (timeUntilExpiry > 0) {
+					const timeout = setTimeout(() => {
 						console.log("Token expired, logging out");
 						logoutUser();
-					}
-				} catch (error) {
-					console.error("Failed to decode token", error);
-					logoutUser();
+					}, timeUntilExpiry * 1000);
+	
+					return () => clearTimeout(timeout);
 				}
-			}
-		};
-
-		if (typeof window !== "undefined") {
-			const storedTokens = localStorage.getItem("authTokens");
-			if (storedTokens) {
-				try {
-					const decoded = jwtDecode<DecodedToken>(
-						JSON.parse(storedTokens).access,
-					);
-					const currentTime = Date.now() / 1000;
-					if (decoded.exp > currentTime) {
-						setUser(decoded);
-						setAuthTokens(storedTokens);
-					} else {
-						logoutUser();
-					}
-				} catch (error) {
-					console.error("Token decoding failed", error);
 					logoutUser();
-				}
+			} catch (error) {
+				console.error("Failed to decode token", error);
+				logoutUser();
 			}
 		}
-
-		const interval = setInterval(() => {
-			checkTokenExpiration();
-		}, 60 * 1000); // Check every minute
-
-		return () => clearInterval(interval);
 	}, [authTokens]);
+	
 
 	// Method to log a user
+	const [error, setError] = useState<string | null>(null);
 	const loginUser = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		setError(null)
 
 		const target = e.target as HTMLFormElement;
 		const email = (target.elements.namedItem("email") as HTMLInputElement)
@@ -94,21 +80,21 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 			setAuthTokens(data);
 			setUser(decodedUser);
-			localStorage.setItem("authTokens", JSON.stringify(data));
-			localStorage.setItem("user", JSON.stringify(decodedUser));
+			if (typeof window !== 'undefined') {
+			sessionStorage.setItem("authTokens", JSON.stringify(data));
+			sessionStorage.setItem("user", JSON.stringify(decodedUser));
+			}
 
 			router.push("/");
 		} else {
-			alert("Login failed");
+			setError("Invalid email or password. Please try again.");
 		}
 	};
 
 	// Method to logout the user
 	const logoutUser = () => {
 		setUser(null);
-		setAuthTokens(null);
-		localStorage.removeItem("authTokens");
-		localStorage.removeItem("user");
+		clearTokens();
 		router.push("/login");
 	};
 
@@ -119,7 +105,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	};
 
 	return (
-		<AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
+		<AuthContext.Provider value={contextData}>{children}{error && <p style={{ color: 'red' }}>{error}</p>}
+		</AuthContext.Provider>
 	);
 };
 
