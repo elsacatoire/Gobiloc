@@ -34,7 +34,7 @@ budget_router.register(r"budget", BudgetViewSet, basename="flat-budget")
 
 # Create a NestedSimpleRouter for expenses, nested under budget
 expense_router = NestedSimpleRouter(budget_router, r"budget", lookup="budget")
-expense_router.register(r"expense", ExpenseViewSet, basename="todo-task")
+expense_router.register(r"expense", ExpenseViewSet, basename="budget-expense")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
