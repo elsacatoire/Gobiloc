@@ -41,18 +41,15 @@ COPY --from=gloursdocker/docker / /
 CMD [ "npm", "start" ]
 
 # 2. For Nginx setup
-FROM nginx:alpine
+FROM nginx:alpine as production
+
+COPY --from=build /frontend/.next/static /usr/share/nginx/html/static
+COPY --from=build /frontend/.next/server /usr/share/nginx/html/server
 
 # Copy config nginx
 COPY --from=build /frontend/.nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
-WORKDIR /usr/share/nginx/html
-
-# Remove default nginx static assets
-RUN rm -rf ./*
-
-# Copy static assets from builder stage
-COPY --from=build /frontend/build .
+EXPOSE 80
 
 # Containers run nginx with global directives and daemon off
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
