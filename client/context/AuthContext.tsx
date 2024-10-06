@@ -1,6 +1,7 @@
 import { fetchFlatshare } from "@/api/services/flatService";
 import type { FlatType } from "@/types/flatType";
 import type { DecodedToken } from "@/types/TokenType";
+import { clearTokens } from "@/utils/auth/authUtils";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
@@ -13,65 +14,47 @@ const AuthContext = createContext<{
 }>({
 	user: null,
 	flatshare: null,
-	loginUser: async () => {},
-	logoutUser: () => {},
+	loginUser: async () => { },
+	logoutUser: () => { },
 });
 
+type TokensType = {
+	refresh: string,
+	access: string
+}
 // /--- Component AuthProvider to wrap the app ---
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const router = useRouter();
 	const [user, setUser] = useState<DecodedToken | null>(null);
 	const [flatshare, setFlatshare] = useState<FlatType | null>(null)
-	const [authTokens, setAuthTokens] = useState<string | null>(null);
+	const [authTokens, setAuthTokens] = useState<TokensType | null>(null);
 
 	// Check if the user token is still valid
 	useEffect(() => {
-		const checkTokenExpiration = () => {
-			if (authTokens) {
-				try {
-					const decodedToken = jwtDecode<DecodedToken>(
-						JSON.parse(authTokens).access,
-					);
-					const currentTime = Date.now() / 1000;
+		if (authTokens) {
+			console.log(authTokens);
 
-					if (decodedToken.exp < currentTime) {
-						// Token is expired, log the user out
+			try {
+				const decodedToken = jwtDecode<DecodedToken>(
+					authTokens.access
+				);
+				const currentTime = Date.now() / 1000;
+				const timeUntilExpiry = decodedToken.exp - currentTime;
+
+				if (timeUntilExpiry > 0) {
+					const timeout = setTimeout(() => {
 						console.log("Token expired, logging out");
 						logoutUser();
-					}
-				} catch (error) {
-					console.error("Failed to decode token", error);
-					logoutUser();
-				}
-			}
-		};
+					}, timeUntilExpiry * 1000);
 
-		if (typeof window !== "undefined") {
-			const storedTokens = localStorage.getItem("authTokens");
-			if (storedTokens) {
-				try {
-					const decoded = jwtDecode<DecodedToken>(
-						JSON.parse(storedTokens).access,
-					);
-					const currentTime = Date.now() / 1000;
-					if (decoded.exp > currentTime) {
-						setUser(decoded);
-						setAuthTokens(storedTokens);
-					} else {
-						logoutUser();
-					}
-				} catch (error) {
-					console.error("Token decoding failed", error);
-					logoutUser();
+					return () => clearTimeout(timeout);
 				}
+				logoutUser();
+			} catch (error) {
+				console.error("Failed to decode token", error);
+				logoutUser();
 			}
 		}
-
-		const interval = setInterval(() => {
-			checkTokenExpiration();
-		}, 60 * 1000); // Check every minute
-
-		return () => clearInterval(interval);
 	}, [authTokens]);
 
 	// Method to get the flatshare data
@@ -85,8 +68,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	};
 
 	// Method to log a user
+	const [error, setError] = useState<string | null>(null);
 	const loginUser = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		setError(null)
 
 		const target = e.target as HTMLFormElement;
 		const email = (target.elements.namedItem("email") as HTMLInputElement)
@@ -116,16 +101,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 			router.push("/");
 		} else {
-			alert("Login failed");
+			setError("Invalid email or password. Please try again.");
 		}
 	};
 
 	// Method to logout the user
 	const logoutUser = () => {
 		setUser(null);
-		setAuthTokens(null);
-		localStorage.removeItem("authTokens");
-		localStorage.removeItem("user");
+		clearTokens();
 		router.push("/login");
 	};
 
@@ -137,7 +120,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	};
 
 	return (
-		<AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
+		<AuthContext.Provider value={contextData}>{children}{error && <p style={{ color: 'red' }}>{error}</p>}
+		</AuthContext.Provider>
 	);
 };
 

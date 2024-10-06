@@ -29,35 +29,36 @@ apiClient.interceptors.response.use(
 
 		// If error beacause of a 401 (expired token) and not yet tried to refresh
 		if (error.response.status === 401 && !originalRequest._retry) {
-			originalRequest._retry = true; // To prevent infint loop
-
+			originalRequest._retry = true;
+		
 			try {
 				const refreshToken = getRefreshToken();
-				// Api call to refresh the access token
+		
+				if (!refreshToken) {
+					console.error("No refresh token available");
+					window.location.href = "/login";
+					return Promise.reject(error);
+				}
+		
 				const response = await axios.post(
 					"http://localhost:8000/api/v1/token/refresh/",
-					{
-						refresh: refreshToken,
-					},
+					{ refresh: refreshToken },
 				);
-
-				// If success save the new token
+		
 				const newAccessToken = response.data.access;
 				saveTokens(newAccessToken, refreshToken);
-
-				// Add new token in the request header
+		
 				originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-
-				// Try request with the new token
 				return apiClient(originalRequest);
 			} catch (refreshError) {
-				// If refresh request failed (for exemple refresh token expired), logout the user
-				console.error("Le refresh token est expiré ou invalide");
-				localStorage.removeItem("authTokens");
+				// Clear tokens and redirect to login
+				console.error("Refresh token expired or invalid");
+				sessionStorage.removeItem("authTokens");
 				window.location.href = "/login";
 				return Promise.reject(refreshError);
 			}
 		}
+		
 		return Promise.reject(error);
 	},
 );

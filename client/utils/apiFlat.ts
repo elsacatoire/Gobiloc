@@ -46,7 +46,7 @@ apiFlatClient.interceptors.response.use(
                 const newAccessToken = response.data.access;
                 saveTokens(newAccessToken, refreshToken);
                 originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-                
+
                 return apiFlatClient(originalRequest); // Retry the request with the new token
             } catch (refreshError) {
                 console.error("Le refresh token est expiré ou invalide");
