@@ -94,10 +94,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 			setAuthTokens(data);
 			setUser(decodedUser);
-			localStorage.setItem("authTokens", JSON.stringify(data));
-			localStorage.setItem("user", JSON.stringify(decodedUser));
+			if (typeof window !== 'undefined') {
+				localStorage.setItem("authTokens", JSON.stringify(data));
+				localStorage.setItem("user", JSON.stringify(decodedUser));
 
-			fetchFlatshareData();
+				fetchFlatshareData();
+			}
 
 			router.push("/");
 		} else {
