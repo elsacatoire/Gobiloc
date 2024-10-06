@@ -1,14 +1,14 @@
 # api/views/expense_view.py
 # Controller
 from rest_framework.exceptions import NotFound, PermissionDenied
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
-from api.mixins.check_empty_patch_mixin import CheckEmptyPatchMixin
 from api.models import Budget, Expense, FlatShare
 from api.serializers.expense_serializer import ExpenseSerializer
+from rest_framework.mixins import CreateModelMixin, DestroyModelMixin
 
 
-class ExpenseViewSet(CheckEmptyPatchMixin, ModelViewSet):
+class ExpenseViewSet(GenericViewSet, CreateModelMixin, DestroyModelMixin):
     serializer_class = ExpenseSerializer
 
     def get_queryset(self):
