@@ -159,25 +159,23 @@ export default function ChecklistPage() {
 				<CardHeader>
 					<div className="flex flex-col gap-2">
 						{isEditing ? (
-							<div className="flex items-center ml-4">
+							<div className="flex items-center gap-2">
 								<Input
 									type="text"
 									value={newChecklistName}
 									onChange={handleNameChange}
 								/>
 								<Button
-									className="ml-1"
 									variant="default"
 									onClick={handleNameSave}
 								>
 									<Check className="h-5 w-5" />
 								</Button>
 								<Button
-									className="ml-1"
-									variant="ghost"
+									variant="destructive"
 									onClick={() => setEditing(false)}
 								>
-									<X color="darkred" className="h-5 w-5" />
+									<X  className="h-5 w-5" />
 								</Button>
 							</div>
 						) : (
