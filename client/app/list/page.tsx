@@ -2,16 +2,12 @@
 
 import { deleteTodo, fetchTodos } from "@/api/services/todoService";
 import { Header } from "@/app/components/customsComponents/layout/Header";
-import { Card } from "@/app/components/ui/card";
+import { Card, CardContent } from "@/app/components/ui/card";
 import { NavMenu } from "@/app/enums/NavMenuEnum";
 import { CreateList } from "@/app/list/components/CreateList";
-import { Trash2 } from "lucide-react";
-import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
 import type { TodoType } from "../../types/TodoType";
-import { formatDate } from "../../utils/formatDate";
-import { Button } from "../components/ui/button";
-import { getCategoryName } from "../enums/TodoCategoryEnum";
+import ListCard from "./components/ListCard";
 
 export default function Lists() {
 	/* ----- GET all todos ----- */
@@ -40,13 +36,12 @@ export default function Lists() {
 	}, []);
 
 	/* ----- DELETE a todo ----- */
-	const handleDeleteTodo = async (_index: number, idToDelete: number) => {
+	const handleDeleteTodo = async (idToDelete: number) => {
 		try {
 			await deleteTodo(idToDelete);
-			// update list
-			setTodos(todos.filter((_, index) => index !== _index));
+			setTodos(todos.filter(todo => todo.id !== idToDelete));
 		} catch (error) {
-			setError(handleError(error));
+			setError("Erreur lors de la suppression du todo.");
 		}
 	};
 
@@ -61,36 +56,24 @@ export default function Lists() {
 			<div className="flex flex-grow flex-col content-between px-6 overflow-y-auto">
 				{error && <p className="text-red-500">{error}</p>}
 				<div className="flex flex-wrap justify-center gap-1 sm:gap-4">
+				<Card>
+			<CardContent className="flex justify-between items-center p-3">
+					<div className="flex flex-col gap-2 w-60">
+						<p className="font-bold">Créer une todo</p>
+					</div>
+					<div className="flex mt-auto self-end">
+					<CreateList />
+					</div>
+			</CardContent>
+		</Card>
+
 					{todos && todos.length > 0 ? (
 						todos.map((todo: TodoType, index: number) => (
-							<div key={todo.id} className="flex p-1 justify-between">
-								<Card className=" bg-slate-50">
-									<div className="flex p-3">
-										<Link href={`/list/${todo.id}`}>
-											<div className="w-60">
-												<p className="font-light text-xs">
-													{formatDate(todo.updateDate)}
-												</p>
-												<p className="font-semibold">{todo.name}</p>
-												<p>{getCategoryName(todo.category) || ""}</p>
-											</div>
-										</Link>
-										<div className="flex pt-2">
-											<Button
-												variant="destructive"
-												size="icon"
-												onClick={() => handleDeleteTodo(index, todo.id)}
-											>
-												<Trash2
-													strokeWidth={1}
-													color="white"
-													className="h-5 w-5 justify-center"
-												/>
-											</Button>
-										</div>
-									</div>
-								</Card>
-							</div>
+							<ListCard 
+								key={todo.id}
+								list={todo}
+								onDelete={() => handleDeleteTodo(todo.id)} 
+								/>
 						))
 					) : (
 						<div className="flex flex-col items-center justify-center w-full mt-10">
@@ -100,9 +83,6 @@ export default function Lists() {
 						</div>
 					)}
 				</div>
-			</div>
-			<div className="flex justify-center sticky bottom-0 p-2 z-50 bg-gradient-to-r from-cyan-400 to-amber-400">
-				<CreateList />
 			</div>
 		</div>
 	);

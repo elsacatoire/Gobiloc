@@ -78,9 +78,8 @@ export const CreateList: React.FC = () => {
 		<Dialog>
 			<DialogTrigger asChild>
 				<span>
-					<Button variant="secondary">
-						<Plus className="mr-2 h-4 w-4" />
-						Todo
+					<Button size="icon">
+						<Plus className="h-5 w-5" />
 					</Button>
 				</span>
 			</DialogTrigger>
