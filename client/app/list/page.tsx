@@ -52,7 +52,9 @@ export default function Lists() {
 	/* ----- Render when everything is cooooool ----- */
 	return (
 		<div className="flex flex-col">
+
 			<Header title={NavMenu.LISTS} />
+
 			<div className="flex flex-grow flex-col content-between px-6 overflow-y-auto">
 				{error && <p className="text-red-500">{error}</p>}
 				<div className="flex flex-wrap justify-center gap-1 sm:gap-4">
