@@ -1,6 +1,10 @@
 "use client";
 
-import { deleteChecklist, fetchChecklist, fetchChecklists } from "@/api/services/ChecklistService";
+import {
+	deleteChecklist,
+	fetchChecklist,
+	fetchChecklists,
+} from "@/api/services/ChecklistService";
 import { Header } from "@/app/components/customsComponents/layout/Header";
 import { Card, CardContent } from "@/app/components/ui/card";
 import { NavMenu } from "@/app/enums/NavMenuEnum";
@@ -39,7 +43,9 @@ export default function ChecklistPage() {
 	const handleDeleteChecklist = async (idToDelete: number) => {
 		try {
 			await deleteChecklist(idToDelete);
-			setChecklists(checklist.filter(checklist => checklist.id !== idToDelete));
+			setChecklists(
+				checklist.filter((checklist) => checklist.id !== idToDelete),
+			);
 		} catch (error) {
 			setError("Erreur lors de la suppression de la checklist.");
 		}
@@ -52,27 +58,26 @@ export default function ChecklistPage() {
 	/* ----- Render when everything is cooooool ----- */
 	return (
 		<div className="flex flex-col">
-
 			<Header title={NavMenu.CHECKLISTS} />
 
 			<div className="flex flex-grow flex-col content-between px-6 overflow-y-auto">
 				{error && <p className="text-red-500">{error}</p>}
 				<div className="flex flex-wrap justify-center gap-1 sm:gap-4">
-				<Card>
-			<CardContent className="flex justify-between items-center p-3">
-					<div className="flex flex-col gap-2 w-60">
-						<p className="font-bold">Créer une liste</p>
-					</div>
-					<CreateList />
-			</CardContent>
-		</Card>
+					<Card>
+						<CardContent className="flex justify-between items-center p-3">
+							<div className="flex flex-col gap-2 w-60">
+								<p className="font-bold">Créer une liste</p>
+							</div>
+							<CreateList />
+						</CardContent>
+					</Card>
 					{checklist && checklist.length > 0 ? (
 						checklist.map((checklist: ChecklistType) => (
-							<ChecklistCard 
+							<ChecklistCard
 								key={checklist.id}
 								list={checklist}
 								onDelete={() => handleDeleteChecklist(checklist.id)}
-								/>
+							/>
 						))
 					) : (
 						<div className="flex flex-col items-center justify-center w-full mt-10">
