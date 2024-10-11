@@ -11,7 +11,7 @@ import type React from "react";
 
 type ChecklistCardProps = {
 	list: ChecklistType;
-	onDelete: (id: number) => void;
+	onDelete?: (id: number) => void;
 };
 
 const ChecklistCard: React.FC<ChecklistCardProps> = ({ list, onDelete }) => {
@@ -25,19 +25,21 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({ list, onDelete }) => {
 						<p>{getCategoryName(list.category) || ""}</p>
 					</div>
 				</Link>
-				<div className="flex pt-2">
-					<Button
-						variant="destructive"
-						size="icon"
-						onClick={() => onDelete(list.id)}
-					>
-						<Trash2
-							strokeWidth={1}
-							color="white"
-							className="h-5 w-5 justify-center"
-						/>
-					</Button>
-				</div>
+				{onDelete && (
+					<div className="flex-1 flex justify-end">
+						<Button
+							variant="destructive"
+							size="icon"
+							onClick={() => onDelete(list.id)}
+						>
+							<Trash2
+								strokeWidth={1}
+								color="white"
+								className="h-5 w-5 justify-center"
+							/>
+						</Button>
+					</div>
+				)}
 			</div>
 		</Card>
 	);
