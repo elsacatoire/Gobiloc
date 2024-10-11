@@ -9,7 +9,7 @@ import React, { useState, useEffect, useRef } from "react";
 import type { ChecklistType } from "../../types/ChecklistType";
 import ChecklistCard from "./components/ChecklistCard";
 
-export default function Lists() {
+export default function ChecklistPage() {
 	/* ----- GET all Checklists ----- */
 	const [checklist, setChecklists] = useState<ChecklistType[]>([]);
 	const [isLoading, setLoading] = useState(true);
@@ -35,13 +35,13 @@ export default function Lists() {
 		didMountRef.current = true;
 	}, []);
 
-	/* ----- DELETE a todo ----- */
-	const handleDeleteTodo = async (idToDelete: number) => {
+	/* ----- DELETE a checklist ----- */
+	const handleDeleteChecklist = async (idToDelete: number) => {
 		try {
 			await deleteChecklist(idToDelete);
-			setChecklists(checklist.filter(todo => todo.id !== idToDelete));
+			setChecklists(checklist.filter(checklist => checklist.id !== idToDelete));
 		} catch (error) {
-			setError("Erreur lors de la suppression du todo.");
+			setError("Erreur lors de la suppression de la checklist.");
 		}
 	};
 
@@ -61,19 +61,17 @@ export default function Lists() {
 				<Card>
 			<CardContent className="flex justify-between items-center p-3">
 					<div className="flex flex-col gap-2 w-60">
-						<p className="font-bold">Créer une todo</p>
+						<p className="font-bold">Créer une liste</p>
 					</div>
-					<div className="flex mt-auto self-end">
 					<CreateList />
-					</div>
 			</CardContent>
 		</Card>
 					{checklist && checklist.length > 0 ? (
-						checklist.map((todo: ChecklistType) => (
+						checklist.map((checklist: ChecklistType) => (
 							<ChecklistCard 
-								key={todo.id}
-								list={todo}
-								onDelete={() => handleDeleteTodo(todo.id)}
+								key={checklist.id}
+								list={checklist}
+								onDelete={() => handleDeleteChecklist(checklist.id)}
 								/>
 						))
 					) : (

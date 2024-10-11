@@ -35,9 +35,8 @@ export default function ChecklistPage() {
 		if (didMountRef.current) return; // prevent double api call
 		const getChecklistData = async () => {
 
-			
 			if (!currentChecklistId) return;
-			console.log("cpcccccc");
+	
 			try {
 				setLoading(true);
 				const data: ChecklistType = await fetchChecklist(currentChecklistId);
