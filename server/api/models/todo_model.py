@@ -24,7 +24,7 @@ class Todo(Model):
                                is deleted, this field is set to null. This field is optional.
     """
 
-    flat_share = ForeignKey("FlatShare", on_delete=CASCADE)
+    flat_share = ForeignKey("FlatShare", related_name="todos", on_delete=CASCADE)
     name = CharField(max_length=50)
     updateDate = DateTimeField(auto_now=True)
     category = ForeignKey("Category", on_delete=SET_NULL, null=True)
