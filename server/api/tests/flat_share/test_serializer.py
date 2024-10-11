@@ -1,11 +1,8 @@
 # tests/flat_share/test_serializer.py
 
 from django.test import TestCase
-from rest_framework.exceptions import ValidationError
-from rest_framework.serializers import ModelSerializer
 from api.models.flat_share_model import FlatShare
 from api.serializers.flat_share_serializer import FlatSerializer
-from api.serializers.user_serializer import BasicUserSerializer
 
 
 class TestFlatShareSerializer(TestCase):

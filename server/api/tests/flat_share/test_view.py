@@ -1,12 +1,5 @@
-import json
 
-from django.test import TestCase
-from django.urls import reverse
-from rest_framework.test import APIClient
-from rest_framework_simplejwt.tokens import RefreshToken
 
-from api.models import User
-from api.models.flat_share_model import FlatShare
 
 
 # class FlatShareViewSetTest(TestCase):

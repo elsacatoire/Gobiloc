@@ -1,6 +1,5 @@
 # api/views/flat_share_view.py
 # Controller
-from django.core.exceptions import BadRequest
 from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.response import Response
