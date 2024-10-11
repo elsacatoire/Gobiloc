@@ -20,10 +20,7 @@ class FlatShareViewSet(
     def create(self, request, *args, **kwargs):
         has_already_a_flat = FlatShare.objects.filter(users=self.request.user).exists()
 
-        print(f"Use has a flat ? {has_already_a_flat}")
-
         if has_already_a_flat:
-            print("HAS A FLAT !")
             return Response(
                 {"error": "User is already in a flat."},
                 status=status.HTTP_400_BAD_REQUEST
