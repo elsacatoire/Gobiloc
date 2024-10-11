@@ -290,4 +290,21 @@ If todo doesn't exist, 404 with :
 
 
 
+## BUDGET
+
+### (unused in frontend) CREATE /api/v1/flat/{flat_id}/budget/
+
+### GET /api/v1/flat/{flat_id}/budget/{budget_id}
+#### Get the budget with all the expenses
+
+### (unused) GET /api/v1/flat/{flat_id}/budget/
+#### Get the budget with all the expenses
+
+## EXPENSE
+
+### CREATE /api/v1/flat/{flat_id}/budget/{budget_id}/expense/
+
+### DELETE /api/v1/flat/{flat_id}/budget/{budget_id}/expense/{expense_id}/
+
+
 This was written with love and energy drink

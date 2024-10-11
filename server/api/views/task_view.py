@@ -22,7 +22,7 @@ class TaskViewSet(CheckEmptyPatchMixin, ModelViewSet):
         try:
             todo = Todo.objects.get(pk=todo_id)
         except Todo.DoesNotExist:
-            raise NotFound(detail="No flat share with this ID.", code=404)
+            raise NotFound(detail="No checklist with this ID.", code=404)
 
         try:
             flat = FlatShare.objects.get(pk=flat_id)
