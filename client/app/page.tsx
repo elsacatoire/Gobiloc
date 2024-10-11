@@ -22,31 +22,30 @@ const LandingPage: React.FC = () => {
 	useEffect(() => {
 		if (!isAuthenticated) {
 			router.push("/login");
+		} else {
+			if (didMountRef.current) return; // prevent double api call
+			const getAllChecklist = async () => {
+				try {
+					const data = await fetchChecklists();
+					if (Array.isArray(data)) {
+						const only2Checklist = data.slice(0, 2);
+						setChecklists(only2Checklist);
+					} else {
+						setError("Données reçues incorrectes.");
+					}
+					setLoading(false);
+				} catch (error) {
+					setError(handleError(error));
+				}
+			};
+			getAllChecklist();
+			didMountRef.current = true;
 		}
 	}, [isAuthenticated, router]);
 
 	if (!isAuthenticated) {
 		return <p>Redirection vers la page de login...</p>;
 	}
-
-	useEffect(() => {
-		if (didMountRef.current) return; // prevent double api call
-		const getAllChecklist = async () => {
-			try {
-				const data = await fetchChecklists();
-				if (Array.isArray(data)) {
-					setChecklists(data);
-				} else {
-					setError("Données reçues incorrectes.");
-				}
-				setLoading(false);
-			} catch (error) {
-				setError(handleError(error));
-			}
-		};
-		getAllChecklist();
-		didMountRef.current = true;
-	}, []);
 
 	return (
 		<div className="flex flex-col items-center justify-center h-full">
