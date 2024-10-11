@@ -91,8 +91,16 @@ If the credentials in the request doesn't match anything in the DB, returns a 40
 
 #### Expected JSON :
 
->{<br>
-> "name": "A name"<br>
+> {<br>
+> &nbsp;&nbsp;&nbsp; "id": 21,<br>
+> &nbsp;&nbsp;&nbsp; "name": "Le Mordor",<br>
+> &nbsp;&nbsp;&nbsp; "description": null,<br>
+> &nbsp;&nbsp;&nbsp; "users": [<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "id": 7,<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "username": "Patrick"<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+> &nbsp;&nbsp;&nbsp; ]<br>
 > }
 
 Field "description" is optional.
@@ -105,6 +113,10 @@ Field "description" is optional.
 > }
 
 #### <u>Error cases</u> :
+
+If user is already in a flat, 400 with :
+
+> "error": "User is already in a flat."
 
 If sent with an empty string for "name", 400 with :
 
@@ -127,34 +139,37 @@ If sent without "name", 400 with :
 #### No body. Return 200 with :
 
 
->{<br>
-	"name": "A flat",<br>
-	"description": "The description of the flat."<br>
-}
+> {<br>
+> &nbsp;&nbsp;&nbsp; "id": 21,<br>
+> &nbsp;&nbsp;&nbsp; "name": "Le Mordor",<br>
+> &nbsp;&nbsp;&nbsp; "description": null,<br>
+> &nbsp;&nbsp;&nbsp; "users": [<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "id": 7,<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "username": "Patrick"<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+> &nbsp;&nbsp;&nbsp; ]<br>
+> }
+
+Also
 
 #### <u>Error cases</u> :
 
-If flat doesn't exist, 404 with :
+If flat doesn't exist, or if it exists but the user is not in it, 404 with :
 
 >{<br>
 	"detail": "Not found."<br>
 }
 
-### PATCH /api/v1/flat/{id}/
+### PUT/PATCH /api/v1/flat/{id}/
 
 #### Expect either the "name" or the "description" (or both) in the JSON. Return a 200 with the "name" and "description".
 
 #### <u>Error cases</u> :
 
-/!\ There is some cases to handle. Not Implemented Yet.
+FOR THE PUT : <u>name</u> field is required
 
-### DELETE /api/v1/flat/{id}/
-
-#### No body. Return 204.
-
-#### <u>Error cases</u> :
-
-If flat doesn't exist, 404 with :
+If flat doesn't exist, or if it exists but the user is not in it, 404 with :
 
 >{<br>
 	"detail": "Not found."<br>

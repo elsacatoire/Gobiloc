@@ -11,7 +11,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         # Add custom claims
         token["username"] = user.username
-        token["flat_id"] = user.flat_share.id
+        token["flat_id"] = getattr(user, "flat_share", None).id if user.flat_share else None
 
         return token
 
