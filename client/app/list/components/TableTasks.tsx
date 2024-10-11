@@ -69,7 +69,7 @@ const TaskTable: React.FC<TaskTableProps> = ({
 					disabled={selectedTasks.length === 0}
 				>
 					<Trash2 color="white" className="h-5 w-5 m-1 justify-left" />
-					<span> Supprimer sélection</span>
+					<span> Sélection</span>
 				</Button>
 				<Button
 					variant="destructive"
@@ -78,7 +78,7 @@ const TaskTable: React.FC<TaskTableProps> = ({
 					disabled={tasks.length === 0}
 				>
 					<Trash2 color="white" className="h-5 w-5 m-1 justify-left" />
-					<span> Supprimer tout</span>
+					<span> Tout</span>
 				</Button>
 			</div>
 		</div>

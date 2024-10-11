@@ -1,36 +1,36 @@
 "use client";
 
-import { createTodo } from "@/api/services/todoService";
+import { createChecklist } from "@/api/services/ChecklistService";
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/app/components/ui/select";
 import { ToggleGroup, ToggleGroupItem } from "@/app/components/ui/toggle-group";
-import { TodoCategory, getCategoryId, getCategoryName } from "@/app/enums/TodoCategoryEnum";
+import { ChecklistCategory, getCategoryId, getCategoryName } from "@/app/enums/ChecklistCategoryEnum";
 import { useState } from "react";
 import type {FormEvent} from "react"
 
-type ListFormProps = {
+type ChecklistFormProps = {
 	flatShareId: number;
-	onSuccess: (todoId: number) => void;
+	onSuccess: (checklistId: number) => void;
 };
 
-export const ListForm: React.FC<ListFormProps> = ({ flatShareId, onSuccess }) => {
+export const ChecklistForm: React.FC<ChecklistFormProps> = ({ flatShareId, onSuccess }) => {
 	const [category, setCategory] = useState<string | null>(null);
-	const [name, setName] = useState("Todo");
+	const [name, setName] = useState("Checklist");
 	const [isShared, setIsShared] = useState(false);
 	const [, setError] = useState<string | null>(null);
 
 	const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value);
-	const handleCategoryChange = (value: string) => setCategory(getCategoryId(value as TodoCategory));
+	const handleCategoryChange = (value: string) => setCategory(getCategoryId(value as ChecklistCategory));
 	const handleIsSharedChange = (value: string) => setIsShared(value === "true");
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setError(null);
 		try {
-			const newTodo = { flat_share: flatShareId, name, category, isShared };
-			const response = await createTodo(newTodo);
+			const newChecklist = { flat_share: flatShareId, name, category, isShared };
+			const response = await createChecklist(newChecklist);
 			onSuccess(response.id);
 		} catch (error) {
 			setError("Erreur lors de la création de la liste.");
@@ -48,7 +48,7 @@ export const ListForm: React.FC<ListFormProps> = ({ flatShareId, onSuccess }) =>
 						</SelectTrigger>
 						<SelectContent>
 							<SelectGroup>
-								{Object.values(TodoCategory).map((category) => (
+								{Object.values(ChecklistCategory).map((category) => (
 									<SelectItem key={category} value={category}>
 										{category.charAt(0).toUpperCase() + category.slice(1)}
 									</SelectItem>
@@ -60,7 +60,7 @@ export const ListForm: React.FC<ListFormProps> = ({ flatShareId, onSuccess }) =>
 
 				<div className="flex items-center gap-4">
 					<Label htmlFor="name" className="text-right">Titre</Label>
-					<Input id="todo-title" className="col-span-3" value={name} onChange={handleNameChange} />
+					<Input id="checklist-title" className="col-span-3" value={name} onChange={handleNameChange} />
 				</div>
 
 				<div className="flex items-center gap-4">

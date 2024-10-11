@@ -1,28 +1,28 @@
 "use client";
 
-import { deleteTodo, fetchTodos } from "@/api/services/todoService";
+import { deleteChecklist, fetchChecklist, fetchChecklists } from "@/api/services/ChecklistService";
 import { Header } from "@/app/components/customsComponents/layout/Header";
 import { Card, CardContent } from "@/app/components/ui/card";
 import { NavMenu } from "@/app/enums/NavMenuEnum";
-import { CreateList } from "@/app/list/components/CreateList";
+import { CreateList } from "@/app/list/components/CreateChecklist";
 import React, { useState, useEffect, useRef } from "react";
-import type { TodoType } from "../../types/TodoType";
-import ListCard from "./components/ListCard";
+import type { ChecklistType } from "../../types/ChecklistType";
+import ChecklistCard from "./components/ChecklistCard";
 
 export default function Lists() {
-	/* ----- GET all todos ----- */
-	const [todos, setTodos] = useState<TodoType[]>([]);
+	/* ----- GET all Checklists ----- */
+	const [checklist, setChecklists] = useState<ChecklistType[]>([]);
 	const [isLoading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const didMountRef = useRef(false);
 
 	useEffect(() => {
 		if (didMountRef.current) return; // prevent double api call
-		const getAllTodos = async () => {
+		const getAllChecklist = async () => {
 			try {
-				const data = await fetchTodos();
+				const data = await fetchChecklists();
 				if (Array.isArray(data)) {
-					setTodos(data);
+					setChecklists(data);
 				} else {
 					setError("Données reçues incorrectes.");
 				}
@@ -31,15 +31,15 @@ export default function Lists() {
 				setError(handleError(error));
 			}
 		};
-		getAllTodos();
+		getAllChecklist();
 		didMountRef.current = true;
 	}, []);
 
 	/* ----- DELETE a todo ----- */
 	const handleDeleteTodo = async (idToDelete: number) => {
 		try {
-			await deleteTodo(idToDelete);
-			setTodos(todos.filter(todo => todo.id !== idToDelete));
+			await deleteChecklist(idToDelete);
+			setChecklists(checklist.filter(todo => todo.id !== idToDelete));
 		} catch (error) {
 			setError("Erreur lors de la suppression du todo.");
 		}
@@ -53,7 +53,7 @@ export default function Lists() {
 	return (
 		<div className="flex flex-col">
 
-			<Header title={NavMenu.LISTS} />
+			<Header title={NavMenu.CHECKLISTS} />
 
 			<div className="flex flex-grow flex-col content-between px-6 overflow-y-auto">
 				{error && <p className="text-red-500">{error}</p>}
@@ -68,13 +68,12 @@ export default function Lists() {
 					</div>
 			</CardContent>
 		</Card>
-
-					{todos && todos.length > 0 ? (
-						todos.map((todo: TodoType, index: number) => (
-							<ListCard 
+					{checklist && checklist.length > 0 ? (
+						checklist.map((todo: ChecklistType) => (
+							<ChecklistCard 
 								key={todo.id}
 								list={todo}
-								onDelete={() => handleDeleteTodo(todo.id)} 
+								onDelete={() => handleDeleteTodo(todo.id)}
 								/>
 						))
 					) : (

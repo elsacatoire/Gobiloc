@@ -1,62 +1,67 @@
 "use client";
 
 import { checkTask, createTask, deleteTask } from "@/api/services/taskService";
-import { updateTodoName } from "@/api/services/todoService";
-import { fetchTodo } from "@/api/services/todoService";
+import { updateChecklistName } from "@/api/services/ChecklistService";
+import { fetchChecklist } from "@/api/services/ChecklistService";
 import { Header } from "@/app/components/customsComponents/layout/Header";
 import { Button } from "@/app/components/ui/button";
 import { Card, CardHeader } from "@/app/components/ui/card";
 import { Input } from "@/app/components/ui/input";
-import { Label } from "@/app/components/ui/label";
 import { NavMenu } from "@/app/enums/NavMenuEnum";
-import { getCategoryName } from "@/app/enums/TodoCategoryEnum";
+import { getCategoryName } from "@/app/enums/ChecklistCategoryEnum";
 import type { TaskType } from "@/types/TaskType";
-import { type TodoType, emptyTodo, errorTodo } from "@/types/TodoType";
+import { type ChecklistType, emptyChecklist, errorChecklist } from "@/types/ChecklistType";
 import { Check, Pencil, X } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import TaskTable from "../components/TableTasks";
 
-export default function Todo() {
-	const [currentTodo, setCurrentTodo] = useState<TodoType>(emptyTodo);
+export default function ChecklistPage() {
+	const [currentChecklist, setCurrentChecklist] = useState<ChecklistType>(emptyChecklist);
 	const [allTasks, setAllTasks] = useState<Array<TaskType>>([]);
 	const [selectedTasks, setSelectedTasks] = useState<number[]>([]);
 	const [isLoading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const [isEditing, setEditing] = useState(false);
-	const [newTodoName, setNewTodoName] = useState("");
+	const [newChecklistName, setNewChecklistName] = useState("");
 	const params = useParams<{ listId: string }>();
-	const currentTodoId = Number(params.listId);
+	const currentChecklistId = Number(params.listId);
+	
 	const didMountRef = useRef(false);
 
-	/* ----- GET all the todo's infos et tasks ----- */
+	/* ----- GET all the checklist's infos et tasks ----- */
 	useEffect(() => {
+		
 		if (didMountRef.current) return; // prevent double api call
-		const getTodoData = async () => {
-			if (!currentTodoId) return;
+		const getChecklistData = async () => {
+
+			
+			if (!currentChecklistId) return;
+			console.log("cpcccccc");
 			try {
 				setLoading(true);
-				const data: TodoType = await fetchTodo(currentTodoId);
-				setCurrentTodo(data);
+				const data: ChecklistType = await fetchChecklist(currentChecklistId);
+				setCurrentChecklist(data);
 				setAllTasks(data.tasks || []);
-				setNewTodoName(data.name);
+				setNewChecklistName(data.name);
 				setLoading(false);
 			} catch (error) {
 				setError(handleError(error));
 				setLoading(false);
 			}
 		};
-		getTodoData();
+		getChecklistData();
 		didMountRef.current = true;
-	}, [currentTodoId]);
+	}, [currentChecklistId]);
 
 	/* ----- ADD a task ----- */
 	const [newTask, setNewTask] = useState("");
+	
 	const handleTaskAdd = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (newTask.trim() === "") return;
 		try {
-			const response: TaskType = await createTask(currentTodoId, newTask);
+			const response: TaskType = await createTask(currentChecklistId, newTask);
 			setAllTasks((prevTasks) => [...prevTasks, response]);
 			setNewTask("");
 		} catch (error) {
@@ -64,10 +69,10 @@ export default function Todo() {
 		}
 	};
 
-	/* ----- PATCH (Update) a todo to change the checkbox' state ----- */
+	/* ----- PATCH (Update) a checklist to change the checkbox' state ----- */
 	const handleCheckBox = async (idToUpdate: number, state: boolean) => {
 		try {
-			await checkTask(currentTodoId, idToUpdate, { done: !state });
+			await checkTask(currentChecklistId, idToUpdate, { done: !state });
 			setAllTasks((prevTasks) =>
 				prevTasks.map((task) =>
 					task.id === idToUpdate ? { ...task, done: !task.done } : task,
@@ -87,7 +92,7 @@ export default function Todo() {
 	/* ----- DELETE a task ----- */
 	const handleDeleteTask = async (taskId: number) => {
 		try {
-			await deleteTask(currentTodoId, taskId);
+			await deleteTask(currentChecklistId, taskId);
 			setAllTasks((prevTasks) =>
 				prevTasks.filter((task) => task.id !== taskId),
 			);
@@ -99,12 +104,12 @@ export default function Todo() {
 	const handleDeleteSelectedTasks = async () => {
 		try {
 			await Promise.all(
-				selectedTasks.map((taskId) => deleteTask(currentTodoId, taskId)),
+				selectedTasks.map((taskId) => deleteTask(currentChecklistId, taskId)),
 			);
 			setAllTasks((prevTasks) =>
 				prevTasks.filter((task) => !selectedTasks.includes(task.id)),
 			);
-			setSelectedTasks([]); // Réinitialiser les tâches sélectionnées
+			setSelectedTasks([]);
 		} catch (error) {
 			setError(handleError(error));
 		}
@@ -113,25 +118,25 @@ export default function Todo() {
 	const handleDeleteAllTasks = async () => {
 		try {
 			await Promise.all(
-				allTasks.map((task) => deleteTask(currentTodoId, task.id)),
+				allTasks.map((task) => deleteTask(currentChecklistId, task.id)),
 			);
-			setAllTasks([]); // Vider la liste des tâches
+			setAllTasks([]);
 		} catch (error) {
 			setError(handleError(error));
 		}
 	};
 
-	/* ----- UPDATE todo name ----- */
+	/* ----- UPDATE checklist name ----- */
 	const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setNewTodoName(e.target.value);
+		setNewChecklistName(e.target.value);
 	};
 
 	const handleNameSave = async () => {
-		if (currentTodo && newTodoName.trim() !== "") {
+		if (currentChecklist && newChecklistName.trim() !== "") {
 			try {
-				await updateTodoName(currentTodoId, newTodoName);
-				setCurrentTodo((prevTodo) =>
-					prevTodo ? { ...prevTodo, name: newTodoName } : errorTodo,
+				await updateChecklistName(currentChecklistId, newChecklistName);
+				setCurrentChecklist((prevList) =>
+					prevList ? { ...prevList, name: newChecklistName } : errorChecklist,
 				);
 				setEditing(false);
 			} catch (error) {
@@ -140,25 +145,22 @@ export default function Todo() {
 		}
 	};
 
-	const tasksLeftToDo = allTasks.filter((task) => !task.done).length;
-
 	/* ----- Render Loading or Error State ----- */
 	if (isLoading) return <p>Loading...</p>;
 	if (error) return <p>Error: {error}</p>;
 
-	/* ----- Render Todo List ----- */
+	/* ----- Render Checklist ----- */
 	return (
 		<div className="flex flex-col min-h-screen">
-			<Header title={NavMenu.LISTS} />
-			<div className="mt-16 mx-3">
+			<Header title={NavMenu.CHECKLISTS} />
 				<Card>
 					<CardHeader>
-						<div>
+						<div className="flex flex-col gap-2">
 							{isEditing ? (
 								<div className="flex items-center ml-4">
 									<Input
 										type="text"
-										value={newTodoName}
+										value={newChecklistName}
 										onChange={handleNameChange}
 									/>
 									<Button
@@ -177,16 +179,14 @@ export default function Todo() {
 									</Button>
 								</div>
 							) : (
-								<div className="flex justify-between items-center ml-4">
-									<div>
-										<h2 className="text-xl mb-4">{currentTodo?.name}</h2>
-
+								<div className="flex justify-between items-center">
+									<div className="flex flex-col gap-1 pl-1">
+										<h1 className="text-xl font-semibold">{currentChecklist?.name}</h1>
 										<p className="text-sm text-gray-600">
-											Catégorie : {getCategoryName(currentTodo.category) || ""}
+											Catégorie : {getCategoryName(currentChecklist.category) || ""}
 										</p>
 									</div>
 									<Button
-										className="ml-2"
 										variant="ghost"
 										onClick={() => setEditing(true)}
 									>
@@ -195,15 +195,15 @@ export default function Todo() {
 								</div>
 							)}
 							<form onSubmit={handleTaskAdd}>
-								<Label className="p-1">Ajouter une tâche</Label>
-								<div className="flex flex-row">
+								<div className="flex flex-row gap-2">
 									<Input
+										aria-label="Ajouter une tâche"
 										type="text"
 										value={newTask}
 										onChange={(e) => setNewTask(e.target.value)}
 										placeholder="Nouvelle tâche"
 									/>
-									<Button className="ml-1" variant="default" type="submit">
+									<Button variant="default" type="submit">
 										Ajouter
 									</Button>
 								</div>
@@ -220,6 +220,5 @@ export default function Todo() {
 					/>
 				</Card>
 			</div>
-		</div>
 	);
 }
