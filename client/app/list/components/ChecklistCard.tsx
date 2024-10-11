@@ -17,7 +17,7 @@ type ChecklistCardProps = {
 const ChecklistCard: React.FC<ChecklistCardProps> = ({ list, onDelete }) => {
 	return (
 		<Card>
-			<div className="flex p-3">
+			<div className="flex p-3 bg-teal-50">
 				<Link href={`/list/${list.id}`}>
 					<div className="w-60">
 						<p className="font-light text-xs">{formatDate(list.updateDate)}</p>

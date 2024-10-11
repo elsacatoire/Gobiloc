@@ -2,7 +2,6 @@
 
 import {
 	deleteChecklist,
-	fetchChecklist,
 	fetchChecklists,
 } from "@/api/services/ChecklistService";
 import { Header } from "@/app/components/customsComponents/layout/Header";
@@ -63,7 +62,8 @@ export default function ChecklistPage() {
 			<div className="flex flex-grow flex-col content-between px-6 overflow-y-auto">
 				{error && <p className="text-red-500">{error}</p>}
 				<div className="flex flex-wrap justify-center gap-1 sm:gap-4">
-					<Card>
+					<div className="md:w-full">
+					<Card className="max-w-sm md:mx-auto">
 						<CardContent className="flex justify-between items-center p-3">
 							<div className="flex flex-col gap-2 w-60">
 								<p className="font-bold">Créer une liste</p>
@@ -71,6 +71,7 @@ export default function ChecklistPage() {
 							<CreateList />
 						</CardContent>
 					</Card>
+					</div>
 					{checklist && checklist.length > 0 ? (
 						checklist.map((checklist: ChecklistType) => (
 							<ChecklistCard
