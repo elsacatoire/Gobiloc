@@ -10,7 +10,7 @@ import type React from "react";
 
 type ExpenseListProps = {
 	expenses: Expense[];
-	onDeleteExpense: (date: Date) => void;
+	onDeleteExpense: (date: number) => void;
 };
 
 const formatDate = (date: Date) => {

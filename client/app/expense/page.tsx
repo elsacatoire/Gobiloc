@@ -8,7 +8,7 @@ import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
 import ExpenseSummary from "./components/ExpenseSummary";
 
-const App: React.FC = () => {
+const ExpensePage: React.FC = () => {
 	const [expenses, setExpenses] = useState<Expense[]>([]);
 
 	const addExpense = (expense: Expense) => {
@@ -37,4 +37,4 @@ const App: React.FC = () => {
 	);
 };
 
-export default App;
+export default ExpensePage;
