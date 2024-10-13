@@ -1,8 +1,6 @@
-import { Button } from '@/app/components/ui/button';
 import { Card, CardContent } from '@/app/components/ui/card';
 import { Table, TableBody, TableCell, TableRow } from '@/app/components/ui/table';
-import { Expense } from '@/types/ExpenseType';
-import { Trash2 } from "lucide-react";
+import type { Expense } from '@/types/ExpenseType';
 import type React from 'react';
 
 type ExpenseListProps = {

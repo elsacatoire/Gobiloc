@@ -32,7 +32,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onAddExpense }) => {
 		<Card>
 			<CardContent className="p-3">
 				<form onSubmit={handleSubmit} className="flex gap-2">
-					<div className="flex flex-col gap-2">
+					<div className="w-full flex flex-col md:flex-row gap-2">
 						<Input
 							type="text"
 							placeholder="Nom de la dépense"
