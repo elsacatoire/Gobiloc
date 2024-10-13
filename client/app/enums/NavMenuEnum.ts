@@ -1,8 +1,8 @@
 export enum NavMenu {
 	HOME = "Bocal",
-	CHECKLISTS = "Listes",
+	LISTS = "Listes",
 	AGENDA = "Agenda",
-	SAFE = "Trésor",
 	MESSAGES = "Bulles",
 	PROFIL = "Profil",
+	EXPENSE = "Budget",
 }

@@ -1,9 +1,9 @@
 import { useAuth } from "@/utils/auth/useAuth";
 import {
 	CalendarFold,
-	Folder,
 	MessageCircleMore,
 	Pentagon,
+	PiggyBank,
 	SquareCheck,
 } from "lucide-react";
 import Link from "next/link";
@@ -13,6 +13,7 @@ const menuItems = [
 	{ href: "/", icon: Pentagon, text: "Home" },
 	{ href: "/list", icon: SquareCheck, text: "Listes" },
 	{ href: "/agenda", icon: CalendarFold, text: "Agenda" },
+	{ href: "/expense", icon: PiggyBank, text: "Budget" },
 	{ href: "/messages", icon: MessageCircleMore, text: "Bulles" },
 ];
 
