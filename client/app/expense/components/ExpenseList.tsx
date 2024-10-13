@@ -5,11 +5,11 @@ import {
 	TableCell,
 	TableRow,
 } from "@/app/components/ui/table";
-import type { Expense } from "@/types/ExpenseType";
+import type { ExpenseType } from "@/types/ExpenseType";
 import type React from "react";
 
 type ExpenseListProps = {
-	expenses: Expense[];
+	expenses: ExpenseType[];
 	onDeleteExpense: (date: number) => void;
 };
 

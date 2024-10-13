@@ -1,9 +1,9 @@
 import { Card, CardContent } from "@/app/components/ui/card";
-import type { Expense } from "@/types/ExpenseType";
+import type { ExpenseType } from "@/types/ExpenseType";
 import type React from "react";
 
 type ExpenseSummaryProps = {
-	expenses: Expense[];
+	expenses: ExpenseType[];
 };
 
 const ExpenseSummary: React.FC<ExpenseSummaryProps> = ({ expenses }) => {
