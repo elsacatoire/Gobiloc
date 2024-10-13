@@ -7,6 +7,7 @@ import { NavMenu } from "../enums/NavMenuEnum";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
 import ExpenseSummary from "./components/ExpenseSummary";
+import { HousematesBalance } from "./components/HousemateBalance";
 
 const ExpensePage: React.FC = () => {
 	const [expenses, setExpenses] = useState<Expense[]>([]);
@@ -23,15 +24,13 @@ const ExpensePage: React.FC = () => {
 		<div>
 			<Header title={NavMenu.EXPENSE} />
 			<div className="flex flex-col gap-2">
-				<div className="flex flex-col gap-2">
-					<ExpenseForm onAddExpense={addExpense} />
-				</div>
-				<div>
-					<ExpenseList expenses={expenses} onDeleteExpense={deleteExpense} />
-				</div>
-				<div>
-					<ExpenseSummary expenses={expenses} />
-				</div>
+				<ExpenseForm onAddExpense={addExpense} />
+
+				<ExpenseList expenses={expenses} onDeleteExpense={deleteExpense} />
+
+				<ExpenseSummary expenses={expenses} />
+
+				<HousematesBalance />
 			</div>
 		</div>
 	);

@@ -19,15 +19,12 @@ const formatDate = (date: Date) => {
 		: date.toLocaleDateString();
 };
 
-const ExpenseList: React.FC<ExpenseListProps> = ({
-	expenses,
-	onDeleteExpense,
-}) => {
+const ExpenseList: React.FC<ExpenseListProps> = ({ expenses }) => {
 	return (
 		<Card>
 			<CardContent className="p-3">
 				{expenses.length < 1 ? (
-					<p>Il n'y a pas encore de données</p>
+					<p>Il n'y a pas encore de dépense</p>
 				) : (
 					<Table className="w-full">
 						<TableBody>

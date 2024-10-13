@@ -30,12 +30,13 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onAddExpense }) => {
 
 	return (
 		<Card>
-			<CardContent className="p-3">
+			<CardContent className="flex flex-col gap-2 p-3">
+				<h1 className="font-bold">{"Ajouter ma dépense"}</h1>
 				<form onSubmit={handleSubmit} className="flex gap-2">
 					<div className="w-full flex flex-col md:flex-row gap-2">
 						<Input
 							type="text"
-							placeholder="Nom de la dépense"
+							placeholder="Dépense"
 							value={title}
 							onChange={(e) => setTitle(e.target.value)}
 							required
