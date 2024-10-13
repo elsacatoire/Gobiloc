@@ -1,6 +1,6 @@
 import type { TaskType } from "./TaskType";
 
-export type TodoType = {
+export type ChecklistType = {
 	category: number;
 	flat_share_id: number;
 	id: number;
@@ -9,22 +9,22 @@ export type TodoType = {
 	tasks: TaskType[];
 };
 
-export type TodoDTO = {
+export type ChecklistDTO = {
 	flat_share: number;
 	name: string;
 	category: null | string;
 };
 
-export const emptyTodo: TodoType = {
+export const emptyChecklist: ChecklistType = {
 	category: 0,
 	flat_share_id: 0,
 	id: 0,
-	name: "emptyTodo not uploaded",
+	name: "emptyList not uploaded",
 	updateDate: new Date().toISOString(),
 	tasks: [],
 };
 
-export const errorTodo: TodoType = {
+export const errorChecklist: ChecklistType = {
 	category: 0,
 	flat_share_id: 0,
 	id: 0,

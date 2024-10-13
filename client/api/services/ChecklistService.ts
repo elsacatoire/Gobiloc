@@ -1,9 +1,9 @@
-import type { TodoDTO, TodoType } from "@/types/TodoType";
+import type { ChecklistDTO, ChecklistType } from "@/types/ChecklistType";
 import apiFlatClient from "@/utils/apiFlat";
 
-export const fetchTodo = async (idTodo: number): Promise<TodoType> => {
+export const fetchChecklist = async (idList: number): Promise<ChecklistType> => {
 	try {
-		const response = await apiFlatClient.get(`/todo/${idTodo}/`);
+		const response = await apiFlatClient.get(`/todo/${idList}/`);
 		return response.data;
 	} catch (error) {
 		throw new Error(
@@ -12,7 +12,7 @@ export const fetchTodo = async (idTodo: number): Promise<TodoType> => {
 	}
 };
 
-export const fetchTodos = async () => {
+export const fetchChecklists = async () => {
 	try {
 		const response = await apiFlatClient.get("/todo/");
 		return response.data;
@@ -23,7 +23,7 @@ export const fetchTodos = async () => {
 	}
 };
 
-export const createTodo = async (data: TodoDTO) => {
+export const createChecklist = async (data: ChecklistDTO) => {
 	try {
 		const response = await apiFlatClient.post("/todo/", data);
 		return response.data;
@@ -32,9 +32,9 @@ export const createTodo = async (data: TodoDTO) => {
 	}
 };
 
-export const deleteTodo = async (idTodo: number) => {
+export const deleteChecklist = async (idChecklist: number) => {
 	try {
-		await apiFlatClient.delete(`/todo/${idTodo}/`);
+		await apiFlatClient.delete(`/todo/${idChecklist}/`);
 	} catch (error) {
 		throw new Error(
 			"Erreur lors de la suppression du todo. Veuillez réessayer.",
@@ -42,12 +42,12 @@ export const deleteTodo = async (idTodo: number) => {
 	}
 };
 
-export const updateTodoName = async (idTodo: number, data: string) => {
+export const updateChecklistName = async (idChecklist: number, data: string) => {
 	const newName = {
 		name: data,
 	};
 	try {
-		await apiFlatClient.patch(`/todo/${idTodo}/`, newName);
+		await apiFlatClient.patch(`/todo/${idChecklist}/`, newName);
 	} catch (error) {
 		throw new Error(
 			"Erreur lors de la modification du todo. Veuillez réessayer.",

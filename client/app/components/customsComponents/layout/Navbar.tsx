@@ -11,9 +11,8 @@ import React from "react";
 
 const menuItems = [
 	{ href: "/", icon: Pentagon, text: "Home" },
-	{ href: "/list", icon: SquareCheck, text: "Lists" },
+	{ href: "/list", icon: SquareCheck, text: "Listes" },
 	{ href: "/agenda", icon: CalendarFold, text: "Agenda" },
-	{ href: "/safe", icon: Folder, text: "Safe" },
 	{ href: "/messages", icon: MessageCircleMore, text: "Bulles" },
 ];
 

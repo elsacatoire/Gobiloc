@@ -1,12 +1,14 @@
 "use client";
 
 import { fetchCurrentUser } from "@/api/services/userService";
-import { redirect } from "next/navigation";
+import AuthContext from "@/context/AuthContext";
+import { redirect, useRouter } from "next/navigation";
 import type React from "react";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import type { UserType } from "../../types/UserType";
 import { useAuth } from "../../utils/auth/useAuth";
 import { Header } from "../components/customsComponents/layout/Header";
+import { Button } from "../components/ui/button";
 import { NavMenu } from "../enums/NavMenuEnum";
 import UserProfileCard from "./components/UserProfileCard";
 
@@ -15,6 +17,8 @@ const ProfilePage: React.FC = () => {
 	const [isLoading, setLoading] = useState(true);
 	const [currentUser, setCurrentUser] = useState<UserType | null>(null);
 	const { user, isAuthenticated } = useAuth();
+	const { logoutUser } = useContext(AuthContext);
+	const router = useRouter();
 
 	useLayoutEffect(() => {
 		if (!isAuthenticated) {
@@ -40,6 +44,12 @@ const ProfilePage: React.FC = () => {
 		getCurrentUser();
 	}, []);
 
+	const handleLogOut = () => {
+		console.log("logout button");
+		logoutUser();
+		router.push("/login");
+	};
+
 	if (isLoading) {
 		return <p>Chargement...</p>;
 	}
@@ -51,13 +61,18 @@ const ProfilePage: React.FC = () => {
 	return (
 		<div>
 			<Header title={NavMenu.PROFIL} />
-			<UserProfileCard
-				username={currentUser?.username}
-				email={currentUser?.email}
-				avatarUrl={"/images/avatar3.jpg"}
-				colocName={"Rue Malbec"}
-				joinedDate={currentUser?.date_joined}
-			/>
+			<div className="flex flex-col gap-2">
+				<UserProfileCard
+					username={currentUser?.username}
+					email={currentUser?.email}
+					avatarUrl={"/images/avatar3.jpg"}
+					colocName={"Rue Malbec"}
+					joinedDate={currentUser?.date_joined}
+				/>
+				<Button variant={"destructive"} onClick={() => handleLogOut()}>
+					Se déconnecter
+				</Button>
+			</div>
 		</div>
 	);
 };
