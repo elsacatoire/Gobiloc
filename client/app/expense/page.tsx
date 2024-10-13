@@ -20,45 +20,44 @@ const ExpensePage: React.FC = () => {
 		setExpenses(expenses.filter((_, i) => i !== index));
 	};
 
-    // Mock expense data
-     const mockExpense: Expense[] = [
-         {
-             name: "Loyer",
-             amount: 500,
-             date: new Date(),
-             username: "test",
-            },
-            {
-                name: "Courses",
-                amount: 100,
-                date: new Date(),
-                username: "test",
-            },
-            {
-                name: "Electricité",
-                amount: 50,
-                date: new Date(),
-                username: "test",
-            },
-            {
-                name: "Internet",
-                amount: 30,
-                date: new Date(),
-                username: "test",
-            },
-            {
-                name: "Gaz",
-                amount: 20,
-                date: new Date(),
-                username: "test",
-            },
-        ];
+	// Mock expense data
+	const mockExpense: Expense[] = [
+		{
+			name: "Loyer",
+			amount: 500,
+			date: new Date(),
+			username: "test",
+		},
+		{
+			name: "Courses",
+			amount: 100,
+			date: new Date(),
+			username: "test",
+		},
+		{
+			name: "Electricité",
+			amount: 50,
+			date: new Date(),
+			username: "test",
+		},
+		{
+			name: "Internet",
+			amount: 30,
+			date: new Date(),
+			username: "test",
+		},
+		{
+			name: "Gaz",
+			amount: 20,
+			date: new Date(),
+			username: "test",
+		},
+	];
 
-        // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-        useEffect(() => {
-            setExpenses(mockExpense);
-        }, []);
-
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	useEffect(() => {
+		setExpenses(mockExpense);
+	}, []);
 
 	return (
 		<div>
