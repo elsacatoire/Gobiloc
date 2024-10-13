@@ -1,28 +1,36 @@
 import { Button } from "@/app/components/ui/button";
 import { Card, CardContent } from "@/app/components/ui/card";
 import { Input } from "@/app/components/ui/input";
-import type { ExpenseType } from "@/types/ExpenseType";
+import type { ExpenseDTO, ExpenseType } from "@/types/ExpenseType";
+import { useAuth } from "@/utils/auth/useAuth";
 import { Plus } from "lucide-react";
 import type React from "react";
 import { useState } from "react";
 
 type ExpenseFormProps = {
-	onAddExpense: (expense: ExpenseType) => void;
+	onAddExpense: (expense: ExpenseDTO) => void;
 };
 
 const ExpenseForm: React.FC<ExpenseFormProps> = ({ onAddExpense }) => {
 	const [title, setTitle] = useState("");
 	const [amount, setAmount] = useState("");
 	const [date, setDate] = useState("");
+	const { user, isAuthenticated } = useAuth() as {
+		user: { id: number } | null;
+		isAuthenticated: boolean;
+	};
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		onAddExpense({
-			name: title,
-			amount: Number.parseFloat(amount),
-			date: new Date(date),
-			username: "test",
-		});
+		if (user) {
+			onAddExpense({
+				description: title,
+				amount: Number.parseFloat(amount),
+				date: new Date(date),
+				user: user.id,
+				budget: 1, // TODO add appropriate budget value here
+			});
+		}
 		setTitle("");
 		setAmount("");
 		setDate("");

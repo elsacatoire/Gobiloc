@@ -7,18 +7,20 @@ type ExpenseSummaryProps = {
 };
 
 const ExpenseSummary: React.FC<ExpenseSummaryProps> = ({ expenses }) => {
+	console.log("expenses from ExpenseSummary", expenses);
 	if (expenses.length === 0) {
 		return;
 	}
 
 	const total = expenses.reduce((acc, expense) => acc + expense.amount, 0);
+	console.log("total from ExpenseSummary", total);
 
 	return (
 		<Card>
 			<CardContent className="flex p-3 justify-end font-semibold">
 				<h2 className="text-sm md:text-lg">
 					{"Total des dépenses : "}
-					<span className="text-teal-700">{total.toFixed(2)}€</span>
+					<span className="text-teal-700">{total}€</span>
 				</h2>
 			</CardContent>
 		</Card>

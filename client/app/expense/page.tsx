@@ -1,7 +1,10 @@
 "use client";
 
-import type { Expense } from "@/types/ExpenseType";
-import { useEffect, useState } from "react";
+import { fetchFlatBudget } from "@/api/services/budgetService";
+import type { ExpenseDTO, ExpenseType } from "@/types/ExpenseType";
+import isAuth from "@/utils/auth/isAuth";
+import { useAuth } from "@/utils/auth/useAuth";
+import { useEffect, useRef, useState } from "react";
 import { Header } from "../components/customsComponents/layout/Header";
 import { NavMenu } from "../enums/NavMenuEnum";
 import ExpenseForm from "./components/ExpenseForm";
@@ -10,54 +13,44 @@ import ExpenseSummary from "./components/ExpenseSummary";
 import { HousematesBalance } from "./components/HousemateBalance";
 
 const ExpensePage: React.FC = () => {
-	const [expenses, setExpenses] = useState<Expense[]>([]);
+	const [expenses, setExpenses] = useState<ExpenseType[]>([]);
+	const didMountRef = useRef(false);
+	const [isLoading, setLoading] = useState(true);
+	const [error, setError] = useState<string | null>(null);
+	const user = useAuth().user;
 
-	const addExpense = (expense: Expense) => {
-		setExpenses([...expenses, expense]);
+	const addExpense = (expense: ExpenseDTO) => {
+		/* 	const newExpense: ExpenseDTO = {
+			...expense,
+			user!: user?.user_id//
+		};
+		setExpenses([...expenses, newExpense]); */
 	};
 
 	const deleteExpense = (index: number) => {
 		setExpenses(expenses.filter((_, i) => i !== index));
 	};
 
-	// Mock expense data
-	const mockExpense: Expense[] = [
-		{
-			name: "Loyer",
-			amount: 500,
-			date: new Date(),
-			username: "test",
-		},
-		{
-			name: "Courses",
-			amount: 100,
-			date: new Date(),
-			username: "test",
-		},
-		{
-			name: "Electricité",
-			amount: 50,
-			date: new Date(),
-			username: "test",
-		},
-		{
-			name: "Internet",
-			amount: 30,
-			date: new Date(),
-			username: "test",
-		},
-		{
-			name: "Gaz",
-			amount: 20,
-			date: new Date(),
-			username: "test",
-		},
-	];
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		setExpenses(mockExpense);
+		if (didMountRef.current) return;
+		const getExpenses = async () => {
+			try {
+				const data = await fetchFlatBudget();
+				console.log("data from budegt fetch", data);
+				setExpenses(data.expenses);
+				setLoading(false);
+			} catch (error) {
+				console.error(error);
+				setError(handleError(error));
+			}
+		};
+
+		getExpenses();
 	}, []);
+
+	/* ----- Render Loading or Error State ----- */
+	if (isLoading) return <p>Loading...</p>;
+	if (error) return <p>Error: {error}</p>;
 
 	return (
 		<div>
@@ -75,4 +68,4 @@ const ExpensePage: React.FC = () => {
 	);
 };
 
-export default ExpensePage;
+export default isAuth(ExpensePage);

@@ -7,4 +7,4 @@ from api.models.expense_model import Expense
 class ExpenseSerializer(ModelSerializer):
     class Meta:
         model = Expense
-        fields = ["id", "budget", "description", "amount", "user"]
+        fields = ["id", "budget", "description", "amount", "user", "date"]
