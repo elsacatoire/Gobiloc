@@ -1,9 +1,9 @@
 import { useAuth } from "@/utils/auth/useAuth";
 import {
 	CalendarFold,
-	PiggyBank,
 	MessageCircleMore,
 	Pentagon,
+	PiggyBank,
 	SquareCheck,
 } from "lucide-react";
 import Link from "next/link";

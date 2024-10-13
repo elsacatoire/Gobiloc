@@ -4,5 +4,5 @@ export enum NavMenu {
 	AGENDA = "Agenda",
 	MESSAGES = "Bulles",
 	PROFIL = "Profil",
-    EXPENSE = "Budget"
+	EXPENSE = "Budget",
 }

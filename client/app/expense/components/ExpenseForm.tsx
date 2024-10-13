@@ -1,14 +1,14 @@
-import { Button } from '@/app/components/ui/button';
-import { Card, CardContent } from '@/app/components/ui/card';
-import { Input } from '@/app/components/ui/input';
-import type { Expense } from '@/types/ExpenseType';
+import { Button } from "@/app/components/ui/button";
+import { Card, CardContent } from "@/app/components/ui/card";
+import { Input } from "@/app/components/ui/input";
+import type { Expense } from "@/types/ExpenseType";
 import { Plus } from "lucide-react";
-import type React from 'react';
-import { useState } from 'react';
+import type React from "react";
+import { useState } from "react";
 
 type ExpenseFormProps = {
-    onAddExpense: (expense: Expense) => void;
-}
+	onAddExpense: (expense: Expense) => void;
+};
 
 const ExpenseForm: React.FC<ExpenseFormProps> = ({ onAddExpense }) => {
 	const [title, setTitle] = useState("");

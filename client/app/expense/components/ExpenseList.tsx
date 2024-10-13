@@ -1,7 +1,12 @@
-import { Card, CardContent } from '@/app/components/ui/card';
-import { Table, TableBody, TableCell, TableRow } from '@/app/components/ui/table';
-import type { Expense } from '@/types/ExpenseType';
-import type React from 'react';
+import { Card, CardContent } from "@/app/components/ui/card";
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableRow,
+} from "@/app/components/ui/table";
+import type { Expense } from "@/types/ExpenseType";
+import type React from "react";
 
 type ExpenseListProps = {
 	expenses: Expense[];
@@ -10,7 +15,7 @@ type ExpenseListProps = {
 
 const formatDate = (date: Date) => {
 	return new Date(date).getFullYear() === new Date().getFullYear()
-		? date.toLocaleDateString(undefined, { day: '2-digit', month: '2-digit' })
+		? date.toLocaleDateString(undefined, { day: "2-digit", month: "2-digit" })
 		: date.toLocaleDateString();
 };
 
@@ -39,7 +44,9 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
 											</span>
 										</span>
 									</TableCell>
-									<TableCell className="w-1/3 italic">{expense.username}</TableCell>
+									<TableCell className="w-1/3 italic">
+										{expense.username}
+									</TableCell>
 									<TableCell className="w-1/3">{expense.amount}€</TableCell>
 								</TableRow>
 							))}
