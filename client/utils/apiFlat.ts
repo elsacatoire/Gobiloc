@@ -1,8 +1,10 @@
+'use client';
+
 import axios from "axios";
 import { getAuthToken, getRefreshToken, saveTokens } from "./auth/authUtils";
 
 const userString = localStorage.getItem("user");
-const user = userString ? JSON.parse(userString) : null;
+const user = userString ? JSON.parse(userString): {flat_id: 1}; // TODO FIX BUG HERE
 const apiFlatClient = axios.create({
 	baseURL: `http://localhost:8000/api/v1/flat/${user.flat_id}/`,
 });
