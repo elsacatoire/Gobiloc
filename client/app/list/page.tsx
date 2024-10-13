@@ -63,14 +63,14 @@ export default function ChecklistPage() {
 				{error && <p className="text-red-500">{error}</p>}
 				<div className="flex flex-wrap justify-center gap-1 sm:gap-4">
 					<div className="md:w-full">
-					<Card className="max-w-sm md:mx-auto">
-						<CardContent className="flex justify-between items-center p-3">
-							<div className="flex flex-col gap-2 w-60">
-								<p className="font-bold">Créer une liste</p>
-							</div>
-							<CreateList />
-						</CardContent>
-					</Card>
+						<Card className="max-w-sm md:mx-auto">
+							<CardContent className="flex justify-between items-center p-3">
+								<div className="flex flex-col gap-2 w-60">
+									<p className="font-bold">Créer une liste</p>
+								</div>
+								<CreateList />
+							</CardContent>
+						</Card>
 					</div>
 					{checklist && checklist.length > 0 ? (
 						checklist.map((checklist: ChecklistType) => (

@@ -1,13 +1,13 @@
 "use client";
 
+import { fetchChecklists } from "@/api/services/ChecklistService";
+import type { ChecklistType } from "@/types/ChecklistType";
 import { useAuth } from "@/utils/auth/useAuth";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import { Header } from "./components/customsComponents/layout/Header";
 import { NavMenu } from "./enums/NavMenuEnum";
-import type { ChecklistType } from "@/types/ChecklistType";
-import { fetchChecklists } from "@/api/services/ChecklistService";
 import ChecklistCard from "./list/components/ChecklistCard";
 
 const LandingPage: React.FC = () => {
@@ -17,7 +17,6 @@ const LandingPage: React.FC = () => {
 	const [isLoading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const didMountRef = useRef(false);
-
 
 	useEffect(() => {
 		if (!isAuthenticated) {
@@ -50,18 +49,16 @@ const LandingPage: React.FC = () => {
 	return (
 		<div className="flex flex-col items-center justify-center h-full">
 			<Header title={NavMenu.HOME} />
-			<h1 className="text-4xl font-bold mb-4">Bienvenue <span>{user?.username}</span></h1>
-			<p className="text-lg mb-6">
-				Ceci est ton espace
-			</p>
+			<h1 className="text-4xl font-bold mb-4">
+				Bienvenue <span>{user?.username}</span>
+			</h1>
+			<p className="text-lg mb-6">Ceci est ton espace</p>
 			<div>
 				<h1>Les dernières listes de la coloc</h1>
 				{isLoading && <p>Loading...</p>}
 				{error && <p>Error: {error}</p>}
 				{checklist.map((checklist) => (
-					<ChecklistCard key={checklist.id} list={checklist} 
-					/>
-
+					<ChecklistCard key={checklist.id} list={checklist} />
 				))}
 			</div>
 		</div>

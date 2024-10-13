@@ -8,9 +8,9 @@ import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import type { UserType } from "../../types/UserType";
 import { useAuth } from "../../utils/auth/useAuth";
 import { Header } from "../components/customsComponents/layout/Header";
+import { Button } from "../components/ui/button";
 import { NavMenu } from "../enums/NavMenuEnum";
 import UserProfileCard from "./components/UserProfileCard";
-import { Button } from "../components/ui/button";
 
 const ProfilePage: React.FC = () => {
 	const [error, setError] = useState<string | null>(null);
@@ -62,17 +62,17 @@ const ProfilePage: React.FC = () => {
 		<div>
 			<Header title={NavMenu.PROFIL} />
 			<div className="flex flex-col gap-2">
-			<UserProfileCard
-				username={currentUser?.username}
-				email={currentUser?.email}
-				avatarUrl={"/images/avatar3.jpg"}
-				colocName={"Rue Malbec"}
-				joinedDate={currentUser?.date_joined}
-			/>
-							<Button variant={"destructive"} onClick={() => handleLogOut()}>
+				<UserProfileCard
+					username={currentUser?.username}
+					email={currentUser?.email}
+					avatarUrl={"/images/avatar3.jpg"}
+					colocName={"Rue Malbec"}
+					joinedDate={currentUser?.date_joined}
+				/>
+				<Button variant={"destructive"} onClick={() => handleLogOut()}>
 					Se déconnecter
 				</Button>
-				</div>
+			</div>
 		</div>
 	);
 };

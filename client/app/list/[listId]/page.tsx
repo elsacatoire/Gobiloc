@@ -165,17 +165,11 @@ export default function ChecklistPage() {
 									value={newChecklistName}
 									onChange={handleNameChange}
 								/>
-								<Button
-									variant="default"
-									onClick={handleNameSave}
-								>
+								<Button variant="default" onClick={handleNameSave}>
 									<Check className="h-5 w-5" />
 								</Button>
-								<Button
-									variant="destructive"
-									onClick={() => setEditing(false)}
-								>
-									<X  className="h-5 w-5" />
+								<Button variant="destructive" onClick={() => setEditing(false)}>
+									<X className="h-5 w-5" />
 								</Button>
 							</div>
 						) : (
