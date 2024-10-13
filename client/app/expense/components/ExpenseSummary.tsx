@@ -1,4 +1,4 @@
-import { Card, CardFooter } from "@/app/components/ui/card";
+import { Card, CardContent } from "@/app/components/ui/card";
 import type { Expense } from "@/types/ExpenseType";
 import type React from "react";
 
@@ -15,12 +15,12 @@ const ExpenseSummary: React.FC<ExpenseSummaryProps> = ({ expenses }) => {
 
 	return (
 		<Card>
-			<CardFooter className="flex p-3 justify-end font-semibold">
-				<h2>
-					Total des dépenses :{" "}
-					<span className="text-teal-800">{total.toFixed(2)}€</span>
+			<CardContent className="flex p-3 justify-end font-semibold">
+				<h2 className="text-sm md:text-lg">
+					{"Total des dépenses : "}
+					<span className="text-teal-700">{total.toFixed(2)}€</span>
 				</h2>
-			</CardFooter>
+			</CardContent>
 		</Card>
 	);
 };

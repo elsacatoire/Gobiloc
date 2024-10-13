@@ -29,16 +29,17 @@ const ExpenseList: React.FC<ExpenseListProps> = ({ expenses }) => {
 					<Table className="w-full">
 						<TableBody>
 							{expenses.map((expense) => (
-								<TableRow key={expense.date.toISOString()} className="w-full">
+								<TableRow
+									key={expense.date.toISOString()}
+									className="w-full text-xs md:text-base"
+								>
 									<TableCell className="font-semibold w-1/3">
 										{expense.name}
 									</TableCell>
 
 									<TableCell className="w-1/3">
-										<span className="text-slate-700 text-xs">
-											<span className="text-slate-700 text-xs">
-												{formatDate(expense.date)}
-											</span>
+										<span className="text-slate-700">
+											{formatDate(expense.date)}
 										</span>
 									</TableCell>
 									<TableCell className="w-1/3 italic">

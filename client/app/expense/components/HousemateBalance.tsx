@@ -47,8 +47,8 @@ export function HousematesBalance() {
 
 	return (
 		<div className="p-4 bg-white rounded shadow">
-			<h2 className="text-xl font-bold mb-4">Balance des colocs</h2>
-			<table className="w-full text-left table-auto">
+			<h2 className="md:text-xl font-bold mb-4">Balance des colocs</h2>
+			<table className="w-full text-left table-auto text-xs md:text-base">
 				<thead>
 					<tr>
 						<th className="px-4 py-2">Colocataire</th>
@@ -71,9 +71,7 @@ export function HousematesBalance() {
 					<tr>
 						<td className="px-4 py-2 font-bold">Total</td>
 						<td className="px-4 py-2 font-bold">{totalPaid} €</td>
-						<td className="px-4 py-2 font-bold">
-							Moyenne: {balance.toFixed(2)} €
-						</td>
+						<td className="px-4 py-2 font-bold">Moy: {balance.toFixed(1)} €</td>
 					</tr>
 				</tfoot>
 			</table>
