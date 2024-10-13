@@ -1,10 +1,11 @@
 "use client";
 
 import { fetchFlatBudget } from "@/api/services/budgetService";
+import AuthContext from "@/context/AuthContext";
 import type { ExpenseDTO, ExpenseType } from "@/types/ExpenseType";
 import isAuth from "@/utils/auth/isAuth";
 import { useAuth } from "@/utils/auth/useAuth";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Header } from "../components/customsComponents/layout/Header";
 import { NavMenu } from "../enums/NavMenuEnum";
 import ExpenseForm from "./components/ExpenseForm";
@@ -18,6 +19,7 @@ const ExpensePage: React.FC = () => {
 	const [isLoading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const user = useAuth().user;
+	const { flatshare } = useContext(AuthContext);
 
 	const addExpense = (expense: ExpenseDTO) => {
 		/* 	const newExpense: ExpenseDTO = {
@@ -55,6 +57,7 @@ const ExpensePage: React.FC = () => {
 	return (
 		<div>
 			<Header title={NavMenu.EXPENSE} />
+			<p>{flatshare?.name}</p>
 			<div className="flex flex-col gap-2">
 				<ExpenseForm onAddExpense={addExpense} />
 
