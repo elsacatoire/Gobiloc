@@ -1,6 +1,6 @@
 "use client";
 
-import { fetchChecklists } from "@/api/services/ChecklistService";
+import { fetchChecklists } from "@/api/services/checklistService";
 import type { ChecklistType } from "@/types/ChecklistType";
 import { useAuth } from "@/utils/auth/useAuth";
 import { useRouter } from "next/navigation";

@@ -9,7 +9,9 @@ import type { UserType } from "../../types/UserType";
 import { useAuth } from "../../utils/auth/useAuth";
 import { Header } from "../components/customsComponents/layout/Header";
 import { Button } from "../components/ui/button";
+import { Card } from "../components/ui/card";
 import { NavMenu } from "../enums/NavMenuEnum";
+import FlatshareDetails from "./components/FlatshareDetails";
 import UserProfileCard from "./components/UserProfileCard";
 
 const ProfilePage: React.FC = () => {
@@ -69,6 +71,9 @@ const ProfilePage: React.FC = () => {
 					colocName={"Rue Malbec"}
 					joinedDate={currentUser?.date_joined}
 				/>
+				<Card>
+					<FlatshareDetails />
+				</Card>
 				<Button variant={"destructive"} onClick={() => handleLogOut()}>
 					Se déconnecter
 				</Button>

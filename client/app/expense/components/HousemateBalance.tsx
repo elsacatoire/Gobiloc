@@ -1,38 +1,21 @@
 import React, { useState, useEffect } from "react";
 
-interface Coloc {
+type Coloc = {
 	id: string;
 	name: string;
 	paid: number;
-}
+};
+
+type HousematesBalanceProps = {
+	housemates: Coloc[];
+	totalPaid: number;
+	balance: number;
+};
 
 export function HousematesBalance() {
 	const [housemates, setHousemates] = useState<Coloc[]>([]);
 	const [totalPaid, setTotalPaid] = useState<number>(0);
 	const [balance, setBalance] = useState<number>(0);
-
-	//useEffect(() => {
-	//	if (isAuthenticated) {
-	//		// Fetch housemates and their payments
-	//		axios.get("/api/housemates") // Replace with your actual API endpoint
-	//			.then((response) => {
-	//				const data = response.data;
-	//				setHousemates(data);
-	//
-	//				// Calculate total paid and average payment
-	//				const total = data.reduce((sum: number, coloc: Coloc) => sum + coloc.paid, 0);
-	//				setTotalPaid(total);
-	//				setBalance(total / data.length); // Average payment
-	//			})
-	//			.catch((error) => {
-	//				console.error("Error fetching housemates:", error);
-	//			});
-	//	}
-	//}, [isAuthenticated]);
-	//
-	//if (!isAuthenticated) {
-	//	return null;
-	//}
 
 	// Mock data
 	useEffect(() => {

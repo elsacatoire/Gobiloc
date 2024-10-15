@@ -5,11 +5,11 @@ import {
 	TableCell,
 	TableRow,
 } from "@/app/components/ui/table";
-import type { Expense } from "@/types/ExpenseType";
+import type { ExpenseType } from "@/types/ExpenseType";
 import type React from "react";
 
 type ExpenseListProps = {
-	expenses: Expense[];
+	expenses: ExpenseType[];
 	onDeleteExpense: (date: number) => void;
 };
 
@@ -20,6 +20,8 @@ const formatDate = (date: Date) => {
 };
 
 const ExpenseList: React.FC<ExpenseListProps> = ({ expenses }) => {
+	console.log("expenses from ExpenseList", expenses);
+
 	return (
 		<Card>
 			<CardContent className="p-3">
@@ -30,17 +32,17 @@ const ExpenseList: React.FC<ExpenseListProps> = ({ expenses }) => {
 						<TableBody>
 							{expenses.map((expense) => (
 								<TableRow
-									key={expense.date.toISOString()}
+									key={expense.description}
 									className="w-full text-xs md:text-base"
 								>
 									<TableCell className="font-semibold w-1/3">
-										{expense.name}
+										{expense.description}
 									</TableCell>
 
 									<TableCell className="w-1/3">
-										<span className="text-slate-700">
+										{/* 	<span className="text-slate-700">
 											{formatDate(expense.date)}
-										</span>
+										</span> */}
 									</TableCell>
 									<TableCell className="w-1/3 italic">
 										{expense.username}

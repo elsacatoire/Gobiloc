@@ -1,7 +1,7 @@
 "use client";
 
-import { updateChecklistName } from "@/api/services/ChecklistService";
-import { fetchChecklist } from "@/api/services/ChecklistService";
+import { updateChecklistName } from "@/api/services/checklistService";
+import { fetchChecklist } from "@/api/services/checklistService";
 import { checkTask, createTask, deleteTask } from "@/api/services/taskService";
 import { Header } from "@/app/components/customsComponents/layout/Header";
 import { Button } from "@/app/components/ui/button";

@@ -1,14 +1,18 @@
+import { fetchFlatshare } from "@/api/services/flatService";
+import type { FlatType } from "@/types/flatType";
 import type { DecodedToken } from "@/types/TokenType";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 const AuthContext = createContext<{
 	user: DecodedToken | null;
+	flatshare: FlatType | null;
 	loginUser: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
 	logoutUser: () => void;
 }>({
 	user: null,
+	flatshare: null,
 	loginUser: async () => {},
 	logoutUser: () => {},
 });
@@ -17,6 +21,7 @@ const AuthContext = createContext<{
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const router = useRouter();
 	const [user, setUser] = useState<DecodedToken | null>(null);
+	const [flatshare, setFlatshare] = useState<FlatType | null>(null)
 	const [authTokens, setAuthTokens] = useState<string | null>(null);
 
 	// Check if the user token is still valid
@@ -69,6 +74,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		return () => clearInterval(interval);
 	}, [authTokens]);
 
+	// Method to get the flatshare data
+	const fetchFlatshareData = async () => {
+		try {
+			const data = await fetchFlatshare();
+			setFlatshare(data);
+		} catch (error) {
+			console.error("Failed to fetch flatshare data", error);
+		}
+	};
+
 	// Method to log a user
 	const loginUser = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -97,6 +112,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			localStorage.setItem("authTokens", JSON.stringify(data));
 			localStorage.setItem("user", JSON.stringify(decodedUser));
 
+			fetchFlatshareData();
+
 			router.push("/");
 		} else {
 			alert("Login failed");
@@ -114,6 +131,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 	const contextData = {
 		user,
+		flatshare,
 		loginUser,
 		logoutUser,
 	};
