@@ -3,6 +3,7 @@
 from rest_framework import serializers
 from api.models.invitation_model import Invitation
 
+
 class InvitationSerializer(serializers.ModelSerializer):
     invited_by = serializers.StringRelatedField()
 
