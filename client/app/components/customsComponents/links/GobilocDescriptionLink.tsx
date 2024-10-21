@@ -5,7 +5,7 @@ const GobilocDescriptionLink = () => {
 	return (
 		<Link
 			href={"/gobiloc"}
-			className="text-orange-700 visited:text-orange-800 underline text-right"
+			className="text-orange-700 visited:text-orange-800 underline  text-center"
 		>
 			En savoir plus sur Gobiloc
 		</Link>
