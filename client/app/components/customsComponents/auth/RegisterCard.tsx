@@ -99,22 +99,31 @@ export const RegisterCard: React.FC = () => {
 							<LogoFullName />
 						</div>
 						<CardTitle>Ouvrir un compte</CardTitle>
-						<CardDescription>
+						<CardDescription className="text-teal-950">
 							Enregistre toi pour rejoindre ta colloc et profiter des
 							fonctionnalités de gobiloc. Tu as déjà un compte ?
-							<Link
-								href="/login/user"
-								className="text-teal-600 visited:text-orange-600"
-							>
-								{" "}
-								Se connecter
-							</Link>
+							<div className="flex justify-between">
+								<Link
+									href="/login/user"
+									className="text-teal-700 visited:text-orange-700 underline"
+								>
+									{" "}
+									Se connecter
+								</Link>
+								<Link
+									href="/gobiloc"
+									className="text-teal-700 visited:text-orange-700 underline"
+								>
+									{" "}
+									Gobiloc, c'est quoi ?
+								</Link>
+							</div>
 						</CardDescription>
 					</CardHeader>
 					<CardContent>
 						<div className="grid w-full items-center gap-4">
 							<div className="flex flex-col space-y-1.5">
-								<Label htmlFor="user name">Nom</Label>
+								<Label htmlFor="user name">Pseudo</Label>
 								<Input
 									type="text"
 									id="username"
@@ -159,14 +168,14 @@ export const RegisterCard: React.FC = () => {
 									J'accepte les{" "}
 									<Link
 										href="/gobiloc/terms"
-										className="underline text-teal-600"
+										className="underline text-teal-700"
 									>
 										conditions générales
 									</Link>{" "}
 									et la{" "}
 									<Link
 										href="gobiloc/privacy"
-										className="underline text-teal-600"
+										className="underline text-teal-700"
 									>
 										politique de confidentialité
 									</Link>
