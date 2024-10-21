@@ -79,6 +79,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		try {
 			const data = await fetchFlatshare();
 			setFlatshare(data);
+			localStorage.setItem("flatshare", JSON.stringify(data));
 		} catch (error) {
 			console.error("Failed to fetch flatshare data", error);
 		}
@@ -126,6 +127,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		setAuthTokens(null);
 		localStorage.removeItem("authTokens");
 		localStorage.removeItem("user");
+		localStorage.removeItem("flatshare");
 		router.push("/login");
 	};
 

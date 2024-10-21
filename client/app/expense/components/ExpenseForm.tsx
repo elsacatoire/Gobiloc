@@ -30,6 +30,8 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onAddExpense }) => {
 				user: user.id,
 				budget: 1, // TODO add appropriate budget value here
 			});
+			console.log("expense added");
+			
 		}
 		setTitle("");
 		setAmount("");
