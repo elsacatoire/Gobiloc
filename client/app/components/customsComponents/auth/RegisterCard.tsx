@@ -175,7 +175,7 @@ export const RegisterCard: React.FC = () => {
 						</div>
 					</CardContent>
 					<CardFooter className="flex justify-between">
-						<Button variant="outline">Annuler</Button>
+						<Button variant="outline">Effacer</Button>
 						<Button type="submit">Créer mon compte</Button>
 					</CardFooter>
 				</form>

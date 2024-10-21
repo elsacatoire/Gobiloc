@@ -1,6 +1,7 @@
 "use client";
 
 import LogoFullName from "@/app/components/customsComponents/design/LogoFullName";
+import GobilocDescriptionLink from "@/app/components/customsComponents/links/GobilocDescriptionLink";
 import { Button } from "@/app/components/ui/button";
 import {
 	Card,
@@ -46,11 +47,13 @@ export default function LoginCard() {
 							compte ?
 							<Link
 								href="/register"
-								className="text-teal-600 visited:text-orange-600"
+								className="text-teal-700 visited:text-teal-700 underline font-semibold"
 							>
 								{" "}
 								Créer un compte
 							</Link>
+							<br />
+							<GobilocDescriptionLink />
 						</CardDescription>
 					</CardHeader>
 					<CardContent>
@@ -80,7 +83,7 @@ export default function LoginCard() {
 						</div>
 					</CardContent>
 					<CardFooter className="flex justify-between">
-						<Button variant="outline">Annuler</Button>
+						<Button variant="outline">Effacer</Button>
 						<Button type="submit">Se connecter</Button>
 					</CardFooter>
 				</form>

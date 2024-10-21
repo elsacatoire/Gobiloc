@@ -2,12 +2,15 @@
 
 import { fetchCurrentUser } from "@/api/services/userService";
 import AuthContext from "@/context/AuthContext";
+import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
 import type React from "react";
 import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import type { UserType } from "../../types/UserType";
 import { useAuth } from "../../utils/auth/useAuth";
 import { Header } from "../components/customsComponents/layout/Header";
+import GobilocDescriptionLink from "../components/customsComponents/links/GobilocDescriptionLink";
+import UsefulLinks from "../components/customsComponents/links/UsefulLinks";
 import { Button } from "../components/ui/button";
 import { Card } from "../components/ui/card";
 import { NavMenu } from "../enums/NavMenuEnum";
@@ -63,7 +66,7 @@ const ProfilePage: React.FC = () => {
 	return (
 		<div>
 			<Header title={NavMenu.PROFIL} />
-			<div className="flex flex-col gap-2">
+			<div className="flex flex-col gap-4 md:gap-8">
 				<UserProfileCard
 					username={currentUser?.username}
 					email={currentUser?.email}
@@ -74,9 +77,24 @@ const ProfilePage: React.FC = () => {
 				<Card>
 					<FlatshareDetails />
 				</Card>
-				<Button variant={"destructive"} onClick={() => handleLogOut()}>
-					Se déconnecter
-				</Button>
+				<section className="flex flex-col gap-4 md:gap-8">
+					<div className="flex flex-col md:flex-row justify-center gap-4 md:gap-8">
+						<Button variant={"destructive"} onClick={() => handleLogOut()}>
+							Se déconnecter
+						</Button>
+						<Button variant={"secondary"} onClick={() => handleLogOut()}>
+							Suprimer mon compte
+						</Button>
+					</div>
+					<UsefulLinks />
+					<GobilocDescriptionLink />
+					<Link
+						href={"/gobiloc"}
+						className="text-orange-700 visited:text-orange-800 underline  text-center"
+					>
+						Conformité accessibilité et écoconception
+					</Link>
+				</section>
 			</div>
 		</div>
 	);
