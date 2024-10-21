@@ -26,6 +26,7 @@ export const RegisterCard: React.FC = () => {
 	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [consent, setConsent] = useState(false); // New state for consent
 	const [error, setError] = useState<string | null>(null);
 
 	// Handeling input's changes
@@ -37,6 +38,10 @@ export const RegisterCard: React.FC = () => {
 	};
 	const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setPassword(e.target.value);
+	};
+
+	const handleConsentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setConsent(e.target.checked); // Update consent state
 	};
 
 	// Handeling the login form submission
@@ -57,6 +62,12 @@ export const RegisterCard: React.FC = () => {
 			);
 			return; // Stop execution if password doesn't match criteria
 		}
+		if (!consent) {
+			setError(
+				"Vous devez accepter les conditions générales et la politique de confidentialité.",
+			);
+			return; // Stop execution if consent is not given
+		}
 
 		try {
 			const response = await axios.post(
@@ -70,17 +81,18 @@ export const RegisterCard: React.FC = () => {
 			router.push("/");
 		} catch (error) {
 			// Request errors
-			setError("Identifiants incorrects. Veuillez réessayer."); // TODO: Diplay erros on the page
+			setError("Erreur lors de l'inscription. Veuillez réessayer.");
 		}
 
 		// Reinit inputs
 		setEmail("");
 		setPassword("");
+		setConsent(false); // Reinit consent
 	};
 
 	return (
 		<div>
-			<Card className="w-[350px]">
+			<Card className="w-svw p-2 md:max-w-96">
 				<form onSubmit={handleSubmit}>
 					<CardHeader>
 						<div className="flex justify-center mb-5">
@@ -132,6 +144,34 @@ export const RegisterCard: React.FC = () => {
 									className={`${error ? "bg-red-100 text-red-700" : ""}`} // Conditional class for error indication
 								/>
 								<span className="text-red-700 text-xs">{error}</span>
+							</div>
+
+							{/* Consent Checkbox */}
+							<div className="flex items-start space-x-2">
+								<input
+									type="checkbox"
+									id="consent"
+									checked={consent}
+									onChange={handleConsentChange}
+									className="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+								/>
+								<label htmlFor="consent" className="text-sm">
+									J'accepte les{" "}
+									<Link
+										href="/gobiloc/terms"
+										className="underline text-teal-600"
+									>
+										conditions générales
+									</Link>{" "}
+									et la{" "}
+									<Link
+										href="gobiloc/privacy"
+										className="underline text-teal-600"
+									>
+										politique de confidentialité
+									</Link>
+									.
+								</label>
 							</div>
 						</div>
 					</CardContent>
