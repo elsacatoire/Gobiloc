@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - "client/**"  # Only when for changes on front part
+      - "client/**"  # When changes on the frontend
   pull_request:
     branches: [ "main" ]
     paths:
