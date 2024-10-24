@@ -78,7 +78,7 @@ export const ChecklistForm: React.FC<ChecklistFormProps> = ({
 						<SelectContent>
 							<SelectGroup>
 								{Object.values(ChecklistCategory).map((category) => (
-									<SelectItem key={category} value={category}>
+									<SelectItem key={category} value={category} className="text-slate-900">
 										{category.charAt(0).toUpperCase() + category.slice(1)}
 									</SelectItem>
 								))}

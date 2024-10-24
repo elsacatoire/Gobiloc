@@ -1,21 +1,24 @@
-// services/taskService.ts
 import type { TaskType } from "@/types/TaskType";
 import apiFlatClient from "@/utils/apiFlat";
+
+const handleRequest = async (request: Promise<any>, errorMessage: string) => {
+	try {
+		const response = await request;
+		return response.data;
+	} catch (error) {
+		throw new Error(errorMessage);
+	}
+};
 
 export const checkTask = async (
 	idChecklist: number,
 	idTask: number,
 	updatedData: Partial<TaskType>,
 ) => {
-	try {
-		const response = await apiFlatClient.patch(
-			`/todo/${idChecklist}/task/${idTask}/`,
-			updatedData,
-		);
-		return response.data;
-	} catch (error) {
-		throw new Error("Erreur lors de la modification. Veuillez réessayer.");
-	}
+	return handleRequest(
+		apiFlatClient.patch(`/todo/${idChecklist}/task/${idTask}/`, updatedData),
+		"Erreur lors de la modification. Veuillez réessayer."
+	);
 };
 
 export const createTask = async (idChecklist: number, data: string) => {
@@ -23,21 +26,15 @@ export const createTask = async (idChecklist: number, data: string) => {
 		todo: idChecklist,
 		content: data,
 	};
-	try {
-		const response = await apiFlatClient.post(`/todo/${idChecklist}/task/`, newTask);
-		return response.data;
-	} catch (error) {
-		throw new Error("Erreur lors de la création. Veuillez réessayer.");
-	}
+	return handleRequest(
+		apiFlatClient.post(`/todo/${idChecklist}/task/`, newTask),
+		"Erreur lors de la création. Veuillez réessayer."
+	);
 };
 
 export const deleteTask = async (idChecklist: number, idTask: number) => {
-	try {
-		const response = await apiFlatClient.delete(
-			`/todo/${idChecklist}/task/${idTask}/`,
-		);
-		return response.data;
-	} catch (error) {
-		throw new Error("Erreur lors de la suppression. Veuillez réessayer.");
-	}
+	return handleRequest(
+		apiFlatClient.delete(`/todo/${idChecklist}/task/${idTask}/`),
+		"Erreur lors de la suppression. Veuillez réessayer."
+	);
 };
