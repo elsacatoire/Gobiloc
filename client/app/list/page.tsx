@@ -3,7 +3,7 @@
 import {
 	deleteChecklist,
 	fetchChecklists,
-} from "@/api/services/ChecklistService";
+} from "@/api/services/checklistService";
 import { Header } from "@/app/components/customsComponents/layout/Header";
 import { Card, CardContent } from "@/app/components/ui/card";
 import { NavMenu } from "@/app/enums/NavMenuEnum";
