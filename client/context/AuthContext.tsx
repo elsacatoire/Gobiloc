@@ -13,8 +13,8 @@ const AuthContext = createContext<{
 }>({
 	user: null,
 	flatshare: null,
-	loginUser: async () => {},
-	logoutUser: () => {},
+	loginUser: async () => { },
+	logoutUser: () => { },
 });
 
 // /--- Component AuthProvider to wrap the app ---

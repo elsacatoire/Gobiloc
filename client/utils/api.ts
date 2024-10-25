@@ -43,7 +43,13 @@ apiClient.interceptors.response.use(
 
 				// If success save the new token
 				const newAccessToken = response.data.access;
-				saveTokens(newAccessToken, refreshToken);
+				if (refreshToken) {
+					saveTokens(newAccessToken, refreshToken);
+				} else {
+					console.error("No refresh token available");
+					window.location.href = "/login";
+					return Promise.reject(error);
+				}
 
 				// Add new token in the request header
 				originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
