@@ -5,10 +5,6 @@ import { Card } from "@/app/components/ui/card";
 import {
 	Dialog,
 	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
 	DialogTrigger,
 } from "@/app/components/ui/dialog";
 import { Input } from "@/app/components/ui/input";
@@ -88,7 +84,7 @@ const EditUserProfile: React.FC<UserProfileProps> = ({
 										htmlFor="name"
 										className="block text-sm font-medium text-gray-700"
 									>
-										Name
+										Pseudo
 									</label>
 									<Input
 										type="text"
