@@ -4,11 +4,11 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - "client/**"  # When changes on the frontend
+      - "client/api/**"  # When changes on the frontend
   pull_request:
     branches: [ "main" ]
     paths:
-      - "client/**"
+      - "client/api/**"
 
 jobs:
   biome:
