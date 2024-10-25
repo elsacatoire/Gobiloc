@@ -26,4 +26,4 @@ jobs:
         uses: biomejs/setup-biome@v2
 
       - name: Run Biome
-        run: biome ci ./client/app --exclude ./client/app/components/ui
+        run: biome ci ./client/app --path_ignore ./client/app/components/ui
