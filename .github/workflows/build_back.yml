@@ -28,6 +28,7 @@ jobs:
           --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=5
 
     env:
+      
       DJANGO_SETTINGS_MODULE: gobiloc.settings
       DB_NAME: gobilocTest
       DB_USER: postgresCI
@@ -35,7 +36,8 @@ jobs:
       DB_HOST: localhost
       DB_PORT: "5432"
       DATABASE_URL: postgres://postgresCI:postgresCI@localhost:5432/gobilocTest
-      SECRET_KEY: ${{ secrets.SECRET_KEY }} 
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DEBUG: 'True'
 
     steps:
       - name: Checkout code
