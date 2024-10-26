@@ -1,5 +1,5 @@
 import { fetchFlatshare } from "@/api/services/flatService";
-import type { FlatType } from "@/types/flatType";
+import type { FlatType } from "@/types/FlatType";
 import type { DecodedToken } from "@/types/TokenType";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
@@ -13,8 +13,8 @@ const AuthContext = createContext<{
 }>({
 	user: null,
 	flatshare: null,
-	loginUser: async () => {},
-	logoutUser: () => {},
+	loginUser: async () => { },
+	logoutUser: () => { },
 });
 
 // /--- Component AuthProvider to wrap the app ---

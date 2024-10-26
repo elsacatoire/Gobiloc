@@ -2,6 +2,7 @@
 
 import { fetchCurrentUser } from "@/api/services/userService";
 import AuthContext from "@/context/AuthContext";
+import { CircleAlertIcon, LogOut, Mail } from "lucide-react";
 import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
 import type React from "react";
@@ -12,9 +13,8 @@ import { Header } from "../components/customsComponents/layout/Header";
 import GobilocDescriptionLink from "../components/customsComponents/links/GobilocDescriptionLink";
 import UsefulLinks from "../components/customsComponents/links/UsefulLinks";
 import { Button } from "../components/ui/button";
-import { Card } from "../components/ui/card";
+import { Card, CardContent, CardHeader } from "../components/ui/card";
 import { NavMenu } from "../enums/NavMenuEnum";
-import FlatshareDetails from "./components/FlatshareDetails";
 import UserProfileCard from "./components/UserProfileCard";
 
 const ProfilePage: React.FC = () => {
@@ -50,7 +50,6 @@ const ProfilePage: React.FC = () => {
 	}, []);
 
 	const handleLogOut = () => {
-		console.log("logout button");
 		logoutUser();
 		router.push("/login");
 	};
@@ -74,18 +73,35 @@ const ProfilePage: React.FC = () => {
 					colocName={"Rue Malbec"}
 					joinedDate={currentUser?.date_joined}
 				/>
-				<Card>
-					<FlatshareDetails />
-				</Card>
 				<section className="flex flex-col gap-4 md:gap-8">
-					<div className="flex flex-col md:flex-row justify-center gap-4 md:gap-8">
-						<Button variant={"destructive"} onClick={() => handleLogOut()}>
-							Se déconnecter
-						</Button>
-						<Button variant={"secondary"} onClick={() => handleLogOut()}>
-							Suprimer mon compte
-						</Button>
-					</div>
+					<Card>
+						<CardHeader className="font-bold">Gérér mon compte</CardHeader>
+						<CardContent>
+							<div className="flex flex-col md:flex-row justify-center gap-4 md:gap-8">
+								<Button variant={"destructive"} onClick={() => handleLogOut()}>
+									<LogOut className="min-w-10" />
+									Se déconnecter
+								</Button>
+								<Button variant={"secondary"} onClick={() => handleLogOut()}>
+									<CircleAlertIcon className="min-w-10" />
+									Suprimer mon compte
+								</Button>
+							</div>
+						</CardContent>
+					</Card>
+					<Card>
+						<CardHeader className="font-bold">Gérer la coloc</CardHeader>
+						<CardContent className="flex flex-col md:flex-row justify-center gap-4 md:gap-8">
+							<Button className="w-full">
+								<Mail className="min-w-10" />
+								Inviter à rejoindre
+							</Button>
+							<Button variant={"destructive"}>
+								<CircleAlertIcon className="min-w-10" />
+								Partir de la coloc
+							</Button>
+						</CardContent>
+					</Card>
 					<UsefulLinks />
 					<GobilocDescriptionLink />
 					<Link
@@ -96,6 +112,7 @@ const ProfilePage: React.FC = () => {
 					</Link>
 				</section>
 			</div>
+			<div className="h-5"></div>
 		</div>
 	);
 };

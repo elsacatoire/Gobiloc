@@ -1,5 +1,3 @@
-import type React from "react";
-
 import {
 	Card,
 	CardContent,
@@ -8,9 +6,11 @@ import {
 } from "@/app/components/ui/card";
 import { formatDistanceToNow } from "date-fns";
 import { fr } from "date-fns/locale";
-import { AtSign, Atom, FishSymbol } from "lucide-react";
+import { AtSign, Atom } from "lucide-react";
+import type React from "react";
 import Avatar from "./Avatar";
 import EditUserProfile from "./EditProfile";
+import FlatshareDetails from "./FlatshareDetails";
 
 type UserProfileProps = {
 	username?: string;
@@ -23,7 +23,6 @@ type UserProfileProps = {
 const UserProfileCard: React.FC<UserProfileProps> = ({
 	username,
 	avatarUrl,
-	colocName,
 	email: mail,
 	joinedDate,
 }) => {
@@ -56,10 +55,6 @@ const UserProfileCard: React.FC<UserProfileProps> = ({
 					</div>
 				</CardHeader>
 				<CardContent className="flex flex-col gap-3">
-					<div className="flex  items-center">
-						<FishSymbol className="min-w-10" />
-						<p className="text-lg font-medium">Coloc : {colocName}</p>
-					</div>
 					<div className="flex items-center">
 						<AtSign className="min-w-10" />
 						<p>E-mail : {mail}</p>
@@ -70,6 +65,7 @@ const UserProfileCard: React.FC<UserProfileProps> = ({
 							Membre de Gobiloc depuis {joinedSince}
 						</p>
 					</div>
+					<FlatshareDetails />
 				</CardContent>
 			</Card>
 		</div>
