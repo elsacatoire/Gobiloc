@@ -735,6 +735,11 @@
 				}
 			],
 			"id": "92904e2c-c2be-41b0-8fe5-caaf45ed52d5"
+		},
+		{
+			"name": "New Folder",
+			"item": [],
+			"id": "387a19c7-20a4-4938-a133-4b415f8e988e"
 		}
 	],
 	"auth": {
