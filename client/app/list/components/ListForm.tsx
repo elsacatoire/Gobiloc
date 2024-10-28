@@ -1,6 +1,6 @@
 "use client";
 
-import { createChecklist } from "@/api/services/ChecklistService";
+import { createChecklist } from "@/api/services/checklistService";
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
@@ -78,7 +78,11 @@ export const ChecklistForm: React.FC<ChecklistFormProps> = ({
 						<SelectContent>
 							<SelectGroup>
 								{Object.values(ChecklistCategory).map((category) => (
-									<SelectItem key={category} value={category}>
+									<SelectItem
+										key={category}
+										value={category}
+										className="text-slate-900"
+									>
 										{category.charAt(0).toUpperCase() + category.slice(1)}
 									</SelectItem>
 								))}
