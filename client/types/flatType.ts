@@ -6,3 +6,10 @@ export type FlatType = {
     description: string,
     users: UserType[],
 }
+
+export type FlatInviteType = {
+    inivited_by: string,
+    flat_share: number,
+    code: string,
+    created_at: string
+}

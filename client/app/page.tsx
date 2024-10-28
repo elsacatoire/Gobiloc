@@ -73,8 +73,8 @@ const LandingPage: React.FC = () => {
 					<CardContent className="px-0">
 						{flatmates.length > 0 ? (
 							<ul className="flex flex-col">
-								{flatmates.map((mate, index) => (
-									<li key={index}>
+								{flatmates.map((mate) => (
+									<li key={mate}>
 										<Button variant={"link"} className="flex gap-3">
 											<Avatar
 												src="/images/avatar5.jpg"

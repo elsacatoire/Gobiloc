@@ -112,7 +112,7 @@ const ProfilePage: React.FC = () => {
 					</Link>
 				</section>
 			</div>
-			<div className="h-5"></div>
+			<div className="h-5" />
 		</div>
 	);
 };
