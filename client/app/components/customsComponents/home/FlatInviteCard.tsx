@@ -1,5 +1,5 @@
 import { createFlatInvite } from "@/api/services/flatInviteService";
-import { Mail } from "lucide-react";
+import { Copy, Mail } from "lucide-react";
 import type React from "react";
 import { useState } from "react";
 import { Button } from "../../ui/button";
@@ -7,15 +7,26 @@ import { Card, CardContent, CardHeader } from "../../ui/card";
 
 const FlatInviteCard = () => {
 	const [inviteCode, setInviteCode] = useState<string | null>(null);
+	const [copied, setCopied] = useState<boolean>(false);
 
 	const handleInvite = async () => {
 		try {
 			const invite = await createFlatInvite();
-			console.log(invite);
 			setInviteCode(invite.code);
-			console.log(invite);
 		} catch (error) {
 			console.error(error);
+		}
+	};
+
+	const handleCopy = async () => {
+		if (inviteCode) {
+			try {
+				await navigator.clipboard.writeText(inviteCode);
+				setCopied(true);
+				setTimeout(() => setCopied(false), 2000);
+			} catch (error) {
+				console.error("Erreur de copie dans le presse-papiers :", error);
+			}
 		}
 	};
 
@@ -28,9 +39,21 @@ const FlatInviteCard = () => {
 					Inviter à rejoindre
 				</Button>
 				{inviteCode && (
-					<p className="text-center text-sm">
-						Voici le code d'invitation : {inviteCode}
-					</p>
+					<div className="flex flex-col text-center text-sm mt-2">
+						<p>Voici le code d'invitation : {inviteCode}</p>
+						<p>Partagez-le avec vos colocataires.</p>
+						<Button variant="link" className="mt-2">
+							Envoyer par mail
+						</Button>
+						<Button
+							variant="secondary"
+							className="mt-2 flex items-center"
+							onClick={handleCopy}
+						>
+							<Copy className="mr-2" />
+							{copied ? "Copié !" : "Copier le code"}
+						</Button>
+					</div>
 				)}
 			</CardContent>
 		</Card>

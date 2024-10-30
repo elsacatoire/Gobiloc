@@ -7,9 +7,9 @@ import { useAuth } from "@/utils/auth/useAuth";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
+import FlatInviteCard from "./components/customsComponents/home/FlatInviteCard";
 import FlatNewsCard from "./components/customsComponents/home/FlatNewsCard";
 import FlatmatesCard from "./components/customsComponents/home/FlatmatesCard";
-import FlatInviteCard from "./components/customsComponents/home/flatInviteCard";
 import { Header } from "./components/customsComponents/layout/Header";
 import { NavMenu } from "./enums/NavMenuEnum";
 
