@@ -4,17 +4,14 @@ import { fetchChecklists } from "@/api/services/checklistService";
 import { fetchFlatshare } from "@/api/services/flatService";
 import type { ChecklistType } from "@/types/ChecklistType";
 import { useAuth } from "@/utils/auth/useAuth";
-import { Sun } from "lucide-react";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
+import FlatNewsCard from "./components/customsComponents/home/FlatNewsCard";
+import FlatmatesCard from "./components/customsComponents/home/FlatmatesCard";
 import FlatInviteCard from "./components/customsComponents/home/flatInviteCard";
 import { Header } from "./components/customsComponents/layout/Header";
-import { Button } from "./components/ui/button";
-import { Card, CardContent, CardHeader } from "./components/ui/card";
 import { NavMenu } from "./enums/NavMenuEnum";
-import FlatmatesCard from "./components/customsComponents/home/FlatmatesCard";
-
 
 const LandingPage: React.FC = () => {
 	const router = useRouter();
@@ -70,29 +67,13 @@ const LandingPage: React.FC = () => {
 			<p className="text-lg mb-6">Ceci est ton espace</p>
 
 			<div className="flex flex-col gap-4 w-full">
-
 				<FlatmatesCard flatmates={flatmates} />
 
-				<Card className="w-full">
-					<CardHeader className="font-bold">Les nouvelles</CardHeader>
-					<CardContent>
-						{isLoading && <p>Loading...</p>}
-						{error && <p>Error: {error}</p>}
-						<ul className="flex flex-col gap-2 align-middle">
-							{checklists.map((checklist) => (
-								<li key={checklist.id} className="flex flex-col gap-3">
-									<Button
-										className="w-full"
-										variant={"secondary"}
-										onClick={() => router.push(`/list/${checklist.id}`)}
-									>
-										Liste : {checklist.name}
-									</Button>
-								</li>
-							))}
-						</ul>
-					</CardContent>
-				</Card>
+				<FlatNewsCard
+					checklists={checklists}
+					isLoading={isLoading}
+					error={error}
+				/>
 
 				<FlatInviteCard />
 			</div>
