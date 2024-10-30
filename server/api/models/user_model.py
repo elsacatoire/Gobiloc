@@ -30,7 +30,8 @@ class User(AbstractUser):
         "FlatShare",
         related_name="users",
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        blank=True
     )
     phone = models.CharField(max_length=20, null=True)
     date_updated = models.DateTimeField(auto_now=True)
