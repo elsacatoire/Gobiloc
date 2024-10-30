@@ -1,5 +1,5 @@
 import type { FlatType } from "@/types/FlatType";
-import apiFlatClient from "@/utils/apiFlat";
+import { apiFlatClient } from "@/utils/apiFlat";
 
 export const fetchFlatshare = async (): Promise<FlatType> => {
     try {

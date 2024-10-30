@@ -11,10 +11,6 @@ export const apiFlatClient = axios.create({
     baseURL: `http://localhost:8000/api/v1/flat/${user ? user.flat_id : 1}/`, // Use flat_id from user if authenticated
 });
 
-export const apiNoFlatClient = axios.create({
-    baseURL: "http://localhost:8000/api/v1/",
-});
-
 // Intercepter to add the token to the request headers
 apiFlatClient.interceptors.request.use(
     (config) => {
@@ -31,40 +27,6 @@ apiFlatClient.interceptors.request.use(
 
 // Intercepter to handle expired tokens
 apiFlatClient.interceptors.response.use(
-    (response) => {
-        return response;
-    },
-    async (error) => {
-        const originalRequest = error.config;
-
-        if (error.response.status === 401 && !originalRequest._retry) {
-            originalRequest._retry = true; // Prevent infinite loop
-
-            try {
-                const refreshToken = getRefreshToken();
-                const response = await axios.post(
-                    "http://localhost:8000/api/v1/token/refresh/",
-                    { refresh: refreshToken }
-                );
-
-                const newAccessToken = response.data.access;
-                saveTokens(newAccessToken, refreshToken);
-                originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-
-                return apiFlatClient(originalRequest); // Retry the request with the new token
-            } catch (refreshError) {
-                console.error("Le refresh token est expiré ou invalide");
-                localStorage.removeItem("authTokens");
-                window.location.href = "/login";
-                return Promise.reject(refreshError);
-            }
-        }
-        return Promise.reject(error);
-    },
-);
-
-// Intercepter to handle expired tokens
-apiNoFlatClient.interceptors.response.use(
     (response) => {
         return response;
     },

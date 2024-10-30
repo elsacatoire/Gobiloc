@@ -1,6 +1,7 @@
 import type { FlatInviteType } from "@/types/FlatType";
 import { InviteCodeDTO } from "@/types/InviteCodeType";
-import { apiNoFlatClient, apiFlatClient } from "@/utils/apiFlat";
+import apiClient from "@/utils/api";
+import { apiFlatClient } from "@/utils/apiFlat";
 
 export const createFlatInvite = async (): Promise<FlatInviteType> => {
     try {
@@ -16,7 +17,7 @@ export const createFlatInvite = async (): Promise<FlatInviteType> => {
 
 export const acceptFlatInvite = async (code: InviteCodeDTO): Promise<string> => {
     try {
-        const response = await apiNoFlatClient.post('/accept-invite/', code);
+        const response = await apiClient.post('/accept-invite/', code);
         return response.data?.message;
     } catch (error) {
         throw new Error(
