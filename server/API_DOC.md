@@ -4,6 +4,7 @@
 - [LOGIN](#login)
 - [LOGOUT](#logout)
 - [FLAT SHARE](#flat_share)
+- [INVITE](#invite)
 - [TODOS](#todos)
 
 ## SIGN UP
@@ -175,6 +176,67 @@ If flat doesn't exist, or if it exists but the user is not in it, 404 with :
 	"detail": "Not found."<br>
 }
 
+
+## INVITE
+
+### To create an invite :
+### POST /api/v1/flat/{flat_id}/create-invite/
+
+#### No body. Return 201 with :
+
+>{<br>
+	"invited_by": "test@test.com",<br>
+	"flat_share": 24,<br>
+	"code": "951385d84fa078f25285",<br>
+	"created_at": "2024-10-20T17:45:00.786275Z"<br>
+}
+
+An invitation last up to 7 days.
+The invitation code is always 20 characters long.
+
+#### <u>Error cases</u> :
+
+If User is not in a flat share, 403 with :
+
+> {<br>
+> "error": "User does not have a flat share"<br>
+> }
+
+
+### To accept an invite :
+### POST /api/v1/accept-invite/
+
+#### Expected JSON :
+
+>{<br>
+> "invitation_code": "951385d84fa078f25285"<br>
+> }
+
+#### Return 200 with :
+
+>{<br>
+> "message": "Invitation accepted"<br>
+> },
+
+#### <u>Error cases</u> :
+
+If User is already in a flat share, 400 with :
+
+> {<br>
+> "error": "User is already in a flat share"<br>
+> }
+
+If invitation_code send is invalid, or there's no matching Invitation :
+
+> {<br>
+> "error": "Invalid invitation code"<br>
+> }
+
+If Invitation is expired :
+
+> {<br>
+> "error": "Invitation expired"<br>
+> }
 
 ## TODO
 
