@@ -227,6 +227,28 @@
 						"url": "localhost:8000/api/user/8/"
 					},
 					"response": []
+				},
+				{
+					"name": "localhost:8000/api/v1/user",
+					"id": "5e2c095f-fe76-488e-b2c6-b74df0cbd16e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMwMzIwNTc0LCJpYXQiOjE3MzAzMTY5NzQsImp0aSI6IjE5Mjk5ZDM2ZmNlODQzMmVhMWIwYTJkMzY4NjIyOWFjIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJQYXRyaWNrIiwiZmxhdF9pZCI6MX0.6dTbq40o2m-EeO_Xp5VTCRdgEMtoG3J-KwCf4gxmjFc",
+								"type": "text"
+							}
+						],
+						"url": "localhost:8000/api/v1/user"
+					},
+					"response": []
 				}
 			],
 			"id": "4b2c03ff-ca66-46c6-88d4-e8e6a0b9007d",
