@@ -1,4 +1,5 @@
 import { fetchFlatshare } from "@/api/services/flatService";
+import { fetchCurrentUser } from "@/api/services/userService";
 import type { FlatType } from "@/types/FlatType";
 import type { DecodedToken } from "@/types/TokenType";
 import { jwtDecode } from "jwt-decode";
@@ -10,11 +11,13 @@ const AuthContext = createContext<{
 	flatshare: FlatType | null;
 	loginUser: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
 	logoutUser: () => void;
+	refreshUserData: () => Promise<void>;
 }>({
 	user: null,
 	flatshare: null,
 	loginUser: async () => { },
 	logoutUser: () => { },
+	refreshUserData: async () => { },
 });
 
 // /--- Component AuthProvider to wrap the app ---
@@ -28,6 +31,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	useEffect(() => {
 		const checkTokenExpiration = () => {
 			if (authTokens) {
+				updateUser();
 				try {
 					const decodedToken = jwtDecode<DecodedToken>(
 						JSON.parse(authTokens).access,
@@ -120,6 +124,32 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		}
 	};
 
+	// Method to update the user data
+	const updateUser = async () => {
+		try {
+			const response = await fetchCurrentUser();
+			console.log("response", response);
+			const userData = {
+				user_id: response[0].id,
+				username: response[0].username,
+				flat_id: response[0].flat_share_id,
+				token_type: user?.token_type || "",
+				exp: user?.exp || 0,
+				iat: user?.iat || 0,
+				jti: user?.jti || ""
+			}
+			setUser(userData);
+			localStorage.setItem("user", JSON.stringify(userData));
+		} catch (error) {
+			console.error("error", error);
+		}
+	}
+
+	const refreshUserData = async () => {
+		await updateUser();
+		await fetchFlatshareData();
+	};
+
 	// Method to logout the user
 	const logoutUser = () => {
 		setUser(null);
@@ -134,6 +164,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		flatshare,
 		loginUser,
 		logoutUser,
+		refreshUserData,
 	};
 
 	return (

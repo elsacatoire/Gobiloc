@@ -19,7 +19,7 @@ import { NavMenu } from "./enums/NavMenuEnum";
 
 const LandingPage: React.FC = () => {
 	const router = useRouter();
-	const { user, isAuthenticated } = useAuth();
+	const { user, isAuthenticated, refreshUserData } = useAuth();
 	const [checklists, setChecklists] = useState<ChecklistType[]>([]);
 	const [flatmates, setFlatmates] = useState<string[]>([]);
 	const [inviteCode, setInviteCode] = useState<string | null>(null);
@@ -39,7 +39,6 @@ const LandingPage: React.FC = () => {
 
 					if (Array.isArray(checklists)) {
 						console.log(checklists);
-
 						setChecklists(checklists.slice(0, 2));
 					} else {
 						setError("Données reçues incorrectes pour les listes.");
@@ -58,9 +57,9 @@ const LandingPage: React.FC = () => {
 			getAllData();
 			didMountRef.current = true;
 		}
-	}, [isAuthenticated, router, user]);
+	}, [isAuthenticated, router, user?.flat_id]);
 
-	const CodeInviteSubmit = async (event: React.FormEvent) => {
+	const joinFlat = async (event: React.FormEvent) => {
 		event.preventDefault();
 		if (inviteCode) {
 			try {
@@ -69,6 +68,10 @@ const LandingPage: React.FC = () => {
 				};
 				await acceptFlatInvite(code);
 				console.log("Colocation rejointe avec succès.");
+
+				await refreshUserData();
+
+				router.push("/userProfile");
 			} catch (error) {
 				setError("Erreur lors de l'utilisation du code d'invitation.");
 				console.error(error);
@@ -100,11 +103,7 @@ const LandingPage: React.FC = () => {
 									value={inviteCode ?? ""}
 									onChange={(e) => setInviteCode(e.target.value)}
 								/>
-								<Button
-									className="w-full"
-									type="submit"
-									onClick={CodeInviteSubmit}
-								>
+								<Button className="w-full" type="submit" onClick={joinFlat}>
 									Rejoindre la colocation
 								</Button>
 							</form>

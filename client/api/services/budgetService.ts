@@ -1,5 +1,5 @@
-import apiFlatClient from "@/utils/apiFlat";
 import type { BudgetType } from "@/types/BudgetType";
+import { apiFlatClient } from "@/utils/apiFlat";
 
 export const fetchFlatBudget = async (): Promise<BudgetType> => {
     try {
