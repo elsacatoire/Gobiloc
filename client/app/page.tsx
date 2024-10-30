@@ -4,10 +4,11 @@ import { fetchChecklists } from "@/api/services/checklistService";
 import { fetchFlatshare } from "@/api/services/flatService";
 import type { ChecklistType } from "@/types/ChecklistType";
 import { useAuth } from "@/utils/auth/useAuth";
-import { Mail, Sun } from "lucide-react";
+import { Sun } from "lucide-react";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
+import FlatInviteCard from "./components/customsComponents/home/flatInviteCard";
 import { Header } from "./components/customsComponents/layout/Header";
 import { Button } from "./components/ui/button";
 import { Card, CardContent, CardHeader } from "./components/ui/card";
@@ -114,15 +115,7 @@ const LandingPage: React.FC = () => {
 					</CardContent>
 				</Card>
 
-				<Card>
-					<CardHeader className="font-bold">Gérer la coloc</CardHeader>
-					<CardContent className="flex flex-col gap-1">
-						<Button className="w-full">
-							<Mail className="min-w-10" />
-							Inviter à rejoindre
-						</Button>
-					</CardContent>
-				</Card>
+				<FlatInviteCard />
 			</div>
 		</div>
 	);
