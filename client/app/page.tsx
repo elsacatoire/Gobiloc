@@ -13,7 +13,8 @@ import { Header } from "./components/customsComponents/layout/Header";
 import { Button } from "./components/ui/button";
 import { Card, CardContent, CardHeader } from "./components/ui/card";
 import { NavMenu } from "./enums/NavMenuEnum";
-import Avatar from "./userProfile/components/Avatar";
+import FlatmatesCard from "./components/customsComponents/home/FlatmatesCard";
+
 
 const LandingPage: React.FC = () => {
 	const router = useRouter();
@@ -69,30 +70,8 @@ const LandingPage: React.FC = () => {
 			<p className="text-lg mb-6">Ceci est ton espace</p>
 
 			<div className="flex flex-col gap-4 w-full">
-				<Card className="w-full">
-					<CardHeader className="font-bold">Les colocs</CardHeader>
-					<CardContent className="px-0">
-						{flatmates.length > 0 ? (
-							<ul className="flex flex-col">
-								{flatmates.map((mate) => (
-									<li key={mate}>
-										<Button variant={"link"} className="flex gap-3">
-											<Avatar
-												src="/images/avatar5.jpg"
-												alt={`${mate}'s avatar`}
-												style="w-8"
-											/>
-											<p className="">{mate}</p>
-											<Sun className="min-w-10" />
-										</Button>
-									</li>
-								))}
-							</ul>
-						) : (
-							<p>Aucun colocataire trouvé.</p>
-						)}
-					</CardContent>
-				</Card>
+
+				<FlatmatesCard flatmates={flatmates} />
 
 				<Card className="w-full">
 					<CardHeader className="font-bold">Les nouvelles</CardHeader>
