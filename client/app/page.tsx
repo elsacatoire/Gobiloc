@@ -13,9 +13,6 @@ import FlatNewsCard from "./components/customsComponents/home/FlatNewsCard";
 import FlatmatesCard from "./components/customsComponents/home/FlatmatesCard";
 import JoinFlatCard from "./components/customsComponents/home/JoinFlatCard";
 import { Header } from "./components/customsComponents/layout/Header";
-import { Button } from "./components/ui/button";
-import { Card, CardContent, CardHeader } from "./components/ui/card";
-import { Input } from "./components/ui/input";
 import { NavMenu } from "./enums/NavMenuEnum";
 
 const LandingPage: React.FC = () => {

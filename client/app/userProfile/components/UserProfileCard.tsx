@@ -62,7 +62,7 @@ const UserProfileCard: React.FC<UserProfileProps> = ({
 					<div className="flex items-center">
 						<Atom className="min-w-10" />
 						<p className="text-teal-700 text-pretty">
-							Membre de Gobiloc depuis {joinedSince}
+							A rejoint Gobiloc {joinedSince}
 						</p>
 					</div>
 					<FlatshareDetails />
