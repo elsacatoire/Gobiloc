@@ -264,10 +264,19 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMwMzIwNTc0LCJpYXQiOjE3MzAzMTY5NzQsImp0aSI6IjE5Mjk5ZDM2ZmNlODQzMmVhMWIwYTJkMzY4NjIyOWFjIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJQYXRyaWNrIiwiZmxhdF9pZCI6MX0.6dTbq40o2m-EeO_Xp5VTCRdgEMtoG3J-KwCf4gxmjFc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMwMzk5MzA4LCJpYXQiOjE3MzAzOTU3MDgsImp0aSI6ImJmY2IzOGNiODg0OTQxMzZiZmUyMjJkYjNhNDIxMTlmIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJQYXRyaWNrIiwiZmxhdF9pZCI6MX0.a_PqrMvL4LERBCDn1vwBgKO7BkNbDjCE0TkbgAjtDT0",
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"flat_share_id\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": "localhost:8000/api/v1/user"
 					},
 					"response": []
