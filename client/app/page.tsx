@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import FlatInviteCard from "./components/customsComponents/home/FlatInviteCard";
 import FlatNewsCard from "./components/customsComponents/home/FlatNewsCard";
 import FlatmatesCard from "./components/customsComponents/home/FlatmatesCard";
+import JoinFlatCard from "./components/customsComponents/home/JoinFlatCard";
 import { Header } from "./components/customsComponents/layout/Header";
 import { Button } from "./components/ui/button";
 import { Card, CardContent, CardHeader } from "./components/ui/card";
@@ -89,26 +90,11 @@ const LandingPage: React.FC = () => {
 
 			<div className="flex flex-col gap-4 w-full">
 				{!user?.flat_id ? (
-					<Card className="w-full">
-						<CardHeader className="font-bold">Colocation</CardHeader>
-						<CardContent className="flex flex-col gap-4">
-							<p>
-								Tu ne fais pas encore partie d'une colocation. Pour en rejoindre
-								une, tu peux utiliser un code d'invitation.
-							</p>
-							<form className="flex flex-col gap-2">
-								<Input
-									type="text"
-									placeholder="Code d'invitation"
-									value={inviteCode ?? ""}
-									onChange={(e) => setInviteCode(e.target.value)}
-								/>
-								<Button className="w-full" type="submit" onClick={joinFlat}>
-									Rejoindre la colocation
-								</Button>
-							</form>
-						</CardContent>
-					</Card>
+					<JoinFlatCard
+						inviteCode={inviteCode}
+						setInviteCode={setInviteCode}
+						joinFlat={joinFlat}
+					/>
 				) : (
 					<>
 						<FlatmatesCard flatmates={flatmates} />
