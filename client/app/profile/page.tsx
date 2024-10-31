@@ -9,6 +9,7 @@ import type React from "react";
 import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import type { UserType } from "../../types/UserType";
 import { useAuth } from "../../utils/auth/useAuth";
+import JoinFlatCard from "../components/customsComponents/home/JoinFlatCard";
 import { Header } from "../components/customsComponents/layout/Header";
 import GobilocDescriptionLink from "../components/customsComponents/links/GobilocDescriptionLink";
 import UsefulLinks from "../components/customsComponents/links/UsefulLinks";
@@ -20,6 +21,7 @@ import UserProfileCard from "./components/UserProfileCard";
 const ProfilePage: React.FC = () => {
 	const [error, setError] = useState<string | null>(null);
 	const [isLoading, setLoading] = useState(true);
+	const [inviteCode, setInviteCode] = useState<string | null>(null);
 	const [currentUser, setCurrentUser] = useState<UserType | null>(null);
 	const { isAuthenticated, user } = useAuth();
 	const { logoutUser } = useContext(AuthContext);
@@ -74,6 +76,27 @@ const ProfilePage: React.FC = () => {
 					joinedDate={currentUser?.date_joined}
 				/>
 				<section className="flex flex-col gap-4 md:gap-8">
+					{!user?.flat_id ? (
+						<JoinFlatCard
+							inviteCode={inviteCode}
+							setInviteCode={setInviteCode}
+						/>
+					) : (
+						<Card>
+							<CardHeader className="font-bold">Gérer la coloc</CardHeader>
+							<CardContent className="flex flex-col md:flex-row justify-center gap-4 md:gap-8">
+								<Button className="w-full">
+									<Mail className="min-w-10" />
+									Inviter à rejoindre
+								</Button>
+								<Button variant={"destructive"}>
+									<CircleAlertIcon className="min-w-10" />
+									Partir de la coloc
+								</Button>
+							</CardContent>
+						</Card>
+					)}
+
 					<Card>
 						<CardHeader className="font-bold">Gérér mon compte</CardHeader>
 						<CardContent>
@@ -89,22 +112,6 @@ const ProfilePage: React.FC = () => {
 							</div>
 						</CardContent>
 					</Card>
-
-					{user?.flat_id && (
-						<Card>
-							<CardHeader className="font-bold">Gérer la coloc</CardHeader>
-							<CardContent className="flex flex-col md:flex-row justify-center gap-4 md:gap-8">
-								<Button className="w-full">
-									<Mail className="min-w-10" />
-									Inviter à rejoindre
-								</Button>
-								<Button variant={"destructive"}>
-									<CircleAlertIcon className="min-w-10" />
-									Partir de la coloc
-								</Button>
-							</CardContent>
-						</Card>
-					)}
 
 					<UsefulLinks />
 					<GobilocDescriptionLink />

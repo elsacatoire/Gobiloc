@@ -57,15 +57,17 @@ const ExpensePage: React.FC = () => {
 	return (
 		<div>
 			<Header title={NavMenu.EXPENSE} />
-			<p>{flatshare?.name}</p>
-			<div className="flex flex-col gap-2">
-				<ExpenseForm onAddExpense={addExpense} />
+			<div className="flex flex-col gap-3">
+				<p className="font-bold mx-auto">Colocation {flatshare?.name}</p>
+				<div className="flex flex-col gap-2">
+					<ExpenseForm onAddExpense={addExpense} />
 
-				<ExpenseList expenses={expenses} onDeleteExpense={deleteExpense} />
+					<ExpenseList expenses={expenses} onDeleteExpense={deleteExpense} />
 
-				<ExpenseSummary expenses={expenses} />
+					<ExpenseSummary expenses={expenses} />
 
-				<HousematesBalance />
+					<HousematesBalance />
+				</div>
 			</div>
 		</div>
 	);

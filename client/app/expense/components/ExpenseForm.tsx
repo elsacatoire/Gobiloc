@@ -15,7 +15,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onAddExpense }) => {
 	const [title, setTitle] = useState("");
 	const [amount, setAmount] = useState("");
 	const [date, setDate] = useState("");
-	const { user, isAuthenticated } = useAuth() as {
+	const { user } = useAuth() as {
 		user: { id: number } | null;
 		isAuthenticated: boolean;
 	};

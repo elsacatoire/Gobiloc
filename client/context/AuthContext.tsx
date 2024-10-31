@@ -118,7 +118,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 			fetchFlatshareData();
 
-			router.push("/");
+			if (decodedUser.flat_id) {
+				router.push("/");
+			} else {
+				router.push("/profile");
+			}
 		} else {
 			alert("Login failed");
 		}
