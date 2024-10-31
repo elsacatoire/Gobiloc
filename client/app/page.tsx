@@ -25,10 +25,12 @@ const LandingPage: React.FC = () => {
 	const [error, setError] = useState<string | null>(null);
 	const didMountRef = useRef(false);
 
+	if (!user?.flat_id) {
+		router.push("/userProfile");
+	}
+
 	useEffect(() => {
-		if (!isAuthenticated && user?.flat_id) {
-			router.push("/login");
-		} else {
+		if (isAuthenticated && user?.flat_id) {
 			if (didMountRef.current) return;
 			const getAllData = async () => {
 				try {
@@ -55,7 +57,7 @@ const LandingPage: React.FC = () => {
 			getAllData();
 			didMountRef.current = true;
 		}
-	}, [isAuthenticated, router, user?.flat_id]);
+	}, [isAuthenticated, user?.flat_id]);
 
 	const joinFlat = async (event: React.FormEvent) => {
 		event.preventDefault();
