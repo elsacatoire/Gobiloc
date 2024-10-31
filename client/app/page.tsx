@@ -26,7 +26,7 @@ const LandingPage: React.FC = () => {
 	const didMountRef = useRef(false);
 
 	if (!user?.flat_id) {
-		router.push("/userProfile");
+		router.push("/profile");
 	}
 
 	useEffect(() => {
@@ -71,7 +71,7 @@ const LandingPage: React.FC = () => {
 
 				await refreshUserData();
 
-				router.push("/userProfile");
+				router.push("/profile");
 			} catch (error) {
 				setError("Erreur lors de l'utilisation du code d'invitation.");
 				console.error(error);

@@ -1,4 +1,4 @@
-import Avatar from "@/app/userProfile/components/Avatar";
+import Avatar from "@/app/profile/components/Avatar";
 import { Sun } from "lucide-react";
 import React from "react";
 import { Button } from "../../ui/button";

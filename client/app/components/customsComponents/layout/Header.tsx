@@ -1,6 +1,6 @@
 "use client";
 
-import Avatar from "@/app/userProfile/components/Avatar";
+import Avatar from "@/app/profile/components/Avatar";
 import { useAuth } from "@/utils/auth/useAuth";
 import Link from "next/link";
 import * as React from "react";
@@ -27,7 +27,7 @@ export function Header({ title }: HeaderProps) {
 					{title}
 				</h1>
 				{isAuthenticated && (
-					<Link href="/userProfile">
+					<Link href="/profile">
 						<Avatar src={profileImgSrc} alt="Avatar" />
 					</Link>
 				)}
