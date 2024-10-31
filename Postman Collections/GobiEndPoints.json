@@ -249,6 +249,28 @@
 						"url": "localhost:8000/api/v1/user"
 					},
 					"response": []
+				},
+				{
+					"name": "localhost:8000/api/v1/user Copy",
+					"id": "d8ea9773-dbd9-4b15-813f-da7c4578e4d7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMwMzIwNTc0LCJpYXQiOjE3MzAzMTY5NzQsImp0aSI6IjE5Mjk5ZDM2ZmNlODQzMmVhMWIwYTJkMzY4NjIyOWFjIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJQYXRyaWNrIiwiZmxhdF9pZCI6MX0.6dTbq40o2m-EeO_Xp5VTCRdgEMtoG3J-KwCf4gxmjFc",
+								"type": "text"
+							}
+						],
+						"url": "localhost:8000/api/v1/user"
+					},
+					"response": []
 				}
 			],
 			"id": "4b2c03ff-ca66-46c6-88d4-e8e6a0b9007d",
