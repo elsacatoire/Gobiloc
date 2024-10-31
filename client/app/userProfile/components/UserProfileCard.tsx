@@ -4,6 +4,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/app/components/ui/card";
+import { useAuth } from "@/utils/auth/useAuth";
 import { formatDistanceToNow } from "date-fns";
 import { fr } from "date-fns/locale";
 import { AtSign, Atom } from "lucide-react";
@@ -26,6 +27,8 @@ const UserProfileCard: React.FC<UserProfileProps> = ({
 	email: mail,
 	joinedDate,
 }) => {
+	const { user } = useAuth();
+
 	const joinedSince = joinedDate
 		? formatDistanceToNow(joinedDate, { addSuffix: true, locale: fr })
 		: "";
@@ -65,7 +68,7 @@ const UserProfileCard: React.FC<UserProfileProps> = ({
 							A rejoint Gobiloc {joinedSince}
 						</p>
 					</div>
-					<FlatshareDetails />
+					{user?.flat_id && <FlatshareDetails />}
 				</CardContent>
 			</Card>
 		</div>

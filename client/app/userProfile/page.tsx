@@ -21,7 +21,7 @@ const ProfilePage: React.FC = () => {
 	const [error, setError] = useState<string | null>(null);
 	const [isLoading, setLoading] = useState(true);
 	const [currentUser, setCurrentUser] = useState<UserType | null>(null);
-	const { user, isAuthenticated } = useAuth();
+	const { isAuthenticated, user } = useAuth();
 	const { logoutUser } = useContext(AuthContext);
 	const router = useRouter();
 
@@ -89,19 +89,23 @@ const ProfilePage: React.FC = () => {
 							</div>
 						</CardContent>
 					</Card>
-					<Card>
-						<CardHeader className="font-bold">Gérer la coloc</CardHeader>
-						<CardContent className="flex flex-col md:flex-row justify-center gap-4 md:gap-8">
-							<Button className="w-full">
-								<Mail className="min-w-10" />
-								Inviter à rejoindre
-							</Button>
-							<Button variant={"destructive"}>
-								<CircleAlertIcon className="min-w-10" />
-								Partir de la coloc
-							</Button>
-						</CardContent>
-					</Card>
+
+					{user?.flat_id && (
+						<Card>
+							<CardHeader className="font-bold">Gérer la coloc</CardHeader>
+							<CardContent className="flex flex-col md:flex-row justify-center gap-4 md:gap-8">
+								<Button className="w-full">
+									<Mail className="min-w-10" />
+									Inviter à rejoindre
+								</Button>
+								<Button variant={"destructive"}>
+									<CircleAlertIcon className="min-w-10" />
+									Partir de la coloc
+								</Button>
+							</CardContent>
+						</Card>
+					)}
+
 					<UsefulLinks />
 					<GobilocDescriptionLink />
 					<Link

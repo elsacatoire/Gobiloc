@@ -78,7 +78,7 @@ const LandingPage: React.FC = () => {
 	};
 
 	return (
-		<div className="flex flex-col items-center justify-center h-full my-20">
+		<div className="flex flex-col items-center justify-center h-full">
 			<Header title={NavMenu.HOME} />
 			<h1 className="text-4xl font-bold">
 				Hello <span>{user?.username}</span>
