@@ -6,11 +6,11 @@ import type React from "react";
 import { Button } from "../../ui/button";
 import { Card, CardContent, CardHeader } from "../../ui/card";
 
-interface NewsProps {
+type NewsProps = {
 	checklists: ChecklistType[];
 	isLoading: boolean;
 	error: string | null;
-}
+};
 
 const FlatNewsCard: React.FC<NewsProps> = ({
 	checklists,

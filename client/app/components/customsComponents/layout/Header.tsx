@@ -6,9 +6,9 @@ import Link from "next/link";
 import * as React from "react";
 import LogoLetter from "../design/LogoLetter";
 
-interface HeaderProps {
+type HeaderProps = {
 	title: string;
-}
+};
 
 export function Header({ title }: HeaderProps) {
 	const profileImgSrc = "/images/avatar3.jpg";

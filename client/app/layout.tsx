@@ -9,9 +9,9 @@ import { NavigationBar } from "./components/customsComponents/layout/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
-interface RootLayoutProps {
+type RootLayoutProps = {
 	children: React.ReactNode;
-}
+};
 
 const RootLayout: FC<RootLayoutProps> = ({ children }) => {
 	return (

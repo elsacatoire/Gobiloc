@@ -13,10 +13,10 @@ import type React from "react";
 import { useState } from "react";
 import Avatar from "./Avatar";
 
-interface UserProfileProps {
+type UserProfileProps = {
 	initialName?: string;
 	initialAvatar?: string;
-}
+};
 
 const EditUserProfile: React.FC<UserProfileProps> = ({
 	initialName,

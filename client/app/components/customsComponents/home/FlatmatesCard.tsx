@@ -4,9 +4,9 @@ import React from "react";
 import { Button } from "../../ui/button";
 import { Card, CardContent, CardHeader } from "../../ui/card";
 
-interface FlatmatesCardProps {
+type FlatmatesCardProps = {
 	flatmates: string[];
-}
+};
 
 const FlatmatesCard = ({ flatmates }: FlatmatesCardProps) => {
 	return (

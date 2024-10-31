@@ -1,6 +1,7 @@
 from django.db.models import CASCADE, DecimalField, ForeignKey, Model, TextField, DateTimeField
 from api.models.user_model import User
 
+
 class Expense(Model):
     budget = ForeignKey("Budget", related_name="expenses", on_delete=CASCADE)
     description = TextField()
