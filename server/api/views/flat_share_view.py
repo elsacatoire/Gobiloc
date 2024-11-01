@@ -1,5 +1,6 @@
 # api/views/flat_share_view.py
 # Controller
+from rest_framework.decorators import action
 from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.response import Response
@@ -7,6 +8,7 @@ from rest_framework import status
 
 from api.models.flat_share_model import FlatShare
 from api.serializers.flat_share_serializer import FlatSerializer
+from api.serializers.user_expense_serializer import UserExpensesSerializer
 
 
 class FlatShareViewSet(
@@ -51,3 +53,11 @@ class FlatShareViewSet(
             )
 
         return super().perform_update(serializer)
+
+    @action(detail=True, methods=['get'])
+    def users_with_expenses(self, request, pk=None):
+        flat_share = self.get_object()
+        users = flat_share.users.all()
+
+        user_expenses = UserExpensesSerializer(users, many=True).data
+        return Response(user_expenses, status=status.HTTP_200_OK)
