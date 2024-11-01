@@ -34,7 +34,6 @@ const ExpensePage: React.FC = () => {
 		const getExpenses = async () => {
 			try {
 				const data = await fetchFlatBudget();
-				console.log("data from budget fetch", data);
 				setBudget(data);
 				setExpenses(data.expenses);
 				setLoading(false);

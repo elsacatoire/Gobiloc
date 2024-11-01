@@ -13,10 +13,14 @@ type ExpenseListProps = {
 	onDeleteExpense: (date: number) => void;
 };
 
-const formatDate = (date: Date) => {
-	return new Date(date).getFullYear() === new Date().getFullYear()
-		? date.toLocaleDateString(undefined, { day: "2-digit", month: "2-digit" })
-		: date.toLocaleDateString();
+const formatDate = (date: Date | string | number) => {
+	const parsedDate = new Date(date);
+	return parsedDate.getFullYear() === new Date().getFullYear()
+		? parsedDate.toLocaleDateString(undefined, {
+				day: "2-digit",
+				month: "2-digit",
+			})
+		: parsedDate.toLocaleDateString();
 };
 
 const ExpenseList: React.FC<ExpenseListProps> = ({ expenses }) => {
@@ -40,9 +44,9 @@ const ExpenseList: React.FC<ExpenseListProps> = ({ expenses }) => {
 									</TableCell>
 
 									<TableCell className="w-1/3">
-										{/* 	<span className="text-slate-700">
-											{formatDate(expense.date)}
-										</span> */}
+										<span className="text-slate-700">
+											{formatDate(new Date(expense.date))}
+										</span>
 									</TableCell>
 									<TableCell className="w-1/3 italic">
 										{expense.username}

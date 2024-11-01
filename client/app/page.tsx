@@ -35,7 +35,6 @@ const LandingPage: React.FC = () => {
 					const flatshareData = await fetchFlatshare();
 
 					if (Array.isArray(checklists)) {
-						console.log(checklists);
 						setChecklists(checklists.slice(0, 2));
 					} else {
 						setError("Données reçues incorrectes pour les listes.");
@@ -43,6 +42,10 @@ const LandingPage: React.FC = () => {
 
 					if (flatshareData?.users) {
 						setFlatmates(flatshareData.users.map((user) => user.username));
+						const flatmates = flatshareData.users.map(
+							({ user_id, username }) => ({ user_id, username }),
+						);
+						localStorage.setItem("flatmates", JSON.stringify(flatmates));
 					} else {
 						setError("Données reçues incorrectes pour les colocataires.");
 					}
