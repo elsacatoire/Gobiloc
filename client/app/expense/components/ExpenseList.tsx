@@ -25,7 +25,6 @@ const formatDate = (date: Date | string | number) => {
 
 const ExpenseList: React.FC<ExpenseListProps> = ({ expenses }) => {
 	console.log("expenses from ExpenseList", expenses);
-
 	return (
 		<Card>
 			<CardContent className="p-3">
@@ -39,19 +38,20 @@ const ExpenseList: React.FC<ExpenseListProps> = ({ expenses }) => {
 									key={expense.description}
 									className="w-full text-xs md:text-base"
 								>
-									<TableCell className="font-semibold w-1/3">
+									<TableCell className="font-semibold">
+										<div className="flex items-center gap-2">
 										{expense.description}
+										</div>
 									</TableCell>
-
-									<TableCell className="w-1/3">
+									<TableCell>
 										<span className="text-slate-700">
 											{formatDate(new Date(expense.date))}
 										</span>
 									</TableCell>
-									<TableCell className="w-1/3 italic">
+									<TableCell className="italic">
 										{expense.username}
 									</TableCell>
-									<TableCell className="w-1/3">{expense.amount}€</TableCell>
+									<TableCell>{expense.amount}€</TableCell>
 								</TableRow>
 							))}
 						</TableBody>
