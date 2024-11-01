@@ -18,10 +18,14 @@ const menuItems = [
 ];
 
 export function NavigationBar() {
-	const { isAuthenticated } = useAuth();
+	const { isAuthenticated, user } = useAuth();
 
 	if (!isAuthenticated) {
 		return <nav />;
+	}
+
+	if (!user?.flat_id) {
+		return <nav className=" bg-gray-800 h-4" />;
 	}
 
 	return (

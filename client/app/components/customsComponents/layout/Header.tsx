@@ -1,18 +1,18 @@
 "use client";
 
-import Avatar from "@/app/userProfile/components/Avatar";
+import Avatar from "@/app/profile/components/Avatar";
 import { useAuth } from "@/utils/auth/useAuth";
 import Link from "next/link";
 import * as React from "react";
 import LogoLetter from "../design/LogoLetter";
 
-interface HeaderProps {
+type HeaderProps = {
 	title: string;
-}
+};
 
 export function Header({ title }: HeaderProps) {
 	const profileImgSrc = "/images/avatar3.jpg";
-	const { user, isAuthenticated } = useAuth();
+	const { isAuthenticated } = useAuth();
 
 	return (
 		<header className="fixed top-0 left-0 w-full shadow-md z-50">
@@ -27,7 +27,7 @@ export function Header({ title }: HeaderProps) {
 					{title}
 				</h1>
 				{isAuthenticated && (
-					<Link href="/userProfile">
+					<Link href="/profile">
 						<Avatar src={profileImgSrc} alt="Avatar" />
 					</Link>
 				)}

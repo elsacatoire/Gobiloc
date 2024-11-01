@@ -1,5 +1,5 @@
 import type { ChecklistDTO, ChecklistType } from "@/types/ChecklistType";
-import apiFlatClient from "@/utils/apiFlat";
+import { apiFlatClient } from "@/utils/apiFlat";
 
 export const fetchChecklist = async (idList: number): Promise<ChecklistType> => {
 	try {

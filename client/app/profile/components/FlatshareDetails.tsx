@@ -1,5 +1,6 @@
 import { fetchFlatshare } from "@/api/services/flatService";
-import type { FlatType } from "@/types/flatType";
+import type { FlatType } from "@/types/FlatType";
+import { FishSymbol, Home } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const FlatshareDetails: React.FC = () => {
@@ -25,17 +26,18 @@ const FlatshareDetails: React.FC = () => {
 
 	return (
 		<div>
-			<h1>Flatshare Information</h1>
 			{loading && <p>Loading...</p>}
 			{error && <p>Error: {error}</p>}
 			{flatshare && (
-				<div>
-					<p>Address: {flatshare.name}</p>
-					<p>City: {flatshare.description}</p>
-					<p>Users: </p>
-					{flatshare.users.map((user) => (
-						<p key={user.id}>{user.username}</p>
-					))}
+				<div className="flex flex-col gap-3">
+					<div className="flex  items-center">
+						<Home className="min-w-10" />
+						<p>Coloc : {flatshare.name}</p>
+					</div>
+					<div className="flex  items-center">
+						<FishSymbol className="min-w-10" />
+						<p>Quelques mots : {flatshare.description}</p>
+					</div>
 				</div>
 			)}
 		</div>

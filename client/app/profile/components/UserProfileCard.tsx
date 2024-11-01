@@ -1,16 +1,17 @@
-import type React from "react";
-
 import {
 	Card,
 	CardContent,
 	CardHeader,
 	CardTitle,
 } from "@/app/components/ui/card";
+import { useAuth } from "@/utils/auth/useAuth";
 import { formatDistanceToNow } from "date-fns";
 import { fr } from "date-fns/locale";
-import { AtSign, Atom, FishSymbol } from "lucide-react";
+import { AtSign, Atom } from "lucide-react";
+import type React from "react";
 import Avatar from "./Avatar";
 import EditUserProfile from "./EditProfile";
+import FlatshareDetails from "./FlatshareDetails";
 
 type UserProfileProps = {
 	username?: string;
@@ -23,10 +24,11 @@ type UserProfileProps = {
 const UserProfileCard: React.FC<UserProfileProps> = ({
 	username,
 	avatarUrl,
-	colocName,
 	email: mail,
 	joinedDate,
 }) => {
+	const { user } = useAuth();
+
 	const joinedSince = joinedDate
 		? formatDistanceToNow(joinedDate, { addSuffix: true, locale: fr })
 		: "";
@@ -56,10 +58,6 @@ const UserProfileCard: React.FC<UserProfileProps> = ({
 					</div>
 				</CardHeader>
 				<CardContent className="flex flex-col gap-3">
-					<div className="flex  items-center">
-						<FishSymbol className="min-w-10" />
-						<p className="text-lg font-medium">Coloc : {colocName}</p>
-					</div>
 					<div className="flex items-center">
 						<AtSign className="min-w-10" />
 						<p>E-mail : {mail}</p>
@@ -67,9 +65,10 @@ const UserProfileCard: React.FC<UserProfileProps> = ({
 					<div className="flex items-center">
 						<Atom className="min-w-10" />
 						<p className="text-teal-700 text-pretty">
-							Membre de Gobiloc depuis {joinedSince}
+							A rejoint Gobiloc {joinedSince}
 						</p>
 					</div>
+					{user?.flat_id && <FlatshareDetails />}
 				</CardContent>
 			</Card>
 		</div>

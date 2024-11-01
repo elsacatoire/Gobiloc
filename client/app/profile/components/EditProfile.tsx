@@ -1,10 +1,10 @@
 "use client";
 
 import { Button } from "@/app/components/ui/button";
-import { Card } from "@/app/components/ui/card";
 import {
 	Dialog,
 	DialogContent,
+	DialogTitle,
 	DialogTrigger,
 } from "@/app/components/ui/dialog";
 import { Input } from "@/app/components/ui/input";
@@ -13,10 +13,10 @@ import type React from "react";
 import { useState } from "react";
 import Avatar from "./Avatar";
 
-interface UserProfileProps {
+type UserProfileProps = {
 	initialName?: string;
 	initialAvatar?: string;
-}
+};
 
 const EditUserProfile: React.FC<UserProfileProps> = ({
 	initialName,
@@ -52,56 +52,52 @@ const EditUserProfile: React.FC<UserProfileProps> = ({
 				<Pencil color="teal" className="h-7 w-7" />
 			</DialogTrigger>
 			<DialogContent>
-				<Card className="flex flex-col gap-6 max-w-lg mx-auto mt-3 p-2 bg-white rounded-lg shadow-md">
-					<h2 className="flex justify-center text-2xl font-semibold">
-						Modifier le profil
-					</h2>
-					<form onSubmit={handleSubmit}>
-						<div className="flex flex-col gap-4">
-							<div className="flex flex-col gap-5">
-								<div className="flex flex-col gap-4 items-center">
-									<Avatar
-										src={avatar || ""}
-										alt="avatar de l'utilisateur"
-										style="w-24"
-									/>
-									<div className="flex flex-col gap-2">
-										<label
-											htmlFor="name"
-											className="block text-sm font-medium text-gray-700"
-										>
-											Modifier l'avatar
-										</label>
-										<Input
-											type="file"
-											accept="image/*"
-											onChange={handleAvatarChange}
-										/>
-									</div>
-								</div>
+				<DialogTitle>Modifier le profil</DialogTitle>
+				<form onSubmit={handleSubmit}>
+					<div className="flex flex-col gap-4">
+						<div className="flex flex-col gap-5">
+							<div className="flex flex-col gap-4 items-center">
+								<Avatar
+									src={avatar || ""}
+									alt="avatar de l'utilisateur"
+									style="w-24"
+								/>
 								<div className="flex flex-col gap-2">
 									<label
 										htmlFor="name"
 										className="block text-sm font-medium text-gray-700"
 									>
-										Pseudo
+										Modifier l'avatar
 									</label>
 									<Input
-										type="text"
-										id="name"
-										value={name}
-										onChange={handleNameChange}
+										type="file"
+										accept="image/*"
+										onChange={handleAvatarChange}
 									/>
 								</div>
 							</div>
-							<div className="flex justify-end py-3">
-								<Button type="submit" variant="secondary">
-									Enregistrer
-								</Button>
+							<div className="flex flex-col gap-2">
+								<label
+									htmlFor="name"
+									className="block text-sm font-medium text-gray-700"
+								>
+									Pseudo
+								</label>
+								<Input
+									type="text"
+									id="name"
+									value={name}
+									onChange={handleNameChange}
+								/>
 							</div>
 						</div>
-					</form>
-				</Card>
+						<div className="flex justify-end py-3">
+							<Button type="submit" variant="secondary">
+								Enregistrer
+							</Button>
+						</div>
+					</div>
+				</form>
 			</DialogContent>
 		</Dialog>
 	);

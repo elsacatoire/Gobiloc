@@ -1,10 +1,10 @@
 import type React from "react";
 
-interface AvatarProps {
+type AvatarProps = {
 	src: string;
 	style?: string;
 	alt: string;
-}
+};
 
 const Avatar: React.FC<AvatarProps> = ({ src, alt, style = "w-10 h-10" }) => {
 	return (
