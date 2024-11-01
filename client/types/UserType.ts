@@ -3,5 +3,5 @@ export type UserType = {
 	email: string;
 	date_joined: string;
 	flat_share_id: number | null;
-	id: number;
+	user_id: number;
 };
