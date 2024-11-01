@@ -12,7 +12,10 @@ const ExpenseSummary: React.FC<ExpenseSummaryProps> = ({ expenses }) => {
 		return;
 	}
 
-	const total = expenses.reduce((acc, expense) => acc + expense.amount, 0);
+	const total = expenses.reduce(
+		(acc, expense) => acc + Number.parseFloat(expense.amount),
+		0,
+	);
 	console.log("total from ExpenseSummary", total);
 
 	return (

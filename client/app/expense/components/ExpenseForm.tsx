@@ -34,7 +34,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 
-		if (curentUserId) {
+		if (curentUserId && amount) {
 			const newExpense: ExpenseDTO = {
 				description: title,
 				amount: Number.parseFloat(amount),
