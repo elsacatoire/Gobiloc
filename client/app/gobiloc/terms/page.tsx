@@ -11,9 +11,9 @@ const TermsAndConditions = () => {
 				</h1>
 
 				<p className="mb-4">
-					Les présentes conditions générales d’utilisation (les "Conditions")
-					régissent votre utilisation de l'application Gobiloc et de tous ses
-					services.
+					Les présentes conditions générales d&#39;utilisation (les
+					"Conditions") régissent votre utilisation de l'application Gobiloc et
+					de tous ses services.
 				</p>
 
 				<h2 className="text-lg md:text-xl font-semibold mb-2">

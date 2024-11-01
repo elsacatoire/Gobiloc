@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/app/components/ui/button";
-import { Card } from "@/app/components/ui/card";
 import {
 	Dialog,
 	DialogContent,

@@ -12,7 +12,7 @@ type HeaderProps = {
 
 export function Header({ title }: HeaderProps) {
 	const profileImgSrc = "/images/avatar3.jpg";
-	const { user, isAuthenticated } = useAuth();
+	const { isAuthenticated } = useAuth();
 
 	return (
 		<header className="fixed top-0 left-0 w-full shadow-md z-50">

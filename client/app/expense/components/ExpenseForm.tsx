@@ -1,7 +1,7 @@
 import { Button } from "@/app/components/ui/button";
 import { Card, CardContent } from "@/app/components/ui/card";
 import { Input } from "@/app/components/ui/input";
-import type { ExpenseDTO, ExpenseType } from "@/types/ExpenseType";
+import type { ExpenseDTO } from "@/types/ExpenseType";
 import { useAuth } from "@/utils/auth/useAuth";
 import { Plus } from "lucide-react";
 import type React from "react";

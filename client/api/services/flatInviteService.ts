@@ -1,5 +1,5 @@
 import type { FlatInviteType } from "@/types/FlatType";
-import { InviteCodeDTO } from "@/types/InviteCodeType";
+import type { InviteCodeDTO } from "@/types/InviteCodeType";
 import apiClient from "@/utils/api";
 import { apiFlatClient } from "@/utils/apiFlat";
 
