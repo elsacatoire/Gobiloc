@@ -289,7 +289,7 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI1MTgxMTk2LCJpYXQiOjE3MjUxNzc1OTYsImp0aSI6ImYwMDk0YTdjZjM0YjRiOTBhODFiMTYyMzgyODBmZDc3IiwidXNlcl9pZCI6MX0.1ZvduyQkmGziWMuqOgiS1wcFnJQZ7lRAQncfG5pURv0"
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMwNDUzMzU5LCJpYXQiOjE3MzA0NTMyNDYsImp0aSI6Ijg2ZDcxNDliNWUwMDRiOTBiODE2OTcxZTk2YWMwNDAxIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJQYXRyaWNrIiwiZmxhdF9pZCI6MX0.IaPB6mTtw7Xu0qOhb-z3fkDbDx_ubtCZBdy2PDemgro"
 							}
 						},
 						"method": "GET",
