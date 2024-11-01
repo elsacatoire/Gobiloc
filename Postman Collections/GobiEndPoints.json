@@ -181,14 +181,14 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"email\": {{login_usermail}},\r\n\t\"password\": {{login_password}}\r\n}",
+							"raw": "{\r\n\t\"refresh\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODIyOTI0NiwiaWF0IjoxNzMwNDUzMjQ2LCJqdGkiOiI5MTgwYmRiY2VkYjQ0MWZmYjFmODk2ZGJkYzkyOTA2ZiIsInVzZXJfaWQiOjEsInVzZXJuYW1lIjoiUGF0cmljayIsImZsYXRfaWQiOjF9.TWzfn-C-16K0mKLJ6DYbNCgw4F908cEN_oDGzOr6BbM\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "localhost:8000/api/v1/token/"
+						"url": "localhost:8000/api/v1/token/refresh/"
 					},
 					"response": []
 				},
