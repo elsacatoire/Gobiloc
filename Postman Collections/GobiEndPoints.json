@@ -97,6 +97,102 @@
 					"response": []
 				},
 				{
+					"name": "Refresh Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a9ae487f-a2a0-428e-89bf-0082bfe1b455",
+								"exec": [
+									"// GET TOKEN\r",
+									"// Read the response\r",
+									"let responseData = pm.response.json();\r",
+									"\r",
+									"// Create the variable\r",
+									"pm.collectionVariables.set(\"bearerToken\", responseData.access);\r",
+									"\r",
+									"\r",
+									"// TEST LOGIN\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has the required fields - refresh and access\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData).to.have.property('refresh');\r",
+									"  pm.expect(responseData).to.have.property('access');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Refresh and access are non-empty strings\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData.refresh).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Refresh should not be empty\");\r",
+									"  pm.expect(responseData.access).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Access should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "62a7c0f0-bb5b-4415-b835-6a90fd8fb805",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "0a910a14-41d2-4428-b46b-b3ced0075b95",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODIyOTA3MSwiaWF0IjoxNzMwNDUzMDcxLCJqdGkiOiI5ZTVhMDIwYTdjZGI0NDNlYWEzZGZlYjQ5ZTVlNWE3ZCIsInVzZXJfaWQiOjEsInVzZXJuYW1lIjoiUGF0cmljayIsImZsYXRfaWQiOjF9.xecBQDjdz1-jI-sERRbRpDvRWxbcgEH7f5Hb4jzCCeU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"email\": {{login_usermail}},\r\n\t\"password\": {{login_password}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/v1/token/"
+					},
+					"response": []
+				},
+				{
 					"name": "Logout user",
 					"id": "fdc2a028-e167-40d2-b56e-cc4a6bd55e38",
 					"protocolProfileBehavior": {
