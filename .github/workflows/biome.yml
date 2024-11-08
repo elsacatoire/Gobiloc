@@ -9,6 +9,8 @@ on:
     branches: [ "main" ]
     paths:
       - "client/**"
+      - ".github/**"
+  workflow_dispatch: 
 
 jobs:
   biome:
