@@ -11,7 +11,7 @@ import { NavMenu } from "../enums/NavMenuEnum";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
 import ExpenseSummary from "./components/ExpenseSummary";
-import HousematesBalance from "./components/HousemateBalance";
+import FlatmatesBalance from "./components/FlatmatesBalance";
 
 const ExpensePage: React.FC = () => {
 	const [expenses, setExpenses] = useState<ExpenseType[]>([]);
@@ -56,21 +56,28 @@ const ExpensePage: React.FC = () => {
 	if (error) return <p>Error: {error}</p>;
 
 	return (
-		<div>
+		<div className="max-w-5xl m-auto">
 			<Header title={NavMenu.EXPENSE} />
-			<div className="flex flex-col gap-3">
-				<p className="font-bold mx-auto">Colocation {flatshare?.name}</p>
-				<div className="flex flex-col gap-2">
-					<ExpenseForm
-						onExpenseAdded={onExpenseAdded}
-						budgetId={budget?.id ?? 0}
-					/>
+			<div className="flex flex-col">
+				<div className="flex flex-col md:flex-row gap-3 md:gap-7">
+					<div className="flex flex-col gap-3 min-w-fit">
+						<ExpenseForm
+							onExpenseAdded={onExpenseAdded}
+							budgetId={budget?.id ?? 0}
+						/>
+						<div className="md:hidden">
+							<ExpenseList
+								expenses={expenses}
+								onDeleteExpense={deleteExpense}
+							/>
+						</div>
 
-					<ExpenseList expenses={expenses} onDeleteExpense={deleteExpense} />
-
-					<ExpenseSummary expenses={expenses} />
-
-					<HousematesBalance expenses={expenses} />
+						<ExpenseSummary expenses={expenses} />
+						<FlatmatesBalance expenses={expenses} />
+					</div>
+					<div className="hidden md:block w-full">
+						<ExpenseList expenses={expenses} onDeleteExpense={deleteExpense} />
+					</div>
 				</div>
 			</div>
 		</div>

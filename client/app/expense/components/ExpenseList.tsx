@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/app/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/app/components/ui/card";
 import {
 	Table,
 	TableBody,
@@ -24,10 +24,10 @@ const formatDate = (date: Date | string | number) => {
 };
 
 const ExpenseList: React.FC<ExpenseListProps> = ({ expenses }) => {
-	console.log("expenses from ExpenseList", expenses);
 	return (
 		<Card>
 			<CardContent className="p-3">
+				<h1 className="font-bold">{"Détail des dépenses"}</h1>
 				{expenses.length < 1 ? (
 					<p>Il n'y a pas encore de dépense</p>
 				) : (
