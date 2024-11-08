@@ -861,7 +861,7 @@
 					"response": []
 				},
 				{
-					"name": "Get expense for a budget (unused) Copy",
+					"name": "Get flatmates with total",
 					"id": "934b11e0-9b63-4f57-bbe5-a165adbfd600",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
