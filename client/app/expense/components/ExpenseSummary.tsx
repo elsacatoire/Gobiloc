@@ -7,7 +7,6 @@ type ExpenseSummaryProps = {
 };
 
 const ExpenseSummary: React.FC<ExpenseSummaryProps> = ({ expenses }) => {
-	console.log("expenses from ExpenseSummary", expenses);
 	if (expenses.length === 0) {
 		return;
 	}
@@ -16,7 +15,6 @@ const ExpenseSummary: React.FC<ExpenseSummaryProps> = ({ expenses }) => {
 		(acc, expense) => acc + Number.parseFloat(expense.amount),
 		0,
 	);
-	console.log("total from ExpenseSummary", total);
 
 	return (
 		<Card>

@@ -13,7 +13,6 @@ const FlatshareDetails: React.FC = () => {
 			try {
 				const data = await fetchFlatshare();
 				setFlatshare(data);
-				console.log("data from flatshare fetch", data);
 			} catch (err) {
 				console.error(err);
 				setError("Failed to fetch flatshare data.");

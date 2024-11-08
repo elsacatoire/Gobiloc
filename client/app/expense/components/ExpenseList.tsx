@@ -40,7 +40,7 @@ const ExpenseList: React.FC<ExpenseListProps> = ({ expenses }) => {
 								>
 									<TableCell className="font-semibold">
 										<div className="flex items-center gap-2">
-										{expense.description}
+											{expense.description}
 										</div>
 									</TableCell>
 									<TableCell>
@@ -48,9 +48,7 @@ const ExpenseList: React.FC<ExpenseListProps> = ({ expenses }) => {
 											{formatDate(new Date(expense.date))}
 										</span>
 									</TableCell>
-									<TableCell className="italic">
-										{expense.username}
-									</TableCell>
+									<TableCell className="italic">{expense.username}</TableCell>
 									<TableCell>{expense.amount}€</TableCell>
 								</TableRow>
 							))}

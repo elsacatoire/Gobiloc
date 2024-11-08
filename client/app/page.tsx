@@ -43,7 +43,11 @@ const LandingPage: React.FC = () => {
 					if (flatshareData?.users) {
 						setFlatmates(flatshareData.users.map((user) => user.username));
 						const flatmates = flatshareData.users.map(
-							({ user_id, username }) => ({ user_id, username }),
+							({ user_id, username, ...rest }) => ({
+								user_id,
+								username,
+								...rest,
+							}),
 						);
 						localStorage.setItem("flatmates", JSON.stringify(flatmates));
 					} else {

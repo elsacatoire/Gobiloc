@@ -1,32 +1,38 @@
-import React, { useState, useEffect } from "react";
+import { getFlatmatesBalance } from "@/api/services/budgetService";
+import type { FlatmateBalanceType } from "@/types/BudgetType";
+import type { ExpenseType } from "@/types/ExpenseType";
+import type React from "react";
+import { useEffect, useState } from "react";
 
-type Coloc = {
-	id: string;
-	name: string;
-	paid: number;
+type ExpenseSummaryProps = {
+	expenses: ExpenseType[];
 };
 
-type HousematesBalanceProps = {
-	housemates: Coloc[];
-	totalPaid: number;
-	balance: number;
-};
+const HousematesBalance: React.FC<ExpenseSummaryProps> = ({ expenses }) => {
+	const [balance, setBalance] = useState<FlatmateBalanceType[]>([]);
+	const [totalBudgetExpense, setTotalBudgetExpense] = useState<number>(0);
+	const [average, setAverage] = useState<number>(0);
 
-export function HousematesBalance() {
-	const [housemates, setHousemates] = useState<Coloc[]>([]);
-	const [totalPaid, setTotalPaid] = useState<number>(0);
-	const [balance, setBalance] = useState<number>(0);
-
-	// Mock data
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		setHousemates([
-			{ id: "1", name: "Alice", paid: 100 },
-			{ id: "2", name: "Bob", paid: 150 },
-			{ id: "3", name: "Charlie", paid: 50 },
-		]);
-		setTotalPaid(300);
-		setBalance(100);
-	}, []);
+		const fetchFlatmatesBalance = async () => {
+			try {
+				const response = await getFlatmatesBalance();
+				setBalance(response);
+
+				const totalPaid = response.reduce(
+					(acc, flatmate) => acc + flatmate.total_expenses,
+					0,
+				);
+				setTotalBudgetExpense(totalPaid);
+
+				setAverage(totalPaid / response.length);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		fetchFlatmatesBalance();
+	}, [expenses]); // Used to update the balance when a new expense is added
 
 	return (
 		<div className="p-4 bg-white rounded shadow">
@@ -40,12 +46,14 @@ export function HousematesBalance() {
 					</tr>
 				</thead>
 				<tbody>
-					{housemates.map((coloc) => (
-						<tr key={coloc.id}>
-							<td className="border px-4 py-2">{coloc.name}</td>
-							<td className="border px-4 py-2">{coloc.paid} €</td>
+					{balance.map((flatmateBalance) => (
+						<tr key={flatmateBalance.id}>
+							<td className="border px-4 py-2">{flatmateBalance.username}</td>
 							<td className="border px-4 py-2">
-								{(coloc.paid - balance).toFixed(2)} €
+								{flatmateBalance.total_expenses} €
+							</td>
+							<td className="border px-4 py-2">
+								{(flatmateBalance.total_expenses - average).toFixed(2)} €
 							</td>
 						</tr>
 					))}
@@ -53,11 +61,13 @@ export function HousematesBalance() {
 				<tfoot>
 					<tr>
 						<td className="px-4 py-2 font-bold">Total</td>
-						<td className="px-4 py-2 font-bold">{totalPaid} €</td>
-						<td className="px-4 py-2 font-bold">Moy: {balance.toFixed(1)} €</td>
+						<td className="px-4 py-2 font-bold">{totalBudgetExpense} €</td>
+						<td className="px-4 py-2 font-bold">Moy: {average.toFixed(1)} €</td>
 					</tr>
 				</tfoot>
 			</table>
 		</div>
 	);
-}
+};
+
+export default HousematesBalance;

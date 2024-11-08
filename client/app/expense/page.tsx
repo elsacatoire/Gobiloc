@@ -11,7 +11,7 @@ import { NavMenu } from "../enums/NavMenuEnum";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
 import ExpenseSummary from "./components/ExpenseSummary";
-import { HousematesBalance } from "./components/HousemateBalance";
+import HousematesBalance from "./components/HousemateBalance";
 
 const ExpensePage: React.FC = () => {
 	const [expenses, setExpenses] = useState<ExpenseType[]>([]);
@@ -20,6 +20,12 @@ const ExpensePage: React.FC = () => {
 	const [isLoading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const { flatshare } = useContext(AuthContext);
+
+	const flatmates = JSON.parse(localStorage.getItem("flatmates") ?? "[]");
+	if (flatmates.length === 0) {
+		setError("Pas de colocataires trouvés");
+	}
+	console.log("flatmates", flatmates);
 
 	const deleteExpense = (index: number) => {
 		setExpenses(expenses.filter((_, i) => i !== index));
@@ -42,7 +48,6 @@ const ExpensePage: React.FC = () => {
 				setError(handleError(error));
 			}
 		};
-
 		getExpenses();
 	}, []);
 
@@ -65,7 +70,7 @@ const ExpensePage: React.FC = () => {
 
 					<ExpenseSummary expenses={expenses} />
 
-					<HousematesBalance />
+					<HousematesBalance expenses={expenses} />
 				</div>
 			</div>
 		</div>
