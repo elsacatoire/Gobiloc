@@ -1,5 +1,5 @@
 import { getFlatmatesBalance } from "@/api/services/budgetService";
-import { Card, CardContent, CardHeader } from "@/app/components/ui/card";
+import { Card, CardContent } from "@/app/components/ui/card";
 import type { FlatmateBalanceType } from "@/types/BudgetType";
 import type { ExpenseType } from "@/types/ExpenseType";
 import type React from "react";

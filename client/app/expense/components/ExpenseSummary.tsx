@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader } from "@/app/components/ui/card";
+import { Card, CardContent } from "@/app/components/ui/card";
 import type { ExpenseType } from "@/types/ExpenseType";
 import type React from "react";
 

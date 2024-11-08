@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader } from "@/app/components/ui/card";
+import { Card, CardContent } from "@/app/components/ui/card";
 import {
 	Table,
 	TableBody,
@@ -23,6 +23,10 @@ const formatDate = (date: Date | string | number) => {
 };
 
 const ExpenseList: React.FC<ExpenseListProps> = React.memo(({ expenses }) => {
+	const sortedExpenses = [...expenses].sort(
+		(a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+	);
+
 	return (
 		<Card>
 			<CardContent className="p-3">
@@ -32,7 +36,7 @@ const ExpenseList: React.FC<ExpenseListProps> = React.memo(({ expenses }) => {
 				) : (
 					<Table className="w-full">
 						<TableBody>
-							{expenses.map((expense) => (
+							{sortedExpenses.map((expense) => (
 								<TableRow
 									key={expense.description}
 									className="w-full text-xs md:text-base"
