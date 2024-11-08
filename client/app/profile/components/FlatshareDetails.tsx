@@ -1,19 +1,21 @@
 import { fetchFlatshare } from "@/api/services/flatService";
 import type { FlatType } from "@/types/FlatType";
 import { FishSymbol, Home } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const FlatshareDetails: React.FC = () => {
 	const [flatshare, setFlatshare] = useState<FlatType | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+	const didMountRef = useRef(false);
 
 	useEffect(() => {
+		if (didMountRef.current) return;
+		didMountRef.current = true;
 		const getFlatshareData = async () => {
 			try {
 				const data = await fetchFlatshare();
 				setFlatshare(data);
-				console.log("data from flatshare fetch", data);
 			} catch (err) {
 				console.error(err);
 				setError("Failed to fetch flatshare data.");

@@ -6,48 +6,53 @@ import {
 	TableRow,
 } from "@/app/components/ui/table";
 import type { ExpenseType } from "@/types/ExpenseType";
-import type React from "react";
+import React from "react";
 
 type ExpenseListProps = {
 	expenses: ExpenseType[];
-	onDeleteExpense: (date: number) => void;
 };
 
-const formatDate = (date: Date) => {
-	return new Date(date).getFullYear() === new Date().getFullYear()
-		? date.toLocaleDateString(undefined, { day: "2-digit", month: "2-digit" })
-		: date.toLocaleDateString();
+const formatDate = (date: Date | string | number) => {
+	const parsedDate = new Date(date);
+	return parsedDate.getFullYear() === new Date().getFullYear()
+		? parsedDate.toLocaleDateString(undefined, {
+				day: "2-digit",
+				month: "2-digit",
+			})
+		: parsedDate.toLocaleDateString();
 };
 
-const ExpenseList: React.FC<ExpenseListProps> = ({ expenses }) => {
-	console.log("expenses from ExpenseList", expenses);
+const ExpenseList: React.FC<ExpenseListProps> = React.memo(({ expenses }) => {
+	const sortedExpenses = [...expenses].sort(
+		(a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+	);
 
 	return (
 		<Card>
 			<CardContent className="p-3">
+				<h1 className="font-bold">{"Détail des dépenses"}</h1>
 				{expenses.length < 1 ? (
 					<p>Il n'y a pas encore de dépense</p>
 				) : (
 					<Table className="w-full">
 						<TableBody>
-							{expenses.map((expense) => (
+							{sortedExpenses.map((expense) => (
 								<TableRow
 									key={expense.description}
 									className="w-full text-xs md:text-base"
 								>
-									<TableCell className="font-semibold w-1/3">
-										{expense.description}
+									<TableCell className="font-semibold">
+										<div className="flex items-center gap-2">
+											{expense.description}
+										</div>
 									</TableCell>
-
-									<TableCell className="w-1/3">
-										{/* 	<span className="text-slate-700">
-											{formatDate(expense.date)}
-										</span> */}
+									<TableCell>
+										<span className="text-slate-700">
+											{formatDate(new Date(expense.date))}
+										</span>
 									</TableCell>
-									<TableCell className="w-1/3 italic">
-										{expense.username}
-									</TableCell>
-									<TableCell className="w-1/3">{expense.amount}€</TableCell>
+									<TableCell className="italic">{expense.username}</TableCell>
+									<TableCell>{expense.amount}€</TableCell>
 								</TableRow>
 							))}
 						</TableBody>
@@ -56,6 +61,6 @@ const ExpenseList: React.FC<ExpenseListProps> = ({ expenses }) => {
 			</CardContent>
 		</Card>
 	);
-};
+});
 
 export default ExpenseList;

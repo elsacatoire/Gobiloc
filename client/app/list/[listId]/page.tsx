@@ -37,6 +37,7 @@ export default function ChecklistPage() {
 	/* ----- GET all the checklist's infos et tasks ----- */
 	useEffect(() => {
 		if (didMountRef.current) return; // prevent double api call
+		didMountRef.current = true;
 		const getChecklistData = async () => {
 			if (!currentChecklistId) return;
 

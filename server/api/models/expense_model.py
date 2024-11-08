@@ -1,4 +1,5 @@
 from django.db.models import CASCADE, DecimalField, ForeignKey, Model, TextField, DateTimeField
+
 from api.models.user_model import User
 
 

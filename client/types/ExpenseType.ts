@@ -1,9 +1,11 @@
 export type ExpenseType = {
     description: string,
-    amount: number,
+    budget: number,
+    amount: string,
     date: Date,
-    username: string,
-    id: number
+    user: string,
+    id: number,
+    username: string
 }
 
 export type ExpenseDTO = {

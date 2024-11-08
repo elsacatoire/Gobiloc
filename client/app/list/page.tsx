@@ -21,6 +21,7 @@ export default function ChecklistPage() {
 
 	useEffect(() => {
 		if (didMountRef.current) return; // prevent double api call
+		didMountRef.current = true;
 		const getAllChecklist = async () => {
 			try {
 				const data = await fetchChecklists();

@@ -1,44 +1,35 @@
 "use client";
 
 import { fetchFlatBudget } from "@/api/services/budgetService";
-import AuthContext from "@/context/AuthContext";
-import type { ExpenseDTO, ExpenseType } from "@/types/ExpenseType";
+import type { BudgetType } from "@/types/BudgetType";
+import type { ExpenseType } from "@/types/ExpenseType";
 import isAuth from "@/utils/auth/isAuth";
-import { useAuth } from "@/utils/auth/useAuth";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Header } from "../components/customsComponents/layout/Header";
 import { NavMenu } from "../enums/NavMenuEnum";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
 import ExpenseSummary from "./components/ExpenseSummary";
-import { HousematesBalance } from "./components/HousemateBalance";
+import FlatmatesBalance from "./components/FlatmatesBalance";
 
 const ExpensePage: React.FC = () => {
 	const [expenses, setExpenses] = useState<ExpenseType[]>([]);
+	const [budget, setBudget] = useState<BudgetType | null>(null);
 	const didMountRef = useRef(false);
 	const [isLoading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
-	const user = useAuth().user;
-	const { flatshare } = useContext(AuthContext);
 
-	const addExpense = (expense: ExpenseDTO) => {
-		/* 	const newExpense: ExpenseDTO = {
-			...expense,
-			user!: user?.user_id//
-		};
-		setExpenses([...expenses, newExpense]); */
-	};
-
-	const deleteExpense = (index: number) => {
-		setExpenses(expenses.filter((_, i) => i !== index));
+	const onExpenseAdded = (newExpense: ExpenseType) => {
+		setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
 	};
 
 	useEffect(() => {
 		if (didMountRef.current) return;
+		didMountRef.current = true;
 		const getExpenses = async () => {
 			try {
 				const data = await fetchFlatBudget();
-				console.log("data from budegt fetch", data);
+				setBudget(data);
 				setExpenses(data.expenses);
 				setLoading(false);
 			} catch (error) {
@@ -46,7 +37,6 @@ const ExpensePage: React.FC = () => {
 				setError(handleError(error));
 			}
 		};
-
 		getExpenses();
 	}, []);
 
@@ -55,18 +45,24 @@ const ExpensePage: React.FC = () => {
 	if (error) return <p>Error: {error}</p>;
 
 	return (
-		<div>
+		<div className="max-w-5xl m-auto">
 			<Header title={NavMenu.EXPENSE} />
-			<div className="flex flex-col gap-3">
-				<p className="font-bold mx-auto">Colocation {flatshare?.name}</p>
-				<div className="flex flex-col gap-2">
-					<ExpenseForm onAddExpense={addExpense} />
-
-					<ExpenseList expenses={expenses} onDeleteExpense={deleteExpense} />
-
-					<ExpenseSummary expenses={expenses} />
-
-					<HousematesBalance />
+			<div className="flex flex-col">
+				<div className="flex flex-col md:flex-row gap-3 md:gap-7">
+					<div className="flex flex-col gap-3 min-w-fit">
+						<ExpenseForm
+							onExpenseAdded={onExpenseAdded}
+							budgetId={budget?.id ?? 0}
+						/>
+						<div className="md:hidden">
+							<ExpenseList expenses={expenses} />
+						</div>
+						<ExpenseSummary expenses={expenses} />
+						<FlatmatesBalance expenses={expenses} />
+					</div>
+					<div className="hidden md:block w-full">
+						<ExpenseList expenses={expenses} />
+					</div>
 				</div>
 			</div>
 		</div>

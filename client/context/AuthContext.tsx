@@ -2,6 +2,7 @@ import { fetchFlatshare } from "@/api/services/flatService";
 import { fetchCurrentUser } from "@/api/services/userService";
 import type { FlatType } from "@/types/FlatType";
 import type { DecodedToken } from "@/types/TokenType";
+import { set } from "date-fns";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
@@ -12,18 +13,21 @@ const AuthContext = createContext<{
 	loginUser: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
 	logoutUser: () => void;
 	refreshUserData: () => Promise<void>;
+	curentUserId: number | null;
 }>({
 	user: null,
 	flatshare: null,
 	loginUser: async () => { },
 	logoutUser: () => { },
 	refreshUserData: async () => { },
+	curentUserId: null
 });
 
 // /--- Component AuthProvider to wrap the app ---
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const router = useRouter();
 	const [user, setUser] = useState<DecodedToken | null>(null);
+	const [curentUserId, setCurentUserId] = useState<number | null>(null);
 	const [flatshare, setFlatshare] = useState<FlatType | null>(null)
 	const [authTokens, setAuthTokens] = useState<string | null>(null);
 
@@ -60,6 +64,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 					const currentTime = Date.now() / 1000;
 					if (decoded.exp > currentTime) {
 						setUser(decoded);
+						setCurentUserId(decoded.user_id);
 						setAuthTokens(storedTokens);
 					} else {
 						logoutUser();
@@ -134,7 +139,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			const response = await fetchCurrentUser();
 			console.log("response", response);
 			const userData = {
-				user_id: response[0].id,
+				user_id: response[0].user_id,
 				username: response[0].username,
 				flat_id: response[0].flat_share_id,
 				token_type: user?.token_type || "",
@@ -169,6 +174,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		loginUser,
 		logoutUser,
 		refreshUserData,
+		curentUserId
 	};
 
 	return (

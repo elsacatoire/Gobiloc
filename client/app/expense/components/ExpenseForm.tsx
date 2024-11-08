@@ -1,35 +1,48 @@
+import { createExpense } from "@/api/services/budgetService";
 import { Button } from "@/app/components/ui/button";
 import { Card, CardContent } from "@/app/components/ui/card";
 import { Input } from "@/app/components/ui/input";
-import type { ExpenseDTO } from "@/types/ExpenseType";
+import type { ExpenseDTO, ExpenseType } from "@/types/ExpenseType";
 import { useAuth } from "@/utils/auth/useAuth";
 import { Plus } from "lucide-react";
 import type React from "react";
 import { useState } from "react";
 
 type ExpenseFormProps = {
-	onAddExpense: (expense: ExpenseDTO) => void;
+	budgetId: number;
+	onExpenseAdded: (expense: ExpenseType) => void;
 };
 
-const ExpenseForm: React.FC<ExpenseFormProps> = ({ onAddExpense }) => {
+const ExpenseForm: React.FC<ExpenseFormProps> = ({
+	budgetId,
+	onExpenseAdded,
+}) => {
 	const [title, setTitle] = useState("");
 	const [amount, setAmount] = useState("");
 	const [date, setDate] = useState("");
-	const { user } = useAuth() as {
-		user: { id: number } | null;
-		isAuthenticated: boolean;
+	const { curentUserId } = useAuth();
+
+	const addExpense = async (expense: ExpenseDTO) => {
+		try {
+			const response = await createExpense(expense, budgetId);
+			onExpenseAdded(response);
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		if (user) {
-			onAddExpense({
+
+		if (curentUserId && amount) {
+			const newExpense: ExpenseDTO = {
 				description: title,
 				amount: Number.parseFloat(amount),
 				date: new Date(date),
-				user: user.id,
-				budget: 1, // TODO add appropriate budget value here
-			});
+				user: curentUserId ?? 0,
+				budget: budgetId,
+			};
+			addExpense(newExpense);
 		}
 		setTitle("");
 		setAmount("");
@@ -37,11 +50,11 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onAddExpense }) => {
 	};
 
 	return (
-		<Card>
+		<Card className="min-w-fit max-h-fit">
 			<CardContent className="flex flex-col gap-2 p-3">
 				<h1 className="font-bold">{"Ajouter ma dépense"}</h1>
 				<form onSubmit={handleSubmit} className="flex gap-2">
-					<div className="w-full flex flex-col md:flex-row gap-2">
+					<div className="w-full flex flex-col gap-2">
 						<Input
 							type="text"
 							placeholder="Dépense"

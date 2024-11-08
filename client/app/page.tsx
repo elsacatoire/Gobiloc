@@ -29,13 +29,13 @@ const LandingPage: React.FC = () => {
 	useEffect(() => {
 		if (isAuthenticated && user?.flat_id) {
 			if (didMountRef.current) return;
+			didMountRef.current = true;
 			const getAllData = async () => {
 				try {
 					const checklists = await fetchChecklists();
 					const flatshareData = await fetchFlatshare();
 
 					if (Array.isArray(checklists)) {
-						console.log(checklists);
 						setChecklists(checklists.slice(0, 2));
 					} else {
 						setError("Données reçues incorrectes pour les listes.");
@@ -43,6 +43,14 @@ const LandingPage: React.FC = () => {
 
 					if (flatshareData?.users) {
 						setFlatmates(flatshareData.users.map((user) => user.username));
+						const flatmates = flatshareData.users.map(
+							({ user_id, username, ...rest }) => ({
+								user_id,
+								username,
+								...rest,
+							}),
+						);
+						localStorage.setItem("flatmates", JSON.stringify(flatmates));
 					} else {
 						setError("Données reçues incorrectes pour les colocataires.");
 					}

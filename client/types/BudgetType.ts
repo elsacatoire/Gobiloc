@@ -6,3 +6,9 @@ export type BudgetType = {
     name: string;
     flat_share: number;
 };
+
+export type FlatmateBalanceType = {
+    id: number;
+    username: string;
+    total_expenses: number;
+}
