@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader } from "@/app/components/ui/card";
 import type { FlatmateBalanceType } from "@/types/BudgetType";
 import type { ExpenseType } from "@/types/ExpenseType";
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type ExpenseSummaryProps = {
 	expenses: ExpenseType[];
@@ -13,9 +13,12 @@ const FlatmatesBalance: React.FC<ExpenseSummaryProps> = ({ expenses }) => {
 	const [balance, setBalance] = useState<FlatmateBalanceType[]>([]);
 	const [totalBudgetExpense, setTotalBudgetExpense] = useState<number>(0);
 	const [average, setAverage] = useState<number>(0);
+	const didMountRef = useRef(false);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
+		if (didMountRef.current) return;
+		didMountRef.current = true;
 		const fetchFlatmatesBalance = async () => {
 			try {
 				const response = await getFlatmatesBalance();

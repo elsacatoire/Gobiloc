@@ -1,11 +1,10 @@
 "use client";
 
 import { fetchFlatBudget } from "@/api/services/budgetService";
-import AuthContext from "@/context/AuthContext";
 import type { BudgetType } from "@/types/BudgetType";
 import type { ExpenseType } from "@/types/ExpenseType";
 import isAuth from "@/utils/auth/isAuth";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Header } from "../components/customsComponents/layout/Header";
 import { NavMenu } from "../enums/NavMenuEnum";
 import ExpenseForm from "./components/ExpenseForm";
@@ -19,17 +18,6 @@ const ExpensePage: React.FC = () => {
 	const didMountRef = useRef(false);
 	const [isLoading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
-	const { flatshare } = useContext(AuthContext);
-
-	const flatmates = JSON.parse(localStorage.getItem("flatmates") ?? "[]");
-	if (flatmates.length === 0) {
-		setError("Pas de colocataires trouvés");
-	}
-	console.log("flatmates", flatmates);
-
-	const deleteExpense = (index: number) => {
-		setExpenses(expenses.filter((_, i) => i !== index));
-	};
 
 	const onExpenseAdded = (newExpense: ExpenseType) => {
 		setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
@@ -37,6 +25,7 @@ const ExpensePage: React.FC = () => {
 
 	useEffect(() => {
 		if (didMountRef.current) return;
+		didMountRef.current = true;
 		const getExpenses = async () => {
 			try {
 				const data = await fetchFlatBudget();
@@ -68,15 +57,13 @@ const ExpensePage: React.FC = () => {
 						<div className="md:hidden">
 							<ExpenseList
 								expenses={expenses}
-								onDeleteExpense={deleteExpense}
 							/>
 						</div>
-
 						<ExpenseSummary expenses={expenses} />
 						<FlatmatesBalance expenses={expenses} />
 					</div>
 					<div className="hidden md:block w-full">
-						<ExpenseList expenses={expenses} onDeleteExpense={deleteExpense} />
+						<ExpenseList expenses={expenses} />
 					</div>
 				</div>
 			</div>

@@ -4,7 +4,8 @@ from rest_framework import serializers
 
 
 class ExpenseSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source="user.username", read_only=True)
 
     class Meta:
         model = Expense
-        fields = ["id", "budget", "description", "amount", "user", "date"]
+        fields = ["id", "budget", "description", "amount", "user", "username", "date"]

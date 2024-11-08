@@ -29,6 +29,7 @@ const LandingPage: React.FC = () => {
 	useEffect(() => {
 		if (isAuthenticated && user?.flat_id) {
 			if (didMountRef.current) return;
+			didMountRef.current = true;
 			const getAllData = async () => {
 				try {
 					const checklists = await fetchChecklists();

@@ -6,11 +6,10 @@ import {
 	TableRow,
 } from "@/app/components/ui/table";
 import type { ExpenseType } from "@/types/ExpenseType";
-import type React from "react";
+import React from "react";
 
 type ExpenseListProps = {
 	expenses: ExpenseType[];
-	onDeleteExpense: (date: number) => void;
 };
 
 const formatDate = (date: Date | string | number) => {
@@ -23,7 +22,8 @@ const formatDate = (date: Date | string | number) => {
 		: parsedDate.toLocaleDateString();
 };
 
-const ExpenseList: React.FC<ExpenseListProps> = ({ expenses }) => {
+const ExpenseList: React.FC<ExpenseListProps> = React.memo (({ expenses }) => {
+	
 	return (
 		<Card>
 			<CardContent className="p-3">
@@ -58,6 +58,6 @@ const ExpenseList: React.FC<ExpenseListProps> = ({ expenses }) => {
 			</CardContent>
 		</Card>
 	);
-};
+});
 
 export default ExpenseList;
