@@ -22,8 +22,7 @@ const formatDate = (date: Date | string | number) => {
 		: parsedDate.toLocaleDateString();
 };
 
-const ExpenseList: React.FC<ExpenseListProps> = React.memo (({ expenses }) => {
-	
+const ExpenseList: React.FC<ExpenseListProps> = React.memo(({ expenses }) => {
 	return (
 		<Card>
 			<CardContent className="p-3">

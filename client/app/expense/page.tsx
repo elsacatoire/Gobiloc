@@ -55,9 +55,7 @@ const ExpensePage: React.FC = () => {
 							budgetId={budget?.id ?? 0}
 						/>
 						<div className="md:hidden">
-							<ExpenseList
-								expenses={expenses}
-							/>
+							<ExpenseList expenses={expenses} />
 						</div>
 						<ExpenseSummary expenses={expenses} />
 						<FlatmatesBalance expenses={expenses} />

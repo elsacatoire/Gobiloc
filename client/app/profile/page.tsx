@@ -6,7 +6,13 @@ import { CircleAlertIcon, LogOut, Mail } from "lucide-react";
 import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
 import type React from "react";
-import { useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+	useContext,
+	useEffect,
+	useLayoutEffect,
+	useRef,
+	useState,
+} from "react";
 import type { UserType } from "../../types/UserType";
 import { useAuth } from "../../utils/auth/useAuth";
 import JoinFlatCard from "../components/customsComponents/home/JoinFlatCard";
