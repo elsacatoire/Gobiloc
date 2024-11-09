@@ -33,7 +33,7 @@ const FlatInviteCard = () => {
 	return (
 		<Card>
 			<CardHeader className="font-bold">Gérer la coloc</CardHeader>
-			<CardContent className="flex flex-col gap-1">
+			<CardContent className="flex flex-col gap-1 md:max-w-xl md:m-auto">
 				{!inviteCode && (
 					<Button className="w-full" onClick={handleInvite}>
 						<Mail className="min-w-10" />

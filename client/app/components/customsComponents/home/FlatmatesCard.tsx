@@ -14,7 +14,7 @@ const FlatmatesCard = ({ flatmates }: FlatmatesCardProps) => {
 			<CardHeader className="font-bold">Les colocs</CardHeader>
 			<CardContent className="px-0">
 				{flatmates.length > 0 ? (
-					<ul className="flex flex-col">
+					<ul className="flex flex-col md:flex-row md:justify-evenly">
 						{flatmates.map((mate) => (
 							<li key={mate}>
 								<Button variant={"link"} className="flex gap-3">
