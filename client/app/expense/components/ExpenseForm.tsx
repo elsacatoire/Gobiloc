@@ -58,6 +58,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
 						<Input
 							type="text"
 							placeholder="Dépense"
+							alt="Description"
 							value={title}
 							onChange={(e) => setTitle(e.target.value)}
 							required
@@ -65,12 +66,14 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
 						<div className="flex gap-1">
 							<Input
 								type="number"
+								alt="Amount"
 								placeholder="Montant"
 								value={amount}
 								onChange={(e) => setAmount(e.target.value)}
 								required
 							/>
 							<Input
+								data-testid="Date"
 								type="date"
 								value={date}
 								onChange={(e) => setDate(e.target.value)}
@@ -79,7 +82,12 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
 						</div>
 					</div>
 					<div className="flex mt-auto self-end">
-						<Button type="submit" size="icon">
+						<Button
+							data-testid="add-expense-button"
+							aria-label="Ajouter une dépense"
+							type="submit"
+							size="icon"
+						>
 							<Plus className="h-4 w-4" />
 						</Button>
 					</div>

@@ -3,7 +3,7 @@ export type ExpenseType = {
     budget: number,
     amount: string,
     date: Date,
-    user: string,
+    user: number,
     id: number,
     username: string
 }
