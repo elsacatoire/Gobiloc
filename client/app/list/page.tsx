@@ -62,13 +62,11 @@ export default function ChecklistPage() {
 
 			<div className="flex flex-grow flex-col content-between px-6 overflow-y-auto">
 				{error && <p className="text-red-500">{error}</p>}
-				<div className="flex flex-wrap justify-center gap-1 sm:gap-4">
+				<div className="flex flex-wrap justify-center gap-3 sm:gap-8">
 					<div className="md:w-full">
-						<Card className="max-w-sm md:mx-auto">
-							<CardContent className="flex justify-between items-center p-3">
-								<div className="flex flex-col gap-2 w-60">
-									<p className="font-bold">Créer une liste</p>
-								</div>
+						<Card className="flex max-w-sm md:m-auto sm:h-full min-w-80">
+							<CardContent className="flex justify-between items-center p-3 w-full">
+								<p className="font-bold">Créer une liste</p>
 								<CreateList />
 							</CardContent>
 						</Card>
