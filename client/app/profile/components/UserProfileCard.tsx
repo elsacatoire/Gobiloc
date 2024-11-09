@@ -35,13 +35,13 @@ const UserProfileCard: React.FC<UserProfileProps> = ({
 
 	return (
 		<div className="flex items-center justify-center">
-			<Card className="flex flex-col gap-5 w-full max-w-md bg-white shadow-lg rounded-lg">
+			<Card className="flex flex-col gap-5 w-full max-w-md md:max-w-4xl bg-white shadow-lg rounded-lg">
 				<CardHeader className="flex gap-5">
 					<div className="flex flex-row justify-between items-center">
 						<Avatar
 							src={avatarUrl || ""}
 							alt={`${username}'s avatar`}
-							style="w-20"
+							style="w-20 md:w-32 h-20 md:h-32"
 						/>
 						<div className="p-4">
 							<EditUserProfile
@@ -51,7 +51,7 @@ const UserProfileCard: React.FC<UserProfileProps> = ({
 						</div>
 					</div>
 					<div>
-						<CardTitle className="text-center text-2xl font-semibold">
+						<CardTitle className="text-center text-2xl font-semibold md:-mt-28">
 							{username}
 						</CardTitle>
 						<p className="text-center text-gray-600">@{username}</p>

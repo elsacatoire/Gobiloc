@@ -65,7 +65,7 @@ const LandingPage: React.FC = () => {
 	}, [isAuthenticated, user?.flat_id]);
 
 	return (
-		<div className="flex flex-col gap-4 md:gap-8">
+		<div className="flex flex-col gap-4 md:gap-8 md:max-w-4xl md:m-auto">
 			<div className="flex flex-col items-center justify-center h-full">
 				<Header title={NavMenu.HOME} />
 				<h1 className="text-4xl font-bold">

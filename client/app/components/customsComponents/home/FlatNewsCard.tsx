@@ -25,9 +25,9 @@ const FlatNewsCard: React.FC<NewsProps> = ({
 			<CardContent>
 				{isLoading && <p>Loading...</p>}
 				{error && <p>Error: {error}</p>}
-				<ul className="flex flex-col gap-2 align-middle">
+				<ul className="flex flex-col gap-3 md:gap-8 align-middle md:flex-row">
 					{checklists.map((checklist) => (
-						<li key={checklist.id} className="flex flex-col gap-3">
+						<li key={checklist.id} className="w-full">
 							<Button
 								className="w-full"
 								variant={"secondary"}
