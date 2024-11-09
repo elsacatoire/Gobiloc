@@ -32,6 +32,15 @@ Once the server is running, open [http://localhost:3000](http://localhost:3000) 
 
 This project is developed with a mobile-first approach. Although accessible on larger screens, it is optimized for smartphones.
 
+## Tests
+
+### Run tests Jest
+Few unit frontend tests are present, in order to run them:
+
+```bash
+npm run test
+```
+
 ## Quality : Biome Linter Commands
 
 ### Format Files
