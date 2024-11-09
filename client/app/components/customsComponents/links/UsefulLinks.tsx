@@ -3,7 +3,7 @@ import React from "react";
 
 const UsefulLinks = () => {
 	return (
-		<section className="flex flex-col gap-4 md:gap-8 max-w-2xl mx-auto">
+		<section className="flex flex-col gap-4 md:gap-8 max-w-4xl mx-auto">
 			<h2 className="text-lg md:text-2xl font-semibold">Liens utiles</h2>
 			<p>
 				Pour plus d'informations sur nos conditions d'utilisation et notre

@@ -76,7 +76,7 @@ const ProfilePage: React.FC = () => {
 	return (
 		<div>
 			<Header title={NavMenu.PROFIL} />
-			<div className="flex flex-col gap-4 md:gap-8">
+			<div className="flex flex-col gap-4 md:gap-8 md:max-w-4xl md:m-auto">
 				<UserProfileCard
 					username={currentUser?.username}
 					email={currentUser?.email}
@@ -94,11 +94,11 @@ const ProfilePage: React.FC = () => {
 						<Card>
 							<CardHeader className="font-bold">Gérer la coloc</CardHeader>
 							<CardContent className="flex flex-col md:flex-row justify-center gap-4 md:gap-8">
-								<Button className="w-full">
+								<Button className="w-full md:w-1/2">
 									<Mail className="min-w-10" />
 									Inviter à rejoindre
 								</Button>
-								<Button variant={"destructive"}>
+								<Button className="w-full md:w-1/2" variant={"destructive"}>
 									<CircleAlertIcon className="min-w-10" />
 									Partir de la coloc
 								</Button>
@@ -110,11 +110,19 @@ const ProfilePage: React.FC = () => {
 						<CardHeader className="font-bold">Gérér mon compte</CardHeader>
 						<CardContent>
 							<div className="flex flex-col md:flex-row justify-center gap-4 md:gap-8">
-								<Button variant={"destructive"} onClick={() => handleLogOut()}>
+								<Button
+									className="w-full md:w-1/2"
+									variant={"destructive"}
+									onClick={() => handleLogOut()}
+								>
 									<LogOut className="min-w-10" />
 									Se déconnecter
 								</Button>
-								<Button variant={"secondary"} onClick={() => handleLogOut()}>
+								<Button
+									className="w-full md:w-1/2"
+									variant={"secondary"}
+									onClick={() => handleLogOut()}
+								>
 									<CircleAlertIcon className="min-w-10" />
 									Suprimer mon compte
 								</Button>
