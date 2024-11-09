@@ -154,9 +154,9 @@ export default function ChecklistPage() {
 
 	/* ----- Render Checklist ----- */
 	return (
-		<div className="flex flex-col min-h-screen">
+		<div className="flex flex-col ">
 			<Header title={NavMenu.CHECKLISTS} />
-			<Card>
+			<Card className="md:max-w-4xl w-full mx-auto">
 				<CardHeader>
 					<div className="flex flex-col gap-2">
 						{isEditing ? (
@@ -198,7 +198,7 @@ export default function ChecklistPage() {
 									onChange={(e) => setNewTask(e.target.value)}
 									placeholder="Nouvelle tâche"
 								/>
-								<Button variant="default" type="submit">
+								<Button className="md:w-1/3" variant="default" type="submit">
 									Ajouter
 								</Button>
 							</div>

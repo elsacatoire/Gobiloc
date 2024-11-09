@@ -60,7 +60,7 @@ export default function ChecklistPage() {
 		<div className="flex flex-col">
 			<Header title={NavMenu.CHECKLISTS} />
 
-			<div className="flex flex-grow flex-col content-between px-6 overflow-y-auto">
+			<div className="flex flex-grow flex-col content-between px-6 md:max-w-4xl md:m-auto">
 				{error && <p className="text-red-500">{error}</p>}
 				<div className="flex flex-wrap justify-center gap-3 sm:gap-8">
 					<div className="md:w-full">
