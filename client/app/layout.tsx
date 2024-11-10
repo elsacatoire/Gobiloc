@@ -42,7 +42,7 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
 				<body className={inter.className}>
 					<div className="flex flex-col h-full">
 						<header className="hidden md:block">
-							<NavBarDesktop title={getTitle()} />
+							<NavBarDesktop />
 						</header>
 						<header className="md:hidden">
 							<HeaderMobile title={getTitle()} />
