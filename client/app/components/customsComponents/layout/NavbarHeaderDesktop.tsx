@@ -37,7 +37,9 @@ export function NavBarDesktop() {
 					>
 						<LogoLetter />
 					</Link>
-					<h1 className="font-bold text-2xl hidden lg:block text-gray-800">{"obiloc"}</h1>
+					<h1 className="font-bold text-2xl hidden lg:block text-gray-800">
+						{"obiloc"}
+					</h1>
 				</div>
 				{isAuthenticated && (
 					<nav className="flex justify-end">

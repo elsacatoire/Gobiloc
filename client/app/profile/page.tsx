@@ -127,14 +127,14 @@ const ProfilePage: React.FC = () => {
 						</CardContent>
 					</Card>
 					<div className="md:hidden">
-					<UsefulLinks />
-					<GobilocDescriptionLink />
-					<Link
-						href={"/gobiloc/conformity"}
-						className="text-orange-700 visited:text-orange-800 underline  text-center"
-					>
-						Conformité accessibilité et écoconception
-					</Link>
+						<UsefulLinks />
+						<GobilocDescriptionLink />
+						<Link
+							href={"/gobiloc/conformity"}
+							className="text-orange-700 visited:text-orange-800 underline  text-center"
+						>
+							Conformité accessibilité et écoconception
+						</Link>
 					</div>
 				</section>
 			</div>
