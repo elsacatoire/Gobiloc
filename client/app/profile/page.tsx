@@ -16,12 +16,10 @@ import {
 import type { UserType } from "../../types/UserType";
 import { useAuth } from "../../utils/auth/useAuth";
 import JoinFlatCard from "../components/customsComponents/home/JoinFlatCard";
-import { Header } from "../components/customsComponents/layout/Header";
 import GobilocDescriptionLink from "../components/customsComponents/links/GobilocDescriptionLink";
 import UsefulLinks from "../components/customsComponents/links/UsefulLinks";
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardHeader } from "../components/ui/card";
-import { NavMenu } from "../enums/NavMenuEnum";
 import UserProfileCard from "./components/UserProfileCard";
 
 const ProfilePage: React.FC = () => {
