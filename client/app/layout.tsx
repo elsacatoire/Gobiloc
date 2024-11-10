@@ -6,8 +6,9 @@ import { AuthProvider } from "@/context/AuthContext";
 import { usePathname } from "next/navigation";
 import type React from "react";
 import type { FC } from "react";
-import { Header } from "./components/customsComponents/layout/Header";
+import { HeaderMobile } from "./components/customsComponents/layout/HeaderMobile";
 import { NavigationBar } from "./components/customsComponents/layout/Navbar";
+import { NavBarDesktop } from "./components/customsComponents/layout/NavbarHeaderDesktop";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,6 @@ type RootLayoutProps = {
 const RootLayout: FC<RootLayoutProps> = ({ children }) => {
 	const pathname = usePathname();
 
-	// Définir le titre en fonction de la route actuelle
 	const getTitle = () => {
 		switch (pathname) {
 			case "/profile":
@@ -41,7 +41,14 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
 			<AuthProvider>
 				<body className={inter.className}>
 					<div className="flex flex-col h-full">
-						<Header title={getTitle()} />
+						<header className="hidden md:block">
+							<NavBarDesktop title={getTitle()} />
+						</header>
+						<header className="md:hidden">
+							<HeaderMobile title={getTitle()} />
+						</header>
+						{/* <Header title={getTitle()} /> */}
+
 						<main className="flex-grow pt-16 p-4 sm:pt-28">{children}</main>
 						<footer className="sm:hidden">
 							<NavigationBar />
