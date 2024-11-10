@@ -4,9 +4,7 @@ import {
 	deleteChecklist,
 	fetchChecklists,
 } from "@/api/services/checklistService";
-import { Header } from "@/app/components/customsComponents/layout/Header";
 import { Card, CardContent } from "@/app/components/ui/card";
-import { NavMenu } from "@/app/enums/NavMenuEnum";
 import { CreateList } from "@/app/list/components/CreateChecklist";
 import React, { useState, useEffect, useRef } from "react";
 import type { ChecklistType } from "../../types/ChecklistType";
@@ -58,8 +56,6 @@ export default function ChecklistPage() {
 	/* ----- Render when everything is cooooool ----- */
 	return (
 		<div className="flex flex-col">
-			<Header title={NavMenu.CHECKLISTS} />
-
 			<div className="flex flex-grow flex-col content-between px-6 md:max-w-4xl md:m-auto">
 				{error && <p className="text-red-500">{error}</p>}
 				<div className="flex flex-wrap justify-center gap-3 sm:gap-8">

@@ -1,7 +1,5 @@
 "use client";
 
-import { Header } from "@/app/components/customsComponents/layout/Header";
-import { NavMenu } from "@/app/enums/NavMenuEnum";
 import AuthContext from "@/context/AuthContext";
 import isAuth from "@/utils/auth/isAuth";
 import React, { useContext } from "react";
@@ -18,7 +16,6 @@ const messages = () => {
 
 	return (
 		<div>
-			<Header title={NavMenu.MESSAGES} />
 			<div>messages</div>
 			{user && <p>Hello {user.username}</p>}
 		</div>

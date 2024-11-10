@@ -75,7 +75,6 @@ const ProfilePage: React.FC = () => {
 
 	return (
 		<div>
-			<Header title={NavMenu.PROFIL} />
 			<div className="flex flex-col gap-4 md:gap-8 md:max-w-4xl md:m-auto">
 				<UserProfileCard
 					username={currentUser?.username}
@@ -133,7 +132,7 @@ const ProfilePage: React.FC = () => {
 					<UsefulLinks />
 					<GobilocDescriptionLink />
 					<Link
-						href={"/gobiloc"}
+						href={"/gobiloc/conformity"}
 						className="text-orange-700 visited:text-orange-800 underline  text-center"
 					>
 						Conformité accessibilité et écoconception

@@ -8,10 +8,8 @@ import {
 	updateChecklistName,
 } from "@/api/services/checklistService";
 import { checkTask, createTask, deleteTask } from "@/api/services/taskService";
-import { Header } from "@/app/components/customsComponents/layout/Header";
 import { Card, CardHeader } from "@/app/components/ui/card";
 import { getCategoryName } from "@/app/enums/ChecklistCategoryEnum";
-import { NavMenu } from "@/app/enums/NavMenuEnum";
 import {
 	type ChecklistType,
 	emptyChecklist,
@@ -150,7 +148,6 @@ export default function ChecklistPage() {
 
 	return (
 		<div className="flex flex-col">
-			<Header title={NavMenu.CHECKLISTS} />
 			<Card className="md:max-w-4xl w-full mx-auto">
 				<CardHeader>
 					<ChecklistHeader

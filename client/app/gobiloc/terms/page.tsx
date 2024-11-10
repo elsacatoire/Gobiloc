@@ -1,10 +1,8 @@
-import { Header } from "@/app/components/customsComponents/layout/Header";
 import React from "react";
 
 const TermsAndConditions = () => {
 	return (
 		<>
-			<Header title={"Conditions"} />
 			<div className="container mx-auto p-4 max-w-2xl">
 				<h1 className="text-xl md:text-3xl font-bold mb-4">
 					Conditions Générales d'Utilisation

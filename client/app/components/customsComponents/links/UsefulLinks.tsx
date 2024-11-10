@@ -10,8 +10,8 @@ const UsefulLinks = () => {
 				politique de confidentialité, veuillez consulter les liens ci-dessous.
 			</p>
 			<div className="flex flex-wrap gap-2 justify-between underline text-teal-700 hover:underline font-semibold">
-				<Link href="/terms">Conditions Générales d'Utilisation</Link>
-				<Link href="/privacy">Politique de Confidentialité</Link>
+				<Link href="/gobiloc/terms">Conditions Générales d'Utilisation</Link>
+				<Link href="/gobiloc/privacy">Politique de Confidentialité</Link>
 			</div>
 		</section>
 	);
