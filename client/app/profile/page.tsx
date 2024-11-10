@@ -126,7 +126,7 @@ const ProfilePage: React.FC = () => {
 							</div>
 						</CardContent>
 					</Card>
-
+					<div className="md:hidden">
 					<UsefulLinks />
 					<GobilocDescriptionLink />
 					<Link
@@ -135,6 +135,7 @@ const ProfilePage: React.FC = () => {
 					>
 						Conformité accessibilité et écoconception
 					</Link>
+					</div>
 				</section>
 			</div>
 			<div className="h-5" />

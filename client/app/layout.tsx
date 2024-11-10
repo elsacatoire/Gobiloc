@@ -9,6 +9,7 @@ import type { FC } from "react";
 import { HeaderMobile } from "./components/customsComponents/layout/HeaderMobile";
 import { NavigationBar } from "./components/customsComponents/layout/Navbar";
 import { NavBarDesktop } from "./components/customsComponents/layout/NavbarHeaderDesktop";
+import { FooterDesktop } from "./components/customsComponents/layout/FooterDesktop";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -47,11 +48,12 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
 						<header className="md:hidden">
 							<HeaderMobile title={getTitle()} />
 						</header>
-						{/* <Header title={getTitle()} /> */}
-
-						<main className="flex-grow pt-16 p-4 sm:pt-28">{children}</main>
+						<main className="flex-grow pt-16 p-4 sm:pt-28 mt-4">{children}</main>
 						<footer className="sm:hidden">
 							<NavigationBar />
+						</footer>
+						<footer className="hidden sm:block">
+							<FooterDesktop />
 						</footer>
 					</div>
 				</body>

@@ -11,7 +11,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 
 const menuItems = [
-	{ href: "/", icon: Pentagon, text: "Home" },
+	{ href: "/", icon: Pentagon, text: "Coloc" },
 	{ href: "/list", icon: SquareCheck, text: "Listes" },
 	{ href: "/agenda", icon: CalendarFold, text: "Agenda" },
 	{ href: "/expense", icon: PiggyBank, text: "Budget" },
