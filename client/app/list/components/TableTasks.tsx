@@ -30,7 +30,7 @@ const TaskTable: React.FC<TaskTableProps> = ({
 }) => {
 	return (
 		<div>
-			<Table className="rounded md:max-w-xl m-auto md:border">
+			<Table className="rounded md:border">
 				<TableHeader>
 					<TableRow>
 						<TableHead>Fait</TableHead>

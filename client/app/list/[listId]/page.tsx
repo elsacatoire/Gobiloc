@@ -158,7 +158,7 @@ export default function ChecklistPage() {
 			<Header title={NavMenu.CHECKLISTS} />
 			<Card className="md:max-w-4xl w-full mx-auto">
 				<CardHeader>
-					<div className="flex flex-col gap-2">
+					<div className="flex flex-col gap-4">
 						{isEditing ? (
 							<div className="flex items-center gap-2">
 								<Input
@@ -174,23 +174,25 @@ export default function ChecklistPage() {
 								</Button>
 							</div>
 						) : (
-							<div className="flex justify-between items-center">
-								<div className="flex flex-col gap-1 pl-1">
-									<h1 className="text-xl font-semibold">
-										{currentChecklist?.name}
-									</h1>
+							<div className="flex items-center">
+								<div className="flex flex-col gap-1">
+									<div className="flex items-center">
+										<h1 className="text-xl font-semibold">
+											{currentChecklist?.name}
+										</h1>
+										<Button variant="ghost" onClick={() => setEditing(true)}>
+											<Pencil color="teal" className="h-5 w-5" />
+										</Button>
+									</div>
 									<p className="text-sm text-gray-600">
 										Catégorie :{" "}
 										{getCategoryName(currentChecklist.category) || ""}
 									</p>
 								</div>
-								<Button variant="ghost" onClick={() => setEditing(true)}>
-									<Pencil color="teal" className="h-5 w-5" />
-								</Button>
 							</div>
 						)}
 						<form onSubmit={handleTaskAdd}>
-							<div className="flex flex-row gap-2">
+							<div className="flex flex-row gap-2 md:max-w-xl m-auto">
 								<Input
 									aria-label="Ajouter une tâche"
 									type="text"
@@ -205,14 +207,16 @@ export default function ChecklistPage() {
 						</form>
 					</div>
 				</CardHeader>
-				<TaskTable
-					tasks={allTasks}
-					onCheckBoxChange={handleCheckBox}
-					onDeleteTask={handleDeleteTask}
-					onDeleteSelectedTasks={handleDeleteSelectedTasks}
-					onDeleteAllTasks={handleDeleteAllTasks}
-					selectedTasks={selectedTasks}
-				/>
+				<div className="md:max-w-xl m-auto">
+					<TaskTable
+						tasks={allTasks}
+						onCheckBoxChange={handleCheckBox}
+						onDeleteTask={handleDeleteTask}
+						onDeleteSelectedTasks={handleDeleteSelectedTasks}
+						onDeleteAllTasks={handleDeleteAllTasks}
+						selectedTasks={selectedTasks}
+					/>
+				</div>
 			</Card>
 		</div>
 	);
