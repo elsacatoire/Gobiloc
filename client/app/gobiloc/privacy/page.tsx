@@ -1,10 +1,8 @@
-import { Header } from "@/app/components/customsComponents/layout/Header";
 import React from "react";
 
 const PrivacyPolicy = () => {
 	return (
 		<>
-			<Header title={"Confidentialité"} />
 			<div className="container mx-auto p-4 max-w-2xl">
 				<h1 className="text-xl md:text-3xl font-bold mb-4">
 					Politique de Confidentialité Gobiloc

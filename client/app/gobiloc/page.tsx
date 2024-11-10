@@ -1,5 +1,4 @@
 import React from "react";
-import { Header } from "../components/customsComponents/layout/Header";
 import ContactLink from "../components/customsComponents/links/ContactLink";
 import RegisterLink from "../components/customsComponents/links/RegisterLink";
 import UseGobilocLink from "../components/customsComponents/links/UseGobilocLink";
@@ -8,7 +7,6 @@ import UsefulLinks from "../components/customsComponents/links/UsefulLinks";
 const PresentationPage = () => {
 	return (
 		<>
-			<Header title={"Gobiloc"} />
 			<div className="flex flex-col gap-8 md:gap-14 container mx-auto p-4 max-w-2xl">
 				<h1 className="text-2xl md:text-4xl font-bold text-center">
 					Bienvenue sur Gobiloc

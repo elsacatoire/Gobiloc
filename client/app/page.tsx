@@ -10,8 +10,6 @@ import { useEffect, useRef, useState } from "react";
 import FlatInviteCard from "./components/customsComponents/home/FlatInviteCard";
 import FlatNewsCard from "./components/customsComponents/home/FlatNewsCard";
 import FlatmatesCard from "./components/customsComponents/home/FlatmatesCard";
-import { Header } from "./components/customsComponents/layout/Header";
-import { NavMenu } from "./enums/NavMenuEnum";
 
 const LandingPage: React.FC = () => {
 	const router = useRouter();
@@ -67,7 +65,6 @@ const LandingPage: React.FC = () => {
 	return (
 		<div className="flex flex-col gap-4 md:gap-8 md:max-w-4xl md:m-auto">
 			<div className="flex flex-col items-center justify-center h-full">
-				<Header title={NavMenu.HOME} />
 				<h1 className="text-4xl font-bold">
 					Hello <span>{user?.username}</span>
 				</h1>

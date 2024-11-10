@@ -1,10 +1,8 @@
-import { Header } from "@/app/components/customsComponents/layout/Header";
 import React from "react";
 
 const ConformityPage = () => {
 	return (
 		<>
-			<Header title={"Conformité"} />
 			<div className="container mx-auto p-4 max-w-2xl">
 				<h1 className="text-3xl font-bold mb-6">
 					Conformité aux Normes RGESN et RGAA

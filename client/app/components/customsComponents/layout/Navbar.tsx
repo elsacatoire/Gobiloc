@@ -7,10 +7,11 @@ import {
 	SquareCheck,
 } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const menuItems = [
-	{ href: "/", icon: Pentagon, text: "Home" },
+	{ href: "/", icon: Pentagon, text: "Coloc" },
 	{ href: "/list", icon: SquareCheck, text: "Listes" },
 	{ href: "/agenda", icon: CalendarFold, text: "Agenda" },
 	{ href: "/expense", icon: PiggyBank, text: "Budget" },
@@ -19,6 +20,7 @@ const menuItems = [
 
 export function NavigationBar() {
 	const { isAuthenticated, user } = useAuth();
+	const pathname = usePathname();
 
 	if (!isAuthenticated) {
 		return <nav />;
@@ -33,7 +35,14 @@ export function NavigationBar() {
 			<ul className="flex justify-between bg-gray-800 text-white p-3 md:p-4 sm:justify-end sm:gap-x-4 sm:pr-7">
 				{menuItems.map((item) => (
 					<li key={item.href} className="flex px-2">
-						<Link href={item.href} className="flex flex-col items-center gap-1">
+						<Link
+							href={item.href}
+							className={`flex flex-col items-center gap-1 ${
+								pathname === item.href
+									? "text-amber-300 font-bold underline decoration-wavy underline-offset-2"
+									: ""
+							}`}
+						>
 							<item.icon strokeWidth={1} className="w-6 h-6" />
 							<span className="text-xs">{item.text}</span>
 						</Link>

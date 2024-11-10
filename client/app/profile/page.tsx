@@ -16,12 +16,10 @@ import {
 import type { UserType } from "../../types/UserType";
 import { useAuth } from "../../utils/auth/useAuth";
 import JoinFlatCard from "../components/customsComponents/home/JoinFlatCard";
-import { Header } from "../components/customsComponents/layout/Header";
 import GobilocDescriptionLink from "../components/customsComponents/links/GobilocDescriptionLink";
 import UsefulLinks from "../components/customsComponents/links/UsefulLinks";
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardHeader } from "../components/ui/card";
-import { NavMenu } from "../enums/NavMenuEnum";
 import UserProfileCard from "./components/UserProfileCard";
 
 const ProfilePage: React.FC = () => {
@@ -75,7 +73,6 @@ const ProfilePage: React.FC = () => {
 
 	return (
 		<div>
-			<Header title={NavMenu.PROFIL} />
 			<div className="flex flex-col gap-4 md:gap-8 md:max-w-4xl md:m-auto">
 				<UserProfileCard
 					username={currentUser?.username}
@@ -129,15 +126,16 @@ const ProfilePage: React.FC = () => {
 							</div>
 						</CardContent>
 					</Card>
-
-					<UsefulLinks />
-					<GobilocDescriptionLink />
-					<Link
-						href={"/gobiloc"}
-						className="text-orange-700 visited:text-orange-800 underline  text-center"
-					>
-						Conformité accessibilité et écoconception
-					</Link>
+					<div className="md:hidden">
+						<UsefulLinks />
+						<GobilocDescriptionLink />
+						<Link
+							href={"/gobiloc/conformity"}
+							className="text-orange-700 visited:text-orange-800 underline  text-center"
+						>
+							Conformité accessibilité et écoconception
+						</Link>
+					</div>
 				</section>
 			</div>
 			<div className="h-5" />

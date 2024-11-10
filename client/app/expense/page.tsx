@@ -5,8 +5,6 @@ import type { BudgetType } from "@/types/BudgetType";
 import type { ExpenseType } from "@/types/ExpenseType";
 import isAuth from "@/utils/auth/isAuth";
 import { useEffect, useRef, useState } from "react";
-import { Header } from "../components/customsComponents/layout/Header";
-import { NavMenu } from "../enums/NavMenuEnum";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
 import ExpenseSummary from "./components/ExpenseSummary";
@@ -46,7 +44,6 @@ const ExpensePage: React.FC = () => {
 
 	return (
 		<div className="max-w-5xl m-auto">
-			<Header title={NavMenu.EXPENSE} />
 			<div className="flex flex-col">
 				<div className="flex flex-col md:flex-row gap-3 md:gap-7">
 					<div className="flex flex-col gap-3 min-w-fit">
