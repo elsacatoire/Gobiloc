@@ -5,7 +5,7 @@ const TermsAndConditions = () => {
 		<>
 			<div className="container mx-auto p-4 max-w-2xl">
 				<h1 className="text-xl md:text-3xl font-bold mb-4">
-					Conditions Générales d'Utilisation
+					Conditions Générales d&lsquo;Utilisation
 				</h1>
 
 				<p className="mb-4">
