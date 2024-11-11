@@ -14,7 +14,7 @@ const PresentationPage = () => {
 
 				<section className="flex flex-col gap-4 md:gap-8">
 					<h2 className="text-lg md:text-2xl font-semibold">
-						Qu'est-ce que Gobiloc ?
+						Qu&lsquo;est-ce que Gobiloc ?
 					</h2>
 					<p>
 						Gobiloc est une application dédiée à la gestion collaborative pour
@@ -37,8 +37,8 @@ const PresentationPage = () => {
 					</h2>
 					<ul className="list-disc list-inside">
 						<li>
-							Gestion d'appartement. Créez et personnalisez votre espace de
-							colocation.
+							Gestion d&lsquo;appartement. Créez et personnalisez votre espace
+							de colocation.
 						</li>
 						<li>
 							Création et gestion de listes partagées (courses, tâches
@@ -57,7 +57,7 @@ const PresentationPage = () => {
 					</h2>
 					<ul className="list-disc list-inside">
 						<li>
-							Organisation d'événements avec synchronisation sur vos
+							Organisation d&lsquo;événements avec synchronisation sur vos
 							calendriers.
 						</li>
 						<li>

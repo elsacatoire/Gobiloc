@@ -44,7 +44,7 @@ const FlatInviteCard = () => {
 				{inviteCode && (
 					<div className="flex flex-col text-center text-sm mt-2">
 						<p>
-							Voici le code d'invitation :{" "}
+							Voici le code d&lsquo;invitation :{" "}
 							<span className="font-bold">{inviteCode}</span>
 						</p>
 						<p>Il est valable 7 jours</p>

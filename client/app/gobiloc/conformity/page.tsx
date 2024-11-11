@@ -11,12 +11,12 @@ const ConformityPage = () => {
 				<section className="mb-8">
 					<h2 className="text-2xl font-semibold mb-4">Conformité RGESN</h2>
 					<p className="mb-4">
-						Le RGESN (Référentiel Général d'Écoconception des Services
-						Numériques) est une initiative visant à réduire l'impact
+						Le RGESN (Référentiel Général d&lsquo;Écoconception des Services
+						Numériques) est une initiative visant à réduire l&lsquo;impact
 						environnemental des services numériques. Chez Gobiloc, nous nous
-						engageons à respecter les principes d'écoconception pour limiter
-						l'empreinte écologique de notre application. Voici quelques-unes des
-						mesures prises :
+						engageons à respecter les principes d&lsquo;écoconception pour
+						limiter l&lsquo;empreinte écologique de notre application. Voici
+						quelques-unes des mesures prises :
 					</p>
 					<ul className="list-disc list-inside mb-4">
 						<li>
@@ -28,12 +28,12 @@ const ConformityPage = () => {
 							ressources inutiles.
 						</li>
 						<li>
-							Utilisation d'infrastructures cloud éco-responsables, favorisant
-							une meilleure gestion des ressources matérielles.
+							Utilisation d&lsquo;infrastructures cloud éco-responsables,
+							favorisant une meilleure gestion des ressources matérielles.
 						</li>
 						<li>
-							Conception d'interfaces simples et légères pour limiter le temps
-							de traitement et l'usage des ressources.
+							Conception d&lsquo;interfaces simples et légères pour limiter le
+							temps de traitement et l&lsquo;usage des ressources.
 						</li>
 						<li>
 							Mise en œuvre de bonnes pratiques de développement telles que la
@@ -50,38 +50,38 @@ const ConformityPage = () => {
 				<section className="mb-8">
 					<h2 className="text-2xl font-semibold mb-4">Conformité RGAA</h2>
 					<p className="mb-4">
-						Le RGAA (Référentiel Général d'Accessibilité pour les
+						Le RGAA (Référentiel Général d&lsquo;Accessibilité pour les
 						Administrations) vise à garantir que les services numériques sont
 						accessibles à tous, y compris aux personnes en situation de
-						handicap. Nous avons pris soin d'intégrer des critères
-						d'accessibilité dans la conception de Gobiloc afin que chaque
+						handicap. Nous avons pris soin d&lsquo;intégrer des critères
+						d&lsquo;accessibilité dans la conception de Gobiloc afin que chaque
 						utilisateur puisse accéder pleinement à nos fonctionnalités. Voici
 						quelques points importants :
 					</p>
 					<ul className="list-disc list-inside mb-4">
 						<li>
 							Utilisation de balises HTML sémantiques pour améliorer la
-							compatibilité avec les lecteurs d'écran.
+							compatibilité avec les lecteurs d&lsquo;écran.
 						</li>
 						<li>
 							Contrastes élevés entre le texte et les arrière-plans pour
 							garantir une lisibilité optimale.
 						</li>
 						<li>
-							Support des navigateurs et dispositifs d'assistance, comme les
-							lecteurs d'écran et la navigation au clavier.
+							Support des navigateurs et dispositifs d&lsquo;assistance, comme
+							les lecteurs d&lsquo;écran et la navigation au clavier.
 						</li>
 						<li>
 							Formulaires accessibles avec des labels et des indications claires
 							pour chaque champ.
 						</li>
 						<li>
-							Possibilité d'augmenter ou réduire la taille du texte sans
+							Possibilité d&lsquo;augmenter ou réduire la taille du texte sans
 							affecter la mise en page générale.
 						</li>
 						<li>
 							Tests réguliers pour garantir la conformité avec les dernières
-							directives d'accessibilité.
+							directives d&lsquo;accessibilité.
 						</li>
 					</ul>
 					<p>
@@ -94,12 +94,12 @@ const ConformityPage = () => {
 				<section>
 					<h2 className="text-2xl font-semibold mb-4">Engagement Continu</h2>
 					<p>
-						Chez Gobiloc, nous croyons qu'un service numérique de qualité doit
-						être à la fois respectueux de l'environnement et accessible à tous.
-						Nous nous engageons à surveiller et à améliorer en continu nos
-						pratiques pour rester conformes aux référentiels RGESN et RGAA. Si
-						vous avez des questions ou des suggestions sur nos pratiques de
-						conformité, n'hésitez pas à nous contacter à{" "}
+						Chez Gobiloc, nous croyons qu&lsquo;un service numérique de qualité
+						doit être à la fois respectueux de l&lsquo;environnement et
+						accessible à tous. Nous nous engageons à surveiller et à améliorer
+						en continu nos pratiques pour rester conformes aux référentiels
+						RGESN et RGAA. Si vous avez des questions ou des suggestions sur nos
+						pratiques de conformité, n&lsquo;hésitez pas à nous contacter à{" "}
 						<strong>contact@gobiloc.com</strong>.
 					</p>
 				</section>

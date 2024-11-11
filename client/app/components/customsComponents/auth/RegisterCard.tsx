@@ -156,7 +156,7 @@ export const RegisterCard: React.FC = () => {
 									onChange={handleConsentChange}
 								/>
 								<Label htmlFor="consent">
-									J'accepte les{" "}
+									J&lsquo;accepte les{" "}
 									<Link
 										href="/terms"
 										className="text-teal-700 visited:text-teal-800 underline"
