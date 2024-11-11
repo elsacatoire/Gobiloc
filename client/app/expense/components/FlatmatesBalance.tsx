@@ -13,12 +13,11 @@ const FlatmatesBalance: React.FC<ExpenseSummaryProps> = ({ expenses }) => {
 	const [balance, setBalance] = useState<FlatmateBalanceType[]>([]);
 	const [totalBudgetExpense, setTotalBudgetExpense] = useState<number>(0);
 	const [average, setAverage] = useState<number>(0);
-	const didMountRef = useRef(false);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		if (didMountRef.current) return;
-		didMountRef.current = true;
+		if (!expenses || !expenses.length) {
+			return;
+		}
 		const fetchFlatmatesBalance = async () => {
 			try {
 				const response = await getFlatmatesBalance();
