@@ -38,7 +38,7 @@ const ExpenseList: React.FC<ExpenseListProps> = React.memo(({ expenses }) => {
 						<TableBody>
 							{sortedExpenses.map((expense) => (
 								<TableRow
-									key={expense.description}
+									key={expense.id}
 									className="w-full text-xs md:text-base"
 								>
 									<TableCell className="font-semibold">

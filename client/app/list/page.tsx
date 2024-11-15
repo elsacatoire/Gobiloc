@@ -24,7 +24,10 @@ export default function ChecklistPage() {
 			try {
 				const data = await fetchChecklists();
 				if (Array.isArray(data)) {
-					setChecklists(data);
+						const sortedChecklists: ChecklistType[] = [...data].sort(
+							(a, b) => new Date(b.updateDate).getTime() - new Date(a.updateDate).getTime(),
+						);
+					setChecklists(sortedChecklists);
 				} else {
 					setError("Données reçues incorrectes.");
 				}

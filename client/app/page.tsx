@@ -34,7 +34,10 @@ const LandingPage: React.FC = () => {
 					const flatshareData = await fetchFlatshare();
 
 					if (Array.isArray(checklists)) {
-						setChecklists(checklists.slice(0, 2));
+						const sortedChecklists: ChecklistType[] = [...checklists].sort(
+							(a, b) => new Date(b.updateDate).getTime() - new Date(a.updateDate).getTime(),
+						);
+						setChecklists(sortedChecklists.slice(0, 2));
 					} else {
 						setError("Données reçues incorrectes pour les listes.");
 					}

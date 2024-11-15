@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	useEffect(() => {
 		const checkTokenExpiration = () => {
 			if (authTokens) {
-				updateUser();
+				//updateUser(); // to fix
 				try {
 					const decodedToken = jwtDecode<DecodedToken>(
 						JSON.parse(authTokens).access,

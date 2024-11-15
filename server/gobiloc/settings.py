@@ -154,7 +154,7 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {  # Configure our JWT
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=3),
+    "ACCESS_TOKEN_LIFETIME": timedelta(seconds=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(
         days=90
     ),  # Allows the user to access the app without login too often

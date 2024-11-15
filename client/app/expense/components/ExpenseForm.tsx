@@ -33,6 +33,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
+		console.log("date", date);
 
 		if (curentUserId && amount) {
 			const newExpense: ExpenseDTO = {
