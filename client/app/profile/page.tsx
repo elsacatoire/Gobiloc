@@ -60,7 +60,6 @@ const ProfilePage: React.FC = () => {
 
 	const handleLogOut = () => {
 		logoutUser();
-		router.push("/login");
 	};
 
 	if (isLoading) {

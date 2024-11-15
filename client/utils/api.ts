@@ -41,9 +41,10 @@ apiClient.interceptors.response.use(
 					},
 				);
 
-				// If success save the new token
+				// If success save the new tokens
 				const newAccessToken = response.data.access;
-				saveTokens(newAccessToken, refreshToken);
+				const newRefreshToken = response.data.refresh;
+				saveTokens(newAccessToken, newRefreshToken);
 
 				// Add new token in the request header
 				originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;

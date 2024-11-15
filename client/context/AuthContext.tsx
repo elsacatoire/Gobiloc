@@ -2,7 +2,6 @@ import { fetchFlatshare } from "@/api/services/flatService";
 import { fetchCurrentUser } from "@/api/services/userService";
 import type { FlatType } from "@/types/FlatType";
 import type { DecodedToken } from "@/types/TokenType";
-import { set } from "date-fns";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
@@ -32,7 +31,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [authTokens, setAuthTokens] = useState<string | null>(null);
 
 	// Check if the user token is still valid
-	useEffect(() => {
+/* 	useEffect(() => {
 		const checkTokenExpiration = () => {
 			if (authTokens) {
 				//updateUser(); // to fix
@@ -81,7 +80,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		}, 60 * 1000); // Check every minute
 
 		return () => clearInterval(interval);
-	}, [authTokens]);
+	}, [authTokens]); */
 
 	// Method to get the flatshare data
 	const fetchFlatshareData = async () => {
@@ -161,11 +160,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 	// Method to logout the user
 	const logoutUser = () => {
+		router.push("/login");
 		setUser(null);
 		setAuthTokens(null);
 		localStorage.removeItem("authTokens");
 		localStorage.removeItem("user");
-		router.push("/login");
+		console.log("Logged out");
 	};
 
 	const contextData = {

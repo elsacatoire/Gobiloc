@@ -44,7 +44,9 @@ apiFlatClient.interceptors.response.use(
                 );
 
                 const newAccessToken = response.data.access;
-                saveTokens(newAccessToken, refreshToken);
+                const newRefreshToken = response.data.refresh;
+                saveTokens(newAccessToken, newRefreshToken);
+
                 originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
 
                 return apiFlatClient(originalRequest); // Retry the request with the new token
