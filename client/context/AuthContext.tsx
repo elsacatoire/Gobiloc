@@ -31,56 +31,56 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [authTokens, setAuthTokens] = useState<string | null>(null);
 
 	// Check if the user token is still valid
-/* 	useEffect(() => {
-		const checkTokenExpiration = () => {
-			if (authTokens) {
-				//updateUser(); // to fix
-				try {
-					const decodedToken = jwtDecode<DecodedToken>(
-						JSON.parse(authTokens).access,
-					);
-					const currentTime = Date.now() / 1000;
-
-					if (decodedToken.exp < currentTime) {
-						// Token is expired, log the user out
-						console.log("Token expired, logging out");
+	/* 	useEffect(() => {
+			const checkTokenExpiration = () => {
+				if (authTokens) {
+					//updateUser(); // to fix
+					try {
+						const decodedToken = jwtDecode<DecodedToken>(
+							JSON.parse(authTokens).access,
+						);
+						const currentTime = Date.now() / 1000;
+	
+						if (decodedToken.exp < currentTime) {
+							// Token is expired, log the user out
+							console.log("Token expired, logging out");
+							logoutUser();
+						}
+					} catch (error) {
+						console.error("Failed to decode token", error);
 						logoutUser();
 					}
-				} catch (error) {
-					console.error("Failed to decode token", error);
-					logoutUser();
 				}
-			}
-		};
-
-		if (typeof window !== "undefined") {
-			const storedTokens = localStorage.getItem("authTokens");
-			if (storedTokens) {
-				try {
-					const decoded = jwtDecode<DecodedToken>(
-						JSON.parse(storedTokens).access,
-					);
-					const currentTime = Date.now() / 1000;
-					if (decoded.exp > currentTime) {
-						setUser(decoded);
-						setCurentUserId(decoded.user_id);
-						setAuthTokens(storedTokens);
-					} else {
+			};
+	
+			if (typeof window !== "undefined") {
+				const storedTokens = localStorage.getItem("authTokens");
+				if (storedTokens) {
+					try {
+						const decoded = jwtDecode<DecodedToken>(
+							JSON.parse(storedTokens).access,
+						);
+						const currentTime = Date.now() / 1000;
+						if (decoded.exp > currentTime) {
+							setUser(decoded);
+							setCurentUserId(decoded.user_id);
+							setAuthTokens(storedTokens);
+						} else {
+							logoutUser();
+						}
+					} catch (error) {
+						console.error("Token decoding failed", error);
 						logoutUser();
 					}
-				} catch (error) {
-					console.error("Token decoding failed", error);
-					logoutUser();
 				}
 			}
-		}
-
-		const interval = setInterval(() => {
-			checkTokenExpiration();
-		}, 60 * 1000); // Check every minute
-
-		return () => clearInterval(interval);
-	}, [authTokens]); */
+	
+			const interval = setInterval(() => {
+				checkTokenExpiration();
+			}, 60 * 1000); // Check every minute
+	
+			return () => clearInterval(interval);
+		}, [authTokens]); */
 
 	// Method to get the flatshare data
 	const fetchFlatshareData = async () => {
@@ -117,6 +117,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 			setAuthTokens(data);
 			setUser(decodedUser);
+			setCurentUserId(decodedUser.user_id);
 			localStorage.setItem("authTokens", JSON.stringify(data));
 			localStorage.setItem("user", JSON.stringify(decodedUser));
 
@@ -161,10 +162,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	// Method to logout the user
 	const logoutUser = () => {
 		router.push("/login");
-		setUser(null);
-		setAuthTokens(null);
+
 		localStorage.removeItem("authTokens");
 		localStorage.removeItem("user");
+		localStorage.removeItem("flatmates");
+		setUser(null);
 		console.log("Logged out");
 	};
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAuthToken, getRefreshToken, saveTokens } from "./auth/authUtils";
+import { getAuthToken, getRefreshToken, saveTokens, unAuthenticatedURL } from "./auth/authUtils";
 
 const apiClient = axios.create({
 	baseURL: "http://localhost:8000/api/v1",
@@ -29,7 +29,16 @@ apiClient.interceptors.response.use(
 
 		// If error beacause of a 401 (expired token) and not yet tried to refresh
 		if (error.response.status === 401 && !originalRequest._retry) {
+			const refreshToken = getRefreshToken();
+			if (!refreshToken) {
+				// Si aucun refresh token, forcer le logout
+				unAuthenticatedURL();
+				localStorage.removeItem("authTokens");
+				return Promise.reject(error);
+			}
+
 			originalRequest._retry = true; // To prevent infint loop
+
 
 			try {
 				const refreshToken = getRefreshToken();
@@ -55,7 +64,7 @@ apiClient.interceptors.response.use(
 				// If refresh request failed (for exemple refresh token expired), logout the user
 				console.error("Le refresh token est expiré ou invalide");
 				localStorage.removeItem("authTokens");
-				window.location.href = "/login";
+				unAuthenticatedURL();
 				return Promise.reject(refreshError);
 			}
 		}

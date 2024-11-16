@@ -7,14 +7,14 @@ type ExpenseSummaryProps = {
 };
 
 const ExpenseSummary: React.FC<ExpenseSummaryProps> = ({ expenses }) => {
+	console.log("exepnses : ", expenses);
 	if (expenses.length === 0) {
 		return;
 	}
 
-	const total = expenses.reduce(
-		(acc, expense) => acc + Number.parseFloat(expense.amount),
-		0,
-	);
+	const total = expenses
+		.reduce((acc, expense) => acc + Number.parseFloat(expense.amount), 0)
+		.toFixed(2);
 
 	return (
 		<Card>

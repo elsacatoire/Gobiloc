@@ -7,6 +7,7 @@ const LogoLetter = () => {
 			width={30}
 			height={30}
 			alt="Logo gobiloc lettre G"
+			priority
 		/>
 	);
 };

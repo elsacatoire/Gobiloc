@@ -2,6 +2,7 @@ import type { UserType } from "@/types/UserType";
 import apiClient from "@/utils/api";
 
 export const fetchCurrentUser = async () => {
+	//if (!user) return;
 	try {
 		const response = await apiClient.get("http://localhost:8000/api/v1/user/");
 		const user: UserType[] = response.data;

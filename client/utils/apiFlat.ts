@@ -1,7 +1,7 @@
 'use client';
 
 import axios from "axios";
-import { getAuthToken, getRefreshToken, saveTokens } from "./auth/authUtils";
+import { getAuthToken, getRefreshToken, saveTokens, unAuthenticatedURL } from "./auth/authUtils";
 
 // Vérifie si l'utilisateur est authentifié
 const userString = typeof window !== "undefined" ? localStorage.getItem("user") : null;
@@ -35,6 +35,13 @@ apiFlatClient.interceptors.response.use(
 
         if (error.response.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true; // Prevent infinite loop
+            const refreshToken = getRefreshToken();
+            if (!refreshToken) {
+                // Si aucun refresh token, forcer le logout
+                localStorage.removeItem("authTokens");
+                unAuthenticatedURL();
+                return Promise.reject(error);
+            }
 
             try {
                 const refreshToken = getRefreshToken();
@@ -53,7 +60,7 @@ apiFlatClient.interceptors.response.use(
             } catch (refreshError) {
                 console.error("Le refresh token est expiré ou invalide");
                 localStorage.removeItem("authTokens");
-                window.location.href = "/login";
+                unAuthenticatedURL();
                 return Promise.reject(refreshError);
             }
         }

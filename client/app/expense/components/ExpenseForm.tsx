@@ -24,6 +24,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
 
 	const addExpense = async (expense: ExpenseDTO) => {
 		try {
+			console.log("expense", expense);
 			const response = await createExpense(expense, budgetId);
 			onExpenseAdded(response);
 		} catch (error) {
