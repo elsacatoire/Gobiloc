@@ -32,13 +32,13 @@ const ExpenseList: React.FC<ExpenseListProps> = React.memo(({ expenses }) => {
 			<CardContent className="p-3">
 				<h1 className="font-bold">{"Détail des dépenses"}</h1>
 				{expenses.length < 1 ? (
-					<p>Il n'y a pas encore de dépense</p>
+					<p>Il n&lsquo;y a pas encore de dépense</p>
 				) : (
 					<Table className="w-full">
 						<TableBody>
 							{sortedExpenses.map((expense) => (
 								<TableRow
-									key={expense.description}
+									key={expense.id}
 									className="w-full text-xs md:text-base"
 								>
 									<TableCell className="font-semibold">
@@ -62,5 +62,7 @@ const ExpenseList: React.FC<ExpenseListProps> = React.memo(({ expenses }) => {
 		</Card>
 	);
 });
+
+ExpenseList.displayName = "ExpenseList";
 
 export default ExpenseList;

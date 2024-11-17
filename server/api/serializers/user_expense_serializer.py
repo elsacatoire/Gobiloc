@@ -13,4 +13,4 @@ class UserExpensesSerializer(serializers.ModelSerializer):
     def get_total_expenses(self, user):
         # Calculate the total amount of expenses for this user
         total = Expense.objects.filter(user=user).aggregate(total_amount=Sum('amount'))['total_amount']
-        return total if total is not None else 0  # Return 0 if there are no expenses
+        return total if total is not None else 0

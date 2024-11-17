@@ -21,14 +21,14 @@ const UseGobilocLink = () => {
 				</div>
 				<div className="flex flex-col gap-2">
 					<p>
-						Déjà connecté ? Rendez-vous sur la page d'accueil pour commencer à
-						utiliser Gobiloc.
+						Déjà connecté ? Rendez-vous sur la page d&lsquo;accueil pour
+						commencer à utiliser Gobiloc.
 					</p>
 					<Link
 						className="bg-teal-700 text-white px-4 py-2 rounded hover:bg-teal-800 text-center mx-auto"
 						href="/login"
 					>
-						Se rendre sur la page d'accueil
+						Se rendre sur la page d&lsquo;accueil
 					</Link>
 				</div>
 			</section>

@@ -17,6 +17,7 @@ const isAuth = <P extends object>(WrappedComponent: React.ComponentType<P>) => {
 
 		useEffect(() => {
 			if (mounted && !isAuthenticated) {
+				console.log("Is Auth Redirection vers la page de connexion...");
 				router.push("/login");
 			}
 		}, [mounted, isAuthenticated, router]);

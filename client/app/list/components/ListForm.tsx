@@ -31,7 +31,7 @@ export const ChecklistForm: React.FC<ChecklistFormProps> = ({
 	onSuccess,
 }) => {
 	const [category, setCategory] = useState<string | null>(null);
-	const [name, setName] = useState("Checklist");
+	const [name, setName] = useState("");
 	const [isShared, setIsShared] = useState(false);
 	const [, setError] = useState<string | null>(null);
 
