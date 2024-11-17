@@ -1,0 +1,1014 @@
+{
+	"info": {
+		"_postman_id": "5585f8d7-b9cd-45e8-bb18-32f4e85c5faa",
+		"name": "GobiLocAPI",
+		"description": "JWT signed with base64 encoding\n\nThis folder creates a signed JWT using the `jwt_secret` variable and encodes the JWT data as base64. It then sets the signed and encoded JWT as `Bearer` token in the `Authorization` header.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a9ae487f-a2a0-428e-89bf-0082bfe1b455",
+								"exec": [
+									"// GET TOKEN\r",
+									"// Read the response\r",
+									"let responseData = pm.response.json();\r",
+									"\r",
+									"// Create the variable\r",
+									"pm.collectionVariables.set(\"bearerToken\", responseData.access);\r",
+									"\r",
+									"\r",
+									"// TEST LOGIN\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has the required fields - refresh and access\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData).to.have.property('refresh');\r",
+									"  pm.expect(responseData).to.have.property('access');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Refresh and access are non-empty strings\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData.refresh).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Refresh should not be empty\");\r",
+									"  pm.expect(responseData.access).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Access should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "62a7c0f0-bb5b-4415-b835-6a90fd8fb805",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "09c39f4d-42f3-4a33-ad91-0e3504737217",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"email\": {{login_usermail}},\r\n\t\"password\": {{login_password}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/v1/token/"
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a9ae487f-a2a0-428e-89bf-0082bfe1b455",
+								"exec": [
+									"// GET TOKEN\r",
+									"// Read the response\r",
+									"let responseData = pm.response.json();\r",
+									"\r",
+									"// Create the variable\r",
+									"pm.collectionVariables.set(\"bearerToken\", responseData.access);\r",
+									"\r",
+									"\r",
+									"// TEST LOGIN\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has the required fields - refresh and access\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData).to.have.property('refresh');\r",
+									"  pm.expect(responseData).to.have.property('access');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Refresh and access are non-empty strings\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData.refresh).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Refresh should not be empty\");\r",
+									"  pm.expect(responseData.access).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Access should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "62a7c0f0-bb5b-4415-b835-6a90fd8fb805",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "0a910a14-41d2-4428-b46b-b3ced0075b95",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODIyOTA3MSwiaWF0IjoxNzMwNDUzMDcxLCJqdGkiOiI5ZTVhMDIwYTdjZGI0NDNlYWEzZGZlYjQ5ZTVlNWE3ZCIsInVzZXJfaWQiOjEsInVzZXJuYW1lIjoiUGF0cmljayIsImZsYXRfaWQiOjF9.xecBQDjdz1-jI-sERRbRpDvRWxbcgEH7f5Hb4jzCCeU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"refresh\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODIyOTI0NiwiaWF0IjoxNzMwNDUzMjQ2LCJqdGkiOiI5MTgwYmRiY2VkYjQ0MWZmYjFmODk2ZGJkYzkyOTA2ZiIsInVzZXJfaWQiOjEsInVzZXJuYW1lIjoiUGF0cmljayIsImZsYXRfaWQiOjF9.TWzfn-C-16K0mKLJ6DYbNCgw4F908cEN_oDGzOr6BbM\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/v1/token/refresh/"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout user",
+					"id": "fdc2a028-e167-40d2-b56e-cc4a6bd55e38",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI1MTgxMTk2LCJpYXQiOjE3MjUxNzc1OTYsImp0aSI6ImYwMDk0YTdjZjM0YjRiOTBhODFiMTYyMzgyODBmZDc3IiwidXNlcl9pZCI6MX0.1ZvduyQkmGzi{{bearerToken}}MuqOgiS1wcFnJQZ7lRAQncfG5pURv0"
+							}
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "5c1p5Oql8EzUzjnWhkZD7rAKYgPqCwMn",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/user/logout/"
+					},
+					"response": []
+				},
+				{
+					"name": "Resgister",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2b29df83-5bc0-416a-8de7-4fb4728de07d",
+								"exec": [
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is within an acceptable range\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has the required fields - username, email, date_joined, and flat_share_id\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData).to.have.property('user');\r",
+									"  pm.expect(responseData.user).to.have.property('username');\r",
+									"  pm.expect(responseData.user).to.have.property('email');\r",
+									"  pm.expect(responseData.user).to.have.property('date_joined');\r",
+									"  pm.expect(responseData.user).to.have.property('flat_share_id');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Username and email are in a valid format\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData.user).to.be.an('object');\r",
+									"    pm.expect(responseData.user.username).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Username should not be empty\");\r",
+									"    pm.expect(responseData.user.email).to.be.a('string').and.to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, \"Email should be in a valid format\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Flat_share_id is either null or a valid ID format\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.user.flat_share_id).to.satisfy((id) => id === null || /^[0-9a-fA-F]{24}$/.test(id), \"Flat_share_id should be null or a valid ID format\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "13b49eeb-b978-43c1-803c-e3ac5620baab",
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "f06c96fa-0356-426e-a8d0-6952660e60d5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"username\": \"Elsadesbois\",\r\n\t\"email\": \"what@test.com\",\r\n\t\"password\": \"123coucou!!!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/v1/user/"
+					},
+					"response": []
+				},
+				{
+					"name": "Change user name",
+					"id": "2257b246-fa30-413c-8653-48f13f878407",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "PGsnkouNyliqzCWcmzNt7AqTeW3ydmmW",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"username\": \"Patrick\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/user/1/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get authenticated user's data",
+					"id": "687527c2-155e-4e00-8588-c9307ba29036",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMwNDUzMzU5LCJpYXQiOjE3MzA0NTMyNDYsImp0aSI6Ijg2ZDcxNDliNWUwMDRiOTBiODE2OTcxZTk2YWMwNDAxIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJQYXRyaWNrIiwiZmxhdF9pZCI6MX0.IaPB6mTtw7Xu0qOhb-z3fkDbDx_ubtCZBdy2PDemgro"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "YrtKKn20nbQIhhAp2CUh59Cos2jpoFgq",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "localhost:8000/api/user/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a user's data with id",
+					"id": "b190b79f-1775-4eea-8085-734f7a5d12d7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "MtItFlS1l9B2wXf7QB9zLfyBRXn9yM2d",
+								"type": "text"
+							}
+						],
+						"url": "localhost:8000/api/user/8/"
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8000/api/v1/user",
+					"id": "5e2c095f-fe76-488e-b2c6-b74df0cbd16e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMwMzIwNTc0LCJpYXQiOjE3MzAzMTY5NzQsImp0aSI6IjE5Mjk5ZDM2ZmNlODQzMmVhMWIwYTJkMzY4NjIyOWFjIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJQYXRyaWNrIiwiZmxhdF9pZCI6MX0.6dTbq40o2m-EeO_Xp5VTCRdgEMtoG3J-KwCf4gxmjFc",
+								"type": "text"
+							}
+						],
+						"url": "localhost:8000/api/v1/user"
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8000/api/v1/user Copy",
+					"id": "d8ea9773-dbd9-4b15-813f-da7c4578e4d7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMwMzk5MzA4LCJpYXQiOjE3MzAzOTU3MDgsImp0aSI6ImJmY2IzOGNiODg0OTQxMzZiZmUyMjJkYjNhNDIxMTlmIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJQYXRyaWNrIiwiZmxhdF9pZCI6MX0.a_PqrMvL4LERBCDn1vwBgKO7BkNbDjCE0TkbgAjtDT0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"flat_share_id\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/v1/user"
+					},
+					"response": []
+				}
+			],
+			"id": "4b2c03ff-ca66-46c6-88d4-e8e6a0b9007d",
+			"description": "### Authentication Collection Description\n\nThis authentication collection contains endpoints for managing user authentication in the GobiLoc project. The collection is designed to work with a backend built using Django REST Framework and a PostgreSQL database.\n\n#### Key Features:\n\n- User Registration: Create new user accounts\n    \n- User Login: Authenticate existing users\n    \n- Username Reset: Allow users to reset their usernames// TODO\n    \n- Password Reset: Allow users to reset their passwords // TODO\n    \n- Token Refresh: Extend session tokens for long-term access\n    \n\n#### Endpoints:\n\nUrl : /api/\n\n1. **Register User**\n    \n    - POST /auth/register // TO CHECK\n        \n    - Create a new user account with email, password, and other required fields\n        \n2. **Login User**\n    \n    - POST /token/\n        \n    - Authenticate an existing user and receive a token\n        \n3. **Refresh Token**\n    \n    - POST /token/refresh\n        \n    - Exchange an expired token for a new one\n        \n\n/// TODO ??\n\n1. **Reset Password**\n    \n    - POST /auth/password/reset\n        \n    - Initiate password reset process\n        \n    - Follow-up PUT request to /auth/password/reset/{uid}/{token} to complete reset\n        \n2. **Verify Email**\n    \n    - POST /auth/email/verify\n        \n    - Send verification email to newly registered users\n        \n3. **Resend Verification Email**\n    \n    - POST /auth/email/resend\n        \n    - Resend email verification to users who haven't confirmed their accounts\n        \n\n#### Best Practices:\n\n- Use HTTPS for all requests to ensure secure communication\n    \n- Include appropriate headers (e.g., Content-Type, Authorization)\n    \n- Handle errors gracefully and provide meaningful error messages\n    \n- Implement rate limiting to prevent abuse\n    \n- Use JWT (JSON Web Tokens) for authentication and session management\n    \n\nThis collection provides a comprehensive set of endpoints for handling user authentication in the GobiLoc project, integrating seamlessly with the React frontend and Django REST Framework backend.",
+			"auth": {
+				"type": "bearer",
+				"bearer": {}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9caef6ae-045f-4911-92e6-4ec8f4ecef0f",
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "43a60e2a-e74d-42da-a633-f88022899dd8",
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Lists",
+			"item": [
+				{
+					"name": "TODO",
+					"item": [
+						{
+							"name": "category",
+							"item": [
+								{
+									"name": "Get a category",
+									"id": "2872e77d-4681-4fb0-a1c6-a6b84bf74641",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"coucou\": \"1\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}flat/1/todo/1/"
+									},
+									"response": []
+								}
+							],
+							"id": "7a6ed0cf-e80d-4abf-be2b-63c96095c2ea"
+						},
+						{
+							"name": "Get all todos from a flat",
+							"id": "97e3f8c8-ec72-494e-90c8-8381a3dfb899",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"coucou\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}flat/1/todo/"
+							},
+							"response": []
+						},
+						{
+							"name": "Create todo",
+							"id": "92f9595f-c8d2-42b1-a978-a4c095e3c00f",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "csrftoken",
+										"value": "Cvmsozea6wX3WX8pUsec1CuDHm5HYmYq",
+										"disabled": true
+									},
+									{
+										"key": "sessionid",
+										"value": "pk4vkolulilmwd0dv449rv0761b48bc4",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\r\n        \"flat_share\": 6,\r\n        \"name\": \"meluch\",\r\n        \"category\": 2\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}flat/1/todo/"
+							},
+							"response": []
+						},
+						{
+							"name": "Edit list name",
+							"id": "e97e5f07-63a4-4c27-ba6f-217f04f1c08f",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "csrftoken",
+										"value": "Cvmsozea6wX3WX8pUsec1CuDHm5HYmYq",
+										"disabled": true
+									},
+									{
+										"key": "sessionid",
+										"value": "pk4vkolulilmwd0dv449rv0761b48bc4",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\r\n        \"name\": \"LFI\",\r\n        \"category\": null\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}flat/1/todo/204/"
+							},
+							"response": []
+						},
+						{
+							"name": "Get a todo",
+							"id": "33455f5c-6540-4c29-9efa-f8c266298ad4",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"coucou\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}flat/1/todo/1/"
+							},
+							"response": []
+						},
+						{
+							"name": "delete a todo",
+							"id": "e73ec607-ad4f-4401-9f44-3dab98cd6921",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}flat/1/todo/204/"
+							},
+							"response": []
+						}
+					],
+					"id": "b047a278-5f16-4a89-af21-0c22498a147c"
+				},
+				{
+					"name": "TASKS",
+					"item": [
+						{
+							"name": "Create a task",
+							"id": "ac1bf2fc-2607-4207-a8c7-788490756386",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"todo\": 1,\r\n    \"content\": \"du vin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8000/api/task/"
+							},
+							"response": []
+						},
+						{
+							"name": "Get a task",
+							"id": "0337cfa5-9f5c-4b97-a915-3dbd568ff5d3",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:8000/api/task/1"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a task",
+							"id": "c36f9ef1-e834-4222-8259-461d0688177d",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "localhost:8000/api/task/4/"
+							},
+							"response": []
+						},
+						{
+							"name": "Get all tasks from a todo",
+							"id": "c22ddf7f-13e6-46fd-8e70-303542b23b26",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:8000/api/todo/1/tasks"
+							},
+							"response": []
+						},
+						{
+							"name": "Check/uncheck a task",
+							"id": "14119b20-5741-4d17-b6ec-e12a5b1a8180",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"done\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8000/api/task/1/"
+							},
+							"response": []
+						}
+					],
+					"id": "337987cf-128d-4e68-a212-5ece11ceeb72"
+				}
+			],
+			"id": "5929d83e-676c-4942-980d-9adb75372c63"
+		},
+		{
+			"name": "Flat",
+			"item": [
+				{
+					"name": "Create a flat",
+					"id": "48dee1db-667f-4424-ae01-365e639e6361",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Le front populaire\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/flat/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a flat",
+					"id": "53c519c1-62f9-4bfa-9224-483382c35226",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}flat/1/"
+					},
+					"response": []
+				},
+				{
+					"name": "Edit a flat",
+					"id": "dabe146b-5854-4e87-a9fa-88423db6a782",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"sous les pavés la plage\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8000/api/flat/9/"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a flat",
+					"id": "de671878-0f4f-4418-b98a-35d6edb06910",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8000/api/flat/8/"
+					},
+					"response": []
+				}
+			],
+			"id": "60cf8855-214f-4f25-9e2a-70a104715d68"
+		},
+		{
+			"name": "Budget",
+			"item": [
+				{
+					"name": "Get all budgets",
+					"id": "387938b5-b833-4d1b-9c80-a49d9ef799a1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}flat/1/budget"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a budget",
+					"id": "d4e059a8-22b8-4d93-a1a9-b5624eb5dfd8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}flat/1/budget/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create a budget (unused)",
+					"id": "1aa19daa-fcc3-4eab-8a62-fa60897f684c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n    \"flat_share\": 12\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}flat/5/budget/"
+					},
+					"response": []
+				}
+			],
+			"id": "214a85ed-40a2-4f65-b893-1dec8e11c4bf"
+		},
+		{
+			"name": "Expense",
+			"item": [
+				{
+					"name": "Get all expenses from a flat",
+					"id": "893074d3-d56a-4d54-b36a-2b253b23ee50",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}flat/1/budget/1/"
+					},
+					"response": []
+				},
+				{
+					"name": "Create expense for a budget",
+					"id": "3b7a6617-c2ba-420e-87da-2f082d9d8fa2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"budget\": 1,\r\n    \"description\": \"postman\",\r\n    \"amount\": 10,\r\n    \"user\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}flat/1/budget/1/expense/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get expense for a budget (unused)",
+					"id": "5b9a29b5-6bc9-46a5-b81e-253e1d918a8b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"budget\": 1,\r\n    \"description\": \"postman\",\r\n    \"amount\": 10,\r\n    \"user\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}flat/1/budget/1/expense/3/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get flatmates with total",
+					"id": "934b11e0-9b63-4f57-bbe5-a165adbfd600",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"budget\": 1,\r\n    \"description\": \"postman\",\r\n    \"amount\": 10,\r\n    \"user\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}flat/1/users_with_expenses"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an exepense",
+					"id": "85801385-eb09-4e68-9c1a-2cd2335ec759",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"budget\": 1,\r\n    \"description\": \"postman\",\r\n    \"amount\": 10,\r\n    \"user\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}flat/1/budget/1/expense/3/"
+					},
+					"response": []
+				}
+			],
+			"id": "92904e2c-c2be-41b0-8fe5-caaf45ed52d5"
+		},
+		{
+			"name": "New Folder",
+			"item": [],
+			"id": "387a19c7-20a4-4938-a133-4b415f8e988e"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{bearerToken}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "02a8fde1-13f4-412e-9065-997a945f979b",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "3a5b2cdf-8e5e-423e-bc06-a6e8ba54c767",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "bearerToken",
+			"value": "to be set by login"
+		},
+		{
+			"key": "todoId",
+			"value": ""
+		}
+	]
+}
