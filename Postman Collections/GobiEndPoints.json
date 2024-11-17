@@ -240,14 +240,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"username\": \"kkkkkk\",\r\n\t\"email\": \"whatwhkkkkt@test.com\",\r\n\t\"password\": \"123coucou\"\r\n}",
+							"raw": "{\r\n\t\"username\": \"Elsadesbois\",\r\n\t\"email\": \"what@test.com\",\r\n\t\"password\": \"123coucou!!!\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "localhost:8000/api/user/"
+						"url": "localhost:8000/api/v1/user/"
 					},
 					"response": []
 				},
