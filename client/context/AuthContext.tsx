@@ -162,7 +162,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	// Method to logout the user
 	const logoutUser = () => {
 		router.push("/login");
-
 		localStorage.removeItem("authTokens");
 		localStorage.removeItem("user");
 		localStorage.removeItem("flatmates");
