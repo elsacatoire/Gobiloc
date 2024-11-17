@@ -228,6 +228,64 @@
 				},
 				{
 					"name": "Resgister",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2b29df83-5bc0-416a-8de7-4fb4728de07d",
+								"exec": [
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is within an acceptable range\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has the required fields - username, email, date_joined, and flat_share_id\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData).to.have.property('user');\r",
+									"  pm.expect(responseData.user).to.have.property('username');\r",
+									"  pm.expect(responseData.user).to.have.property('email');\r",
+									"  pm.expect(responseData.user).to.have.property('date_joined');\r",
+									"  pm.expect(responseData.user).to.have.property('flat_share_id');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Username and email are in a valid format\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData.user).to.be.an('object');\r",
+									"    pm.expect(responseData.user.username).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Username should not be empty\");\r",
+									"    pm.expect(responseData.user.email).to.be.a('string').and.to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, \"Email should be in a valid format\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Flat_share_id is either null or a valid ID format\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.user.flat_share_id).to.satisfy((id) => id === null || /^[0-9a-fA-F]{24}$/.test(id), \"Flat_share_id should be null or a valid ID format\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "13b49eeb-b978-43c1-803c-e3ac5620baab",
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"id": "f06c96fa-0356-426e-a8d0-6952660e60d5",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
