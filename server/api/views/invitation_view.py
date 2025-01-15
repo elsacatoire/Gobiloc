@@ -20,26 +20,33 @@ class CreateInvitationViewSet(GenericViewSet, CreateModelMixin):
         user = request.user
         flat_share = user.flat_share
         if not flat_share:
-            return Response({"error": "User does not have a flat share"}, status=status.HTTP_403_FORBIDDEN)
+            return Response(
+                {"error": "User does not have a flat share"},
+                status=status.HTTP_403_FORBIDDEN
+            )
 
         invitation = Invitation(
             invited_by=user,
             flat_share=flat_share,
             created_at=datetime.now(),
         )
-        invitation.code = self.generate_code(flat_share.id, invitation.created_at)
+
+        while True:
+            code_candidate = self.generate_code()
+            # On vérifie que ce code n'existe pas déjà
+            if not Invitation.objects.filter(code=code_candidate).exists():
+                invitation.code = code_candidate
+                break
         invitation.save()
 
-        return Response(InvitationSerializer(invitation).data, status=status.HTTP_201_CREATED)
+        return Response(
+            InvitationSerializer(invitation).data,
+            status=status.HTTP_201_CREATED
+        )
 
     @staticmethod
-    def generate_code(flat_id: int, created_at: datetime) -> str:
-        base_string = str(flat_id) + str(created_at)
-        hashed_base = hashlib.md5(base_string.encode('utf-8')).hexdigest()
-        random_suffix = str(uuid.uuid4())[:6]
-        combined = hashed_base[:14] + random_suffix
-
-        return combined
+    def generate_code() -> str:
+        return str(uuid.uuid4())[:20]
 
 
 class AcceptInvitationViewSet(GenericViewSet, CreateModelMixin):
