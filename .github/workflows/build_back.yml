@@ -1,4 +1,4 @@
-name: Django CI
+name: Build Backend Django CI
 
 on:
   push:
@@ -31,12 +31,14 @@ jobs:
     env:
       DJANGO_SETTINGS_MODULE: gobiloc.settings
       DB_NAME: gobilocTest
-      DB_USER: postgresCI
-      DB_PASSWORD: postgresCI
+      DB_USER: ${{ secrets.DB_USER_CI }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD_CI }}
       DB_HOST: localhost
       DB_PORT: "5432"
       DATABASE_URL: postgres://postgresCI:postgresCI@localhost:5432/gobilocTest
-
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DEBUG: 'True'
+  
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -58,6 +60,17 @@ jobs:
   test_backend:
     runs-on: ubuntu-latest
     needs: build_server_back  # Ensure tests run after build
+
+    env:
+      DJANGO_SETTINGS_MODULE: gobiloc.settings
+      DB_NAME: gobilocTest
+      DB_USER: ${{ secrets.DB_USER_CI }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD_CI }}
+      DB_HOST: localhost
+      DB_PORT: "5432"
+      DATABASE_URL: postgres://postgresCI:postgresCI@localhost:5432/gobilocTest
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DEBUG: 'True'
 
     steps:
       - name: Checkout code

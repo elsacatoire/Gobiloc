@@ -8,7 +8,7 @@ class Expense(Model):
     description = TextField()
     amount = DecimalField(max_digits=10, decimal_places=2)
     user = ForeignKey(User, related_name="users", on_delete=CASCADE)
-    date = DateTimeField(auto_now=True)
+    date = DateTimeField()
 
     def __str__(self):
         return f"{self.description} - {self.amount} €"

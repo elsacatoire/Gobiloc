@@ -4,7 +4,7 @@ import AuthContext from "@/context/AuthContext";
 import isAuth from "@/utils/auth/isAuth";
 import React, { useContext } from "react";
 
-const messages = () => {
+const Messages = () => {
 	const context = useContext(AuthContext);
 
 	if (!context) {
@@ -22,4 +22,4 @@ const messages = () => {
 	);
 };
 
-export default isAuth(messages);
+export default isAuth(Messages);

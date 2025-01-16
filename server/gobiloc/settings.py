@@ -51,7 +51,6 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -154,7 +153,7 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {  # Configure our JWT
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=3),
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=20),
     "REFRESH_TOKEN_LIFETIME": timedelta(
         days=90
     ),  # Allows the user to access the app without login too often

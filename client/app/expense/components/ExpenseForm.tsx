@@ -24,6 +24,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
 
 	const addExpense = async (expense: ExpenseDTO) => {
 		try {
+			console.log("expense", expense);
 			const response = await createExpense(expense, budgetId);
 			onExpenseAdded(response);
 		} catch (error) {
@@ -33,6 +34,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
+		console.log("date", date);
 
 		if (curentUserId && amount) {
 			const newExpense: ExpenseDTO = {

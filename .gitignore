@@ -1,3 +1,6 @@
 .idea/
 .vscode/
 .env
+
+# local env files
+.env*.local

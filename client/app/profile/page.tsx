@@ -2,6 +2,7 @@
 
 import { fetchCurrentUser } from "@/api/services/userService";
 import AuthContext from "@/context/AuthContext";
+import isAuth from "@/utils/auth/isAuth";
 import { CircleAlertIcon, LogOut, Mail } from "lucide-react";
 import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
@@ -34,12 +35,18 @@ const ProfilePage: React.FC = () => {
 
 	useLayoutEffect(() => {
 		if (!isAuthenticated) {
-			redirect("/");
+			redirect("/login");
 		}
 	}, [isAuthenticated]);
 
 	/* ----- GET user data ----- */
 	useEffect(() => {
+		if (!user) {
+			if (typeof window !== "undefined") {
+				window.location.href = "/login";
+			}
+			return;
+		}
 		if (didMountRef.current) return;
 		didMountRef.current = true;
 		const getCurrentUser = async () => {
@@ -56,11 +63,12 @@ const ProfilePage: React.FC = () => {
 			}
 		};
 		getCurrentUser();
-	}, []);
+	}, [user]);
 
 	const handleLogOut = () => {
-		logoutUser();
 		router.push("/login");
+		console.log("Déconnexion...");
+		logoutUser();
 	};
 
 	if (isLoading) {
@@ -143,4 +151,4 @@ const ProfilePage: React.FC = () => {
 	);
 };
 
-export default ProfilePage;
+export default isAuth(ProfilePage);

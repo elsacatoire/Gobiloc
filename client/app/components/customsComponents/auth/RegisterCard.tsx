@@ -72,7 +72,7 @@ export const RegisterCard: React.FC = () => {
 
 		try {
 			const response = await axios.post(
-				"http://localhost:8000/api/user/",
+				"http://localhost:8000/api/v1/user/",
 				{ username, email, password },
 				{ withCredentials: true },
 			);
@@ -156,7 +156,7 @@ export const RegisterCard: React.FC = () => {
 									onChange={handleConsentChange}
 								/>
 								<Label htmlFor="consent">
-									J'accepte les{" "}
+									J&lsquo;accepte les{" "}
 									<Link
 										href="/terms"
 										className="text-teal-700 visited:text-teal-800 underline"

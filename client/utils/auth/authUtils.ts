@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+
 export const getAuthToken = () => {
 	if (typeof window !== "undefined") {
 		const tokens = localStorage.getItem("authTokens");
@@ -20,3 +22,8 @@ export const saveTokens = (access: string, refresh: string) => {
 		localStorage.setItem("authTokens", newTokens);
 	}
 };
+
+export const unAuthenticatedURL = () => {
+	const router = useRouter();
+	router.push('/login')
+}

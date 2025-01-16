@@ -41,7 +41,7 @@ const JoinFlatCard: React.FC<JoinFlatCardProps> = ({
 			<CardHeader className="font-bold">Colocation</CardHeader>
 			<CardContent className="flex flex-col gap-4">
 				<p className="italic">
-					Pour rejoindre une colocation utilise un code d'invitation
+					Pour rejoindre une colocation utilise un code d&lsquo;invitation
 				</p>
 				<form className="flex flex-col gap-2">
 					<Input

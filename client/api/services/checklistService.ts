@@ -15,7 +15,7 @@ export const fetchChecklist = async (idList: number): Promise<ChecklistType> => 
 export const fetchChecklists = async () => {
 	try {
 		const response = await apiFlatClient.get("/todo/");
-		return response.data;
+		return response.data as ChecklistType[];
 	} catch (error) {
 		throw new Error(
 			"Erreur lors de la récupération des listes. Veuillez réessayer.",

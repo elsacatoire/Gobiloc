@@ -3,6 +3,7 @@
 import { fetchChecklists } from "@/api/services/checklistService";
 import { fetchFlatshare } from "@/api/services/flatService";
 import type { ChecklistType } from "@/types/ChecklistType";
+import isAuth from "@/utils/auth/isAuth";
 import { useAuth } from "@/utils/auth/useAuth";
 import { useRouter } from "next/navigation";
 import type React from "react";
@@ -34,7 +35,12 @@ const LandingPage: React.FC = () => {
 					const flatshareData = await fetchFlatshare();
 
 					if (Array.isArray(checklists)) {
-						setChecklists(checklists.slice(0, 2));
+						const sortedChecklists: ChecklistType[] = [...checklists].sort(
+							(a, b) =>
+								new Date(b.updateDate).getTime() -
+								new Date(a.updateDate).getTime(),
+						);
+						setChecklists(sortedChecklists.slice(0, 2));
 					} else {
 						setError("Données reçues incorrectes pour les listes.");
 					}
@@ -86,4 +92,4 @@ const LandingPage: React.FC = () => {
 	);
 };
 
-export default LandingPage;
+export default isAuth(LandingPage);
