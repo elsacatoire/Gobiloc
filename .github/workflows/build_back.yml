@@ -61,6 +61,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build_server_back  # Ensure tests run after build
 
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DEBUG: 'True'
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
