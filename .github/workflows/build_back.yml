@@ -37,6 +37,7 @@ jobs:
       DB_PORT: "5432"
       DATABASE_URL: postgres://postgresCI:postgresCI@localhost:5432/gobilocTest
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DEBUG: 'True'
   
     steps:
       - name: Checkout code
