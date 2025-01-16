@@ -1,6 +1,5 @@
 # api/views/invitation_views.py
 
-import hashlib
 import uuid
 from datetime import datetime, timedelta
 from django.utils import timezone
